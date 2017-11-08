@@ -1,0 +1,14 @@
+{
+	"index.html": {
+		"resources": [
+			"js/leaflet-dev/leaflet.css",
+			"js/leaflet-dev/leaflet-src.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"pages/map.html"
+		],
+		"refer": [
+			"pages/map.html"
+		]
+	}
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style type="text/css">
+			html,
+			body {
+				overflow: hidden;
+			}
+			
+			.mui-bar {
+				background-color: rgba(52, 152, 219, 1.0);
+			}
+			
+			.mui-icon {
+				color: rgba(255, 255, 255, 1);
+			}
+			
+			.mui-title {
+				color: rgba(255, 255, 255, 1);
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				subpages: [{
+					url: 'pages/map.html',
+					id: 'ytmap',
+					styles: {
+						top: '45px', //mui默认的顶部高度
+						bottom: '0px',
+						zindex: -1
+					},
+					extras: {} //传递地图位置信息或者地图自动获取当前位置
+				}]
+			});
+
+			//取消浏览器的所有事件，使得active的样式在手机上正常生效
+			document.addEventListener('touchstart', function() {
+				return false;
+			}, true);
+			// 禁止选择
+			document.oncontextmenu = function() {
+				return false;
+			};
+
+			// H5 plus事件处理
+			function plusReady() {
+				// 获取所有Webview窗口
+				var wvs = plus.webview.all();
+				for(var i = 0; i < wvs.length; i++) {
+					console.log('webview' + i + ': ' + wvs[i].getURL());
+				}
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-contact mui-pull-left"></a>
+			<h1 class="mui-title">北京市门头沟<a class="mui-icon mui-icon mui-icon-arrowdown mui-pull-caption"></a></h1>
+			<a class="mui-icon mui-icon-search mui-pull-right"></a>
+		</header>
+	</body>
+
+</html>
