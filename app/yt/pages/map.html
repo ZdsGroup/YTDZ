@@ -102,8 +102,40 @@
 			//初始化事件
 			var initEvent = function() {
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
-				mui('#mapToolContainer').on("tap", "button", function() {
-					alert('hello world');
+				mui('#mapToolContainer').on("tap", "button", function(evt) {
+					var action = evt.target.value;
+					switch(action) {
+						case 'alllevel':
+							{
+								break;
+							}
+						case 'redlevel':
+							{
+								break;
+							}
+						case 'orangelevel':
+							{
+								break;
+							}
+						case 'yellowlevel':
+							{
+								break;
+							}
+						case 'normallevel':
+							{
+								break;
+							}
+						case 'featurelist':
+							{
+								mui.openWindow({
+									url: 'list.html',
+									id: action
+								})
+								break;
+							}
+						default:
+							break;
+					}
 				});
 				//触发submit按钮的点击事件
 				//mui.trigger(btn, 'tab');
@@ -129,12 +161,12 @@
 
 		<div id="ytmap" class="mui-content">
 			<div id="mapToolContainer" class="leaflet-map-control-container">
-				<button type="button" class="mui-btn mui-btn-blue mui-pull-left">全部</button>
-				<button type="button" class="mui-btn mui-btn-danger mui-pull-left">红色预警</button>
-				<button type="button" class="mui-btn mui-btn-warning0 mui-pull-left">橙色预警</button>
-				<button type="button" class="mui-btn mui-btn-warning1 mui-pull-left">橙色预警</button>
-				<button type="button" class="mui-btn mui-btn-success mui-pull-left">正常</button>
-				<button type="button" class="mui-btn mui-icon mui-icon-list  mui-btn-blue mui-pull-right">列表视角</button>
+				<button value='alllevel' type="button" class="mui-btn mui-btn-blue mui-pull-left">全部</button>
+				<button value='redlevel' type="button" class="mui-btn mui-btn-danger mui-pull-left">红色预警</button>
+				<button value='orangelevel' type="button" class="mui-btn mui-btn-warning0 mui-pull-left">橙色预警</button>
+				<button value='yellowlevel' type="button" class="mui-btn mui-btn-warning1 mui-pull-left">黄色预警</button>
+				<button value='normallevel' type="button" class="mui-btn mui-btn-success mui-pull-left">正常</button>
+				<button value='featurelist' type="button" class="mui-btn mui-icon mui-icon-list  mui-btn-blue mui-pull-right">列表视角</button>
 			</div>
 		</div>
 

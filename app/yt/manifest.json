@@ -202,6 +202,13 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"pages/map.html": {
+				"resources": [],
+				"refer": [
+					"pages/list.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

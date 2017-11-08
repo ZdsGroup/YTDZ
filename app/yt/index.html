@@ -8,24 +8,7 @@
 		<script src="js/mui.min.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
-		<style type="text/css">
-			html,
-			body {
-				overflow: hidden;
-			}
-			
-			.mui-bar {
-				background-color: rgba(52, 152, 219, 1.0);
-			}
-			
-			.mui-icon {
-				color: rgba(255, 255, 255, 1);
-			}
-			
-			.mui-title {
-				color: rgba(255, 255, 255, 1);
-			}
-		</style>
+		<link rel="stylesheet" href="css/yt.css" />
 		<script type="text/javascript" charset="utf-8">
 			mui.init({
 				subpages: [{
@@ -49,19 +32,9 @@
 				return false;
 			};
 
-			// H5 plus事件处理
-			function plusReady() {
-				// 获取所有Webview窗口
-				var wvs = plus.webview.all();
-				for(var i = 0; i < wvs.length; i++) {
-					console.log('webview' + i + ': ' + wvs[i].getURL());
-				}
-			}
-			if(window.plus) {
-				plusReady();
-			} else {
-				document.addEventListener('plusready', plusReady, false);
-			}
+			mui.plusReady(function() {
+				console.log("当前页面URL：" + plus.webview.currentWebview().getURL());
+			});
 		</script>
 	</head>
 

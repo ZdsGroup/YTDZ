@@ -10,5 +10,10 @@
 		"refer": [
 			"pages/map.html"
 		]
+	},
+	"pages/map.html": {
+		"refer": [
+			"pages/list.html"
+		]
 	}
 }
