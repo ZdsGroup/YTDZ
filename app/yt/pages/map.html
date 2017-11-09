@@ -120,10 +120,17 @@
 							}
 						case 'featurelist':
 							{
-								mui.openWindow({
+								/*mui.openWindow({
 									url: 'list.html',
 									id: action
-								})
+								})*/
+								var list = mui.preload({
+									url: 'list.html',
+									id: action,
+									styles: {}, //窗口参数
+									extras: {} //自定义扩展参数
+								});
+								list.show();
 								/*mui.openWindowWithTitle({
 									url: 'list.html',
 									id: action
