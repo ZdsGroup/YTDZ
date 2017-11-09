@@ -7,13 +7,37 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/common.css" />
-		<link rel="stylesheet" type="text/css" href="../css/yt.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/yt.css" />
 	</head>
 
 	<body>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			//初始化预加载详情页面
+			mui.init();
+
+			var initEvent = function() {
+				var detailPage = null; //添加列表项的点击事件
+				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+					//预加载的方式打开
+					var detail = plus.webview.getWebviewById('detail');
+					if(detail == null) {
+						mui.preload({
+							url: 'detail.html',
+							id: 'detail',
+							styles: {}, //窗口参数
+							extras: {} //自定义扩展参数
+						});
+					}
+
+					detail.show();
+				});
+			}
+
+			var initApp = function() {
+				this.initEvent();
+			};
+			mui.ready(initApp);
 		</script>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
@@ -21,6 +45,45 @@
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">秋坡</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
+				</li>
 				<li class="mui-table-view-cell">
 					<a class="ytlistfont yt-point mui-navigate-right">秋坡</a>
 				</li>

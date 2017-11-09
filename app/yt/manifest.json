@@ -209,6 +209,13 @@
 					"pages/list.html"
 				],
 				"priority": 0
+			},
+			"pages/list.html": {
+				"resources": [],
+				"refer": [
+					"pages/detail.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

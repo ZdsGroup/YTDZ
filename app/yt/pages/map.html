@@ -105,26 +105,17 @@
 									id: action
 								})*/
 								//预加载的方式打开
-								var list = mui.preload({
-									url: 'list.html',
-									id: action,
-									styles: {}, //窗口参数
-									extras: {} //自定义扩展参数
-								});
+								var list = plus.webview.getWebviewById(action);
+								if(list == null) {
+									mui.preload({
+										url: 'list.html',
+										id: action,
+										styles: {}, //窗口参数
+										extras: {} //自定义扩展参数
+									});
+								}
+
 								list.show();
-								/*mui.openWindowWithTitle({
-									url: 'list.html',
-									id: action
-								}, {
-									title: { //标题配置
-										text: "滑坡地灾列表", //标题文字
-									},
-									back: { //左上角返回箭头
-										image: {
-											base64Data: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII='
-										}
-									}
-								})*/
 								break;
 							}
 						default:
@@ -145,7 +136,7 @@
 
 			//在地图上显示不同级别的警告对象	
 			function showWarnMarksOnMap(level) {
-//				alert(level);
+				//				alert(level);
 				switch(level) {
 					case 'alllevel':
 						{
@@ -154,7 +145,7 @@
 						}
 					case 'redlevel':
 						{
-							
+
 							break;
 						}
 					case 'orangelevel':
@@ -176,15 +167,16 @@
 					default:
 						break;
 				}
-			}/*// H5 plus事件处理
-			function plusReady() {
-				this.initEvent();
 			}
-			if(window.plus) {
-				plusReady();
-			} else {
-				document.addEventListener('plusready', plusReady, false);
-			}*/
+			/*// H5 plus事件处理
+						function plusReady() {
+							this.initEvent();
+						}
+						if(window.plus) {
+							plusReady();
+						} else {
+							document.addEventListener('plusready', plusReady, false);
+						}*/
 		</script>
 
 		<div id="ytmap" class="mui-content">

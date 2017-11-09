@@ -15,5 +15,10 @@
 		"refer": [
 			"pages/list.html"
 		]
+	},
+	"pages/list.html": {
+		"refer": [
+			"pages/detail.html"
+		]
 	}
 }
