@@ -98,26 +98,6 @@
 				mui('#mapToolContainer').on("tap", "button", function(evt) {
 					var action = evt.target.value;
 					switch(action) {
-						case 'alllevel':
-							{
-								break;
-							}
-						case 'redlevel':
-							{
-								break;
-							}
-						case 'orangelevel':
-							{
-								break;
-							}
-						case 'yellowlevel':
-							{
-								break;
-							}
-						case 'normallevel':
-							{
-								break;
-							}
 						case 'featurelist':
 							{
 								/*mui.openWindow({
@@ -148,6 +128,7 @@
 								break;
 							}
 						default:
+							showWarnMarksOnMap(action);
 							break;
 					}
 				});
@@ -162,7 +143,40 @@
 			};
 			mui.ready(initApp);
 
-			/*// H5 plus事件处理
+			//在地图上显示不同级别的警告对象	
+			function showWarnMarksOnMap(level) {
+//				alert(level);
+				switch(level) {
+					case 'alllevel':
+						{
+
+							break;
+						}
+					case 'redlevel':
+						{
+							
+							break;
+						}
+					case 'orangelevel':
+						{
+							break;
+						}
+					case 'yellowlevel':
+						{
+							break;
+						}
+					case 'bluelevel':
+						{
+							break;
+						}
+					case 'normallevel':
+						{
+							break;
+						}
+					default:
+						break;
+				}
+			}/*// H5 plus事件处理
 			function plusReady() {
 				this.initEvent();
 			}
@@ -175,12 +189,13 @@
 
 		<div id="ytmap" class="mui-content">
 			<div id="mapToolContainer" class="leaflet-map-control-container">
-				<button value='alllevel' type="button" class="mui-btn mui-btn-blue mui-pull-left">全部</button>
+				<button value='alllevel' type="button" class="mui-btn mui-btn-royal mui-pull-left">全部</button>
 				<button value='redlevel' type="button" class="mui-btn mui-btn-danger mui-pull-left">红色预警</button>
 				<button value='orangelevel' type="button" class="mui-btn mui-btn-warning0 mui-pull-left">橙色预警</button>
 				<button value='yellowlevel' type="button" class="mui-btn mui-btn-warning1 mui-pull-left">黄色预警</button>
+				<button value='bluelevel' type="button" class="mui-btn mui-btn-blue mui-pull-left">蓝色预警</button>
 				<button value='normallevel' type="button" class="mui-btn mui-btn-success mui-pull-left">正常</button>
-				<button value='featurelist' type="button" class="mui-btn mui-icon mui-icon-list  mui-btn-blue mui-pull-right">列表视角</button>
+				<button value='featurelist' type="button" class="mui-btn mui-btn-royal mui-icon mui-icon-list  mui-btn-blue mui-pull-right">列表视角</button>
 			</div>
 		</div>
 
