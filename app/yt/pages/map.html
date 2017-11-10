@@ -145,7 +145,7 @@
 			var warnBounds = null;
 			function showWarnMarksOnMap(level) {
 				var results = queryWarnMarkers(level);
-				if (results.length > 0) {
+				if (results!=null && results.length > 0) {
 					warnMarkersLayerGroup.clearLayers();
 					getWarnMarkersLayerGroup(results, level);
 					myMap.addLayer(warnMarkersLayerGroup);
@@ -158,6 +158,7 @@
 			function queryWarnMarkers (level){
 				if (level == 'alllevel') {
 					return warnMarkersDataLevel1;
+//					return null;
 				}else{
 					return warnMarkersDataLevel2;
 				}
