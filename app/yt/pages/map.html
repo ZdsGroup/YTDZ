@@ -9,10 +9,10 @@
 		<link rel="stylesheet" type="text/css" href="../css/common.css" />
 		<link rel="stylesheet" type="text/css" href="../js/leaflet-dev/leaflet.css" />
 		<link rel="stylesheet" type="text/css" href="../js/leaflet-awesome/leaflet.awesome-markers.css" />
-	  	<link rel="stylesheet" href="../css/font-awesome.min.css" />
-		<script type="text/javascript" src="../js/leaflet-dev/leaflet.js" ></script>
-		<script type="text/javascript" src="../js/leaflet-awesome/leaflet.awesome-markers.js" ></script>
-		<script type="text/javascript" src="../js/testdata.js" ></script>
+		<link rel="stylesheet" href="../css/font-awesome.min.css" />
+		<script type="text/javascript" src="../js/leaflet-dev/leaflet.js"></script>
+		<script type="text/javascript" src="../js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="../js/testdata.js"></script>
 		<style type="text/css">
 			#map {
 				height: 100%;
@@ -143,34 +143,40 @@
 			var warnMarkersLayerGroup = new L.layerGroup();
 			var maxZoomShow = 18;
 			var warnBounds = null;
+
 			function showWarnMarksOnMap(level) {
 				var results = queryWarnMarkers(level);
-				if (results!=null && results.length > 0) {
+				if(results != null && results.length > 0) {
 					warnMarkersLayerGroup.clearLayers();
 					getWarnMarkersLayerGroup(results, level);
 					myMap.addLayer(warnMarkersLayerGroup);
-					myMap.flyToBounds(warnBounds, {maxZoom: maxZoomShow});
-				}else{
-					mui.toast('无查询结果！',{ duration:'short', type:'div' }) 
+					myMap.flyToBounds(warnBounds, {
+						maxZoom: maxZoomShow
+					});
+				} else {
+					mui.toast('无查询结果！', {
+						duration: 'short',
+						type: 'div'
+					})
 				}
-			}			
+			}
 			//请求后台服务获取数据
-			function queryWarnMarkers (level){
-				if (level == 'alllevel') {
+			function queryWarnMarkers(level) {
+				if(level == 'alllevel') {
 					return warnMarkersDataLevel1;
-//					return null;
-				}else{
+					//					return null;
+				} else {
 					return warnMarkersDataLevel2;
 				}
 			}
 			//生成markers并添加到markerlayergroup
-			function getWarnMarkersLayerGroup (results, level) {
+			function getWarnMarkersLayerGroup(results, level) {
 				var latLngsArr = new Array();
-				for (var i = 0; i < results.length; i++) {
+				for(var i = 0; i < results.length; i++) {
 					var iconName = 'home';
 					var markColor = 'royal';
 					switch(level) {
-						case'alllevel':
+						case 'alllevel':
 							break;
 						case 'redlevel':
 							{
@@ -214,14 +220,16 @@
 					var markerX = results[i].x;
 					var markerY = results[i].y;
 					var markerMsg = results[i].msg;
-					var markerObj = new L.marker([markerX, markerY], {icon: iconObj}).bindPopup(markerMsg);
+					var markerObj = new L.marker([markerX, markerY], {
+						icon: iconObj
+					}).bindPopup(markerMsg);
 					warnMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
-					
+
 				}
 				warnBounds = L.latLngBounds(latLngsArr);
 			}
-			
+
 			/*// H5 plus事件处理
 						function plusReady() {
 							this.initEvent();

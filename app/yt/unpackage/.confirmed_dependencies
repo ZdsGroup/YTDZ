@@ -18,7 +18,8 @@
 	},
 	"pages/list.html": {
 		"refer": [
-			"pages/detail.html"
+			"pages/detail.html",
+			"pages/chartdetail.html"
 		]
 	}
 }

@@ -29,6 +29,23 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+.yttabfont {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: block;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+	font-family: "ytfont" !important;
+	font-size: 32px !important;
+	/*color: rgba(127, 140, 141,1.0);*/
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
 /*表面位移*/
 
 .yt-bmwy:before {

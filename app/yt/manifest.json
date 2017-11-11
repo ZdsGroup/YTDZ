@@ -213,7 +213,8 @@
 			"pages/list.html": {
 				"resources": [],
 				"refer": [
-					"pages/detail.html"
+					"pages/detail.html",
+					"pages/chartdetail.html"
 				],
 				"priority": 0
 			}

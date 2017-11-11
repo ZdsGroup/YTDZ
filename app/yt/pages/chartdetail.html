@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/yt.css" />
+		<style type="text/css">
+			.mui-bar-tab {
+				top: 45px !important;
+				display: table;
+				width: 100%;
+				height: 60px;
+				padding: 0;
+				table-layout: fixed;
+				border-top: 0;
+				border-bottom: 0;
+				-webkit-touch-callout: none;
+			}
+			
+			.mui-content {
+				margin-top: 65px !important;
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.mui-tab-item {
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.mui-tab-label {
+				padding-top: 5px !important;
+				font-size: 16px !important;
+			}
+			
+			a.mui-active {
+				background-color: rgba(52, 152, 219, 1.0) !important;
+				color: #FFFFFF !important;
+			}
+			
+			.mui-control-content {
+				height: 200px;
+			}
+			
+			#chartContainer {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				margin: 0;
+				position: relative;
+				border: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/echarts/echarts.js"></script>
+		<script type="text/javascript">
+			mui.init();
+
+			//B页面onload从服务器获取列表数据；
+			window.onload = function() {
+				//从服务器获取数据
+				//业务数据获取完毕，并已插入当前页面DOM；
+				//注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+				mui.plusReady(function() {
+					//关闭等待框
+					plus.nativeUI.closeWaiting();
+					//显示当前页面
+					mui.currentWebview.show();
+				});
+			}
+
+			var initChart = function() {
+				var chart = echarts.init(document.getElementById('chartContainer'));
+				var colors = ['#5793f3', '#d14a61', '#675bba'];
+
+				var opts = {
+					color: colors,
+
+					tooltip: {
+						trigger: 'none',
+						axisPointer: {
+							type: 'cross'
+						}
+					},
+					legend: {
+						data: ['2015 降水量', '2016 降水量']
+					},
+					grid: {
+						top: 30,
+						bottom: 0,
+						left: 20,
+						right: 20,
+						containLabel: true
+					},
+					xAxis: [{
+							type: 'category',
+							axisTick: {
+								alignWithLabel: true
+							},
+							axisLine: {
+								onZero: false,
+								lineStyle: {
+									color: colors[1]
+								}
+							},
+							axisPointer: {
+								label: {
+									formatter: function(params) {
+										return '降水量  ' + params.value +
+											(params.seriesData.length ? '：' + params.seriesData[0].data : '');
+									}
+								}
+							},
+							data: ["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+						},
+						{
+							type: 'category',
+							axisTick: {
+								alignWithLabel: true
+							},
+							axisLine: {
+								onZero: false,
+								lineStyle: {
+									color: colors[0]
+								}
+							},
+							axisPointer: {
+								label: {
+									formatter: function(params) {
+										return '降水量  ' + params.value +
+											(params.seriesData.length ? '：' + params.seriesData[0].data : '');
+									}
+								}
+							},
+							data: ["2015-1", "2015-2", "2015-3", "2015-4", "2015-5", "2015-6", "2015-7", "2015-8", "2015-9", "2015-10", "2015-11", "2015-12"]
+						}
+					],
+					yAxis: [{
+						type: 'value'
+					}],
+					series: [{
+							name: '2015 降水量',
+							type: 'line',
+							xAxisIndex: 1,
+							smooth: true,
+							data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+						},
+						{
+							name: '2016 降水量',
+							type: 'line',
+							smooth: true,
+							data: [3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7]
+						}
+					]
+				};
+
+				chart.setOption(opts);
+			}
+
+			mui.ready(function() {
+				this.initChart();
+			})
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">详情面板</h1>
+			<a class="ytfont yt-bgfx mui-pull-right"></a>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#wyjc">
+				<span class="yttabfont yt-bmwy"></span>
+				<span class="mui-tab-label">位移监测</span>
+			</a>
+			<a class="mui-tab-item" href="#thsjc">
+				<span class="yttabfont yt-thsl"></span>
+				<span class="mui-tab-label">土合水率监测</span>
+			</a>
+			<a class="mui-tab-item" href="#tyljc">
+				<span class="yttabfont yt-yljc"></span>
+				<span class="mui-tab-label">土压力监测</span>
+			</a>
+			<a class="mui-tab-item" href="#lfjc">
+				<span class="yttabfont yt-lffx"></span>
+				<span class="mui-tab-label">裂缝监测</span>
+			</a>
+		</nav>
+		<div class="mui-content">
+			<div id="wyjc" class="mui-control-content mui-active">
+				<div id="chartContainer">
+
+				</div>
+			</div>
+			<div id="thsjc" class="mui-control-content">
+
+			</div>
+			<div id="tyljc" class="mui-control-content">
+				
+			</div>
+			<div id="lfjc" class="mui-control-content">
+				
+			</div>
+		</div>
+	</body>
+
+</html>
