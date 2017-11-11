@@ -105,10 +105,20 @@
 					switch(action) {
 						case 'featurelist':
 							{
-								mui.openWindow({
+								/*mui.openWindow({
 									url: 'list.html',
 									id: action
+								});*/
+
+								//预加载
+								var flPage = mui.preload({
+									url: 'list.html',
+									id: action,
+									styles: {}, //窗口参数
+									extras: {} //自定义扩展参数
 								});
+								flPage.show();
+
 								break;
 							}
 						default:
