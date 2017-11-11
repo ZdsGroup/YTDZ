@@ -21,5 +21,10 @@
 			"pages/detail.html",
 			"pages/chartdetail.html"
 		]
+	},
+	"pages/chartdetail.html": {
+		"refer": [
+			"pages/tabledetail.html"
+		]
 	}
 }

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/yt.css" />
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+
+			var initEvent = function() {
+				mui('#chartAnalysis')[0].addEventListener('tap', function() {
+					//预加载
+					var cDetail = mui.preload({
+						url: 'chartdetail.html',
+						id: 'chartdetail',
+						styles: {}, //窗口参数
+						extras: {} //自定义扩展参数
+					});
+					cDetail.show();
+				}, true);
+			};
+			var initApp = function() {
+				this.initEvent();
+			};
+			mui.ready(initApp);
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">详情面板</h1>
+			<a id="chartAnalysis" class="ytfont yt-tjfx mui-pull-right"></a>
+		</header>
+	</body>
+
+</html>

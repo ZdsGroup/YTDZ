@@ -217,6 +217,13 @@
 					"pages/chartdetail.html"
 				],
 				"priority": 0
+			},
+			"pages/chartdetail.html": {
+				"resources": [],
+				"refer": [
+					"pages/tabledetail.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
