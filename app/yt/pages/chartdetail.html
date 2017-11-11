@@ -74,8 +74,9 @@
 				});
 			}
 
+			var chart = null;
 			var initChart = function() {
-				var chart = echarts.init(document.getElementById('chartContainer'));
+				chart = echarts.init(mui('#chartContainer')[0]);
 				var colors = ['#5793f3', '#d14a61', '#675bba'];
 
 				var opts = {
@@ -164,7 +165,7 @@
 
 			mui.ready(function() {
 				this.initChart();
-			})
+			});
 		</script>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -199,10 +200,10 @@
 
 			</div>
 			<div id="tyljc" class="mui-control-content">
-				
+
 			</div>
 			<div id="lfjc" class="mui-control-content">
-				
+
 			</div>
 		</div>
 	</body>

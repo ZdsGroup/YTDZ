@@ -19,18 +19,10 @@
 			var initEvent = function() {
 				var detailPage = null; //添加列表项的点击事件
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
-					//预加载的方式打开
-					var detail = plus.webview.getWebviewById('detail');
-					if(detail == null) {
-						mui.preload({
-							url: 'chartdetail.html',
-							id: 'chartdetail',
-							styles: {}, //窗口参数
-							extras: {} //自定义扩展参数
-						});
-					}
-
-					detail.show();
+					mui.openWindow({
+						url: 'chartdetail.html',
+						id: 'chartdetail',
+					});
 				});
 			}
 

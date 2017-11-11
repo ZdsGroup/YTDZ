@@ -105,22 +105,10 @@
 					switch(action) {
 						case 'featurelist':
 							{
-								/*mui.openWindow({
+								mui.openWindow({
 									url: 'list.html',
 									id: action
-								})*/
-								//预加载的方式打开
-								var list = plus.webview.getWebviewById(action);
-								if(list == null) {
-									mui.preload({
-										url: 'list.html',
-										id: action,
-										styles: {}, //窗口参数
-										extras: {} //自定义扩展参数
-									});
-								}
-
-								list.show();
+								});
 								break;
 							}
 						default:
@@ -229,16 +217,6 @@
 				}
 				warnBounds = L.latLngBounds(latLngsArr);
 			}
-
-			/*// H5 plus事件处理
-						function plusReady() {
-							this.initEvent();
-						}
-						if(window.plus) {
-							plusReady();
-						} else {
-							document.addEventListener('plusready', plusReady, false);
-						}*/
 		</script>
 
 		<div id="ytmap" class="mui-content">
