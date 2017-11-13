@@ -73,8 +73,19 @@
 					cDetail.show();
 				}, true);
 			};
+			
+			var initWarnInfo = function() {
+				var detailPage = null; //添加列表项的点击事件
+				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+					mui.openWindow({
+						url: 'chartdetail.html',
+						id: 'tabledetail',
+					});
+				});
+			};
 			var initApp = function() {
 				this.initEvent();
+				this.initWarnInfo();
 			};
 			mui.ready(initApp);
 		</script>
@@ -90,7 +101,7 @@
 			</a>
 			<a class="mui-tab-item" href="#tabbjjl">
 				<span class="yttabfont yt-bjjl"></span>
-				<span class="mui-tab-label">报警记录</span>
+				<span class="mui-tab-label">告警记录</span>
 			</a>
 		</nav>
 		<div class="mui-content">
@@ -101,7 +112,26 @@
 			</div>
 			<div id="tabbjjl" class="mui-control-content">
 				<div id="sjlbContainer">
-				this 2017-11-13
+					<ul class="mui-table-view">
+					    <li class="mui-table-view-cell">
+					        <a class="mui-navigate-right">
+					        	<span style="color:darkgoldenrod;">2017-11-13</span>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+					        	<span style="color:red;">告警信息简述1</span>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell">
+					        <a class="mui-navigate-right">
+					        	<span style="color:darkgoldenrod;">2017-11-12</span>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+					        	<span style="color:red;">告警信息简述2</span>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell">
+					        <a class="mui-navigate-right">
+					        	<span style="color:darkgoldenrod;">2017-11-11</span>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+					        	<span style="color:red;">告警信息简述3</span>
+					        </a>
+					    </li>
+					</ul>
 				</div>
 			</div>
 		</div>
