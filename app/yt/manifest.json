@@ -200,7 +200,9 @@
 					"fonts/mui.ttf",
 					"pages/map.html"
 				],
-				"refer": [],
+				"refer": [
+					"pages/list.html"
+				],
 				"priority": 0
 			},
 			"pages/map.html": {
@@ -222,6 +224,13 @@
 				"resources": [],
 				"refer": [
 					"pages/tabledetail.html"
+				],
+				"priority": 0
+			},
+			"index_new.html": {
+				"resources": [],
+				"refer": [
+					"pages/list.html"
 				],
 				"priority": 0
 			}

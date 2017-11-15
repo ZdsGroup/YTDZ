@@ -1,49 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
 		<title></title>
-		<script src="js/mui.min.js"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
-		<link rel="stylesheet" href="css/yt.css" />
-		<script type="text/javascript" charset="utf-8">
-			mui.init({
-				subpages: [{
-					url: 'pages/map.html',
-					id: 'ytmap',
-					styles: {
-						top: '45px', //mui默认的顶部高度
-						bottom: '0px',
-						zindex: -1
-					},
-					extras: {} //传递地图位置信息或者地图自动获取当前位置
-				}]
-			});
-
-			//取消浏览器的所有事件，使得active的样式在手机上正常生效
-			document.addEventListener('touchstart', function() {
-				return false;
-			}, true);
-			// 禁止选择
-			document.oncontextmenu = function() {
-				return false;
-			};
-
-			mui.plusReady(function() {
-				console.log("当前页面URL：" + plus.webview.currentWebview().getURL());
-			});
-		</script>
+		<link rel="stylesheet" type="text/css" href="css/yt.css" />
+		<link rel="stylesheet" type="text/css" href="js/leaflet-dev/leaflet.css" />
+		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#map {
+				height: 100%;
+				width: 100vw;
+				overflow: hidden;
+			}
+			
+			.mui-content {
+				height: 100%;
+			}
+			/*隐藏地图logo信息*/
+			/*.leaflet-container .leaflet-control-attribution {
+				display: none;
+			}*/
+			
+			.leaflet-map-control-container {
+				/*bottom: 5px;*/
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				/*pointer-events: none;*/
+				z-index: 1000;
+				/*padding-left: 5px;
+				padding-right: 5px;*/
+				text-align: center;
+			}
+			
+			.map-tool-locate {
+				position: absolute;
+				z-index: 1000;
+				left: 10px;
+				bottom: 20px;
+				color: rgba(41, 128, 185, 1.0);
+				background-color: rgba(255, 255, 255, 1);
+				border-radius: 24px;
+			}
+			
+			.map-tool-info {
+				position: absolute;
+				z-index: 1000;
+				left: 10px;
+				top: 20px;
+				color: rgba(192, 57, 43, 1.0);
+				background-color: rgba(255, 255, 255, 1);
+				border-radius: 24px;
+			}
+			
+			.map-tool-warn {
+				position: absolute;
+				z-index: 1000;
+				right: 10px;
+				top: 20px;
+				color: rgba(52, 73, 94, 1.0);
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.map-tool-zoomin {
+				position: absolute;
+				z-index: 1000;
+				right: 10px;
+				bottom: 240px;
+				color: rgba(52, 73, 94, 1.0);
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.map-tool-zoomout {
+				position: absolute;
+				z-index: 1000;
+				right: 10px;
+				bottom: 205px;
+				color: rgba(52, 73, 94, 1.0);
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			#ytfooter {
+				height: 0px;
+				display: none;
+			}
+		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-contact mui-pull-left"></a>
-			<h1 class="mui-title">北京市门头沟<a class="mui-icon mui-icon mui-icon-arrowdown mui-pull-caption"></a></h1>
-			<a class="mui-icon mui-icon-search mui-pull-right"></a>
-		</header>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var myMap = null;
+			var initMap = function() {
+				var me = this;
+				myMap = L.map('ytmap', {
+					zoomControl: false,
+					attributionControl: false
+				}).fitWorld();
+
+				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+					maxZoom: 18,
+					attribution: 'leaflet',
+					id: 'mapbox.streets'
+				}).addTo(myMap);
+
+				function onLocationFound(e) {
+					var radius = e.accuracy / 2;
+
+					L.marker(e.latlng).addTo(myMap);
+
+					L.circle(e.latlng, radius).addTo(myMap);
+				}
+
+				function onLocationError(e) {
+					alert(e.message);
+				}
+
+				myMap.on('locationfound', onLocationFound);
+				myMap.on('locationerror', onLocationError);
+
+				myMap.locate({
+					setView: true,
+					maxZoom: 16
+				});
+
+				myMap.on('click', function(e) {
+					var isMarker = false;
+					var target = e.originalEvent.target;
+					if(target.type != 'button') {
+						me.showFooterPanel(100);
+					}
+				});
+			};
+
+			/*显示底部要素概要面板，fh=100*/
+			var showFooterPanel = function(fh) {
+				var mapFooter = mui('#ytfooter')[0];
+				var mapContent = mui('#ytmap')[0];
+				mapFooter.style.height = fh + 'px';
+				mapFooter.style.display = 'block';
+				mapContent.style.height = (screen.height - fh) + 'px';
+			};
+
+			/*隐藏底部要素概要面板, fh=0*/
+			var hideFooterPanle = function(fh) {
+				var mapFooter = mui('#ytfooter')[0];
+				var mapContent = mui('#ytmap')[0];
+				mapFooter.style.height = fh + 'px';
+				mapFooter.style.display = 'none';
+				mapContent.style.height = '100%';
+			};
+
+			//初始化事件
+			var initEvent = function() {
+				var me = this;
+				//监听点击事件,获取所有按钮，绑定按钮的点击事件
+				mui('.mui-content').on("tap", "button", function(evt) {
+					var action = evt.target.value;
+					switch(action) {
+						case 'info':
+							/*已发生预警地灾点列表*/
+							{
+								/*mui.openWindow({
+									url: 'list.html',
+									id: action
+								});*/
+
+								//预加载
+								var flPage = mui.preload({
+									url: 'pages/list.html',
+									id: action,
+									styles: {}, //窗口参数
+									extras: {} //自定义扩展参数
+								});
+								flPage.show();
+
+								break;
+							}
+						case 'locate':
+							{
+								me.hideFooterPanle(0);//定位功能，测试底部面板隐藏
+								break;
+							}
+						default:
+							break;
+					}
+				});
+			};
+
+			//初始化应用
+			var initApp = function() {
+				this.initMap();
+				this.initEvent();
+			};
+			mui.ready(initApp);
+		</script>
+		<div id="ytmap" class="mui-content">
+			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
+			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont0 yt-info map-tool-info"></button>
+			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn"></button>
+			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
+			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+		</div>
+		<div id="ytfooter">
+			地灾点概要信息显示面板
+		</div>
 	</body>
 
 </html>

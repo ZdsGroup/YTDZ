@@ -8,7 +8,8 @@
 			"pages/map.html"
 		],
 		"refer": [
-			"pages/map.html"
+			"pages/map.html",
+			"pages/list.html"
 		]
 	},
 	"pages/map.html": {
@@ -25,6 +26,11 @@
 	"pages/chartdetail.html": {
 		"refer": [
 			"pages/tabledetail.html"
+		]
+	},
+	"index_new.html": {
+		"refer": [
+			"pages/list.html"
 		]
 	}
 }
