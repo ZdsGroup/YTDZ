@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/yt.css" />
 		<link rel="stylesheet" type="text/css" href="js/leaflet-dev/leaflet.css" />
 		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js" ></script>
 		<style type="text/css">
 			#map {
 				height: 100%;
@@ -103,10 +104,10 @@
 					attributionControl: false
 				}).fitWorld();
 
-				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+				L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
 					maxZoom: 18,
 					attribution: 'leaflet',
-					id: 'mapbox.streets'
+					id: 'tianditum'
 				}).addTo(myMap);
 
 				function onLocationFound(e) {
@@ -118,7 +119,11 @@
 				}
 
 				function onLocationError(e) {
-					alert(e.message);
+					mui.toast('未获取位置，请稍后再试！', {
+						duration: 'short',
+						type: 'div'
+					})
+					myMap.setView(L.latLng(36.55,102.71), 4);
 				}
 
 				myMap.on('locationfound', onLocationFound);
@@ -126,9 +131,11 @@
 
 				myMap.locate({
 					setView: true,
-					maxZoom: 16
+					timeout: 5000,
+					maxZoom: 15
 				});
 
+				
 				myMap.on('click', function(e) {
 					var isMarker = false;
 					var target = e.originalEvent.target;
@@ -138,6 +145,7 @@
 				});
 			};
 
+			
 			/*显示底部要素概要面板，fh=100*/
 			var showFooterPanel = function(fh) {
 				var mapFooter = mui('#ytfooter')[0];
