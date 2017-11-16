@@ -174,11 +174,6 @@
 						case 'info':
 							/*已发生预警地灾点列表*/
 							{
-								/*mui.openWindow({
-									url: 'list.html',
-									id: action
-								});*/
-
 								//预加载
 								var flPage = mui.preload({
 									url: 'pages/list.html',
@@ -187,12 +182,30 @@
 									extras: {} //自定义扩展参数
 								});
 								flPage.show();
-
 								break;
 							}
 						case 'locate':
 							{
 								me.hideFooterPanle(0);//定位功能，测试底部面板隐藏
+								myMap.locate({
+									setView: true,
+									timeout: 5000,
+									maxZoom: 15
+								});
+								break;
+							}
+						case 'zoomin':
+							{
+								myMap.zoomIn();
+								break;
+							}
+						case 'zoomout':
+							{
+								myMap.zoomOut();
+								break;
+							}
+						case 'warn':
+							{
 								break;
 							}
 						default:
