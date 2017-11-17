@@ -27,6 +27,7 @@
 			document.addEventListener('touchstart', function() {
 				return false;
 			}, true);
+
 			// 禁止选择
 			document.oncontextmenu = function() {
 				return false;
@@ -35,6 +36,27 @@
 			mui.plusReady(function() {
 				console.log("当前页面URL：" + plus.webview.currentWebview().getURL());
 			});
+
+			//初始化事件
+			var initEvent = function() {
+				//监听点击事件,显示查询面板
+				mui('#queryBt')[0].addEventListener('tap', function() {
+					//					var flPage = mui.preload({
+					//						url: 'pages/query.html',
+					//						id: 'action',
+					//						styles: {}, //窗口参数
+					//						extras: {} //自定义扩展参数
+					//					});
+					mui.openWindow({
+						url: 'pages/query.html',
+						id: 'query',
+					})
+					//flPage.show();
+				});
+				//预加载
+
+			}
+			mui.ready(initEvent);
 		</script>
 	</head>
 
@@ -42,7 +64,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-contact mui-pull-left"></a>
 			<h1 class="mui-title">北京市门头沟<a class="mui-icon mui-icon mui-icon-arrowdown mui-pull-caption"></a></h1>
-			<a class="mui-icon mui-icon-search mui-pull-right"></a>
+			<a id="queryBt" class="mui-icon mui-icon-search mui-pull-right"></a>
 		</header>
 	</body>
 

@@ -1,30 +1,66 @@
 {
-	"index.html": {
-		"resources": [
-			"js/leaflet-dev/leaflet.css",
-			"js/leaflet-dev/leaflet-src.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"pages/map.html"
-		],
-		"refer": [
-			"pages/map.html"
-		]
-	},
-	"pages/map.html": {
-		"refer": [
-			"pages/list.html"
-		]
-	},
-	"pages/list.html": {
-		"refer": [
-			"pages/detail.html",
-			"pages/chartdetail.html"
-		]
-	},
-	"pages/chartdetail.html": {
-		"refer": [
-			"pages/tabledetail.html"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "js/leaflet-dev/leaflet.css",
+      "js/leaflet-dev/leaflet-src.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "pages/map.html",
+      "css/common.css",
+      "css/yt.css",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "pages/map.html",
+      "pages/list.html",
+      "pages/query.html"
+    ]
+  },
+  "pages/map.html": {
+    "refer": [
+      "pages/list.html"
+    ],
+    "resources": [
+      "js/leaflet-awesome/leaflet.awesome-markers.css",
+      "js/leaflet-dev/images/marker-shadow.png",
+      "js/leaflet-dev/leaflet.css",
+      "css/font-awesome.min.css",
+      "js/leaflet-dev/leaflet.js",
+      "js/leaflet-awesome/leaflet.awesome-markers.js",
+      "js/leaflet-dev/images/marker-icon-2x.png",
+      "js/leaflet-dev/images/marker-icon.png",
+      "js/testdata.js",
+      "js/leaflet-awesome/images/markers-shadow@2x.png",
+      "js/leaflet-awesome/images/markers-soft@2x.png",
+      "fonts/fontawesome-webfont.ttf"
+    ]
+  },
+  "pages/list.html": {
+    "refer": [
+      "pages/detail.html",
+      "pages/chartdetail.html"
+    ],
+    "resources": [
+      "fonts/yt.ttf",
+      "css/yt.css",
+      "css/mui.min.css"
+    ]
+  },
+  "pages/chartdetail.html": {
+    "refer": [
+      "pages/tabledetail.html"
+    ],
+    "resources": [
+      "js/echarts/echarts.js",
+      "css/yt.css",
+      "css/mui.min.css"
+    ]
+  },
+  "pages/query.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/yt.css"
+    ],
+    "refer": []
+  }
 }
