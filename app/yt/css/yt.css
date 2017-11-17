@@ -1,10 +1,21 @@
 @font-face {
 	font-family: "ytfont";
 	src: url('../fonts/yt.ttf?t=1510148981441') format('truetype');
-	/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 
+@font-face {
+	font-family: "ytfont0";
+	src: url('../fonts/yt0.ttf?t=1510753914058') format('truetype')
+}
+
+@font-face {
+	font-family: "ytfont1";
+	src: url('../fonts/yt1.ttf?t=1510755350416') format('truetype')
+}
+
+
 /*鹰潭字体图标库*/
+
 .ytfont {
 	position: relative;
 	z-index: 20;
@@ -36,15 +47,93 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	display: block;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	font-family: "ytfont" !important;
 	font-size: 32px !important;
 	/*color: rgba(127, 140, 141,1.0);*/
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 }
+
+.maptoolfont {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+.maptoolfont0 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont0" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+.maptoolfont1 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont1" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+/*缩小*/
+.yt-zoomout:before {
+	content: "\e618";
+}
+
+/*放大*/
+.yt-zoomin:before {
+	content: "\e61d";
+}
+
+
+/*预警列表*/
+
+.yt-info:before {
+	content: "\f0140";
+}
+
+
+/*预警开关*/
+
+.yt-warn:before {
+	content: "\e6b5";
+}
+
 
 /*表面位移*/
 

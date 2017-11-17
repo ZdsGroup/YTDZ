@@ -198,43 +198,22 @@
 					"js/leaflet-dev/leaflet-src.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"pages/map.html",
-					"css/common.css",
-					"css/yt.css",
-					"css/mui.min.css"
-				],
-				"refer": [
-					"pages/list.html",
-					"pages/query.html"
-				],
-				"priority": 0
-			},
-			"pages/map.html": {
-				"resources": [
-					"js/leaflet-awesome/leaflet.awesome-markers.css",
-					"js/leaflet-dev/images/marker-shadow.png",
-					"js/leaflet-dev/leaflet.css",
-					"css/font-awesome.min.css",
-					"js/leaflet-dev/leaflet.js",
-					"js/leaflet-awesome/leaflet.awesome-markers.js",
-					"js/leaflet-dev/images/marker-icon-2x.png",
-					"js/leaflet-dev/images/marker-icon.png",
-					"js/testdata.js",
-					"js/leaflet-awesome/images/markers-shadow@2x.png",
-					"js/leaflet-awesome/images/markers-soft@2x.png",
-					"fonts/fontawesome-webfont.ttf"
+					"pages/map.html"
 				],
 				"refer": [
 					"pages/list.html"
 				],
 				"priority": 0
 			},
-			"pages/list.html": {
-				"resources": [
-					"fonts/yt.ttf",
-					"css/yt.css",
-					"css/mui.min.css"
+			"pages/map.html": {
+				"resources": [],
+				"refer": [
+					"pages/list.html"
 				],
+				"priority": 0
+			},
+			"pages/list.html": {
+				"resources": [],
 				"refer": [
 					"pages/detail.html",
 					"pages/chartdetail.html"
@@ -242,22 +221,17 @@
 				"priority": 0
 			},
 			"pages/chartdetail.html": {
-				"resources": [
-					"js/echarts/echarts.js",
-					"css/yt.css",
-					"css/mui.min.css"
-				],
+				"resources": [],
 				"refer": [
 					"pages/tabledetail.html"
 				],
 				"priority": 0
 			},
-			"pages/query.html": {
-				"resources": [
-					"css/mui.min.css",
-					"css/yt.css"
+			"index_new.html": {
+				"resources": [],
+				"refer": [
+					"pages/list.html"
 				],
-				"refer": [],
 				"priority": 0
 			}
 		},
@@ -269,12 +243,17 @@
 				"js/leaflet/leaflet.js",
 				"js/leaflet/leaflet.js.map",
 				"js/leaflet/images/marker-shadow.png",
+				"js/leaflet-dev/leaflet.js",
 				"js/leaflet-dev/leaflet.js.map",
 				"css/mui.css",
+				"js/leaflet-dev/images/marker-icon-2x.png",
+				"js/leaflet-dev/images/marker-icon.png",
 				"js/leaflet/leaflet-src.js",
 				"js/leaflet/leaflet.css",
+				"js/leaflet-dev/images/marker-shadow.png",
 				"js/leaflet-dev/images/layers-2x.png",
 				"js/leaflet/images/marker-icon-2x.png",
+				"css/mui.min.css",
 				"js/leaflet-dev/images/layers.png",
 				"js/mui.js",
 				"js/leaflet/images/layers.png",

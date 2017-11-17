@@ -1,11 +1,3 @@
-* {
-	-webkit-user-select: none;
-	-ms-touch-select: none;
-	/*
-	-ms-touch-action: none;
-*/
-}
-
 html,
 body {
 	overflow: auto;
