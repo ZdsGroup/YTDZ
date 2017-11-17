@@ -4,6 +4,7 @@ var warnMarkersDataLevel1 = [
          name: '警告1',
          x: '39.906363',
          y: '116.391456',
+         le:'red',
          msg: '警告信息1'
     },
 		{
@@ -11,6 +12,7 @@ var warnMarkersDataLevel1 = [
          name: '警告2',
          x: '38.906363',
          y: '116.391456',
+         le:'orange',
          msg: '警告信息2'
     },
 		{
@@ -18,6 +20,7 @@ var warnMarkersDataLevel1 = [
          name: '警告3',
          x: '38.996363',
          y: '116.391456',
+         le:'yellow',
          msg: '警告信息3'
     },
 		{
@@ -25,6 +28,7 @@ var warnMarkersDataLevel1 = [
          name: '警告4',
          x: '39.996363',
          y: '116.391456',
+         le:'blue',
          msg: '警告信息4'
     },
 	{
@@ -32,6 +36,7 @@ var warnMarkersDataLevel1 = [
          name: '警告5',
          x: '38.906363',
          y: '116.591456',
+         le:'normal',
          msg: '警告信息5'
     },
 	{
@@ -39,6 +44,7 @@ var warnMarkersDataLevel1 = [
          name: '警告6',
          x: '38.906363',
          y: '116.991456',
+         le:'normal',
          msg: '警告信息6'
     }
 ]
@@ -49,6 +55,7 @@ var warnMarkersDataLevel2 = [
          name: '全部1',
          x: '39.906363',
          y: '117.391456',
+         le:'',
          msg: '全部信息1'
     },
 		{
@@ -56,6 +63,7 @@ var warnMarkersDataLevel2 = [
          name: '全部2',
          x: '39.906363',
          y: '116.391456',
+         le:'',
          msg: '全部信息2'
     },
 		{
@@ -63,6 +71,7 @@ var warnMarkersDataLevel2 = [
          name: '全部3',
          x: '38.996363',
          y: '116.391456',
+         le:'',
          msg: '全部信息3'
     },
 		{
@@ -70,6 +79,7 @@ var warnMarkersDataLevel2 = [
          name: '全部4',
          x: '38.996363',
          y: '117.391456',
+         le:'',
          msg: '全部信息4'
     },
 	{
@@ -77,6 +87,7 @@ var warnMarkersDataLevel2 = [
          name: '全部5',
          x: '38.996363',
          y: '118.691456',
+         le:'',
          msg: '全部信息5'
     },
 	{
@@ -84,6 +95,7 @@ var warnMarkersDataLevel2 = [
          name: '全部6',
          x: '39.906363',
          y: '116.191456',
+         le:'',
          msg: '全部信息6'
     }
 ]

@@ -9,8 +9,12 @@
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
 		<link rel="stylesheet" type="text/css" href="css/yt.css" />
 		<link rel="stylesheet" type="text/css" href="js/leaflet-dev/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
 		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js" ></script>
+		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js" ></script>
+		<script type="text/javascript" src="js/testdata.js" ></script>
 		<style type="text/css">
 			#map {
 				height: 100%;
@@ -63,7 +67,8 @@
 				z-index: 1000;
 				right: 10px;
 				top: 20px;
-				color: rgba(52, 73, 94, 1.0);
+				color: rgba(192, 57, 43, 1.0);
+				/*color: rgba(52, 73, 94, 1.0);*/
 				background-color: rgba(255, 255, 255, 1);
 			}
 			
@@ -143,6 +148,8 @@
 						me.showFooterPanel(100);
 					}
 				});
+				
+				showWarnDZMarksOnMap();
 			};
 
 			
@@ -206,6 +213,16 @@
 							}
 						case 'warn':
 							{
+//								debugger
+								var color = evt.target.style.color;
+								if(color == '' || color == 'rgb(192, 57, 43)'){
+									color = 'rgba(52, 73, 94, 1.0)';
+									showAllDZMarksOnMap();
+								}else{
+									color = 'rgba(192, 57, 43, 1.0)';
+									showWarnDZMarksOnMap();
+								}
+								evt.target.style.color = color;
 								break;
 							}
 						default:
@@ -213,6 +230,122 @@
 					}
 				});
 			};
+			
+			//地图上显示地灾对象图层	
+			var dzMarkersLayerGroup = new L.layerGroup();
+			//底图上显示监测设备对象图层
+			var jcMarkersLayerGroup = new L.layerGroup();
+			var warnBounds = null;
+			var maxZoomShow = 15;
+			function showAllDZMarksOnMap(){
+				//0所有地灾点
+				var results = queryMarkers(0);
+				if(results != null && results.length > 0) {
+					dzMarkersLayerGroup.clearLayers();
+					getDZMarkersLayerGroup(results);
+					myMap.addLayer(dzMarkersLayerGroup);
+					myMap.flyToBounds(warnBounds, {
+						maxZoom: maxZoomShow
+					});
+				}else {
+					mui.toast('无查询结果！', {
+						duration: 'short',
+						type: 'div'
+					})
+				}
+			}
+			//显示告警对象
+			function showWarnDZMarksOnMap() {
+				//1所有地灾点，包括报警级别信息
+				var results = queryMarkers(1);
+				if(results != null && results.length > 0) {
+					dzMarkersLayerGroup.clearLayers();
+					getDZMarkersLayerGroup(results);
+					myMap.addLayer(dzMarkersLayerGroup);
+					myMap.flyToBounds(warnBounds, {
+						maxZoom: maxZoomShow
+					});
+				} else {
+					mui.toast('无查询结果！', {
+						duration: 'short',
+						type: 'div'
+					})
+				}
+			}
+			//请求后台服务获取不同对象数据
+			function queryMarkers(markType) {
+				switch (markType){
+					case 0:
+						return warnMarkersDataLevel2;
+						break;
+					case 1:
+						return warnMarkersDataLevel1;
+						break;
+					default:
+						break;
+				}
+//					return null;
+			}
+			//生成markers并添加到地灾markerlayergroup
+			function getDZMarkersLayerGroup(results) {
+				var latLngsArr = new Array();
+				var iconName = '';
+				var markColor = 'purple';
+				var level = '';
+				for(var i = 0; i < results.length; i++) {
+					level = results[i].le;
+					switch(level) {
+						case 'red':
+							{
+								iconName = 'spinner';
+								markColor = 'red';
+								break;
+							}
+						case 'orange':
+							{
+								iconName = 'coffee';
+								markColor = 'orange';
+								break;
+							}
+						case 'yellow':
+							{
+								iconName = 'cog';
+								markColor = 'yellow';
+								break;
+							}
+						case 'blue':
+							{
+								iconName = 'star';
+								markColor = 'blue';
+								break;
+							}
+						case 'normal':
+							{
+								iconName = 'certificate';
+								markColor = 'green';
+								break;
+							}
+						default:
+							break;
+					}
+					var iconObj = L.AwesomeMarkers.icon({
+						icon: iconName,
+						markerColor: markColor,
+						prefix: 'fa',
+						spin: true
+					});
+					var markerX = results[i].x;
+					var markerY = results[i].y;
+					var markerMsg = results[i].msg;
+					var markerObj = new L.marker([markerX, markerY], {
+						icon: iconObj
+					}).bindPopup(markerMsg);
+					dzMarkersLayerGroup.addLayer(markerObj);
+					latLngsArr.push(markerObj.getLatLng());
+
+				}
+				warnBounds = L.latLngBounds(latLngsArr);
+			}
 
 			//初始化应用
 			var initApp = function() {
