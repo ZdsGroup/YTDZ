@@ -213,7 +213,6 @@
 							}
 						case 'warn':
 							{
-//								debugger
 								var color = evt.target.style.color;
 								if(color == '' || color == 'rgb(192, 57, 43)'){
 									color = 'rgba(52, 73, 94, 1.0)';
@@ -276,10 +275,13 @@
 			function queryMarkers(markType) {
 				switch (markType){
 					case 0:
-						return warnMarkersDataLevel2;
+						return dzMarkersData;
 						break;
 					case 1:
-						return warnMarkersDataLevel1;
+						return warnDZMarkersData;
+						break;
+					case 2:
+						return warnjcMarkersData;
 						break;
 					default:
 						break;
@@ -289,58 +291,114 @@
 			//生成markers并添加到地灾markerlayergroup
 			function getDZMarkersLayerGroup(results) {
 				var latLngsArr = new Array();
-				var iconName = '';
+				var iconName = 'bolt';
 				var markColor = 'purple';
 				var level = '';
 				for(var i = 0; i < results.length; i++) {
 					level = results[i].le;
-					switch(level) {
+					markColor = getMarkerColorByWarnLevel(level);
+					var iconObj = L.AwesomeMarkers.icon({
+						icon: iconName,
+						markerColor: markColor,
+						prefix: 'fa',
+						spin: false
+					});
+					var mId = results[i].id
+					var mX = results[i].x;
+					var mY = results[i].y;
+					var mN = results[i].name;
+					var mMsg = results[i].msg;
+					var markerObj = new L.marker([mX, mY], {
+						icon: iconObj
+					}).bindTooltip(mN).on('click',function(){
+														showJCMarkerByDZid(mId)
+													});
+					dzMarkersLayerGroup.addLayer(markerObj);
+					latLngsArr.push(markerObj.getLatLng());
+
+				}
+				warnBounds = L.latLngBounds(latLngsArr);
+			}
+			//根据不同的告警级别获取不同的颜色值
+			function getMarkerColorByWarnLevel(level){
+				var markColor = '';
+				switch(level) {
 						case 'red':
 							{
-								iconName = 'spinner';
 								markColor = 'red';
 								break;
 							}
 						case 'orange':
 							{
-								iconName = 'coffee';
 								markColor = 'orange';
 								break;
 							}
 						case 'yellow':
 							{
-								iconName = 'cog';
 								markColor = 'yellow';
 								break;
 							}
 						case 'blue':
 							{
-								iconName = 'star';
 								markColor = 'blue';
 								break;
 							}
 						case 'normal':
 							{
-								iconName = 'certificate';
 								markColor = 'green';
 								break;
 							}
 						default:
 							break;
 					}
+				return markColor;
+			}
+			
+			//地灾点的点击事件，显示该地灾点的监测设备
+			function showJCMarkerByDZid(dzID){
+//				debugger
+				//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
+				var results = queryMarkers(2);
+				if(results != null && results.length > 0) {
+					jcMarkersLayerGroup.clearLayers();
+					getJCMarkersLayerGroup(results);
+					myMap.addLayer(jcMarkersLayerGroup);
+					myMap.flyToBounds(warnBounds, {
+						maxZoom: maxZoomShow
+					});
+				}else {
+					mui.toast('无查询结果！', {
+						duration: 'short',
+						type: 'div'
+					})
+				}
+			}
+			
+			function getJCMarkersLayerGroup(results){
+				var latLngsArr = new Array();
+				var iconName = 'camera';
+				var markColor = 'purple';
+				var level = '';
+				for(var i = 0; i < results.length; i++) {
+					level = results[i].le;
+					markColor = getMarkerColorByWarnLevel(level);
 					var iconObj = L.AwesomeMarkers.icon({
 						icon: iconName,
 						markerColor: markColor,
 						prefix: 'fa',
-						spin: true
+						spin: false
 					});
-					var markerX = results[i].x;
-					var markerY = results[i].y;
-					var markerMsg = results[i].msg;
-					var markerObj = new L.marker([markerX, markerY], {
+					var mId = results[i].id
+					var mX = results[i].x;
+					var mY = results[i].y;
+					var mN = results[i].name;
+					var mMsg = results[i].msg;
+					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj
-					}).bindPopup(markerMsg);
-					dzMarkersLayerGroup.addLayer(markerObj);
+					}).bindTooltip(mN).on('click',function(){
+														showJCMarkerByDZid(mId)
+													});
+					jcMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
 
 				}
