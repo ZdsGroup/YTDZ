@@ -201,7 +201,8 @@
 					"pages/map.html"
 				],
 				"refer": [
-					"pages/list.html"
+					"pages/list.html",
+					"index.html"
 				],
 				"priority": 0
 			},

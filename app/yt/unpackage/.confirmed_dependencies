@@ -9,7 +9,8 @@
 		],
 		"refer": [
 			"pages/map.html",
-			"pages/list.html"
+			"pages/list.html",
+			"index.html"
 		]
 	},
 	"pages/map.html": {

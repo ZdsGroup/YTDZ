@@ -1,0 +1,128 @@
+#map {
+	height: 100%;
+	width: 100vw;
+	overflow: hidden;
+}
+
+.mui-content {
+	height: 100%;
+}
+
+
+/*隐藏地图logo信息*/
+
+
+/*.leaflet-container .leaflet-control-attribution {
+				display: none;
+			}*/
+
+.leaflet-map-control-container {
+	/*bottom: 5px;*/
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	/*pointer-events: none;*/
+	z-index: 1000;
+	/*padding-left: 5px;
+				padding-right: 5px;*/
+	text-align: center;
+}
+
+.map-tool-user {
+	position: absolute;
+	z-index: 1000;
+	left: 6px;
+	top: 3px;
+	background-color: rgba(255, 255, 255, 0);
+	border: 0px;
+	text-align: center;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 40px !important;
+	color: rgba(44, 62, 80, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+.map-tool-locate {
+	position: absolute;
+	z-index: 1000;
+	left: 10px;
+	bottom: 20px;
+	color: rgba(41, 128, 185, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 24px;
+}
+
+
+/*预警信息列表*/
+
+.map-tool-info {
+	position: absolute;
+	z-index: 1000;
+	left: 10px;
+	top: 60px;
+	color: rgba(192, 57, 43, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 24px;
+}
+
+
+/*地图切换*/
+
+.map-tool-baselayer {
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 105px;
+	color: rgba(243, 156, 18, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+
+
+/*开启预警点显示开关*/
+
+.map-tool-warn {
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 60px;
+	color: rgba(192, 57, 43, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.map-tool-zoomin {
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	bottom: 240px;
+	color: rgba(52, 73, 94, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.map-tool-zoomout {
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	bottom: 205px;
+	color: rgba(52, 73, 94, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+
+#ytfooter {
+	height: 0px;
+	display: none;
+}
+
+.mui-input-group {
+	position: absolute;
+	z-index: 1000;
+	top: 10px;
+	right: 10px;
+	left: 50px;
+}

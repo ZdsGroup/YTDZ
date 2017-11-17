@@ -13,6 +13,16 @@
 	src: url('../fonts/yt1.ttf?t=1510755350416') format('truetype')
 }
 
+@font-face {
+	font-family: "ytfont2";
+	src: url('../fonts/yt2.ttf?t=1510929868501') format('truetype');
+}
+
+@font-face {
+	font-family: "ytfont3";
+	src: url('../fonts/yt3.ttf?t=1510931061518') format('truetype')
+}
+
 
 /*鹰潭字体图标库*/
 
@@ -110,12 +120,52 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+.maptoolfont2 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont2" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+.maptoolfont3 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont3" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+
 /*缩小*/
+
 .yt-zoomout:before {
 	content: "\e618";
 }
 
+
 /*放大*/
+
 .yt-zoomin:before {
 	content: "\e61d";
 }
@@ -133,7 +183,6 @@
 .yt-warn:before {
 	content: "\e6b5";
 }
-
 
 /*表面位移*/
 
@@ -209,4 +258,22 @@
 
 .yt-more:before {
 	content: "\e61d";
+}
+
+
+/*底图切换*/
+
+.yt-baselayer:before {
+	content: "\e51c";
+}
+
+
+/*消息*/
+
+.yt-msg0:before {
+	content: "\e654";
+}
+
+.yt-msg:before {
+	content: "\e501";
 }

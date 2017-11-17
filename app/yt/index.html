@@ -11,90 +11,11 @@
 		<link rel="stylesheet" type="text/css" href="js/leaflet-dev/leaflet.css" />
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js" ></script>
-		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js" ></script>
-		<script type="text/javascript" src="js/testdata.js" ></script>
-		<style type="text/css">
-			#map {
-				height: 100%;
-				width: 100vw;
-				overflow: hidden;
-			}
-			
-			.mui-content {
-				height: 100%;
-			}
-			/*隐藏地图logo信息*/
-			/*.leaflet-container .leaflet-control-attribution {
-				display: none;
-			}*/
-			
-			.leaflet-map-control-container {
-				/*bottom: 5px;*/
-				height: 100%;
-				width: 100%;
-				position: absolute;
-				/*pointer-events: none;*/
-				z-index: 1000;
-				/*padding-left: 5px;
-				padding-right: 5px;*/
-				text-align: center;
-			}
-			
-			.map-tool-locate {
-				position: absolute;
-				z-index: 1000;
-				left: 10px;
-				bottom: 20px;
-				color: rgba(41, 128, 185, 1.0);
-				background-color: rgba(255, 255, 255, 1);
-				border-radius: 24px;
-			}
-			
-			.map-tool-info {
-				position: absolute;
-				z-index: 1000;
-				left: 10px;
-				top: 20px;
-				color: rgba(192, 57, 43, 1.0);
-				background-color: rgba(255, 255, 255, 1);
-				border-radius: 24px;
-			}
-			
-			.map-tool-warn {
-				position: absolute;
-				z-index: 1000;
-				right: 10px;
-				top: 20px;
-				color: rgba(192, 57, 43, 1.0);
-				/*color: rgba(52, 73, 94, 1.0);*/
-				background-color: rgba(255, 255, 255, 1);
-			}
-			
-			.map-tool-zoomin {
-				position: absolute;
-				z-index: 1000;
-				right: 10px;
-				bottom: 240px;
-				color: rgba(52, 73, 94, 1.0);
-				background-color: rgba(255, 255, 255, 1);
-			}
-			
-			.map-tool-zoomout {
-				position: absolute;
-				z-index: 1000;
-				right: 10px;
-				bottom: 205px;
-				color: rgba(52, 73, 94, 1.0);
-				background-color: rgba(255, 255, 255, 1);
-			}
-			
-			#ytfooter {
-				height: 0px;
-				display: none;
-			}
-		</style>
+		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
+		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
 	<body>
@@ -128,7 +49,7 @@
 						duration: 'short',
 						type: 'div'
 					})
-					myMap.setView(L.latLng(36.55,102.71), 4);
+					myMap.setView(L.latLng(36.55, 102.71), 4);
 				}
 
 				myMap.on('locationfound', onLocationFound);
@@ -140,19 +61,18 @@
 					maxZoom: 15
 				});
 
-				
 				myMap.on('click', function(e) {
 					var isMarker = false;
 					var target = e.originalEvent.target;
+					/*@todo 此处代码逻辑要改为只有选中地图上的地灾点或设备点才显示地图底部面板*/
 					if(target.type != 'button') {
 						me.showFooterPanel(100);
 					}
 				});
-				
+
 				showWarnDZMarksOnMap();
 			};
 
-			
 			/*显示底部要素概要面板，fh=100*/
 			var showFooterPanel = function(fh) {
 				var mapFooter = mui('#ytfooter')[0];
@@ -193,7 +113,7 @@
 							}
 						case 'locate':
 							{
-								me.hideFooterPanle(0);//定位功能，测试底部面板隐藏
+								me.hideFooterPanle(0); //定位功能，测试底部面板隐藏
 								myMap.locate({
 									setView: true,
 									timeout: 5000,
@@ -213,12 +133,12 @@
 							}
 						case 'warn':
 							{
-//								debugger
+								//								debugger
 								var color = evt.target.style.color;
-								if(color == '' || color == 'rgb(192, 57, 43)'){
+								if(color == '' || color == 'rgb(192, 57, 43)') {
 									color = 'rgba(52, 73, 94, 1.0)';
 									showAllDZMarksOnMap();
-								}else{
+								} else {
 									color = 'rgba(192, 57, 43, 1.0)';
 									showWarnDZMarksOnMap();
 								}
@@ -230,14 +150,15 @@
 					}
 				});
 			};
-			
+
 			//地图上显示地灾对象图层	
 			var dzMarkersLayerGroup = new L.layerGroup();
 			//底图上显示监测设备对象图层
 			var jcMarkersLayerGroup = new L.layerGroup();
 			var warnBounds = null;
 			var maxZoomShow = 15;
-			function showAllDZMarksOnMap(){
+
+			function showAllDZMarksOnMap() {
 				//0所有地灾点
 				var results = queryMarkers(0);
 				if(results != null && results.length > 0) {
@@ -247,7 +168,7 @@
 					myMap.flyToBounds(warnBounds, {
 						maxZoom: maxZoomShow
 					});
-				}else {
+				} else {
 					mui.toast('无查询结果！', {
 						duration: 'short',
 						type: 'div'
@@ -274,7 +195,7 @@
 			}
 			//请求后台服务获取不同对象数据
 			function queryMarkers(markType) {
-				switch (markType){
+				switch(markType) {
 					case 0:
 						return warnMarkersDataLevel2;
 						break;
@@ -284,7 +205,7 @@
 					default:
 						break;
 				}
-//					return null;
+				//					return null;
 			}
 			//生成markers并添加到地灾markerlayergroup
 			function getDZMarkersLayerGroup(results) {
@@ -355,8 +276,15 @@
 			mui.ready(initApp);
 		</script>
 		<div id="ytmap" class="mui-content">
+			<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
+			<form class="mui-input-group">
+				<div class="mui-input-row ">
+					<input type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="查找地灾点">
+				</div> 
+			</form>
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
-			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont0 yt-info map-tool-info"></button>
+			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
+			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
 			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn"></button>
 			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
 			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
