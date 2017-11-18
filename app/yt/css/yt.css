@@ -13,6 +13,16 @@
 	src: url('../fonts/yt1.ttf?t=1510755350416') format('truetype')
 }
 
+@font-face {
+	font-family: "ytfont2";
+	src: url('../fonts/yt2.ttf?t=1510929868501') format('truetype');
+}
+
+@font-face {
+	font-family: "ytfont3";
+	src: url('../fonts/yt3.ttf?t=1510931061518') format('truetype')
+}
+
 
 /*鹰潭字体图标库*/
 
@@ -110,12 +120,52 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+.maptoolfont2 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont2" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+.maptoolfont3 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont3" !important;
+	font-size: 24px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+
 /*缩小*/
+
 .yt-zoomout:before {
 	content: "\e618";
 }
 
+
 /*放大*/
+
 .yt-zoomin:before {
 	content: "\e61d";
 }
@@ -133,7 +183,6 @@
 .yt-warn:before {
 	content: "\e6b5";
 }
-
 
 /*表面位移*/
 
@@ -212,71 +261,19 @@
 }
 
 
-#u681 {
-    border-width: 0px;
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    top: 57px;
-    height: 26px;
+/*底图切换*/
+
+.yt-baselayer:before {
+	content: "\e51c";
 }
 
-.ax_default {
-    font-family: 'Helvetica';
-    font-weight: 400;
-    font-style: normal;
-    font-size: 13px;
-    color: #333333;
-    text-align: center;
-    line-height: normal;
+
+/*消息*/
+
+.yt-msg0:before {
+	content: "\e654";
 }
 
-#u681_div {
-    border-width: 0px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 299px;
-    height: 26px;
-    background: inherit;
-    background-color: rgba(255, 255, 255, 1);
-    border: none;
-    border-radius: 150px;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-#u683 {
-    border-width: 0px;
-    position: absolute;
-    left: 27px;
-    right: auto;
-    top: 62px;
-    height: 17px;
-    font-family: 'PingFangSC-Thin', 'PingFang SC Thin', 'PingFang SC';
-    font-weight: 200;
-    font-style: normal;
-    font-size: 12px;
-    color: #999999;
-}
-
-#u683_div {
-    border-width: 0px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    height: 17px;
-    background: inherit;
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    border-radius: 0px;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    font-family: 'PingFangSC-Thin', 'PingFang SC Thin', 'PingFang SC';
-    font-weight: 200;
-    font-style: normal;
-    font-size: 12px;
-    color: #999999;
+.yt-msg:before {
+	content: "\e501";
 }

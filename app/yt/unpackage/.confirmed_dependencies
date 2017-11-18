@@ -9,7 +9,9 @@
 		],
 		"refer": [
 			"pages/map.html",
-			"pages/list.html"
+			"pages/list.html",
+			"index.html",
+			"pages/list2.html"
 		]
 	},
 	"pages/map.html": {
@@ -31,6 +33,11 @@
 	"index_new.html": {
 		"refer": [
 			"pages/list.html"
+		]
+	},
+	"pages/list2.html": {
+		"refer": [
+			"pages/chartdetail.html"
 		]
 	}
 }
