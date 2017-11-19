@@ -121,6 +121,8 @@ div{
 #ytfooter {
 	height: 0px;
 	display: none;
+	background-color: white;
+	border-top: solid lightgray 1px;
 }
 
 .mui-input-group {
@@ -143,4 +145,37 @@ div{
 	font-size: 14px;
 	padding-left: 10px;
 	color: rgba(192, 57, 43, 1.0);
+}
+
+//ytfooter 布局
+.mui-table h4,.mui-table h5,.mui-table .mui-h6,.mui-table p,.mui-table .mui-h5{
+    margin-top: 0;
+    float: left;
+}
+
+.mui-table h4{
+    line-height: 21px;
+    font-weight: 500;
+}
+
+.mui-table .oa-icon{
+    position: absolute;
+    right:0;
+    bottom: 0;
+}
+.mui-table .oa-icon-star-filled{
+    color:#f14e41;
+}
+.mui-ellipsis{
+	color: black;
+}
+.ytfooter-warn-level{
+	color: orange;
+	font-size: 32;
+}
+.ytfooter-user{
+	width: 20px;	
+}
+.ytfooter-tel{
+	width: 20px;
 }
