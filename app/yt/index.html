@@ -64,7 +64,7 @@
 				myMap.on('click', function(e) {
 					var isMarker = false;
 					var target = e.originalEvent.target;
-					/*@todo 此处代码逻辑要改为只有选中地图上的地灾点或设备点才显示地图底部面板*/
+					//TODO 此处代码逻辑要改为只有选中地图上的地灾点或设备点才显示地图底部面板*/
 					if(target.type != 'button') {
 						me.showFooterPanel(100);
 					}
@@ -207,7 +207,6 @@
 					default:
 						break;
 				}
-				//					return null;
 			}
 			//生成markers并添加到地灾markerlayergroup
 			function getDZMarkersLayerGroup(results) {
@@ -294,7 +293,7 @@
 					})
 				}
 			}
-			
+			//生成markers并添加到监测设备markerlayergroup
 			function getJCMarkersLayerGroup(results){
 				var latLngsArr = new Array();
 				var iconName = 'camera';
@@ -321,7 +320,6 @@
 													});
 					jcMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
-
 				}
 				warnBounds = L.latLngBounds(latLngsArr);
 			}
