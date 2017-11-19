@@ -11,10 +11,12 @@
 		<link rel="stylesheet" type="text/css" href="js/leaflet-dev/leaflet.css" />
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
+		<link rel="stylesheet" href="js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js" ></script>
 		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
@@ -33,15 +35,19 @@
 				L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
 					maxZoom: 18,
 					attribution: 'leaflet',
-					id: 'tianditum'
+					id: 'gaodem'
 				}).addTo(myMap);
 
+				var localMarker = null;
 				function onLocationFound(e) {
-					var radius = e.accuracy / 2;
-
-					L.marker(e.latlng).addTo(myMap);
-
-					L.circle(e.latlng, radius).addTo(myMap);
+//					var radius = e.accuracy;
+//					L.circle(e.latlng, radius).addTo(myMap);
+					if(localMarker == null){
+						var pulsingIcon = L.icon.pulse({iconSize:[15,15],color:'blue',fillColor:'blue'});
+						localMarker = L.marker(e.latlng,{icon: pulsingIcon}).addTo(myMap);
+					}else{
+						localMarker.setLatLng(e.latlng);
+					}				
 				}
 
 				function onLocationError(e) {
@@ -64,9 +70,10 @@
 				myMap.on('click', function(e) {
 					var isMarker = false;
 					var target = e.originalEvent.target;
-					/*@todo 此处代码逻辑要改为只有选中地图上的地灾点或设备点才显示地图底部面板*/
+					debugger
+					//TODO 此处代码逻辑要改为只有选中地图上的地灾点或设备点才显示地图底部面板*/
 					if(target.type != 'button') {
-						me.showFooterPanel(100);
+						me.hideFooterPanle(100);
 					}
 				});
 
@@ -207,7 +214,6 @@
 					default:
 						break;
 				}
-				//					return null;
 			}
 			//生成markers并添加到地灾markerlayergroup
 			function getDZMarkersLayerGroup(results) {
@@ -232,7 +238,8 @@
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj
 					}).bindTooltip(mN).on('click',function(){
-														showJCMarkerByDZid(mId)
+														showJCMarkerByDZid(mId);
+														showFooterPanel(150);
 													});
 					dzMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
@@ -270,7 +277,10 @@
 								break;
 							}
 						default:
-							break;
+							{
+								markColor = 'cadetblue';
+								break;
+							}
 					}
 				return markColor;
 			}
@@ -294,7 +304,7 @@
 					})
 				}
 			}
-			
+			//生成markers并添加到监测设备markerlayergroup
 			function getJCMarkersLayerGroup(results){
 				var latLngsArr = new Array();
 				var iconName = 'camera';
@@ -317,11 +327,11 @@
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj
 					}).bindTooltip(mN).on('click',function(){
-														showJCMarkerByDZid(mId)
+														showJCMarkerByDZid(mId);
+														showFooterPanel(150);
 													});
 					jcMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
-
 				}
 				warnBounds = L.latLngBounds(latLngsArr);
 			}
