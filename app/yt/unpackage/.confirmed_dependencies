@@ -11,7 +11,8 @@
 			"pages/map.html",
 			"pages/list.html",
 			"index.html",
-			"pages/list2.html"
+			"pages/list2.html",
+			"pages/search.html"
 		]
 	},
 	"pages/map.html": {
@@ -38,6 +39,11 @@
 	"pages/list2.html": {
 		"refer": [
 			"pages/chartdetail.html"
+		]
+	},
+	"pages/search.html": {
+		"refer": [
+			"pages/search.html"
 		]
 	}
 }

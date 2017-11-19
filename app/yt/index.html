@@ -12,11 +12,11 @@
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
 		<link rel="stylesheet" href="js/leaflet-awesome/L.Icon.Pulse.css" />
-		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js" ></script>
+		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
 		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
@@ -39,15 +39,22 @@
 				}).addTo(myMap);
 
 				var localMarker = null;
+
 				function onLocationFound(e) {
-//					var radius = e.accuracy;
-//					L.circle(e.latlng, radius).addTo(myMap);
-					if(localMarker == null){
-						var pulsingIcon = L.icon.pulse({iconSize:[15,15],color:'blue',fillColor:'blue'});
-						localMarker = L.marker(e.latlng,{icon: pulsingIcon}).addTo(myMap);
-					}else{
+					//					var radius = e.accuracy;
+					//					L.circle(e.latlng, radius).addTo(myMap);
+					if(localMarker == null) {
+						var pulsingIcon = L.icon.pulse({
+							iconSize: [15, 15],
+							color: 'blue',
+							fillColor: 'blue'
+						});
+						localMarker = L.marker(e.latlng, {
+							icon: pulsingIcon
+						}).addTo(myMap);
+					} else {
 						localMarker.setLatLng(e.latlng);
-					}				
+					}
 				}
 
 				function onLocationError(e) {
@@ -101,6 +108,22 @@
 			//初始化事件
 			var initEvent = function() {
 				var me = this;
+				//搜索框聚焦激活搜索面板
+				mui('#search-input-text-id')[0].addEventListener('focus', function() {
+					/*mui.openWindow({
+						url: 'pages/search.html',
+						id: 'search-page-1'
+					});*/
+
+					//预加载
+					var searchPage = mui.preload({
+						url: 'pages/search.html',
+						id: 'search-page-1’',
+						styles: {}, //窗口参数
+						extras: {} //自定义扩展参数
+					});
+					searchPage.show();
+				});
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
 				mui('.mui-content').on("tap", "button", function(evt) {
 					var action = evt.target.value;
@@ -237,10 +260,10 @@
 					var mMsg = results[i].msg;
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj
-					}).bindTooltip(mN).on('click',function(){
-														showJCMarkerByDZid(mId);
-														showFooterPanel(150);
-													});
+					}).bindTooltip(mN).on('click', function() {
+						showJCMarkerByDZid(mId);
+						showFooterPanel(150);
+					});
 					dzMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
 
@@ -248,46 +271,46 @@
 				warnBounds = L.latLngBounds(latLngsArr);
 			}
 			//根据不同的告警级别获取不同的颜色值
-			function getMarkerColorByWarnLevel(level){
+			function getMarkerColorByWarnLevel(level) {
 				var markColor = '';
 				switch(level) {
-						case 'red':
-							{
-								markColor = 'red';
-								break;
-							}
-						case 'orange':
-							{
-								markColor = 'orange';
-								break;
-							}
-						case 'yellow':
-							{
-								markColor = 'yellow';
-								break;
-							}
-						case 'blue':
-							{
-								markColor = 'blue';
-								break;
-							}
-						case 'normal':
-							{
-								markColor = 'green';
-								break;
-							}
-						default:
-							{
-								markColor = 'cadetblue';
-								break;
-							}
-					}
+					case 'red':
+						{
+							markColor = 'red';
+							break;
+						}
+					case 'orange':
+						{
+							markColor = 'orange';
+							break;
+						}
+					case 'yellow':
+						{
+							markColor = 'yellow';
+							break;
+						}
+					case 'blue':
+						{
+							markColor = 'blue';
+							break;
+						}
+					case 'normal':
+						{
+							markColor = 'green';
+							break;
+						}
+					default:
+						{
+							markColor = 'cadetblue';
+							break;
+						}
+				}
 				return markColor;
 			}
-			
+
 			//地灾点的点击事件，显示该地灾点的监测设备
-			function showJCMarkerByDZid(dzID){
-//				debugger
+			function showJCMarkerByDZid(dzID) {
+				//				debugger
 				//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
 				var results = queryMarkers(2);
 				if(results != null && results.length > 0) {
@@ -297,7 +320,7 @@
 					myMap.flyToBounds(warnBounds, {
 						maxZoom: maxZoomShow
 					});
-				}else {
+				} else {
 					mui.toast('无查询结果！', {
 						duration: 'short',
 						type: 'div'
@@ -305,7 +328,7 @@
 				}
 			}
 			//生成markers并添加到监测设备markerlayergroup
-			function getJCMarkersLayerGroup(results){
+			function getJCMarkersLayerGroup(results) {
 				var latLngsArr = new Array();
 				var iconName = 'camera';
 				var markColor = 'purple';
@@ -326,10 +349,10 @@
 					var mMsg = results[i].msg;
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj
-					}).bindTooltip(mN).on('click',function(){
-														showJCMarkerByDZid(mId);
-														showFooterPanel(150);
-													});
+					}).bindTooltip(mN).on('click', function() {
+						showJCMarkerByDZid(mId);
+						showFooterPanel(150);
+					});
 					jcMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
 				}
@@ -347,8 +370,8 @@
 			<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
 			<form class="mui-input-group">
 				<div class="mui-input-row ">
-					<input type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="查找地灾点">
-				</div> 
+					<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="查找地灾点">
+				</div>
 			</form>
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
 			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
@@ -357,7 +380,7 @@
 			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
 			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
 			<div class="warn-info-container">
-				<label id="warn-info">今日预警地灾点数量5，预警设备数量20(默认不显示，有预警才显示。)</label>
+				<label id="warn-info">今日预警地灾点数量5，预警设备数量26(默认不显示，有预警才显示。)</label>
 			</div>
 		</div>
 		<div id="ytfooter">

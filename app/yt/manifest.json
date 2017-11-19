@@ -203,7 +203,8 @@
 				"refer": [
 					"pages/list.html",
 					"index.html",
-					"pages/list2.html"
+					"pages/list2.html",
+					"pages/search.html"
 				],
 				"priority": 0
 			},
@@ -240,6 +241,13 @@
 				"resources": [],
 				"refer": [
 					"pages/chartdetail.html"
+				],
+				"priority": 0
+			},
+			"pages/search.html": {
+				"resources": [],
+				"refer": [
+					"pages/search.html"
 				],
 				"priority": 0
 			}
