@@ -23,6 +23,11 @@
 	src: url('../fonts/yt3.ttf?t=1510931061518') format('truetype')
 }
 
+@font-face {
+	font-family: "ytfont4";
+	src: url('../fonts/fontawesome-webfont.ttf?v=4.0.0') format('truetype')
+}
+
 
 /*鹰潭字体图标库*/
 
@@ -156,6 +161,24 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+.mapfooterfont4 {
+	position: relative;
+	text-align: left;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 2px;
+	padding-left: 2px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont4" !important;
+	font-size: 16px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
 
 /*缩小*/
 
@@ -276,4 +299,16 @@
 
 .yt-msg:before {
 	content: "\e501";
+}
+
+/*ytfooter 告警图标*/
+.ytfooter-warn-level:before{
+	content: '\f041';
+}
+
+.ytfooter-user:before{
+	content: '\f007';
+}
+.ytfooter-tel:before{
+	content: '\f098';
 }
