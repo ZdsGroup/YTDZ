@@ -1,20 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/common.css" />
 		<link rel="stylesheet" type="text/css" href="../css/yt.css" />
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title">设备预警信息<a class="mui-pull-caption"></a></h1>
+		</header>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul id="ullist" class="mui-table-view mui-table-view-chevron">
+					<script id="ul-li-template" type="text/html">
+						<% for(var i=0;i<list.length;i++){%>
+						<li id='li<%=list[i].name %>' class="mui-table-view-cell">
+							<div class="mui-slider-cell">
+								<h4><%=list[i].name%></h4>
+								<h4>坐标:<%=list[i].x%> <%=list[i].y%></h4 >
+								<h4>等级：<%=list[i].msg%> </h4 >
+							</div>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
+		</div>
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript">
-			//初始化预加载详情页面
-			mui.init();
+		<script src="../js/template-native.js"></script>
+		<script src="../js/testdata.js"></script>
+		<script>
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: pulldownRefresh //下拉，获取更多数据
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh //上拉， 刷新最新数据
+					}
+				}
+			});
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+//				派发数据请求
+//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
+//                mui.ajax(func_url,{
+//					data:{start:start,end:end},
+//					dataType:'jsonp',//服务器返回json格式数据
+//					//dataType:'json',
+//					type:'post',//HTTP请求类型
+//					//timeout:10000,//超时时间设置为10秒；
+//					jsonp:"jsoncallback",   
+//					success:function(data){ 
+//					//console.log("测试："+data);    
+//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
+//					if(configData && configData.length>0) {
+//					}
+//					},
+//					error:function(xhr,type,errorThrown){
+//					//异常处理；
+//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
+//					}
+//					});
+				
+				setTimeout(function() {
+					var html=template('ul-li-template',{list:warnDZMarkersData});
+					document.getElementById("ullist").innerHTML=html;
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1000);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				//				派发数据请求
+//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
+//                mui.ajax(func_url,{
+//					data:{start:start,end:end},
+//					dataType:'jsonp',//服务器返回json格式数据
+//					//dataType:'json',
+//					type:'post',//HTTP请求类型
+//					//timeout:10000,//超时时间设置为10秒；
+//					jsonp:"jsoncallback",   
+//					success:function(data){ 
+//					//console.log("测试："+data);    
+//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
+//					if(configData && configData.length>0) {
+//					}
+//					},
+//					error:function(xhr,type,errorThrown){
+//					//异常处理；
+//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
+//					}
+//					});
+				
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var content = template(warnDZMarkersData);
+                    var html=template('ul-li-template',{list:warnDZMarkersData});
+					document.getElementById("ullist").innerHTML=document.getElementById("ullist").innerHTML+html;
+				}, 1000);
+			}
 
 			var initEvent = function() {
 				var detailPage = null; //添加列表项的点击事件
@@ -37,94 +138,21 @@
 			var initApp = function() {
 				this.initEvent();
 			};
-			mui.ready(initApp);
+			if(mui.os.plus) {
+				mui.plusReady(function() {
+					setTimeout(function() {
+						mui('#pullrefresh').pullRefresh().pullupLoading();
+					}, 1000);
+					initApp();
+
+				});
+			} else {
+				mui.ready(function() {
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+					initApp();
+				});
+			}
 		</script>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title">预警列表<a class="mui-pull-caption"></a></h1>
-		</header>
-		<div class="mui-content">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">秋坡</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">秋坡</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 2</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="ytlistfont yt-point mui-navigate-right">地灾点测试 3</a>
-				</li>
-			</ul>
-		</div>
 	</body>
 
 </html>
