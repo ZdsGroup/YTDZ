@@ -110,19 +110,19 @@
 				var me = this;
 				//搜索框聚焦激活搜索面板
 				mui('#search-input-text-id')[0].addEventListener('focus', function() {
-					/*mui.openWindow({
+					mui.openWindow({
 						url: 'pages/search.html',
 						id: 'search-page-1'
-					});*/
+					});
 
 					//预加载
-					var searchPage = mui.preload({
+					/*var searchPage = mui.preload({
 						url: 'pages/search.html',
 						id: 'search-page-1’',
 						styles: {}, //窗口参数
 						extras: {} //自定义扩展参数
 					});
-					searchPage.show();
+					searchPage.show();*/
 				});
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
 				mui('.mui-content').on("tap", "button", function(evt) {
