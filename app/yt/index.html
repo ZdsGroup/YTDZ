@@ -17,6 +17,7 @@
 		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
+		<script type="text/javascript" src="js/template-native.js" ></script>
 		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
@@ -77,8 +78,6 @@
 				myMap.on('click', function(e) {
 					var isMarker = false;
 					var target = e.originalEvent.target;
-					debugger
-					//TODO 此处代码逻辑要改为只有选中地图上的地灾点或设备点才显示地图底部面板*/
 					if(target.type != 'button') {
 						me.hideFooterPanle(100);
 					}
@@ -123,6 +122,21 @@
 						extras: {} //自定义扩展参数
 					});
 					searchPage.show();*/
+				});
+				
+				//底部ytfooter点击事件进入详情面板
+				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+					//预加载
+					var info = mui('.mui-table-cell')[0];
+//					debugger
+					//TODO 需要把选中的info.id(type_id)传到详情页面
+					var searchPage = mui.preload({
+						url: 'pages/chartdetail.html',
+						id: 'chartdetail’',
+						styles: {}, //窗口参数
+						extras: {} //自定义扩展参数
+					});
+					searchPage.show();
 				});
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
 				mui('.mui-content').on("tap", "button", function(evt) {
@@ -182,10 +196,13 @@
 
 			//地图上显示地灾对象图层	
 			var dzMarkersLayerGroup = new L.layerGroup();
+			var dzQueryResults = null;
 			//底图上显示监测设备对象图层
 			var jcMarkersLayerGroup = new L.layerGroup();
+			var jcQueryResults = null;
 			var warnBounds = null;
 			var maxZoomShow = 15;
+			var footerHeight = 150;
 
 			function showAllDZMarksOnMap() {
 				//0所有地灾点
@@ -240,6 +257,7 @@
 			}
 			//生成markers并添加到地灾markerlayergroup
 			function getDZMarkersLayerGroup(results) {
+				dzQueryResults = results;
 				var latLngsArr = new Array();
 				var iconName = 'bolt';
 				var markColor = 'purple';
@@ -259,10 +277,12 @@
 					var mN = results[i].name;
 					var mMsg = results[i].msg;
 					var markerObj = new L.marker([mX, mY], {
-						icon: iconObj
-					}).bindTooltip(mN).on('click', function() {
+						icon: iconObj,
+						title:mId
+					}).bindPopup(mN).on('click', function(e) {
 						showJCMarkerByDZid(mId);
-						showFooterPanel(150);
+						setFooterContentByInfo(0, e.target.options.title);
+						showFooterPanel(footerHeight);
 					});
 					dzMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
@@ -329,6 +349,7 @@
 			}
 			//生成markers并添加到监测设备markerlayergroup
 			function getJCMarkersLayerGroup(results) {
+				jcQueryResults = results;
 				var latLngsArr = new Array();
 				var iconName = 'camera';
 				var markColor = 'purple';
@@ -336,27 +357,49 @@
 				for(var i = 0; i < results.length; i++) {
 					level = results[i].le;
 					markColor = getMarkerColorByWarnLevel(level);
+					var mId = results[i].id
+					var mX = results[i].x;
+					var mY = results[i].y;
+					var mN = results[i].name;
+					var mMsg = results[i].msg;
 					var iconObj = L.AwesomeMarkers.icon({
 						icon: iconName,
 						markerColor: markColor,
 						prefix: 'fa',
 						spin: false
 					});
-					var mId = results[i].id
-					var mX = results[i].x;
-					var mY = results[i].y;
-					var mN = results[i].name;
-					var mMsg = results[i].msg;
+					
 					var markerObj = new L.marker([mX, mY], {
-						icon: iconObj
-					}).bindTooltip(mN).on('click', function() {
-						showJCMarkerByDZid(mId);
-						showFooterPanel(150);
+						icon: iconObj,
+						title:mId
+					}).bindPopup(mN).on('click', function(e) {
+//						debugger
+						setFooterContentByInfo(1, e.target.options.title);
+						myMap.flyTo(e.latlng);
+						showFooterPanel(footerHeight);
 					});
 					jcMarkersLayerGroup.addLayer(markerObj);
 					latLngsArr.push(markerObj.getLatLng());
 				}
 				warnBounds = L.latLngBounds(latLngsArr);
+			}
+			//设置底部栏的内容，根据点击的地灾点或者设备点
+			function setFooterContentByInfo(Type, infoID){
+				var tempResults = null;
+				var infoT = null;
+				if (Type == 0) {
+					tempResults = dzQueryResults;
+				}else{
+					tempResults = jcQueryResults;
+				}
+				for (var i = 0; i < tempResults.length; i++) {
+					if (tempResults[i].id == infoID) {
+						infoT= tempResults[i];
+						break;
+					}
+				}
+				var html=template('ul-li-template',{info:infoT,type:Type});
+				document.getElementById("footer-table").innerHTML=html;
 			}
 
 			//初始化应用
@@ -380,14 +423,14 @@
 			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
 			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
 			<div class="warn-info-container">
-				<label id="warn-info">今日预警地灾点数量5，预警设备数量26(默认不显示，有预警才显示。)</label>
+				<label id="warn-info">今日报警：地灾点5个，监测设备26个(有预警才显示)</label>
 			</div>
 		</div>
 		<div id="ytfooter">
 			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
 		        <li class="mui-table-view-cell">
-		            <div class="mui-table">
-		                <div class="mui-table-cell mui-col-xs-10">
+		            <div id="footer-table" class="mui-table">
+		                <!--<div  class="mui-table-cell mui-col-xs-10">
 		                    <h4 class="mui-ellipsis">贵溪市石膏矿采空塌陷地灾点</h4>
 		                    <h5>王克  | 18901023458</h5>
 		                    <h5>四类  | 11个监测设备 | 报警等级：橙色</h5>
@@ -395,6 +438,17 @@
 		                <div class="mui-table-cell mui-col-xs-2 mui-text-right">
 		                    <span class="mui-h5 mapfooterfont4 ytfooter-warn-level"></span>
 		                </div>
+		                -->
+		                <script id="ul-li-template" type="text/html">
+		                	<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+			                    <h4 class="mui-ellipsis"><%=info.name%></h4>
+			                    <h5>王克  | 18901023458</h5>
+			                    <h5>四类  | 11个监测设备 | 报警等级：橙色</h5>
+		                	</div>
+		                	<div class="mui-table-cell mui-col-xs-2 mui-text-right">
+		                    	<span class="mui-h5 mapfooterfont4 ytfooter-warn-level"></span>
+		                	</div>
+	                	</script>
 		            </div>
 		        </li>
 		   </ul>

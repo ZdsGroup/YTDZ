@@ -204,7 +204,8 @@
 					"pages/list.html",
 					"index.html",
 					"pages/list2.html",
-					"pages/search.html"
+					"pages/search.html",
+					"pages/chartdetail.html"
 				],
 				"priority": 0
 			},
