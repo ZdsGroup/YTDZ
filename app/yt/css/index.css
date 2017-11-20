@@ -140,11 +140,12 @@ div{
 	left: 10px;
 	right: 10px;
 	height: 24px;
-	line-height: 36px;
-	background-color: rgba(255, 255, 255, 0.6);
+	line-height: 24px;
+	background-color: rgba(255, 255, 255, 0.8);
 	font-size: 14px;
 	padding-left: 10px;
 	color: rgba(192, 57, 43, 1.0);
+	border:1px solid lightgray;
 }
 
 //ytfooter 布局
