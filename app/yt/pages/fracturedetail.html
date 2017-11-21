@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/yt.css" />
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<style type="text/css">
+			.mui-bar-tab {
+				top: 45px !important;
+				display: table;
+				width: 100%;
+				height: 60px;
+				padding: 0;
+				table-layout: fixed;
+				border-top: 0;
+				border-bottom: 0;
+				-webkit-touch-callout: none;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-content {
+				margin-top: 65px !important;
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.mui-tab-item {
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.mui-tab-label {
+				padding-top: 5px !important;
+				font-size: 16px !important;
+			}
+			
+			a.mui-active {
+				background-color: rgba(52, 152, 219, 1.0) !important;
+				color: #FFFFFF !important;
+			}
+			
+			.mui-control-content {
+				height: 200px;
+			}
+			
+			#sjlbContainer {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				margin: 0;
+				position: relative;
+				border: hidden;
+			}
+		</style>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">裂缝监测设备1</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						<span class="yttabfont yt-bmwy"></span>
+						<span class="mui-tab-label">设备详情</span>
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						<span class="yttabfont yt-bmwy"></span>
+						<span class="mui-tab-label">变化过程线/span>
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						<span class="yttabfont yt-bmwy"></span>
+						<span class="mui-tab-label">数据列表</span>
+					</a>
+					<a class="mui-control-item" href="#item4mobile">
+						<span class="yttabfont yt-bmwy"></span>
+						<span class="mui-tab-label">报警查询</span>
+					</a>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="slider" class="mui-slider">
+							<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+								<a class="mui-control-item" href="#subitem1mobile">
+									<span class="mui-tab-label">项目详情</span>
+								</a>
+								<a class="mui-control-item" href="#subitem2mobile">
+									<span class="mui-tab-label">设备对比</span>
+								</a>
+								<a class="mui-control-item" href="#subitem3mobile">
+									<span class="mui-tab-label">设备状态</span>
+								</a>
+							</div>
+
+							<div class="mui-slider-group">
+								<div id="subitem1mobile" class="mui-slider-item mui-control-content mui-active">
+									subitem1mobile
+								</div>
+								<div id="subitem2mobile" class="mui-slider-item mui-control-content">
+									subitem2mobile
+								</div>
+								<div id="subitem3mobile" class="mui-slider-item mui-control-content">
+									subitem3mobile
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								item2mobile
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								item3mobile
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll4" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								item4mobile
+							</div>
+						</div>
+					</div>
+				</div>
+	</body>
+
+</html>

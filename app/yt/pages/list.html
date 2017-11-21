@@ -26,9 +26,9 @@
 						<% for(var i=0;i<list.length;i++){%>
 						<li id='li<%=list[i].name %>' class="mui-table-view-cell">
 							<div class="mui-slider-cell">
-								<h4><%=list[i].name%></h4>
-								<h4>坐标:<%=list[i].x%> <%=list[i].y%></h4 >
-								<h4>等级：<%=list[i].msg%> </h4 >
+								<h4><span class=""><%=list[i].name%></span></h4>
+								<h5>坐标:<%=list[i].x%> <%=list[i].y%></h5>
+								<h5>等级：<%=list[i].msg%> </h5>
 							</div>
 						</li>
 						<%}%>
