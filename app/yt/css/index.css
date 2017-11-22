@@ -170,7 +170,13 @@
 }
 .ytfooter-user{
 	width: 20px;	
+	color: lightgreen;
 }
 .ytfooter-tel{
 	width: 20px;
+	color: lightgreen;
+}
+.ytfooter-main{
+	width: 20px;
+	color: lightgreen;
 }

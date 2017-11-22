@@ -169,7 +169,7 @@
 	padding-bottom: 0px;
 	padding-right: 2px;
 	padding-left: 2px;
-	display: block;
+	/*display: block;*/
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-family: "ytfont4" !important;
@@ -312,4 +312,8 @@
 /*ytfooter 电话*/
 .ytfooter-tel:before{
 	content: '\f098';
+}
+/*ytfooter 概要*/
+.ytfooter-main:before{
+	content: '\f02e';
 }
