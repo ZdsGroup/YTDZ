@@ -117,6 +117,7 @@
 #ytfooter {
 	height: 0px;
 	display: none;
+	border: 1px solid lightgray;
 }
 
 .mui-input-group {
