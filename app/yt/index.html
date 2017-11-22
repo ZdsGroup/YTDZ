@@ -128,20 +128,27 @@
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
 					//预加载
 					var info = mui('.mui-table-cell')[0];
-					debugger
 					//TODO 需要把选中的info.id(type_id)传到详情页面
-					var type = info.id.split('_')[0];
-					var id = info.id.split('_')[1];
+					var typeT = info.id.split('_')[0];
+					var idT = info.id.split('_')[1];
 					var pageUrl = '';
 					var pageId = ''
-					switch (type){
+					switch (typeT){
 						case '0':
 							pageUrl = 'pages/chartdetail.html';
-							pageId = 'chartdetail';
+							pageId = 'dzdetail';
 							break;
 						case '1':
 							pageUrl = 'pages/chartdetail.html';
-							pageId = 'chartdetail';
+							pageId = 'lfdetail';
+							break;
+						case '2':
+							pageUrl = 'pages/chartdetail.html';
+							pageId = 'wydetail';
+							break;
+						case '3':
+							pageUrl = 'pages/chartdetail.html';
+							pageId = 'yldetail';
 							break;
 						default:
 							break;
@@ -150,7 +157,7 @@
 						url: pageUrl,
 						id: pageId,
 						styles: {}, //窗口参数
-						extras: {} //自定义扩展参数
+						extras: {type:typeT,id:idT} //自定义扩展参数
 					});
 					searchPage.show();
 				});
@@ -346,7 +353,6 @@
 
 			//地灾点的点击事件，显示该地灾点的监测设备
 			function showJCMarkerByDZid(dzID) {
-				//				debugger
 				//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
 				var results = queryMarkers(2);
 				if(results != null && results.length > 0) {
@@ -389,7 +395,6 @@
 						icon: iconObj,
 						title:mId
 					}).bindPopup(mN,{closeButton:false}).on('click', function(e) {
-//						debugger
 						setFooterContentByInfo(1, e.target.options.title);
 						myMap.flyTo(e.latlng);
 						showFooterPanel(footerHeight);
