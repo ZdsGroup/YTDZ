@@ -128,13 +128,36 @@
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
 					//预加载
 					var info = mui('.mui-table-cell')[0];
-//					debugger
 					//TODO 需要把选中的info.id(type_id)传到详情页面
+					var typeT = info.id.split('_')[0];
+					var idT = info.id.split('_')[1];
+					var pageUrl = '';
+					var pageId = ''
+					switch (typeT){
+						case '0':
+							pageUrl = 'pages/chartdetail.html';
+							pageId = 'dzdetail';
+							break;
+						case '1':
+							pageUrl = 'pages/chartdetail.html';
+							pageId = 'lfdetail';
+							break;
+						case '2':
+							pageUrl = 'pages/chartdetail.html';
+							pageId = 'wydetail';
+							break;
+						case '3':
+							pageUrl = 'pages/chartdetail.html';
+							pageId = 'yldetail';
+							break;
+						default:
+							break;
+					}
 					var searchPage = mui.preload({
-						url: 'pages/chartdetail.html',
-						id: 'chartdetail’',
+						url: pageUrl,
+						id: pageId,
 						styles: {}, //窗口参数
-						extras: {} //自定义扩展参数
+						extras: {type:typeT,id:idT} //自定义扩展参数
 					});
 					searchPage.show();
 				});
@@ -279,7 +302,7 @@
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj,
 						title:mId
-					}).bindPopup(mN).on('click', function(e) {
+					}).bindPopup(mN,{closeButton:false}).on('click', function(e) {
 						showJCMarkerByDZid(mId);
 						setFooterContentByInfo(0, e.target.options.title);
 						showFooterPanel(footerHeight);
@@ -330,7 +353,6 @@
 
 			//地灾点的点击事件，显示该地灾点的监测设备
 			function showJCMarkerByDZid(dzID) {
-				//				debugger
 				//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
 				var results = queryMarkers(2);
 				if(results != null && results.length > 0) {
@@ -372,8 +394,7 @@
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj,
 						title:mId
-					}).bindPopup(mN).on('click', function(e) {
-//						debugger
+					}).bindPopup(mN,{closeButton:false}).on('click', function(e) {
 						setFooterContentByInfo(1, e.target.options.title);
 						myMap.flyTo(e.latlng);
 						showFooterPanel(footerHeight);
@@ -430,23 +451,24 @@
 			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
 		        <li class="mui-table-view-cell">
 		            <div id="footer-table" class="mui-table">
-		                <!--<div  class="mui-table-cell mui-col-xs-10">
-		                    <h4 class="mui-ellipsis">贵溪市石膏矿采空塌陷地灾点</h4>
-		                    <h5>王克  | 18901023458</h5>
-		                    <h5>四类  | 11个监测设备 | 报警等级：橙色</h5>
-		                </div>
-		                <div class="mui-table-cell mui-col-xs-2 mui-text-right">
-		                    <span class="mui-h5 mapfooterfont4 ytfooter-warn-level"></span>
-		                </div>
-		                -->
 		                <script id="ul-li-template" type="text/html">
-		                	<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
-			                    <h4 class="mui-ellipsis"><%=info.name%></h4>
-			                    <h5>王克  | 18901023458</h5>
-			                    <h5>四类  | 11个监测设备 | 报警等级：橙色</h5>
-		                	</div>
+		                	<%if (type==0) {%>
+			                	<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+				                    <h4 class="mui-ellipsis"><%=info.name%></h4>
+				                    <h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
+				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
+				                    <h5><span class="mapfooterfont4 ytfooter-main"></span> 四类  | 11个监测设备 | 报警等级：橙色</h5>
+			                	</div>
+		                	<%}else if (type==1) {%>
+			                	<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+				                    <h4 class="mui-ellipsis"><%=info.name%></h4>
+				                 	<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
+				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
+				                    <h5><span class="mapfooterfont4 ytfooter-main"></span> 报警等级：红色</h5>
+			                	</div>
+			                <%}%>
 		                	<div class="mui-table-cell mui-col-xs-2 mui-text-right">
-		                    	<span class="mui-h5 mapfooterfont4 ytfooter-warn-level"></span>
+		                    	<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>
 		                	</div>
 	                	</script>
 		            </div>

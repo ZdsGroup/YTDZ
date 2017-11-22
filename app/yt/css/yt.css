@@ -163,13 +163,13 @@
 
 .mapfooterfont4 {
 	position: relative;
-	text-align: left;
+	/*text-align: left;*/
 	z-index: 20;
 	padding-top: 0px;
 	padding-bottom: 0px;
 	padding-right: 2px;
 	padding-left: 2px;
-	display: block;
+	/*display: block;*/
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-family: "ytfont4" !important;
@@ -301,14 +301,19 @@
 	content: "\e501";
 }
 
-/*ytfooter 告警图标*/
-.ytfooter-warn-level:before{
-	content: '\f041';
+/*ytfooter 详情*/
+.ytfooter-infos:before{
+	content: '\f080';
 }
-
+/*ytfooter 用户*/
 .ytfooter-user:before{
 	content: '\f007';
 }
+/*ytfooter 电话*/
 .ytfooter-tel:before{
 	content: '\f098';
+}
+/*ytfooter 概要*/
+.ytfooter-main:before{
+	content: '\f02e';
 }
