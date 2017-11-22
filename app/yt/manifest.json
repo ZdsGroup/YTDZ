@@ -223,7 +223,8 @@
 				"resources": [],
 				"refer": [
 					"pages/detail.html",
-					"pages/chartdetail.html"
+					"pages/chartdetail.html",
+					"pages/fracturedetail.html"
 				],
 				"priority": 0
 			},

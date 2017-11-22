@@ -27,7 +27,8 @@
 	"pages/list.html": {
 		"refer": [
 			"pages/detail.html",
-			"pages/chartdetail.html"
+			"pages/chartdetail.html",
+			"pages/fracturedetail.html"
 		]
 	},
 	"pages/chartdetail.html": {
