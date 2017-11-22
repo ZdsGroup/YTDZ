@@ -17,7 +17,7 @@
 		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
-		<script type="text/javascript" src="js/template-native.js" ></script>
+		<script type="text/javascript" src="js/template-native.js"></script>
 		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
@@ -110,7 +110,7 @@
 				//搜索框聚焦激活搜索面板
 				mui('#search-input-text-id')[0].addEventListener('focus', function() {
 					mui.openWindow({
-						url: 'pages/search.html',
+						url: 'pages/common/search.html',
 						id: 'search-page-1'
 					});
 
@@ -123,54 +123,84 @@
 					});
 					searchPage.show();*/
 				});
-				
+
 				//底部ytfooter点击事件进入详情面板
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
-					//预加载
 					var info = mui('.mui-table-cell')[0];
 					//TODO 需要把选中的info.id(type_id)传到详情页面
 					var typeT = info.id.split('_')[0];
 					var idT = info.id.split('_')[1];
 					var pageUrl = '';
 					var pageId = ''
-					switch (typeT){
-						case '0':
-							pageUrl = 'pages/chartdetail.html';
-							pageId = 'dzdetail';
-							break;
-						case '1':
-							pageUrl = 'pages/chartdetail.html';
-							pageId = 'lfdetail';
-							break;
-						case '2':
-							pageUrl = 'pages/chartdetail.html';
-							pageId = 'wydetail';
-							break;
-						case '3':
-							pageUrl = 'pages/chartdetail.html';
-							pageId = 'yldetail';
-							break;
+					switch(typeT) {
+						case 'dzd':
+							{
+								pageUrl = 'pages/dzd/dzdxq.html';
+								pageId = 'dzdxq';
+								break;
+							}
+
+						case 'bmwyjc':
+							{
+								pageUrl = 'pages/jcsb/bmwyjc.html';
+								pageId = 'bmwyjc';
+								break;
+							}
+
+						case 'lfjc':
+							{
+								pageUrl = 'pages/jcsb/lfjc.html';
+								pageId = 'lfjc';
+								break;
+							}
+
+						case 'trhsljc':
+							{
+								pageUrl = 'pages/jcsb/trhsljc.html';
+								pageId = 'trhsljc';
+								break;
+							}
+
+						case 'yljc':
+							{
+								pageUrl = 'pages/jcsb/yljc.html';
+								pageId = 'yljc';
+								break;
+							}
+
 						default:
 							break;
 					}
-					var searchPage = mui.preload({
+					/*var detailPage = mui.preload({
 						url: pageUrl,
 						id: pageId,
 						styles: {}, //窗口参数
-						extras: {type:typeT,id:idT} //自定义扩展参数
+						extras: {
+							type: typeT,
+							id: idT
+						} //自定义扩展参数
 					});
-					searchPage.show();
+					detailPage.show();*/
+					alert(pageUrl);
+					mui.openWindow({
+						url: pageUrl,
+						id: pageId
+					});
 				});
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
 				mui('.mui-content').on("tap", "button", function(evt) {
 					var action = evt.target.value;
 					switch(action) {
+						case 'usercenter':
+							{
+								break;
+							}
 						case 'info':
 							/*已发生预警地灾点列表*/
 							{
 								//预加载
 								var flPage = mui.preload({
-									url: 'pages/list.html',
+									url: 'pages/dzd/dzdsbyjxx.html',
 									id: action,
 									styles: {}, //窗口参数
 									extras: {} //自定义扩展参数
@@ -294,17 +324,20 @@
 						prefix: 'fa',
 						spin: false
 					});
-					var mId = results[i].id
+					var mId = results[i].id;
+					var mType = results[i].type;
 					var mX = results[i].x;
 					var mY = results[i].y;
 					var mN = results[i].name;
 					var mMsg = results[i].msg;
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj,
-						title:mId
-					}).bindPopup(mN,{closeButton:false}).on('click', function(e) {
+						title: mId
+					}).bindPopup(mN, {
+						closeButton: false
+					}).on('click', function(e) {
 						showJCMarkerByDZid(mId);
-						setFooterContentByInfo(0, e.target.options.title);
+						setFooterContentByInfo(mType, e.target.options.title);
 						showFooterPanel(footerHeight);
 					});
 					dzMarkersLayerGroup.addLayer(markerObj);
@@ -379,7 +412,8 @@
 				for(var i = 0; i < results.length; i++) {
 					level = results[i].le;
 					markColor = getMarkerColorByWarnLevel(level);
-					var mId = results[i].id
+					var mId = results[i].id;
+					var mType = results[i].type;
 					var mX = results[i].x;
 					var mY = results[i].y;
 					var mN = results[i].name;
@@ -390,12 +424,14 @@
 						prefix: 'fa',
 						spin: false
 					});
-					
+
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj,
-						title:mId
-					}).bindPopup(mN,{closeButton:false}).on('click', function(e) {
-						setFooterContentByInfo(1, e.target.options.title);
+						title: mId
+					}).bindPopup(mN, {
+						closeButton: false
+					}).on('click', function(e) {
+						setFooterContentByInfo(mType, e.target.options.title);
 						myMap.flyTo(e.latlng);
 						showFooterPanel(footerHeight);
 					});
@@ -405,22 +441,25 @@
 				warnBounds = L.latLngBounds(latLngsArr);
 			}
 			//设置底部栏的内容，根据点击的地灾点或者设备点
-			function setFooterContentByInfo(Type, infoID){
+			function setFooterContentByInfo(Type, infoID) {
 				var tempResults = null;
 				var infoT = null;
-				if (Type == 0) {
+				if(Type == 'dzd') {
 					tempResults = dzQueryResults;
-				}else{
+				} else {
 					tempResults = jcQueryResults;
 				}
-				for (var i = 0; i < tempResults.length; i++) {
-					if (tempResults[i].id == infoID) {
-						infoT= tempResults[i];
+				for(var i = 0; i < tempResults.length; i++) {
+					if(tempResults[i].id == infoID) {
+						infoT = tempResults[i];
 						break;
 					}
 				}
-				var html=template('ul-li-template',{info:infoT,type:Type});
-				document.getElementById("footer-table").innerHTML=html;
+				var html = template('ul-li-template', {
+					info: infoT,
+					type: Type
+				});
+				document.getElementById("footer-table").innerHTML = html;
 			}
 
 			//初始化应用
@@ -449,31 +488,31 @@
 		</div>
 		<div id="ytfooter">
 			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
-		        <li class="mui-table-view-cell">
-		            <div id="footer-table" class="mui-table">
-		                <script id="ul-li-template" type="text/html">
-		                	<%if (type==0) {%>
-			                	<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
-				                    <h4 class="mui-ellipsis"><%=info.name%></h4>
-				                    <h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
+				<li class="mui-table-view-cell">
+					<div id="footer-table" class="mui-table">
+						<script id="ul-li-template" type="text/html">
+							<%if (type=='dzd') {%>
+							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+								<h4 class="mui-ellipsis"><%=info.name%></h4>
+								<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
 				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
-				                    <h5><span class="mapfooterfont4 ytfooter-main"></span> 四类  | 11个监测设备 | 报警等级：橙色</h5>
-			                	</div>
-		                	<%}else if (type==1) {%>
-			                	<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
-				                    <h4 class="mui-ellipsis"><%=info.name%></h4>
-				                 	<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
+								<h5><span class="mapfooterfont4 ytfooter-main"></span> 四类  | 11个监测设备 | 报警等级：橙色</h5>
+							</div>
+							<%}else{%>
+							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+								<h4 class="mui-ellipsis"><%=info.name%></h4>
+								<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
 				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
-				                    <h5><span class="mapfooterfont4 ytfooter-main"></span> 报警等级：红色</h5>
-			                	</div>
-			                <%}%>
-		                	<div class="mui-table-cell mui-col-xs-2 mui-text-right">
-		                    	<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>
-		                	</div>
-	                	</script>
-		            </div>
-		        </li>
-		   </ul>
+								<h5><span class="mapfooterfont4 ytfooter-main"></span> 报警等级：红色</h5>
+							</div>
+							<%}%>
+							<div class="mui-table-cell mui-col-xs-2 mui-text-right">
+								<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>
+							</div>
+						</script>
+					</div>
+				</li>
+			</ul>
 		</div>
 	</body>
 

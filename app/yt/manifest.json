@@ -205,7 +205,10 @@
 					"index.html",
 					"pages/list2.html",
 					"pages/search.html",
-					"pages/chartdetail.html"
+					"pages/chartdetail.html",
+					"pages/dzd/dzdxq.html",
+					"pages/jcsb/bmwyjc.html",
+					"pages/dzd/dzdsbyjxx.html"
 				],
 				"priority": 0
 			},
