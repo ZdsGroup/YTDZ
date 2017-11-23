@@ -84,7 +84,27 @@
 				});
 
 				showWarnDZMarksOnMap();
+				showWarnInfoOnMap();
 			};
+			
+			//显示告警信息汇总提示栏，5秒后消失
+			function showWarnInfoOnMap(){
+				var warnInfo = queryWarnInfo();
+				if (warnInfo != '') {
+					var obj = mui('#warn-info')[0]
+					obj.innerHTML = warnInfo;
+				}
+				setTimeout(function (){
+								var obj = mui('.warn-info-container')[0];
+								obj.style.display = 'none';
+				},10000);
+			}
+			
+			//TODO 查询后台服务器，获取警告信息汇总
+			function queryWarnInfo(){
+				var info = '今日报警：地灾点5个，监测设备26个';
+				return info;
+			}
 
 			/*显示底部要素概要面板，fh=100*/
 			var showFooterPanel = function(fh) {
@@ -484,7 +504,7 @@
 			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
 			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
 			<div class="warn-info-container">
-				<label id="warn-info">今日报警：地灾点5个，监测设备26个(有预警才显示)</label>
+				<label id="warn-info"></label>
 			</div>
 		</div>
 		<div id="ytfooter">
