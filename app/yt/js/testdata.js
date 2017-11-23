@@ -150,7 +150,7 @@ var warnjcMarkersData = [{
 		id: '5',
 		name: '监测设备5',
 		type: 'yljc',
-		x: '39.906363',
+		x: '39.836363',
 		y: '116.391456',
 		le: 'normal',
 		msg: '警告信息5'

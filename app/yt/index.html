@@ -181,7 +181,6 @@
 						} //自定义扩展参数
 					});
 					detailPage.show();*/
-					alert(pageUrl);
 					mui.openWindow({
 						url: pageUrl,
 						id: pageId
@@ -332,12 +331,13 @@
 					var mMsg = results[i].msg;
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj,
-						title: mId
+						title: mId,
+						type: mType
 					}).bindPopup(mN, {
 						closeButton: false
 					}).on('click', function(e) {
 						showJCMarkerByDZid(mId);
-						setFooterContentByInfo(mType, e.target.options.title);
+						setFooterContentByInfo(e.target.options.type, e.target.options.title);
 						showFooterPanel(footerHeight);
 					});
 					dzMarkersLayerGroup.addLayer(markerObj);
@@ -427,11 +427,12 @@
 
 					var markerObj = new L.marker([mX, mY], {
 						icon: iconObj,
-						title: mId
+						title: mId,
+						type: mType
 					}).bindPopup(mN, {
 						closeButton: false
 					}).on('click', function(e) {
-						setFooterContentByInfo(mType, e.target.options.title);
+						setFooterContentByInfo(e.target.options.type, e.target.options.title);
 						myMap.flyTo(e.latlng);
 						showFooterPanel(footerHeight);
 					});
