@@ -208,7 +208,9 @@
 					"pages/chartdetail.html",
 					"pages/dzd/dzdxq.html",
 					"pages/jcsb/bmwyjc.html",
-					"pages/dzd/dzdsbyjxx.html"
+					"pages/dzd/dzdsbyjxx.html",
+					"pages/jcsb/lfjc.html",
+					"pages/jcsb/yljc.html"
 				],
 				"priority": 0
 			},
