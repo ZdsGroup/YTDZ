@@ -7,9 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/yt.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
 	</head>
 
 	<body>
@@ -56,30 +56,32 @@
 			 * 下拉刷新具体业务实现
 			 */
 			function pulldownRefresh() {
-//				派发数据请求
-//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
-//                mui.ajax(func_url,{
-//					data:{start:start,end:end},
-//					dataType:'jsonp',//服务器返回json格式数据
-//					//dataType:'json',
-//					type:'post',//HTTP请求类型
-//					//timeout:10000,//超时时间设置为10秒；
-//					jsonp:"jsoncallback",   
-//					success:function(data){ 
-//					//console.log("测试："+data);    
-//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
-//					if(configData && configData.length>0) {
-//					}
-//					},
-//					error:function(xhr,type,errorThrown){
-//					//异常处理；
-//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
-//					}
-//					});
-				
+				//				派发数据请求
+				//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
+				//                mui.ajax(func_url,{
+				//					data:{start:start,end:end},
+				//					dataType:'jsonp',//服务器返回json格式数据
+				//					//dataType:'json',
+				//					type:'post',//HTTP请求类型
+				//					//timeout:10000,//超时时间设置为10秒；
+				//					jsonp:"jsoncallback",   
+				//					success:function(data){ 
+				//					//console.log("测试："+data);    
+				//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
+				//					if(configData && configData.length>0) {
+				//					}
+				//					},
+				//					error:function(xhr,type,errorThrown){
+				//					//异常处理；
+				//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
+				//					}
+				//					});
+
 				setTimeout(function() {
-					var html=template('ul-li-template',{list:warnDZMarkersData});
-					document.getElementById("ullist").innerHTML=html;
+					var html = template('ul-li-template', {
+						list: warnDZMarkersData
+					});
+					document.getElementById("ullist").innerHTML = html;
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 				}, 1000);
 			}
@@ -89,31 +91,33 @@
 			 */
 			function pullupRefresh() {
 				//				派发数据请求
-//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
-//                mui.ajax(func_url,{
-//					data:{start:start,end:end},
-//					dataType:'jsonp',//服务器返回json格式数据
-//					//dataType:'json',
-//					type:'post',//HTTP请求类型
-//					//timeout:10000,//超时时间设置为10秒；
-//					jsonp:"jsoncallback",   
-//					success:function(data){ 
-//					//console.log("测试："+data);    
-//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
-//					if(configData && configData.length>0) {
-//					}
-//					},
-//					error:function(xhr,type,errorThrown){
-//					//异常处理；
-//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
-//					}
-//					});
-				
+				//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
+				//                mui.ajax(func_url,{
+				//					data:{start:start,end:end},
+				//					dataType:'jsonp',//服务器返回json格式数据
+				//					//dataType:'json',
+				//					type:'post',//HTTP请求类型
+				//					//timeout:10000,//超时时间设置为10秒；
+				//					jsonp:"jsoncallback",   
+				//					success:function(data){ 
+				//					//console.log("测试："+data);    
+				//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
+				//					if(configData && configData.length>0) {
+				//					}
+				//					},
+				//					error:function(xhr,type,errorThrown){
+				//					//异常处理；
+				//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
+				//					}
+				//					});
+
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
 					var content = template(warnDZMarkersData);
-                    var html=template('ul-li-template',{list:warnDZMarkersData});
-					document.getElementById("ullist").innerHTML=document.getElementById("ullist").innerHTML+html;
+					var html = template('ul-li-template', {
+						list: warnDZMarkersData
+					});
+					document.getElementById("ullist").innerHTML = document.getElementById("ullist").innerHTML + html;
 				}, 1000);
 			}
 
