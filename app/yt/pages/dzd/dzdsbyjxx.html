@@ -79,7 +79,7 @@
 
 				setTimeout(function() {
 					var html = template('ul-li-template', {
-						list: warnDZMarkersData
+						list: warnjcMarkersData
 					});
 					document.getElementById("ullist").innerHTML = html;
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
@@ -113,9 +113,9 @@
 
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-					var content = template(warnDZMarkersData);
+//					var content = template(warnDZMarkersData);
 					var html = template('ul-li-template', {
-						list: warnDZMarkersData
+						list: warnjcMarkersData
 					});
 					document.getElementById("ullist").innerHTML = document.getElementById("ullist").innerHTML + html;
 				}, 1000);
