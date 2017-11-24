@@ -208,7 +208,11 @@
 					"pages/chartdetail.html",
 					"pages/dzd/dzdxq.html",
 					"pages/jcsb/bmwyjc.html",
-					"pages/dzd/dzdsbyjxx.html"
+					"pages/dzd/dzdsbyjxx.html",
+					"pages/jcsb/lfjc.html",
+					"pages/jcsb/yljc.html",
+					"pages/common/search.html",
+					"pages/jcsb/trhsljc.html"
 				],
 				"priority": 0
 			},
@@ -259,7 +263,7 @@
 			"pages/dzd/dzdsbyjxx.html": {
 				"resources": [],
 				"refer": [
-					"pages/jcsb/lfjc.html"
+					"pages/dzd/dzdxq.html"
 				],
 				"priority": 0
 			}

@@ -57,11 +57,7 @@
 	},
 	"pages/dzd/dzdsbyjxx.html": {
 		"refer": [
-<<<<<<< Updated upstream
 			"pages/dzd/dzdxq.html"
-=======
-			"pages/jcsb/lfjc.html"
->>>>>>> Stashed changes
 		]
 	}
 }
