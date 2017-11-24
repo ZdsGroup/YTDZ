@@ -18,7 +18,9 @@
 			"pages/jcsb/bmwyjc.html",
 			"pages/dzd/dzdsbyjxx.html",
 			"pages/jcsb/lfjc.html",
-			"pages/jcsb/yljc.html"
+			"pages/jcsb/yljc.html",
+			"pages/common/search.html",
+			"pages/jcsb/trhsljc.html"
 		]
 	},
 	"pages/map.html": {
@@ -51,6 +53,11 @@
 	"pages/search.html": {
 		"refer": [
 			"pages/search.html"
+		]
+	},
+	"pages/dzd/dzdsbyjxx.html": {
+		"refer": [
+			"pages/dzd/dzdxq.html"
 		]
 	}
 }

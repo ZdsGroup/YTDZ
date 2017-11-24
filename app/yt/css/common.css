@@ -18,21 +18,21 @@ body {
 	-webkit-text-size-adjust: none;
 }
 
-.mui-bar {
+/*.mui-bar {
 	background-color: rgba(52, 152, 219, 1.0);
-}
+}*/
 
 .mui-bar-nav {
 	z-index: 998 !important;
 }
 
-.mui-icon {
+/*.mui-icon {
 	color: rgba(255, 255, 255, 1);
-}
+}*/
 
-.mui-title {
+/*.mui-title {
 	color: rgba(255, 255, 255, 1);
-}
+}*/
 
 .mui-table-view {
 	margin-top: 0px !important;

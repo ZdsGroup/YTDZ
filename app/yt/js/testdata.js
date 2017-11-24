@@ -122,7 +122,7 @@ var warnjcMarkersData = [{
 	{
 		id: '2',
 		name: '监测设备2',
-		type: 'trhsljc',
+		type: 'bmwyjc',
 		x: '39.966363',
 		y: '116.391456',
 		le: 'orange',
