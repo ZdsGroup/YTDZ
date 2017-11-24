@@ -16,7 +16,11 @@
 			"pages/chartdetail.html",
 			"pages/dzd/dzdxq.html",
 			"pages/jcsb/bmwyjc.html",
-			"pages/dzd/dzdsbyjxx.html"
+			"pages/dzd/dzdsbyjxx.html",
+			"pages/jcsb/lfjc.html",
+			"pages/jcsb/yljc.html",
+			"pages/common/search.html",
+			"pages/jcsb/trhsljc.html"
 		]
 	},
 	"pages/map.html": {
@@ -53,7 +57,11 @@
 	},
 	"pages/dzd/dzdsbyjxx.html": {
 		"refer": [
+<<<<<<< Updated upstream
+			"pages/dzd/dzdxq.html"
+=======
 			"pages/jcsb/lfjc.html"
+>>>>>>> Stashed changes
 		]
 	}
 }
