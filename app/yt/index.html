@@ -91,12 +91,12 @@
 			function showWarnInfoOnMap(){
 				var warnInfo = queryWarnInfo();
 				if (warnInfo != '') {
-					var obj = mui('#warn-info')[0]
+					var obj = mui('#warn-info')[0];
 					obj.innerHTML = warnInfo;
 				}
 				setTimeout(function (){
-								var obj = mui('.warn-info-container')[0];
-								obj.style.display = 'none';
+						var obj = mui('.warn-info-container')[0];
+						obj.style.display = 'none';
 				},10000);
 			}
 			
