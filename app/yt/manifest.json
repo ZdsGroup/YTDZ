@@ -255,6 +255,13 @@
 					"pages/search.html"
 				],
 				"priority": 0
+			},
+			"pages/dzd/dzdsbyjxx.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/lfjc.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

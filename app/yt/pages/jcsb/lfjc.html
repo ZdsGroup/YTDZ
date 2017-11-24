@@ -5,19 +5,22 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/yt.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
 	</head>
 
 	<body>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			.mui-bar-tab {
 				top: 45px !important;
 				display: table;
 				width: 100%;
-				height: 60px;
+				height: 50px;
 				padding: 0;
 				table-layout: fixed;
 				border-top: 0;
@@ -91,6 +94,30 @@
 			.table tr.alter {
 				background-color: #f5fafe;
 			}
+			
+			.ytdatepick {
+				padding: 10px;
+			}
+			
+			.ytdevscrollparent {
+				position: relative;
+				width: 100% !important;
+				min-height: calc(100vh - 340px);
+			}
+			
+			.chart {
+				min-height: 300px;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.mui-navigate-right {
+				color: #000000 !important;
+			}
+			
+			.mui-control-item {
+				line-height: inherit !important;
+			}
 		</style>
 		<script type="text/javascript">
 			mui.init();
@@ -144,12 +171,12 @@
 													<ul class="mui-table-view mui-grid-view">
 														<li class="mui-table-view-cell mui-media mui-col-xs-6">
 															<a href="#">
-																<img class="mui-media-object" src="../photos/1.png">
+																<img class="mui-media-object" src="../../photos/1.png">
 															</a>
 														</li>
 														<li class="mui-table-view-cell mui-media mui-col-xs-6">
 															<a href="#">
-																<img class="mui-media-object" src="../photos/2.png">
+																<img class="mui-media-object" src="../../photos/2.png">
 															</a>
 														</li>
 													</ul>
@@ -202,98 +229,573 @@
 										</div>
 										<div class="mui-slider-group">
 											<div id="devsubitem1mobile" class="mui-slider-item mui-control-content mui-active">
-												<table id="tablevalue" class="table">
-													<tr>
-														<th>序号</th>
-														<th>地灾点</th>
-														<th>设备</th>
-														<th>DX(mm)</th>
-														<th>DY(mm)</th>
-														<th>DH(mm)</th>
-														<th>2D(mm)</th>
-													</tr>
-													<tr>
-														<td>1</td>
-														<td>贵溪市石膏矿采空塌陷区地灾点</td>
-														<td>裂缝监测设备1</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-													</tr>
-													<tr>
-														<td>2</td>
-														<td>贵溪市石膏矿采空塌陷区地灾点</td>
-														<td>裂缝监测设备2</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>贵溪市石膏矿采空塌陷区地灾点</td>
-														<td>裂缝监测设备3</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-													</tr>
-													<tr>
-														<td>4</td>
-														<td>贵溪市石膏矿采空塌陷区地灾点</td>
-														<td>裂缝监测设备4</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-														<td>0.00</td>
-													</tr>
-												</table>
+												<div id="multDevChart" class="chart"></div>
+												<form class="mui-input-group">
+													<div class="mui-input-row">
+														<a class="mui-navigate-right">
+															<label>起始时间：</label>
+															<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+														</a>
+													</div>
+													<div class="mui-input-row">
+														<a class="mui-navigate-right">
+															<label>结束时间：</label>
+															<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+														</a>
+													</div>
+												</form>
 											</div>
 											<div id="devsubitem2mobile" class="mui-slider-item mui-control-content">
+												<div id="devChart" class="chart"></div>
+												<form class="mui-input-group">
+													<div class="mui-input-row">
+														<a class="mui-navigate-right">
+															<label>起始时间：</label>
+															<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+														</a>
+													</div>
+													<div class="mui-input-row">
+														<a class="mui-navigate-right">
+															<label>结束时间：</label>
+															<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+														</a>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>
-
 								</div>
 								<div id="subitem3mobile" class="mui-slider-item mui-control-content">
-									subitem3mobile
+									<div class="mui-scroll-wrapper">
+										<div class="mui-scroll">
+											<table id="tablevalue" class="table">
+												<tr>
+													<th>序号</th>
+													<th>通讯状态</th>
+													<th>电池状态</th>
+													<th>运行状态</th>
+													<th>设备频率</th>
+
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>30min/次</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>30min/次</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>30min/次</td>
+												</tr>
+												<tr>
+													<td>4</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>正常</td>
+													<td>30min/次</td>
+												</tr>
+											</table>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
-						<div id="scroll2" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								item2mobile
+						<div id="realProChart" class="chart"></div>
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>时间类型：</label>
+									<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
+								</a>
 							</div>
-						</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>开始时间：</label>
+									<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>结束时间：</label>
+									<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+								</a>
+							</div>
+						</form>
 					</div>
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
-						<div id="scroll3" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								item3mobile
+						<div class="ytdevscrollparent">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<table id="tablevalue" class="table">
+										<tr>
+											<th>序号</th>
+											<th>裂缝长度(mm)</th>
+											<th>时间</th>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>16.7</td>
+											<td>2017/05/06 01:38:19</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>16.5</td>
+											<td>2017/05/07 01:38:19</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>16.6</td>
+											<td>2017/05/08 01:38:19</td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td>16.7</td>
+											<td>2017/05/09 01:38:19</td>
+										</tr>
+										<tr>
+											<td>5</td>
+											<td>16.7</td>
+											<td>2017/05/10 01:38:19</td>
+										</tr>
+										<tr>
+											<td>6</td>
+											<td>16.7</td>
+											<td>2017/05/11 01:38:19</td>
+										</tr>
+										<tr>
+											<td>7</td>
+											<td>16.6</td>
+											<td>2017/05/12 01:38:19</td>
+										</tr>
+										<tr>
+											<td>8</td>
+											<td>16.9</td>
+											<td>2017/05/13 01:38:19</td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>时间类型：</label>
+									<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>开始时间：</label>
+									<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>结束时间：</label>
+									<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+								</a>
+							</div>
+						</form>
 					</div>
 					<div id="item4mobile" class="mui-slider-item mui-control-content">
-						<div id="scroll4" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								item4mobile
+						<div class="ytdevscrollparent">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<table id="tablevalue" class="table">
+										<tr>
+											<th>序号</th>
+											<th>报警等级</th>
+											<th>报警时间</th>
+											<th>报警内容</th>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>5</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>6</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>7</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>8</td>
+											<td>红色</td>
+											<td>2017/05/06 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>时间类型：</label>
+									<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>开始时间：</label>
+									<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>结束时间：</label>
+									<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+								</a>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
 		<script type="text/javascript">
 			(function($) {
-				$('#scroll').scroll({
+				var getOption = function(chartID) {
+					var chartOption = null;
+					var chartType = 'line';
+					if(chartID == "multDevChart") {
+						chartOption = {
+							legend: {
+								data: ['设备1', '设备2', '设备3', '设备4']
+							},
+							grid: {
+								x: 35,
+								x2: 10,
+								y: 30,
+								y2: 25
+							},
+							toolbox: {
+								show: false,
+								feature: {
+									mark: {
+										show: true
+									},
+									dataView: {
+										show: true,
+										readOnly: false
+									},
+									magicType: {
+										show: true,
+										type: ['line', 'bar']
+									},
+									restore: {
+										show: true
+									},
+									saveAsImage: {
+										show: true
+									}
+								}
+							},
+							calculable: false,
+							xAxis: [{
+								type: 'category',
+								data: ['DX', 'DY', 'DH', '2D']
+							}],
+							yAxis: [{
+								type: 'value',
+								splitArea: {
+									show: true
+								},
+								name: '距离(mm)'
+							}],
+							series: [{
+								name: '设备1',
+								type: chartType,
+								smooth: true,
+								data: [1, 2, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '设备2',
+								type: chartType,
+								smooth: true,
+								data: [1, 1, 2, 1],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '设备3',
+								type: chartType,
+								smooth: true,
+								data: [0, 2, 1, 3],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '设备4',
+								type: chartType,
+								smooth: true,
+								data: [2, 1, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, ]
+						};
+					} else if(chartID == 'devChart') {
+						chartOption = {
+							legend: {
+								data: ['2014', '2015', '2016', '2017']
+							},
+							grid: {
+								x: 35,
+								x2: 10,
+								y: 30,
+								y2: 25
+							},
+							toolbox: {
+								show: false,
+								feature: {
+									mark: {
+										show: true
+									},
+									dataView: {
+										show: true,
+										readOnly: false
+									},
+									magicType: {
+										show: true,
+										type: ['line', 'bar']
+									},
+									restore: {
+										show: true
+									},
+									saveAsImage: {
+										show: true
+									}
+								}
+							},
+							calculable: false,
+							xAxis: [{
+								type: 'category',
+								data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+							}],
+							yAxis: [{
+								type: 'value',
+								splitArea: {
+									show: true
+								},
+								name: '距离(mm)'
+							}],
+							series: [{
+								name: '2014',
+								type: chartType,
+								smooth: true,
+								data: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '2015',
+								type: chartType,
+								smooth: true,
+								data: [3, 4, 5, 2, 4, 2, 3, 2, 2, 2, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '2016',
+								type: chartType,
+								smooth: true,
+								data: [3, 6, 7, 8, 4, 2, 3, 2, 2, 2, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '设备4',
+								type: chartType,
+								smooth: true,
+								data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}]
+						};
+					} else if(chartID == 'realProChart') {
+						chartOption = {
+							legend: {
+								data: ['监测数据1', '监测数据2']
+							},
+							grid: {
+								x: 35,
+								x2: 10,
+								y: 30,
+								y2: 25
+							},
+							toolbox: {
+								show: false,
+								feature: {
+									mark: {
+										show: true
+									},
+									dataView: {
+										show: true,
+										readOnly: false
+									},
+									magicType: {
+										show: true,
+										type: ['line', 'bar']
+									},
+									restore: {
+										show: true
+									},
+									saveAsImage: {
+										show: true
+									}
+								}
+							},
+							calculable: false,
+							xAxis: [{
+								type: 'category',
+								data: ['2017-10-1', '2017-10-5', '2017-10-10', '2017-10-15', '2017-10-20', '2017-10-25', '2017-10-30', '2017-11-5', '2017-11-10', '2017-11-15', '2017-11-20', '2017-11-25']
+							}],
+							yAxis: [{
+								type: 'value',
+								splitArea: {
+									show: true
+								},
+								name: '距离(mm)'
+							}],
+							series: [{
+								name: '监测数据1',
+								type: chartType,
+								data: [5, 4, 6, 7, 6, 5, 6, 5, 7, 6, 4, 6],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}, {
+								name: '监测数据2',
+								smooth: true,
+								type: chartType,
+								data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
+								itemStyle: {
+									normal: {
+										label: {
+											show: true
+										}
+									}
+								}
+							}]
+						};
+					}
+					return chartOption;
+				};
+				var byId = function(id) {
+					return document.getElementById(id);
+				};
+				var lineChart = echarts.init(byId('multDevChart'));
+				lineChart.setOption(getOption('multDevChart'));
+
+				lineChart = echarts.init(byId('devChart'));
+				lineChart.setOption(getOption('devChart'));
+
+				lineChart = echarts.init(byId('realProChart'));
+				lineChart.setOption(getOption('realProChart'));
+
+				$('.mui-scroll-wrapper').scroll({
 					indicators: true //是否显示滚动条
 				});
-				mui('.mui-scroll-wrapper').scroll({
+				$('.mui-scroll-wrapper').scroll({
 					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 				});
+
+				　　　　
+				$('.mui-input-group').on('tap', '.ytdatepick', function() {　
+					var dt = this;　　　　　　　
+					var optionsJson = dt.getAttribute('data-options') || '{}';　　　　　　　　
+					var options = JSON.parse(optionsJson);　　　　　　　　
+					var picker = new mui.DtPicker(options);　　　　　　　　
+					picker.show(function(rs) {　　　　　　　　　　
+						dt.innerText = rs.text;　　　　　　　　　　
+						picker.dispose();　　　　　　　　
+					});
+				}, false);
 			})(mui);
 		</script>
 	</body>

@@ -50,5 +50,10 @@
 		"refer": [
 			"pages/search.html"
 		]
+	},
+	"pages/dzd/dzdsbyjxx.html": {
+		"refer": [
+			"pages/jcsb/lfjc.html"
+		]
 	}
 }
