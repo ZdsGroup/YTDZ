@@ -40,18 +40,26 @@
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
 		<script>
-			mui.init({
-				pullRefresh: {
-					container: '#pullrefresh',
-					down: {
-						callback: pulldownRefresh //下拉，获取更多数据
-					},
-					up: {
-						contentrefresh: '正在加载...',
-						callback: pullupRefresh //上拉， 刷新最新数据
+			(function($) {
+				$.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						down: {
+							callback: pulldownRefresh //下拉，获取更多数据
+						},
+						up: {
+							contentrefresh: '正在加载...',
+							callback: pullupRefresh //上拉， 刷新最新数据
+						}
 					}
-				}
-			});
+				})
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+				$('.mui-scroll-wrapper').scroll({
+					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				});
+			})(mui);;
 			/**
 			 * 下拉刷新具体业务实现
 			 */
