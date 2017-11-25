@@ -5,19 +5,377 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
+		<style type="text/css">
+			.off-title {
+				margin: 15px 10px 10px;
+				font-size: 18px;
+				font-weight: bold;
+			}
+			
+			.mui-scroll-wrapper {
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.mui-card {
+				margin-left: 5px;
+				margin-right: 5px;
+			}
+			
+			.table {
+				border: 1px solid #cad9ea;
+				color: #666;
+				height: 100%;
+				width: 100%;
+			}
+			
+			.table th {
+				background-repeat: repeat-x;
+				height: 30px;
+				/*background-color: rgba(189, 195, 199,1.0);
+				color: rgba(255, 255, 255, 1.0);*/
+			}
+			
+			.table td,
+			.table th {
+				border: 1px solid #cad9ea;
+				padding: 0 1em 0;
+				height: 25px;
+			}
+			
+			.table .colmkey {
+				width: 40%;
+			}
+			
+			.table tr.alter {
+				background-color: #f5fafe;
+			}
+			
+			.ytdatepick {
+				padding: 10px;
+			}
+			
+			.chart-container {
+				width: 100%;
+				height: 260px;
+				overflow: hidden;
+				margin: 0;
+				position: relative;
+				border: hidden;
+			}
+		</style>
 	</head>
 
 	<body>
-		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+			<aside class="mui-off-canvas-right" id="offCanvasSide">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="off-title">设备详情导航</div>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" value="0">设备项目详情</li>
+							<li class="mui-table-view-cell" value="1">设备对比</li>
+							<li class="mui-table-view-cell" value="2">设备状态</li>
+							<li class="mui-table-view-cell" value="3">位移变化图</li>
+							<li class="mui-table-view-cell" value="4">断面曲线图</li>
+							<li class="mui-table-view-cell" value="5">速度</li>
+							<li class="mui-table-view-cell" value="6">加速度</li>
+							<li class="mui-table-view-cell" value="7">散点图</li>
+							<li class="mui-table-view-cell" value="8">平面矢量图</li>
+							<li class="mui-table-view-cell" value="9">数据列表</li>
+							<li class="mui-table-view-cell" value="10">报警查询</li>
+						</ul>
+					</div>
+				</div>
+			</aside>
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide"></a>
+					<h1 class="mui-title">表面位移监测设备详情</h1>
+				</header>
+
+				<div class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-control-content mui-active">
+							<div class="mui-card">
+								<div class="mui-card-header">施工安装示意图</div>
+								<div class="mui-card-content">
+									<div class="mui-slider" style="height: 200px;">
+										<div class="mui-slider-group mui-slider-loop">
+											<div class="mui-slider-item mui-slider-item-duplicate">
+												<a href="#">
+													<img src="../../photos/bmwy-2.jpg">
+												</a>
+											</div>
+											<div class="mui-slider-item">
+												<a href="#">
+													<img src="../../photos/bmwy-1.jpg">
+												</a>
+											</div>
+											<div class="mui-slider-item">
+												<a href="#">
+													<img src="../../photos/bmwy-2.jpg">
+												</a>
+											</div>
+											<div class="mui-slider-item mui-slider-item-duplicate">
+												<a href="#">
+													<img src="../../photos/bmwy-1.jpg">
+												</a>
+											</div>
+										</div>
+										<div class="mui-slider-indicator">
+											<div class="mui-indicator mui-active"></div>
+											<div class="mui-indicator"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mui-card">
+								<div class="mui-card-header">维护信息</div>
+								<div class="mui-card-content">
+									<table class="table">
+										<tr>
+											<td class="colmkey">负责人:</td>
+											<td>张三</td>
+										</tr>
+										<tr>
+											<td>联系电话:</td>
+											<td>18099000001</td>
+										</tr>
+										<tr>
+											<td>维护周期:</td>
+											<td>30min/次</td>
+										</tr>
+										<tr>
+											<td>上次维护时间:</td>
+											<td>5分钟前最后一次上传数据</td>
+										</tr>
+										<tr>
+											<td>安装时间:</td>
+											<td>2017/03/13 09:45:18</td>
+										</tr>
+										<tr>
+											<td>安装地点:</td>
+											<td>贵溪市石膏矿</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">同类设备对比</div>
+								<div class="mui-card-content">
+									<div id="device-type-compare" class="chart-container">
+
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>起始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="mui-card">
+								<div class="mui-card-header">单一设备多年对比</div>
+								<div class="mui-card-content">
+									<div id="device-date-compare" class="chart-container">
+
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>起始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							<table id="tablevalue" class="table">
+								<tr>
+									<th>序号</th>
+									<th>通讯状态</th>
+									<th>电池状态</th>
+									<th>运行状态</th>
+									<th>设备频率</th>
+
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>30min/次</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>30min/次</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>30min/次</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>正常</td>
+									<td>30min/次</td>
+								</tr>
+							</table>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card-header">位移变化图</div>
+							<div class="mui-card-content">
+								<div id="device-offset-monitor" class="chart-container">
+
+								</div>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card-header">断面曲线图</div>
+							<div class="mui-card-content">
+								<div id="device-section-curve" class="chart-container">
+
+								</div>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card-header">速度图</div>
+							<div class="mui-card-content">
+								<div id="device-speed-compare" class="chart-container">
+
+								</div>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							6
+						</div>
+						<div class="mui-control-content">
+							7
+						</div>
+						<div class="mui-control-content">
+							8
+						</div>
+						<div class="mui-control-content">
+							9
+						</div>
+						<div class="mui-control-content">
+							10
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-off-canvas-backdrop"></div>
+		</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/pages/bmwyjc.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init({
+				swipeBack: false //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
+
+			var initApp = function() {
+				this.initEvent();
+				this.initChart();
+			};
+			mui.ready(initApp);
 		</script>
-		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">表面位移监测设备</h1>
-		</header>
 	</body>
 
 </html>
