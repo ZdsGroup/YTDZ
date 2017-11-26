@@ -5,58 +5,23 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
-	</head>
-
-	<body>
-		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
-			.mui-bar-tab {
-				top: 45px !important;
-				display: table;
-				width: 100%;
-				height: 50px;
-				padding: 0;
-				table-layout: fixed;
-				border-top: 0;
-				border-bottom: 0;
-				-webkit-touch-callout: none;
+			.mui-off-canvas-right {
+				width: 50%;
 			}
 			
-			.mui-control-content {
-				background-color: white;
+			.off-title {
+				margin: 15px 10px 10px;
+				font-size: 18px;
+				font-weight: bold;
 			}
 			
-			.mui-control-content .mui-loading {
-				margin-top: 50px;
-			}
-			
-			.mui-content {
+			.mui-scroll-wrapper {
 				background-color: rgba(255, 255, 255, 1);
-			}
-			
-			.mui-tab-item {
-				background-color: rgba(255, 255, 255, 1);
-			}
-			
-			.mui-tab-label {
-				padding-top: 5px !important;
-				font-size: 14px !important;
-			}
-			
-			a.mui-active {
-				background-color: rgba(52, 152, 219, 1.0) !important;
-				color: #FFFFFF !important;
-			}
-			
-			.mui-control-content {
-				background-color: white;
-				min-height: 100vh;
 			}
 			
 			.mui-card {
@@ -74,6 +39,8 @@
 			.table th {
 				background-repeat: repeat-x;
 				height: 30px;
+				/*background-color: rgba(189, 195, 199,1.0);
+				color: rgba(255, 255, 255, 1.0);*/
 			}
 			
 			.table td,
@@ -95,704 +62,406 @@
 				padding: 10px;
 			}
 			
+			.chart-container {
+				width: 100vw;
+				height: 260px;
+				overflow: hidden;
+				margin: 0;
+				position: relative;
+				border: hidden;
+			}
+			
 			.ytdevscrollparent {
 				position: relative;
 				width: 100% !important;
-				min-height: calc(100vh - 340px);
-			}
-			
-			.chart {
-				min-height: 300px;
-				margin: 0px;
-				padding: 0px;
-			}
-			
-			.mui-navigate-right {
-				color: #000000 !important;
-			}
-			
-			.mui-control-item {
-				line-height: inherit !important;
 			}
 		</style>
-		<script type="text/javascript">
-			mui.init();
-		</script>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">裂缝监测设备</h1>
-		</header>
-		<div class="mui-content">
-			<div id="slider" class="mui-slider">
-				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item mui-active" href="#item1mobile">
-						<span class="yttabfont yt-bmwy"></span>
-						<span class="mui-tab-label">设备详情</span>
-					</a>
-					<a class="mui-control-item" href="#item2mobile">
-						<span class="yttabfont yt-bmwy"></span>
-						<span class="mui-tab-label">变化过程线</span>
-					</a>
-					<a class="mui-control-item" href="#item3mobile">
-						<span class="yttabfont yt-bmwy"></span>
-						<span class="mui-tab-label">数据列表</span>
-					</a>
-					<a class="mui-control-item" href="#item4mobile">
-						<span class="yttabfont yt-bmwy"></span>
-						<span class="mui-tab-label">报警查询</span>
-					</a>
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+			<aside class="mui-off-canvas-right" id="offCanvasSide">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="off-title">设备详情导航</div>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" value="0">设备详情</li>
+							<li class="mui-table-view-cell" value="1">同类设备对比</li>
+							<li class="mui-table-view-cell" value="2">设备多年对比</li>
+							<li class="mui-table-view-cell" value="3">设备状态</li>
+							<li class="mui-table-view-cell" value="4">变化过程线</li>
+							<li class="mui-table-view-cell" value="5">数据列表</li>
+							<li class="mui-table-view-cell" value="6">报警查询</li>
+						</ul>
+					</div>
 				</div>
-				<div class="mui-slider-group">
-					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
-						<div id="slider" class="mui-slider">
-							<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-								<a class="mui-control-item mui-active" href="#subitem1mobile">
-									<span class="mui-tab-label">项目详情</span>
-								</a>
-								<a class="mui-control-item" href="#subitem2mobile">
-									<span class="mui-tab-label">设备对比</span>
-								</a>
-								<a class="mui-control-item" href="#subitem3mobile">
-									<span class="mui-tab-label">设备状态</span>
-								</a>
+			</aside>
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide"></a>
+					<h1 class="mui-title">裂缝监测设备</h1>
+				</header>
+
+				<div class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-control-content mui-active">
+							<div class="mui-card">
+								<div class="mui-card-header">施工安装示意图</div>
+								<div class="mui-card-content">
+									<div id="slider-pictures" class="mui-slider" style="height: 200px;">
+										<div class="mui-slider-group mui-slider-loop">
+											<div class="mui-slider-item mui-slider-item-duplicate">
+												<a href="#">
+													<img src="../../photos/bmwy-2.jpg">
+												</a>
+											</div>
+											<div class="mui-slider-item">
+												<a href="#">
+													<img src="../../photos/bmwy-1.jpg">
+												</a>
+											</div>
+											<div class="mui-slider-item">
+												<a href="#">
+													<img src="../../photos/bmwy-2.jpg">
+												</a>
+											</div>
+											<div class="mui-slider-item mui-slider-item-duplicate">
+												<a href="#">
+													<img src="../../photos/bmwy-1.jpg">
+												</a>
+											</div>
+										</div>
+										<div class="mui-slider-indicator">
+											<div class="mui-indicator mui-active"></div>
+											<div class="mui-indicator"></div>
+										</div>
+									</div>
+								</div>
 							</div>
-
-							<div class="mui-slider-group">
-								<div id="subitem1mobile" class="mui-slider-item mui-control-content mui-active">
-									<div class="mui-scroll-wrapper">
+							<div class="mui-card">
+								<div class="mui-card-header">维护信息</div>
+								<div class="mui-card-content">
+									<div id="sc1" class="mui-scroll-wrapper" style="min-height: calc(100vh - 250px);position: relative;">
 										<div class="mui-scroll">
-											<div class="mui-card">
-												<div class="mui-card-header">施工安装示意图</div>
-												<div class="mui-card-content">
-													<ul class="mui-table-view mui-grid-view">
-														<li class="mui-table-view-cell mui-media mui-col-xs-6">
-															<a href="#">
-																<img class="mui-media-object" src="../../photos/1.png">
-															</a>
-														</li>
-														<li class="mui-table-view-cell mui-media mui-col-xs-6">
-															<a href="#">
-																<img class="mui-media-object" src="../../photos/2.png">
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-											<div class="mui-card">
-												<div class="mui-card-header">维护信息</div>
-												<div class="mui-card-content">
-													<table id="tablevalue" class="table">
-														<tr>
-															<td class="colmkey">负责人:</td>
-															<td>丁一一</td>
-														</tr>
-														<tr>
-															<td>联系电话:</td>
-															<td>18532149807</td>
-														</tr>
-														<tr>
-															<td>维护周期:</td>
-															<td>30min/次</td>
-														</tr>
-														<tr>
-															<td>上次维护时间:</td>
-															<td>5分钟前最后一次上传数据</td>
-														</tr>
-														<tr>
-															<td>安装时间:</td>
-															<td>2017-03-09 12:21:54</td>
-														</tr>
-														<tr>
-															<td>安装地点:</td>
-															<td>贵溪市石膏矿</td>
-														</tr>
-
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="subitem2mobile" class="mui-slider-item mui-control-content">
-									<div class="mui-slider">
-										<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="width: 80%;margin: 10px auto;">
-											<a class="mui-control-item mui-active" href="#devsubitem1mobile">
-												<span class="mui-tab-label">同类型设备对比</span>
-											</a>
-											<a class="mui-control-item" href="#devsubitem2mobile">
-												<span class="mui-tab-label">同类型设备对比</span>
-											</a>
-										</div>
-										<div class="mui-slider-group">
-											<div id="devsubitem1mobile" class="mui-slider-item mui-control-content mui-active">
-												<div id="multDevChart" class="chart"></div>
-												<form class="mui-input-group">
-													<div class="mui-input-row">
-														<a class="mui-navigate-right">
-															<label>起始时间：</label>
-															<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-														</a>
-													</div>
-													<div class="mui-input-row">
-														<a class="mui-navigate-right">
-															<label>结束时间：</label>
-															<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-														</a>
-													</div>
-												</form>
-											</div>
-											<div id="devsubitem2mobile" class="mui-slider-item mui-control-content">
-												<div id="devChart" class="chart"></div>
-												<form class="mui-input-group">
-													<div class="mui-input-row">
-														<a class="mui-navigate-right">
-															<label>起始时间：</label>
-															<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-														</a>
-													</div>
-													<div class="mui-input-row">
-														<a class="mui-navigate-right">
-															<label>结束时间：</label>
-															<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-														</a>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="subitem3mobile" class="mui-slider-item mui-control-content">
-									<div class="mui-scroll-wrapper">
-										<div class="mui-scroll">
-											<table id="tablevalue" class="table">
-												<tr>
-													<th>序号</th>
-													<th>通讯状态</th>
-													<th>电池状态</th>
-													<th>运行状态</th>
-													<th>设备频率</th>
-
-												</tr>
-												<tr>
-													<td>1</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>30min/次</td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>30min/次</td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>30min/次</td>
-												</tr>
-												<tr>
-													<td>4</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>正常</td>
-													<td>30min/次</td>
-												</tr>
-											</table>
+											<ul class="mui-table-view">
+												<li class="mui-table-view-cell">负责人：丁一一</li>
+												<li class="mui-table-view-cell">联系电话：18532149807</li>
+												<li class="mui-table-view-cell">维护周期：30min/次</li>
+												<li class="mui-table-view-cell">上次维护时间：5分钟前最后一次上传数据</li>
+												<li class="mui-table-view-cell">安装时间：2017-03-09 12:21:54</li>
+												<li class="mui-table-view-cell">安装地点：贵溪市石膏矿</li>
+											</ul>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div id="item2mobile" class="mui-slider-item mui-control-content">
-						<div id="realProChart" class="chart"></div>
-						<form class="mui-input-group">
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>时间类型：</label>
-									<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
-								</a>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">同类设备对比</div>
+								<div class="mui-card-content">
+									<div id="device-type-compare" class="chart-container">
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>起始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
 							</div>
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>开始时间：</label>
-									<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-								</a>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">当前设备多年对比</div>
+								<div class="mui-card-content">
+									<div id="device-date-compare" class="chart-container">
+
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>起始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
 							</div>
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>结束时间：</label>
-									<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-								</a>
-							</div>
-						</form>
-					</div>
-					<div id="item3mobile" class="mui-slider-item mui-control-content">
-						<div class="ytdevscrollparent">
-							<div class="mui-scroll-wrapper">
-								<div class="mui-scroll">
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">设备状态</div>
+								<div class="mui-card-content">
 									<table id="tablevalue" class="table">
 										<tr>
 											<th>序号</th>
-											<th>裂缝长度(mm)</th>
-											<th>时间</th>
+											<th>通讯状态</th>
+											<th>电池状态</th>
+											<th>运行状态</th>
+											<th>设备频率</th>
 										</tr>
 										<tr>
 											<td>1</td>
-											<td>16.7</td>
-											<td>2017/05/06 01:38:19</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
 										</tr>
 										<tr>
 											<td>2</td>
-											<td>16.5</td>
-											<td>2017/05/07 01:38:19</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
 										</tr>
 										<tr>
 											<td>3</td>
-											<td>16.6</td>
-											<td>2017/05/08 01:38:19</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
 										</tr>
 										<tr>
 											<td>4</td>
-											<td>16.7</td>
-											<td>2017/05/09 01:38:19</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>16.7</td>
-											<td>2017/05/10 01:38:19</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>16.7</td>
-											<td>2017/05/11 01:38:19</td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td>16.6</td>
-											<td>2017/05/12 01:38:19</td>
-										</tr>
-										<tr>
-											<td>8</td>
-											<td>16.9</td>
-											<td>2017/05/13 01:38:19</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
 										</tr>
 									</table>
 								</div>
 							</div>
 						</div>
-						<form class="mui-input-group">
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>时间类型：</label>
-									<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
-								</a>
-							</div>
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>开始时间：</label>
-									<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-								</a>
-							</div>
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>结束时间：</label>
-									<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-								</a>
-							</div>
-						</form>
-					</div>
-					<div id="item4mobile" class="mui-slider-item mui-control-content">
-						<div class="ytdevscrollparent">
-							<div class="mui-scroll-wrapper">
-								<div class="mui-scroll">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>报警等级</th>
-											<th>报警时间</th>
-											<th>报警内容</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>8</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-									</table>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">变化过程线</div>
+								<div class="mui-card-content">
+									<div id="device-offset-monitor" class="chart-container">
+
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
-						<form class="mui-input-group">
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>时间类型：</label>
-									<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
-								</a>
+						<div class="mui-control-content">
+							<div class="ytdevscrollparent"  style="min-height: calc(100vh - 200px);">
+								<div class="mui-scroll-wrapper">
+									<div class="mui-scroll">
+										<table id="tablevalue" class="table">
+											<tr>
+												<th>序号</th>
+												<th>裂缝长度(mm)</th>
+												<th>时间</th>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>16.7</td>
+												<td>2017/05/06 01:38:19</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>16.5</td>
+												<td>2017/05/07 01:38:19</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>16.6</td>
+												<td>2017/05/08 01:38:19</td>
+											</tr>
+											<tr>
+												<td>4</td>
+												<td>16.7</td>
+												<td>2017/05/09 01:38:19</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>16.7</td>
+												<td>2017/05/10 01:38:19</td>
+											</tr>
+											<tr>
+												<td>6</td>
+												<td>16.7</td>
+												<td>2017/05/11 01:38:19</td>
+											</tr>
+											<tr>
+												<td>7</td>
+												<td>16.6</td>
+												<td>2017/05/12 01:38:19</td>
+											</tr>
+											<tr>
+												<td>8</td>
+												<td>16.9</td>
+												<td>2017/05/13 01:38:19</td>
+											</tr>
+										</table>
+									</div>
+								</div>
 							</div>
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>开始时间：</label>
-									<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-								</a>
+							<form class="mui-input-group">
+								<div class="mui-input-row">
+									<a class="mui-navigate-right">
+										<label>时间类型：</label>
+										<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
+									</a>
+								</div>
+								<div class="mui-input-row">
+									<a class="mui-navigate-right">
+										<label>开始时间：</label>
+										<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+									</a>
+								</div>
+								<div class="mui-input-row">
+									<a class="mui-navigate-right">
+										<label>结束时间：</label>
+										<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+									</a>
+								</div>
+							</form>
+						</div>
+						<div class="mui-control-content">
+							<div class="ytdevscrollparent" style="min-height: calc(100vh - 200px);">
+								<div class="mui-scroll-wrapper">
+									<div class="mui-scroll">
+										<table id="tablevalue" class="table">
+											<tr>
+												<th>序号</th>
+												<th>报警等级</th>
+												<th>报警时间</th>
+												<th>报警内容</th>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>红色</td>
+												<td>2017/05/06 01:40:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>红色</td>
+												<td>2017/05/07 10:32:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>红色</td>
+												<td>2017/05/08 13:28:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>4</td>
+												<td>红色</td>
+												<td>2017/05/09 09:30:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>红色</td>
+												<td>2017/05/10 14:08:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>6</td>
+												<td>红色</td>
+												<td>2017/05/11 01:38:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>7</td>
+												<td>红色</td>
+												<td>2017/05/12 13:34:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+											<tr>
+												<td>8</td>
+												<td>红色</td>
+												<td>2017/05/13 11:08:19</td>
+												<td>发生无数据故障报警</td>
+											</tr>
+										</table>
+									</div>
+								</div>
 							</div>
-							<div class="mui-input-row">
-								<a class="mui-navigate-right">
-									<label>结束时间：</label>
-									<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-								</a>
-							</div>
-						</form>
+							<form class="mui-input-group">
+								<div class="mui-input-row">
+									<a class="mui-navigate-right">
+										<label>时间类型：</label>
+										<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
+									</a>
+								</div>
+								<div class="mui-input-row">
+									<a class="mui-navigate-right">
+										<label>开始时间：</label>
+										<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+									</a>
+								</div>
+								<div class="mui-input-row">
+									<a class="mui-navigate-right">
+										<label>结束时间：</label>
+										<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+									</a>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="mui-off-canvas-backdrop"></div>
 		</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/pages/lfjc.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			(function($) {
-				var getOption = function(chartID) {
-					var chartOption = null;
-					var chartType = 'line';
-					if(chartID == "multDevChart") {
-						chartOption = {
-							legend: {
-								data: ['设备1', '设备2', '设备3', '设备4']
-							},
-							grid: {
-								x: 35,
-								x2: 10,
-								y: 30,
-								y2: 25
-							},
-							toolbox: {
-								show: false,
-								feature: {
-									mark: {
-										show: true
-									},
-									dataView: {
-										show: true,
-										readOnly: false
-									},
-									magicType: {
-										show: true,
-										type: ['line', 'bar']
-									},
-									restore: {
-										show: true
-									},
-									saveAsImage: {
-										show: true
-									}
-								}
-							},
-							calculable: false,
-							xAxis: [{
-								type: 'category',
-								data: ['DX', 'DY', 'DH', '2D']
-							}],
-							yAxis: [{
-								type: 'value',
-								splitArea: {
-									show: true
-								},
-								name: '距离(mm)'
-							}],
-							series: [{
-								name: '设备1',
-								type: chartType,
-								smooth: true,
-								data: [1, 2, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '设备2',
-								type: chartType,
-								smooth: true,
-								data: [1, 1, 2, 1],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '设备3',
-								type: chartType,
-								smooth: true,
-								data: [0, 2, 1, 3],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '设备4',
-								type: chartType,
-								smooth: true,
-								data: [2, 1, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, ]
-						};
-					} else if(chartID == 'devChart') {
-						chartOption = {
-							legend: {
-								data: ['2014', '2015', '2016', '2017']
-							},
-							grid: {
-								x: 35,
-								x2: 10,
-								y: 30,
-								y2: 25
-							},
-							toolbox: {
-								show: false,
-								feature: {
-									mark: {
-										show: true
-									},
-									dataView: {
-										show: true,
-										readOnly: false
-									},
-									magicType: {
-										show: true,
-										type: ['line', 'bar']
-									},
-									restore: {
-										show: true
-									},
-									saveAsImage: {
-										show: true
-									}
-								}
-							},
-							calculable: false,
-							xAxis: [{
-								type: 'category',
-								data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-							}],
-							yAxis: [{
-								type: 'value',
-								splitArea: {
-									show: true
-								},
-								name: '距离(mm)'
-							}],
-							series: [{
-								name: '2014',
-								type: chartType,
-								smooth: true,
-								data: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '2015',
-								type: chartType,
-								smooth: true,
-								data: [3, 4, 5, 2, 4, 2, 3, 2, 2, 2, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '2016',
-								type: chartType,
-								smooth: true,
-								data: [3, 6, 7, 8, 4, 2, 3, 2, 2, 2, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '设备4',
-								type: chartType,
-								smooth: true,
-								data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}]
-						};
-					} else if(chartID == 'realProChart') {
-						chartOption = {
-							legend: {
-								data: ['监测数据1', '监测数据2']
-							},
-							grid: {
-								x: 35,
-								x2: 10,
-								y: 30,
-								y2: 25
-							},
-							toolbox: {
-								show: false,
-								feature: {
-									mark: {
-										show: true
-									},
-									dataView: {
-										show: true,
-										readOnly: false
-									},
-									magicType: {
-										show: true,
-										type: ['line', 'bar']
-									},
-									restore: {
-										show: true
-									},
-									saveAsImage: {
-										show: true
-									}
-								}
-							},
-							calculable: false,
-							xAxis: [{
-								type: 'category',
-								data: ['2017-10-1', '2017-10-5', '2017-10-10', '2017-10-15', '2017-10-20', '2017-10-25', '2017-10-30', '2017-11-5', '2017-11-10', '2017-11-15', '2017-11-20', '2017-11-25']
-							}],
-							yAxis: [{
-								type: 'value',
-								splitArea: {
-									show: true
-								},
-								name: '距离(mm)'
-							}],
-							series: [{
-								name: '监测数据1',
-								type: chartType,
-								data: [5, 4, 6, 7, 6, 5, 6, 5, 7, 6, 4, 6],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}, {
-								name: '监测数据2',
-								smooth: true,
-								type: chartType,
-								data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
-								itemStyle: {
-									normal: {
-										label: {
-											show: true
-										}
-									}
-								}
-							}]
-						};
-					}
-					return chartOption;
-				};
-				var byId = function(id) {
-					return document.getElementById(id);
-				};
-				var lineChart = echarts.init(byId('multDevChart'));
-				lineChart.setOption(getOption('multDevChart'));
+			mui.init({
+				swipeBack: false //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
 
-				lineChart = echarts.init(byId('devChart'));
-				lineChart.setOption(getOption('devChart'));
-
-				lineChart = echarts.init(byId('realProChart'));
-				lineChart.setOption(getOption('realProChart'));
-
-				$('.mui-scroll-wrapper').scroll({
-					indicators: true //是否显示滚动条
-				});
-				$('.mui-scroll-wrapper').scroll({
-					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-				});
-
-				　　　　
-				$('.mui-input-group').on('tap', '.ytdatepick', function() {　
-					var dt = this;　　　　　　　
-					var optionsJson = dt.getAttribute('data-options') || '{}';　　　　　　　　
-					var options = JSON.parse(optionsJson);　　　　　　　　
-					var picker = new mui.DtPicker(options);　　　　　　　　
-					picker.show(function(rs) {　　　　　　　　　　
-						dt.innerText = rs.text;　　　　　　　　　　
-						picker.dispose();　　　　　　　　
-					});
-				}, false);
-			})(mui);
+			var initApp = function() {
+				this.initEvent();
+				this.initChart();
+			};
+			mui.ready(initApp);
 		</script>
 	</body>
 

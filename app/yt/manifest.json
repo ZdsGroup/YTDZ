@@ -270,32 +270,12 @@
 				],
 				"priority": 0
 			},
-			"pages/jcsb/bmwyjc.html": {
-				"resources": [],
-				"refer": [
-					"pages/jcsb/bmwyjc-menus.html"
-				],
-				"priority": 0
-			},
-			"pages/jcsb/bmwyjc-menus.html": {
-				"resources": [],
-				"refer": [
-					"pages/jcsb/test.html"
-				],
-				"priority": 0
-			},
-			"main.html": {
-				"resources": [],
-				"refer": [
-					"side.html"
-				],
-				"priority": 0
-			},
 			"pages/dzd/dzdxq.html": {
 				"resources": [],
 				"refer": [
 					"pages/jcsb/lfjc.html",
-					"pages/jcsb/bmwyjc.html"
+					"pages/jcsb/bmwyjc.html",
+					"pages/jcsb/yljc.html"
 				],
 				"priority": 0
 			}
