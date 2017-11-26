@@ -7,6 +7,13 @@ var offCanvasWrapper = null;
 var initEvent = function() {
 	var me = this;
 
+	//初始化图片轮播
+	var sliderPics = mui("#bmwy-slider-pictures");
+	sliderPics.slider({
+		interval: 5000
+	});
+
+	//初始滚动化容器对象
 	offCanvasWrapper = mui('#offCanvasWrapper');
 
 	//侧滑选择器
@@ -15,13 +22,13 @@ var initEvent = function() {
 		cs[currentPid].classList.remove('mui-active');
 		currentPid = evt.target.value;
 		cs[currentPid].classList.add('mui-active');
-		
+
 		//关闭侧滑面板
 		offCanvasWrapper.offCanvas('close');
 		//刷新统计图
 		me.refreshChart(bmwy_charts['menu_' + currentPid]);
 		//切花菜单项目内容自动置顶
-		mui('#muiscrollid').scroll().scrollTo(0,0);
+		mui('#muiscrollid').scroll().scrollTo(0, 0);
 	});
 
 	//时间选择器
@@ -37,8 +44,8 @@ var initEvent = function() {
 	}, false);
 };
 
+//刷新统计图
 var refreshChart = function(charts) {
-	//刷新统计图
 	if(charts && charts.length > 0) {
 		var cl = charts.length;
 		for(var i = 0; i < cl; i++) {
@@ -270,7 +277,7 @@ var getOption = function(chartID) {
 				containLabel: true
 			},
 			legend: {
-				data: ['监测数据1', '监测数据2']
+				data: ['X走势图', 'Y走势图', 'H走势图']
 			},
 			toolbox: {
 				show: false,
@@ -304,10 +311,10 @@ var getOption = function(chartID) {
 				splitArea: {
 					show: true
 				},
-				name: '距离(mm)'
+				name: '单位(m)'
 			}],
 			series: [{
-				name: '监测数据1',
+				name: 'X走势图',
 				type: chartType,
 				data: [5, 4, 6, 7, 6, 5, 6, 5, 7, 6, 4, 6],
 				itemStyle: {
@@ -318,10 +325,22 @@ var getOption = function(chartID) {
 					}
 				}
 			}, {
-				name: '监测数据2',
+				name: 'Y走势图',
 				smooth: true,
 				type: chartType,
 				data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}
+			}, {
+				name: 'H走势图',
+				smooth: true,
+				type: chartType,
+				data: [8, 9, 4, 1, 2, 3, 6, 2, 4, 7, 9, 4],
 				itemStyle: {
 					normal: {
 						label: {
@@ -408,7 +427,7 @@ var getOption = function(chartID) {
 				}
 			}]
 		};
-	} else if(chartID == "device-speed-compare") {
+	} else if(chartID == "device-speed-chart") {
 		chartOption = {
 			tooltip: {
 				trigger: 'none',
@@ -424,7 +443,7 @@ var getOption = function(chartID) {
 				containLabel: true
 			},
 			legend: {
-				data: ['设备1', '设备2', '设备3', '设备4']
+				data: ['X轴速度', 'Y轴速度', 'H轴速度']
 			},
 			toolbox: {
 				show: false,
@@ -451,17 +470,17 @@ var getOption = function(chartID) {
 			calculable: false,
 			xAxis: [{
 				type: 'category',
-				data: ['DX', 'DY', 'DH', '2D']
+				data: ['2015', '2016', '2017']
 			}],
 			yAxis: [{
 				type: 'value',
 				splitArea: {
 					show: true
 				},
-				name: '速度(mm/y)'
+				name: '速度(mm/day)'
 			}],
 			series: [{
-				name: '设备1',
+				name: 'X轴速度',
 				type: chartType,
 				smooth: true,
 				data: [1, 2, 1, 2],
@@ -473,7 +492,7 @@ var getOption = function(chartID) {
 					}
 				}
 			}, {
-				name: '设备2',
+				name: 'Y轴速度',
 				type: chartType,
 				smooth: true,
 				data: [1, 1, 2, 1],
@@ -485,7 +504,7 @@ var getOption = function(chartID) {
 					}
 				}
 			}, {
-				name: '设备3',
+				name: 'H轴速度',
 				type: chartType,
 				smooth: true,
 				data: [0, 2, 1, 3],
@@ -496,11 +515,65 @@ var getOption = function(chartID) {
 						}
 					}
 				}
-			}, {
-				name: '设备4',
+			}]
+		};
+	} else if(chartID == "device-velocity-chart") {
+		chartOption = {
+			tooltip: {
+				trigger: 'none',
+				axisPointer: {
+					type: 'cross'
+				}
+			},
+			grid: {
+				top: 50,
+				bottom: 10,
+				left: 20,
+				right: 20,
+				containLabel: true
+			},
+			legend: {
+				data: ['X轴加速度', 'Y轴加速度', 'H轴加速度']
+			},
+			toolbox: {
+				show: false,
+				feature: {
+					mark: {
+						show: true
+					},
+					dataView: {
+						show: true,
+						readOnly: false
+					},
+					magicType: {
+						show: true,
+						type: ['line', 'bar']
+					},
+					restore: {
+						show: true
+					},
+					saveAsImage: {
+						show: true
+					}
+				}
+			},
+			calculable: false,
+			xAxis: [{
+				type: 'category',
+				data: ['2015', '2016', '2017']
+			}],
+			yAxis: [{
+				type: 'value',
+				splitArea: {
+					show: true
+				},
+				name: '加速度(mm/day²)'
+			}],
+			series: [{
+				name: 'X轴加速度',
 				type: chartType,
 				smooth: true,
-				data: [2, 1, 1, 2],
+				data: [1, 2, 1, 2],
 				itemStyle: {
 					normal: {
 						label: {
@@ -508,7 +581,31 @@ var getOption = function(chartID) {
 						}
 					}
 				}
-			}, ]
+			}, {
+				name: 'Y轴加速度',
+				type: chartType,
+				smooth: true,
+				data: [1, 1, 2, 1],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}
+			}, {
+				name: 'H轴加速度',
+				type: chartType,
+				smooth: true,
+				data: [0, 2, 1, 3],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}
+			}]
 		};
 	}
 	return chartOption;
@@ -531,14 +628,17 @@ var initChart = function() {
 	dsc.setOption(getOption('device-section-curve'));
 
 	//速度图
-	var dsc0 = echarts.init(mui('#device-speed-compare')[0]);
-	dsc0.setOption(getOption('device-speed-compare'));
+	var dsc0 = echarts.init(mui('#device-speed-chart')[0]);
+	dsc0.setOption(getOption('device-speed-chart'));
 
-	//bmwy_charts.push(dtc, ddc, dom, dsc, dsc0);
+	//加速度图
+	var dvc = echarts.init(mui('#device-velocity-chart')[0]);
+	dvc.setOption(getOption('device-velocity-chart'));
 
+	//用于统计图刷新重绘
 	bmwy_charts['menu_1'] = [dtc, ddc];
 	bmwy_charts['menu_3'] = [dom];
 	bmwy_charts['menu_4'] = [dsc];
 	bmwy_charts['menu_5'] = [dsc0];
-
+	bmwy_charts['menu_6'] = [dvc];
 };
