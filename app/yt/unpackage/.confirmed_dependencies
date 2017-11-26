@@ -1,78 +1,68 @@
 {
-  "index.html": {
-    "resources": [
-      "js/leaflet-dev/leaflet.css",
-      "js/leaflet-dev/leaflet-src.js",
-      "js/mui.min.js",
-      "fonts/mui.ttf",
-      "pages/map.html"
-    ],
-    "refer": [
-      "pages/map.html",
-      "pages/list.html",
-      "index.html",
-      "pages/list2.html",
-      "pages/search.html",
-      "pages/chartdetail.html",
-      "pages/dzd/dzdxq.html",
-      "pages/jcsb/bmwyjc.html",
-      "pages/dzd/dzdsbyjxx.html",
-      "pages/jcsb/lfjc.html",
-      "pages/jcsb/yljc.html",
-      "pages/common/search.html",
-      "pages/jcsb/trhsljc.html"
-    ]
-  },
-  "pages/map.html": {
-    "refer": [
-      "pages/list.html"
-    ]
-  },
-  "pages/list.html": {
-    "refer": [
-      "pages/detail.html",
-      "pages/chartdetail.html",
-      "pages/fracturedetail.html"
-    ]
-  },
-  "pages/chartdetail.html": {
-    "refer": [
-      "pages/tabledetail.html"
-    ]
-  },
-  "index_new.html": {
-    "refer": [
-      "pages/list.html"
-    ]
-  },
-  "pages/list2.html": {
-    "refer": [
-      "pages/chartdetail.html"
-    ]
-  },
-  "pages/search.html": {
-    "refer": [
-      "pages/search.html"
-    ]
-  },
-  "pages/dzd/dzdsbyjxx.html": {
-    "refer": [
-      "pages/dzd/dzdxq.html"
-    ]
-  },
-  "pages/jcsb/bmwyjc.html": {
-    "refer": [
-      "pages/jcsb/bmwyjc-menus.html"
-    ]
-  },
-  "pages/jcsb/bmwyjc-menus.html": {
-    "refer": [
-      "pages/jcsb/test.html"
-    ]
-  },
-  "main.html": {
-    "refer": [
-      "side.html"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"js/leaflet-dev/leaflet.css",
+			"js/leaflet-dev/leaflet-src.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"pages/map.html"
+		],
+		"refer": [
+			"pages/map.html",
+			"pages/list.html",
+			"index.html",
+			"pages/list2.html",
+			"pages/search.html",
+			"pages/chartdetail.html",
+			"pages/dzd/dzdxq.html",
+			"pages/jcsb/bmwyjc.html",
+			"pages/dzd/dzdsbyjxx.html",
+			"pages/jcsb/lfjc.html",
+			"pages/jcsb/yljc.html",
+			"pages/common/search.html",
+			"pages/jcsb/trhsljc.html"
+		]
+	},
+	"pages/map.html": {
+		"refer": [
+			"pages/list.html"
+		]
+	},
+	"pages/list.html": {
+		"refer": [
+			"pages/detail.html",
+			"pages/chartdetail.html",
+			"pages/fracturedetail.html"
+		]
+	},
+	"pages/chartdetail.html": {
+		"refer": [
+			"pages/tabledetail.html"
+		]
+	},
+	"index_new.html": {
+		"refer": [
+			"pages/list.html"
+		]
+	},
+	"pages/list2.html": {
+		"refer": [
+			"pages/chartdetail.html"
+		]
+	},
+	"pages/search.html": {
+		"refer": [
+			"pages/search.html"
+		]
+	},
+	"pages/dzd/dzdsbyjxx.html": {
+		"refer": [
+			"pages/dzd/dzdxq.html"
+		]
+	},
+	"pages/dzd/dzdxq.html": {
+		"refer": [
+			"pages/jcsb/lfjc.html"
+		]
+	}
 }
