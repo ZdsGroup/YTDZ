@@ -70,6 +70,18 @@
 				position: relative;
 				border: hidden;
 			}
+			/*图片等比自动缩放*/
+			
+			img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			.mui-slider {
+				height: 200px;
+			}
 		</style>
 	</head>
 
@@ -106,11 +118,11 @@
 
 				<div id="muiscrollid" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
-						<div class="mui-control-content mui-active">
+						<div class="mui-control-content  mui-active">
 							<div class="mui-card">
 								<div class="mui-card-header">施工安装示意图</div>
 								<div class="mui-card-content">
-									<div class="mui-slider" style="height: 200px;">
+									<div id="bmwy-slider-pictures" class="mui-slider">
 										<div class="mui-slider-group mui-slider-loop">
 											<div class="mui-slider-item mui-slider-item-duplicate">
 												<a href="#">
@@ -327,7 +339,7 @@
 							<div class="mui-card">
 								<div class="mui-card-header">速度图</div>
 								<div class="mui-card-content">
-									<div id="device-speed-compare" class="chart-container">
+									<div id="device-speed-chart" class="chart-container">
 
 									</div>
 									<form class="mui-input-group">
@@ -354,7 +366,34 @@
 							</div>
 						</div>
 						<div class="mui-control-content">
-							6
+							<div class="mui-card">
+								<div class="mui-card-header">加速度图</div>
+								<div class="mui-card-content">
+									<div id="device-velocity-chart" class="chart-container">
+
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
+							</div>
 						</div>
 						<div class="mui-control-content">
 							7
