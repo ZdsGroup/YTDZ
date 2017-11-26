@@ -1,8 +1,14 @@
 //当前显示的内容项目索引
 var currentPid = 0;
-//存储当前页面中所有图形数组
-var bmwy_charts = [];
+//存储当前页面中所有图形对象
+var bmwy_charts = {};
+//侧滑容器父节点
+var offCanvasWrapper = null;
 var initEvent = function() {
+	var me = this;
+
+	offCanvasWrapper = mui('#offCanvasWrapper');
+
 	//侧滑选择器
 	mui('.mui-table-view').on('tap', 'li', function(evt) {
 		var cs = mui('.mui-control-content');
@@ -10,13 +16,10 @@ var initEvent = function() {
 		currentPid = evt.target.value;
 		cs[currentPid].classList.add('mui-active');
 		
+		//关闭侧滑面板
+		offCanvasWrapper.offCanvas('close');
 		//刷新统计图
-		if(bmwy_charts.length > 0){
-			var cl = bmwy_charts.length;
-			for(var i=0;i<cl;i++){
-				bmwy_charts[i].resize();
-			}
-		}
+		me.refreshChart(bmwy_charts['menu_' + currentPid]);
 	});
 
 	//时间选择器
@@ -31,6 +34,16 @@ var initEvent = function() {
 		});
 	}, false);
 };
+
+var refreshChart = function(charts) {
+	//刷新统计图
+	if(charts && charts.length > 0) {
+		var cl = charts.length;
+		for(var i = 0; i < cl; i++) {
+			charts[i].resize();
+		}
+	}
+}
 
 var getOption = function(chartID) {
 	var chartOption = null;
@@ -519,5 +532,11 @@ var initChart = function() {
 	var dsc0 = echarts.init(mui('#device-speed-compare')[0]);
 	dsc0.setOption(getOption('device-speed-compare'));
 
-	bmwy_charts.push(dtc, ddc, dom, dsc, dsc0);
+	//bmwy_charts.push(dtc, ddc, dom, dsc, dsc0);
+
+	bmwy_charts['menu_1'] = [dtc, ddc];
+	bmwy_charts['menu_3'] = [dom];
+	bmwy_charts['menu_4'] = [dsc];
+	bmwy_charts['menu_5'] = [dsc0];
+
 };
