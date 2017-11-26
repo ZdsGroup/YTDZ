@@ -10,7 +10,7 @@ var initEvent = function() {
 	//初始化图片轮播
 	var sliderPics = mui("#bmwy-slider-pictures");
 	sliderPics.slider({
-		interval: 5000
+		interval: 4000
 	});
 
 	//初始滚动化容器对象
@@ -607,9 +607,207 @@ var getOption = function(chartID) {
 				}
 			}]
 		};
+	} else if(chartID == "device-scatter-chart") {
+		//起始点
+		var startPoint = [
+			[5.5, -12.3]
+		];
+
+		//结束点
+		var endPoint = [
+			[-9.5, -8.5]
+		];
+
+		//历史点(不含首尾点)
+		var historyPoint = [
+			[-0.5, -8.5],
+			[-1.5, -6.5],
+			[-4.5, -9.5],
+			[-8.5, -7.5],
+			[9.5, -8.5],
+			[-6.5, 8.5],
+			[0.5, 8.5],
+			[3.5, -1.5],
+			[5.5, -7.5],
+			[-9.5, -0.9],
+			[-1.8, -4.8],
+			[-9.2, -4.3],
+			[6.7, 5.4],
+			[3.2, -3.9],
+			[-2.7, -7.8],
+			[7.8, 1.5]
+		];
+
+		chartOption = {
+			color: [
+				'#6DC576', '#8DA8C9', '#E37072'
+			],
+			legend: {
+				y: 'top',
+				data: ['起始点', '历史点', '结束点']
+			},
+			tooltip: {
+				trigger: 'none',
+				axisPointer: {
+					type: 'cross'
+				}
+			},
+			grid: {
+				top: 60,
+				bottom: 10,
+				left: 20,
+				right: 40,
+				containLabel: true
+			},
+			xAxis: {
+				type: 'value',
+				name: '坐标Y(mm)',
+				nameRotate: 270,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+				type: 'value',
+				name: '坐标X(mm)',
+				splitLine: {
+					show: false
+				}
+			},
+			series: [{
+					name: '起始点',
+					type: 'scatter',
+					data: startPoint
+				},
+				{
+					name: '历史点',
+					type: 'scatter',
+					data: historyPoint
+				},
+				{
+					name: '结束点',
+					type: 'scatter',
+					data: endPoint
+				}
+			]
+		}
+	} else if(chartID == "device-vector-chart") {
+		//起始点
+		var startPoint = [
+			[5.5, -12.3]
+		];
+
+		//结束点
+		var endPoint = [
+			[-9.5, 7.5]
+		];
+
+		//历史点(含首尾点)
+		var historyPoint = [
+			[5.5, -12.3],
+			[9.5, -6.5],
+			[-4.5, -9.5],
+			[-8.5, -7.5],
+			[9.5, -8.5],
+			[-6.5, 8.5],
+			[0.5, 8.5],
+			[3.5, -1.5],
+			[5.5, -7.5],
+			[-9.5, -0.9],
+			[-1.8, -4.8],
+			[-9.2, -4.3],
+			[6.7, 5.4],
+			[3.2, -3.9],
+			[-2.7, -7.8],
+			[7.8, 1.5],
+			[-9.5, 7.5]
+		];
+
+		var links = historyPoint.map(function(item, i) {
+			return {
+				source: i,
+				target: i + 1
+			};
+		});
+		links.pop();
+
+		chartOption = {
+			color: [
+				'#8DA8C9', '#8DA8C9', '#6DC576', '#E37072'
+			],
+			legend: {
+				y: 'top',
+				data: ['起始点', '历史点', '结束点']
+			},
+			tooltip: {
+				trigger: 'none',
+				axisPointer: {
+					type: 'cross'
+				}
+			},
+			grid: {
+				top: 60,
+				bottom: 10,
+				left: 20,
+				right: 40,
+				containLabel: true
+			},
+			xAxis: {
+				type: 'value',
+				name: '坐标Y(mm)',
+				nameRotate: 270,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+				type: 'value',
+				name: '坐标X(mm)',
+				splitLine: {
+					show: false
+				}
+			},
+			series: [{
+					name: '历史点',
+					type: 'scatter',
+					data: historyPoint
+				},
+				{
+					type: 'graph',
+					layout: 'none',
+					coordinateSystem: 'cartesian2d',
+					/*symbolSize: 10,*/
+					label: {
+						normal: {
+							show: true
+						}
+					},
+					edgeSymbol: ['circle', 'arrow'],
+					edgeSymbolSize: [2, 8],
+					data: historyPoint,
+					links: links,
+					lineStyle: {
+						normal: {
+							color: '#8DA8C9'
+						}
+					}
+				},
+				{
+					name: '起始点',
+					type: 'scatter',
+					data: startPoint
+				},
+				{
+					name: '结束点',
+					type: 'scatter',
+					data: endPoint
+				}
+			]
+		}
 	}
 	return chartOption;
 };
+
 var initChart = function() {
 	//同类型多设备对比图
 	var dtc = echarts.init(mui('#device-type-compare')[0]);
@@ -635,10 +833,20 @@ var initChart = function() {
 	var dvc = echarts.init(mui('#device-velocity-chart')[0]);
 	dvc.setOption(getOption('device-velocity-chart'));
 
+	//散点图
+	var dsc1 = echarts.init(mui('#device-scatter-chart')[0]);
+	dsc1.setOption(getOption('device-scatter-chart'));
+
+	//平面矢量图
+	var dvc0 = echarts.init(mui('#device-vector-chart')[0]);
+	dvc0.setOption(getOption('device-vector-chart'));
+
 	//用于统计图刷新重绘
 	bmwy_charts['menu_1'] = [dtc, ddc];
 	bmwy_charts['menu_3'] = [dom];
 	bmwy_charts['menu_4'] = [dsc];
 	bmwy_charts['menu_5'] = [dsc0];
 	bmwy_charts['menu_6'] = [dvc];
+	bmwy_charts['menu_7'] = [dsc1];
+	bmwy_charts['menu_8'] = [dvc0];
 };
