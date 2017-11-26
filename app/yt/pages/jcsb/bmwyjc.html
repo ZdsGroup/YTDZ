@@ -70,7 +70,7 @@
 	</head>
 
 	<body>
-		<div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
 			<aside class="mui-off-canvas-right" id="offCanvasSide">
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
@@ -81,8 +81,8 @@
 							<li class="mui-table-view-cell" value="2">设备状态</li>
 							<li class="mui-table-view-cell" value="3">位移变化图</li>
 							<li class="mui-table-view-cell" value="4">断面曲线图</li>
-							<li class="mui-table-view-cell" value="5">速度</li>
-							<li class="mui-table-view-cell" value="6">加速度</li>
+							<li class="mui-table-view-cell" value="5">速度图</li>
+							<li class="mui-table-view-cell" value="6">加速度图</li>
 							<li class="mui-table-view-cell" value="7">散点图</li>
 							<li class="mui-table-view-cell" value="8">平面矢量图</li>
 							<li class="mui-table-view-cell" value="9">数据列表</li>
@@ -215,127 +215,138 @@
 							</div>
 						</div>
 						<div class="mui-control-content">
-							<table id="tablevalue" class="table">
-								<tr>
-									<th>序号</th>
-									<th>通讯状态</th>
-									<th>电池状态</th>
-									<th>运行状态</th>
-									<th>设备频率</th>
+							<div class="mui-card">
+								<div class="mui-card-header">设备状态</div>
+								<div class="mui-card-content">
+									<table id="tablevalue" class="table">
+										<tr>
+											<th>序号</th>
+											<th>通讯状态</th>
+											<th>电池状态</th>
+											<th>运行状态</th>
+											<th>设备频率</th>
 
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>30min/次</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>30min/次</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>30min/次</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>正常</td>
-									<td>30min/次</td>
-								</tr>
-							</table>
-						</div>
-						<div class="mui-control-content">
-							<div class="mui-card-header">位移变化图</div>
-							<div class="mui-card-content">
-								<div id="device-offset-monitor" class="chart-container">
-
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>正常</td>
+											<td>30min/次</td>
+										</tr>
+									</table>
 								</div>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>时间类型：</label>
-											<div style="padding: 10px;">实时数据</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>开始时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>结束时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-										</a>
-									</div>
-								</form>
 							</div>
 						</div>
 						<div class="mui-control-content">
-							<div class="mui-card-header">断面曲线图</div>
-							<div class="mui-card-content">
-								<div id="device-section-curve" class="chart-container">
+							<div class="mui-card">
+								<div class="mui-card-header">位移变化图</div>
+								<div class="mui-card-content">
+									<div id="device-offset-monitor" class="chart-container">
 
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
 								</div>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>时间类型：</label>
-											<div style="padding: 10px;">实时数据</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>开始时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>结束时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-										</a>
-									</div>
-								</form>
 							</div>
 						</div>
 						<div class="mui-control-content">
-							<div class="mui-card-header">速度图</div>
-							<div class="mui-card-content">
-								<div id="device-speed-compare" class="chart-container">
+							<div class="mui-card">
+								<div class="mui-card-header">断面曲线图</div>
+								<div class="mui-card-content">
+									<div id="device-section-curve" class="chart-container">
 
+									</div>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
 								</div>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>时间类型：</label>
-											<div style="padding: 10px;">实时数据</div>
-										</a>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">速度图</div>
+								<div class="mui-card-content">
+									<div id="device-speed-compare" class="chart-container">
+
 									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>开始时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>结束时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-										</a>
-									</div>
-								</form>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 						<div class="mui-control-content">
