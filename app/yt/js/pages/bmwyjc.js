@@ -20,6 +20,8 @@ var initEvent = function() {
 		offCanvasWrapper.offCanvas('close');
 		//刷新统计图
 		me.refreshChart(bmwy_charts['menu_' + currentPid]);
+		//切花菜单项目内容自动置顶
+		mui('#muiscrollid').scroll().scrollTo(0,0);
 	});
 
 	//时间选择器
