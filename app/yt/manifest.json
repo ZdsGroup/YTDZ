@@ -257,28 +257,19 @@
 			"pages/dzd/dzdsbyjxx.html": {
 				"resources": [],
 				"refer": [
-					"pages/dzd/dzdxq.html"
+					"pages/dzd/dzdxq.html",
+					"pages/jcsb/lfjc.html",
+					"pages/jcsb/bmwyjc.html",
+					"pages/jcsb/yljc.html"
 				],
 				"priority": 0
 			},
-			"pages/jcsb/bmwyjc.html": {
+			"pages/dzd/dzdxq.html": {
 				"resources": [],
 				"refer": [
-					"pages/jcsb/bmwyjc-menus.html"
-				],
-				"priority": 0
-			},
-			"pages/jcsb/bmwyjc-menus.html": {
-				"resources": [],
-				"refer": [
-					"pages/jcsb/test.html"
-				],
-				"priority": 0
-			},
-			"main.html": {
-				"resources": [],
-				"refer": [
-					"side.html"
+					"pages/jcsb/lfjc.html",
+					"pages/jcsb/bmwyjc.html",
+					"pages/jcsb/yljc.html"
 				],
 				"priority": 0
 			}
