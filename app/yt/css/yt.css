@@ -317,3 +317,11 @@
 .ytfooter-main:before{
 	content: '\f02e';
 }
+/*searchlist 定位*/
+.searchlist-local:before{
+	content: '\f041';
+}
+/*searchlist 地址*/
+.searchlist-addr:before{
+	content: '\f015';
+}
