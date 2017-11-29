@@ -79,7 +79,7 @@
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
-	top: 105px;
+	top: 60px;
 	color: rgba(243, 156, 18, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
@@ -91,8 +91,17 @@
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
-	top: 60px;
+	top: 105px;
 	color: rgba(192, 57, 43, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.map-tool-star{
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 150px;
+	color: rgba(52, 73, 94, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
 

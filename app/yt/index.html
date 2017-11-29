@@ -254,10 +254,32 @@
 								evt.target.style.color = color;
 								break;
 							}
+						case 'star': //显示收藏的地灾点 、设备
+							{
+								var color = evt.target.style.color;
+								if(color == '' || color == 'rgb(52, 73, 94)') {
+									color = 'rgba(192, 57, 43, 1.0)';
+									showStarMarksOnMap();
+								} else {
+									color = 'rgba(52, 73, 94, 1.0)';
+									closeStarMarksOnMap();
+								}
+								evt.target.style.color = color;
+								break;
+							}
 						default:
 							break;
 					}
 				});
+			};
+			
+			//过滤显示被收藏的地灾点、设备点
+			function showStarMarksOnMap() {
+				
+			};
+			//显示所有的地灾点、设备点
+			function closeStarMarksOnMap() {
+				
 			};
 
 			//地图上显示地灾对象图层	
@@ -497,6 +519,7 @@
 			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn"></button>
 			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
 			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+			<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
 			<div class="warn-info-container">
 				<label id="warn-info"></label>
 			</div>
@@ -507,7 +530,7 @@
 					<div id="footer-table" class="mui-table">
 						<script id="ul-li-template" type="text/html">
 							<%if (type=='dzd') {%>
-							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-11">
 								<h4 class="mui-ellipsis"><%=info.name%></h4>
 								<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
 				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
@@ -518,11 +541,12 @@
 								<h4 class="mui-ellipsis"><%=info.name%></h4>
 								<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
 				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
-								<h5><span class="mapfooterfont4 ytfooter-main"></span> 报警等级：红色</h5>
+								<h5><span class="mapfooterfont4 ytfooter-main"></span> 裂缝监测 | 报警等级：红色</h5>
 							</div>
 							<%}%>
 							<div class="mui-table-cell mui-col-xs-1 mui-text-right">
 								<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>
+								<button id="star" type="button"  value="star" class="mui-btn mui-btn-outlined mapfooterfont4 ytfooter-star"></button>
 							</div>
 						</script>
 					</div>

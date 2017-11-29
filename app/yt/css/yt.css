@@ -179,6 +179,24 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+.maptoolfont4 {
+	position: relative;
+	text-align: center;
+	z-index: 20;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 5px;
+	padding-left: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "ytfont4" !important;
+	font-size: 26px !important;
+	color: rgba(128, 128, 128, 1.0);
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
 
 /*缩小*/
 
@@ -205,6 +223,11 @@
 
 .yt-warn:before {
 	content: "\e6b5";
+}
+
+/*收藏开关*/
+.yt-star:before{
+	content: "\f006";
 }
 
 /*表面位移*/
@@ -315,7 +338,10 @@
 }
 /*ytfooter 概要*/
 .ytfooter-main:before{
-	content: '\f02e';
+	content: '\f02b';
+}
+.ytfooter-star:before{
+	content: '\f006';
 }
 /*searchlist 定位*/
 .searchlist-local:before{
