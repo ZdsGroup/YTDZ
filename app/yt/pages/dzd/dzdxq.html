@@ -6,34 +6,44 @@
 		<title>地灾点详情</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-		<script type="text/javascript" src="../../js/mui.min.js" ></script>
-		<script type="text/javascript" src="../../js/template-native.js" ></script>
-		<script type="text/javascript" src="../../js/testdata.js" ></script>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/template-native.js"></script>
+		<script type="text/javascript" src="../../js/testdata.js"></script>
 	</head>
 
 	<body>
 		<style>
 			.mui-control-content {
 				background-color: white;
-				min-height: 215px;
+				min-height: 250px;
 			}
+			
 			.mui-control-content .mui-loading {
 				margin-top: 50px;
 			}
-			#slider-pictures{
+			
+			#slider-pictures {
 				height: 270px;
 				border-bottom: 1px solid black;
 			}
-			#slider{
+			/*图片等比自动缩放*/
+			
+			img {
+				width: auto;
+				height: 270px;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			#slider {
 				height: 100%;
-				margin-bottom: 5px;
-				overflow-y:scroll;
+				overflow-y: auto;
 			}
 		</style>
-		
+
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">地灾点详情</h1>
 		</header>
 		<div class="mui-content">
@@ -143,7 +153,7 @@
 									<script id="ul-li-template2" type="text/html">
 										<% for(var i=0;i<list.length;i++){%>
 										<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-											 <a class="mui-navigate-right"><span class=""><%=list[i].name%></span></a>
+											<a class="mui-navigate-right"><span class=""><%=list[i].name%></span></a>
 										</li>
 										<%}%>
 									</script>
@@ -154,11 +164,11 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<script type="text/javascript">
 			mui.init({
-				swipeBack: false,  //启用右滑打开功能
-				
+				swipeBack: false, //启用右滑打开功能
+
 				//初始化下拉加载
 				pullRefresh: {
 					container: '#pullrefresh',
@@ -180,11 +190,11 @@
 				var item2 = mui('#item2mobile')[0];
 				var item3 = mui('#item3mobile')[0];
 				mui('#slider')[0].addEventListener('slide', function(e) {
-					if (e.detail.slideNumber === 1) {
+					if(e.detail.slideNumber === 1) {
 						setTimeout(function() {
-								mui('#pullrefresh').pullRefresh().pullupLoading();
-							}, 500);
-					} else if (e.detail.slideNumber === 2) {
+							mui('#pullrefresh').pullRefresh().pullupLoading();
+						}, 500);
+					} else if(e.detail.slideNumber === 2) {
 						setTimeout(function() {
 							var html = template('ul-li-template2', {
 								list: warnjcMarkersData
@@ -193,11 +203,11 @@
 						}, 500);
 					}
 				});
-				
+
 				//初始化图片轮播
 				var sliderPics = mui("#slider-pictures");
 				sliderPics.slider({
-							interval: 5000
+					interval: 5000
 				});
 
 				//添加警告列表项的点击事件
@@ -208,11 +218,11 @@
 					var idT = info.id.split('_')[1];
 					//定位到具体的告警tab
 					var tabT = 'warn'
-					openInfoPage(typeT,idT,tabT);
+					openInfoPage(typeT, idT, tabT);
 				});
-				
+
 				//根据类型和id打开对应的设备详情页面
-				function openInfoPage(typeT,idT,tabT){
+				function openInfoPage(typeT, idT, tabT) {
 					var pageUrl = '';
 					var pageId = '';
 					switch(typeT) {
@@ -242,7 +252,7 @@
 						id: pageId
 					});
 				}
-				
+
 				//添加设备列表项的点击事件
 				mui("#item3mobile .mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = e.target.parentElement;
@@ -250,7 +260,7 @@
 					var typeT = info.id.split('_')[0];
 					var idT = info.id.split('_')[1];
 					var tabT = 'main'
-					openInfoPage(typeT,idT,tabT);
+					openInfoPage(typeT, idT, tabT);
 				});
 			}
 			//下拉刷新具体业务实现
@@ -281,4 +291,5 @@
 			mui.ready(initApp);
 		</script>
 	</body>
+
 </html>
