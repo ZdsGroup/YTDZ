@@ -46,9 +46,10 @@
 					//					L.circle(e.latlng, radius).addTo(myMap);
 					if(localMarker == null) {
 						var pulsingIcon = L.icon.pulse({
-							iconSize: [15, 15],
-							color: 'blue',
-							fillColor: 'blue'
+							iconSize: [10, 10],
+							color: '#3385FF',
+							fillColor: '#3385FF',
+							heartbeat:2
 						});
 						localMarker = L.marker(e.latlng, {
 							icon: pulsingIcon
@@ -213,7 +214,7 @@
 								//预加载
 								var flPage = mui.preload({
 									url: 'pages/dzd/dzdsbyjxx.html',
-									id: action,
+									id: 'dzdsbyjxx',
 									styles: {}, //窗口参数
 									extras: {} //自定义扩展参数
 								});

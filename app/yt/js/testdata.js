@@ -112,7 +112,8 @@ var dzMarkersData = [{
 
 var warnjcMarkersData = [{
 		id: '1',
-		name: '监测设备1',
+		name: '雨量监测设备1',
+		dzd:'贵溪市石膏矿',
 		type: 'lfjc',
 		x: '39.936363',
 		y: '116.391456',
@@ -121,7 +122,8 @@ var warnjcMarkersData = [{
 	},
 	{
 		id: '2',
-		name: '监测设备2',
+		name: '位移监测设备',
+		dzd:'贵溪市石膏矿',
 		type: 'bmwyjc',
 		x: '39.966363',
 		y: '116.391456',
@@ -130,7 +132,8 @@ var warnjcMarkersData = [{
 	},
 	{
 		id: '3',
-		name: '监测设备3',
+		name: '裂缝监测设备',
+		dzd:'贵溪市石膏矿',
 		type: 'bmwyjc',
 		x: '39.936363',
 		y: '116.591456',
@@ -139,7 +142,8 @@ var warnjcMarkersData = [{
 	},
 	{
 		id: '4',
-		name: '监测设备4',
+		name: '雨量监测设备2',
+		dzd:'贵溪市煤矿',
 		type: 'yljc',
 		x: '39.956363',
 		y: '116.591456',
@@ -148,7 +152,8 @@ var warnjcMarkersData = [{
 	},
 	{
 		id: '5',
-		name: '监测设备5',
+		name: '裂缝监测设备1',
+		dzd:'贵溪市煤矿',
 		type: 'yljc',
 		x: '39.836363',
 		y: '116.391456',
@@ -157,7 +162,8 @@ var warnjcMarkersData = [{
 	},
 	{
 		id: '6',
-		name: '监测设备6',
+		name: '位移监测设备1',
+		dzd:'贵溪市煤矿',
 		type: 'bmwyjc',
 		x: '39.906363',
 		y: '116.091456',
