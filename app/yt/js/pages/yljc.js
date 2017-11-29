@@ -1,19 +1,19 @@
 //当前显示的内容项目索引
 var currentPid = 0;
 //存储当前页面中所有图形对象
-var lfjc_charts = {};
+var yljc_charts = {};
 //侧滑容器父节点
 var offCanvasWrapper = null;
 var initEvent = function() {
-
-	//初始化图片轮播
-	var sliderPics = mui("#slider-pictures");
-	sliderPics.slider({
-		interval: 5000
-	});
-
 	var me = this;
 
+	//初始化图片轮播
+	var sliderPics = mui("#yljc-slider-pictures");
+	sliderPics.slider({
+		interval: 4000
+	});
+
+	//初始滚动化容器对象
 	offCanvasWrapper = mui('#offCanvasWrapper');
 
 	//侧滑选择器
@@ -26,7 +26,9 @@ var initEvent = function() {
 		//关闭侧滑面板
 		offCanvasWrapper.offCanvas('close');
 		//刷新统计图
-		me.refreshChart(lfjc_charts['menu_' + currentPid]);
+		me.refreshChart(yljc_charts['menu_' + currentPid]);
+		//切花菜单项目内容自动置顶
+		mui('#muiscrollid').scroll().scrollTo(0, 0);
 	});
 
 	//时间选择器
@@ -42,8 +44,8 @@ var initEvent = function() {
 	}, false);
 };
 
+//刷新统计图
 var refreshChart = function(charts) {
-	//刷新统计图
 	if(charts && charts.length > 0) {
 		var cl = charts.length;
 		for(var i = 0; i < cl; i++) {
@@ -246,266 +248,10 @@ var getOption = function(chartID) {
 					}
 				}
 			}, {
-				name: '2017',
-				type: chartType,
-				smooth: true,
-				data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}]
-		};
-	} else if(chartID == 'device-offset-monitor') {
-		chartOption = {
-			tooltip: {
-				trigger: 'none',
-				axisPointer: {
-					type: 'cross'
-				}
-			},
-			grid: {
-				top: 50,
-				bottom: 10,
-				left: 20,
-				right: 20,
-				containLabel: true
-			},
-			legend: {
-				data: ['监测数据1', '监测数据2']
-			},
-			toolbox: {
-				show: false,
-				feature: {
-					mark: {
-						show: true
-					},
-					dataView: {
-						show: true,
-						readOnly: false
-					},
-					magicType: {
-						show: true,
-						type: ['line', 'bar']
-					},
-					restore: {
-						show: true
-					},
-					saveAsImage: {
-						show: true
-					}
-				}
-			},
-			calculable: false,
-			xAxis: [{
-				type: 'category',
-				data: ['2017-10-1', '2017-10-5', '2017-10-10', '2017-10-15', '2017-10-20', '2017-10-25', '2017-10-30', '2017-11-5', '2017-11-10', '2017-11-15', '2017-11-20', '2017-11-25']
-			}],
-			yAxis: [{
-				type: 'value',
-				splitArea: {
-					show: true
-				},
-				name: '距离(mm)'
-			}],
-			series: [{
-				name: '监测数据1',
-				type: chartType,
-				data: [5, 4, 6, 7, 6, 5, 6, 5, 7, 6, 4, 6],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}, {
-				name: '监测数据2',
-				smooth: true,
-				type: chartType,
-				data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}]
-		};
-	} else if(chartID == 'device-section-curve') {
-		chartOption = {
-			tooltip: {
-				trigger: 'none',
-				axisPointer: {
-					type: 'cross'
-				}
-			},
-			grid: {
-				top: 50,
-				bottom: 10,
-				left: 20,
-				right: 20,
-				containLabel: true
-			},
-			legend: {
-				data: ['监测数据1', '监测数据2']
-			},
-			toolbox: {
-				show: false,
-				feature: {
-					mark: {
-						show: true
-					},
-					dataView: {
-						show: true,
-						readOnly: false
-					},
-					magicType: {
-						show: true,
-						type: ['line', 'bar']
-					},
-					restore: {
-						show: true
-					},
-					saveAsImage: {
-						show: true
-					}
-				}
-			},
-			calculable: false,
-			xAxis: [{
-				type: 'category',
-				data: ['2017-10-1', '2017-10-5', '2017-10-10', '2017-10-15', '2017-10-20', '2017-10-25', '2017-10-30', '2017-11-5', '2017-11-10', '2017-11-15', '2017-11-20', '2017-11-25']
-			}],
-			yAxis: [{
-				type: 'value',
-				splitArea: {
-					show: true
-				},
-				name: '距离(mm)'
-			}],
-			series: [{
-				name: '监测数据1',
-				type: chartType,
-				data: [5, 4, 6, 7, 6, 5, 6, 5, 7, 6, 4, 6],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}, {
-				name: '监测数据2',
-				smooth: true,
-				type: chartType,
-				data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}]
-		};
-	} else if(chartID == "device-speed-compare") {
-		chartOption = {
-			tooltip: {
-				trigger: 'none',
-				axisPointer: {
-					type: 'cross'
-				}
-			},
-			grid: {
-				top: 50,
-				bottom: 10,
-				left: 20,
-				right: 20,
-				containLabel: true
-			},
-			legend: {
-				data: ['设备1', '设备2', '设备3', '设备4']
-			},
-			toolbox: {
-				show: false,
-				feature: {
-					mark: {
-						show: true
-					},
-					dataView: {
-						show: true,
-						readOnly: false
-					},
-					magicType: {
-						show: true,
-						type: ['line', 'bar']
-					},
-					restore: {
-						show: true
-					},
-					saveAsImage: {
-						show: true
-					}
-				}
-			},
-			calculable: false,
-			xAxis: [{
-				type: 'category',
-				data: ['DX', 'DY', 'DH', '2D']
-			}],
-			yAxis: [{
-				type: 'value',
-				splitArea: {
-					show: true
-				},
-				name: '速度(mm/y)'
-			}],
-			series: [{
-				name: '设备1',
-				type: chartType,
-				smooth: true,
-				data: [1, 2, 1, 2],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}, {
-				name: '设备2',
-				type: chartType,
-				smooth: true,
-				data: [1, 1, 2, 1],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}, {
-				name: '设备3',
-				type: chartType,
-				smooth: true,
-				data: [0, 2, 1, 3],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				}
-			}, {
 				name: '设备4',
 				type: chartType,
 				smooth: true,
-				data: [2, 1, 1, 2],
+				data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
 				itemStyle: {
 					normal: {
 						label: {
@@ -513,11 +259,104 @@ var getOption = function(chartID) {
 						}
 					}
 				}
-			}, ]
+			}]
 		};
-	}
+	} else if(chartID == 'device-rain-monitor') {
+		chartOption = {
+			color: [
+				'#FF0000', '#0000FF', '#FFFF00'
+			],
+			tooltip: {
+				trigger: 'none',
+				axisPointer: {
+					type: 'cross'
+				}
+			},
+			grid: {
+				top: 50,
+				bottom: 10,
+				left: 20,
+				right: 20,
+				containLabel: true
+			},
+			legend: {
+				data: ['红色警戒', '蓝色警戒', '黄色警戒']
+			},
+			toolbox: {
+				show: false,
+				feature: {
+					mark: {
+						show: true
+					},
+					dataView: {
+						show: true,
+						readOnly: false
+					},
+					magicType: {
+						show: true,
+						type: ['line', 'bar']
+					},
+					restore: {
+						show: true
+					},
+					saveAsImage: {
+						show: true
+					}
+				}
+			},
+			calculable: false,
+			xAxis: [{
+				type: 'category',
+				data: ['2017-10-1', '2017-10-5', '2017-10-10', '2017-10-15', '2017-10-20', '2017-10-25', '2017-10-30', '2017-11-5', '2017-11-10', '2017-11-15', '2017-11-20', '2017-11-25']
+			}],
+			yAxis: [{
+				type: 'value',
+				splitArea: {
+					show: true
+				},
+				name: '单位(m)'
+			}],
+			series: [{
+				name: '红色警戒',
+				type: chartType,
+				data: [5, 4, 6, 7, 6, 5, 6, 5, 7, 6, 4, 6],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}
+			}, {
+				name: '蓝色警戒',
+				smooth: true,
+				type: chartType,
+				data: [3, 3, 2, 4, 4, 2, 3, 2, 2, 2, 1, 2],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}
+			}, {
+				name: '黄色警戒',
+				smooth: true,
+				type: chartType,
+				data: [8, 9, 4, 1, 2, 3, 6, 2, 4, 7, 9, 4],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}
+			}]
+		};
+	} 
 	return chartOption;
 };
+
 var initChart = function() {
 	//同类型多设备对比图
 	var dtc = echarts.init(mui('#device-type-compare')[0]);
@@ -527,11 +366,12 @@ var initChart = function() {
 	var ddc = echarts.init(mui('#device-date-compare')[0]);
 	ddc.setOption(getOption('device-date-compare'));
 
-	//变化过程线
-	var dom = echarts.init(mui('#device-offset-monitor')[0]);
-	dom.setOption(getOption('device-offset-monitor'));
+	//雨量折线图
+	var drm = echarts.init(mui('#device-rain-monitor')[0]);
+	drm.setOption(getOption('device-rain-monitor'));
 
-	lfjc_charts['menu_1'] = [dtc];
-	lfjc_charts['menu_2'] = [ddc];
-	lfjc_charts['menu_4'] = [dom];
+
+	//用于统计图刷新重绘
+	yljc_charts['menu_1'] = [dtc, ddc];
+	yljc_charts['menu_3'] = [drm];
 };

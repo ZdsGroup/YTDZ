@@ -776,7 +776,7 @@ var getOption = function(chartID) {
 					type: 'graph',
 					layout: 'none',
 					coordinateSystem: 'cartesian2d',
-					/*symbolSize: 10,*/
+					symbolSize: 0,
 					label: {
 						normal: {
 							show: true
