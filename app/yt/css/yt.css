@@ -229,6 +229,10 @@
 .yt-star:before{
 	content: "\f006";
 }
+.yt-star-color:before{
+	content: "\f005";
+}
+
 
 /*表面位移*/
 
@@ -340,8 +344,12 @@
 .ytfooter-main:before{
 	content: '\f02b';
 }
+/*ytfooter 收藏*/
 .ytfooter-star:before{
 	content: '\f006';
+}
+.ytfooter-star-color:before{
+	content: '\f005';
 }
 /*searchlist 定位*/
 .searchlist-local:before{
