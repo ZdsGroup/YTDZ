@@ -153,7 +153,7 @@
 					}
 
 					var info = mui('.mui-table-cell')[0];
-					//TODO 需要把选中的info.id(type_id)传到详情页面
+					//把选中的info.id(type_id)传到详情页面
 					var typeT = info.id.split('_')[0];
 					var idT = info.id.split('_')[1];
 					var pageUrl = '';
@@ -190,10 +190,13 @@
 						default:
 							break;
 					}
-					
 					mui.openWindow({
 						url: pageUrl,
-						id: pageId
+						id: pageId,
+						extras:{
+							xjType: typeT,
+							xjID:idT
+						}
 					});
 				});
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
@@ -275,7 +278,7 @@
 				});
 			};
 			
-			//TODO过滤显示被收藏的地灾点、设备点
+			//TODO 过滤显示被收藏的地灾点、设备点
 			function showStarMarksOnMap() {
 				
 			};
