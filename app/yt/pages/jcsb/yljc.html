@@ -117,7 +117,7 @@
 					<h1 class="mui-title">雨量监测设备详情</h1>
 				</header>
 
-				<div id="muiscrollid" class="mui-content mui-scroll-wrapper">
+				<div id="muiscrollid" class="mui-content mui-scroll-wrapper" style="min-height: calc(100vh);">
 					<div class="mui-scroll">
 						<div class="mui-control-content mui-active">
 							<div class="mui-card">
@@ -154,38 +154,29 @@
 								</div>
 							</div>
 							<div class="mui-card">
-								<div class="mui-card-header">维护信息</div>
+								<div class="mui-card-header">设备状态</div>
 								<div class="mui-card-content">
-									<table class="table">
-										<tr>
-											<td class="colmkey">负责人:</td>
-											<td>郑十</td>
-										</tr>
-										<tr>
-											<td>联系电话:</td>
-											<td>18096890116</td>
-										</tr>
-										<tr>
-											<td>维护周期:</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>上次维护时间:</td>
-											<td>5分钟前最后一次上传数据</td>
-										</tr>
-										<tr>
-											<td>安装时间:</td>
-											<td>2017/03/13 09:45:18</td>
-										</tr>
-										<tr>
-											<td>安装地点:</td>
-											<td>贵溪市石膏矿</td>
-										</tr>
-									</table>
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">通讯状态：正常</li>
+										<li class="mui-table-view-cell">电池状态：正常</li>
+										<li class="mui-table-view-cell">电池状态：正常</li>
+										<li class="mui-table-view-cell">设备频率：30min/次</li>
+									</ul>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">维护信息</div>
+								<div class="mui-card-content">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">负责人：丁一一</li>
+										<li class="mui-table-view-cell">联系电话：18532149807</li>
+										<li class="mui-table-view-cell">维护周期：30min/次</li>
+										<li class="mui-table-view-cell">上次维护时间：5分钟前最后一次上传数据</li>
+										<li class="mui-table-view-cell">安装时间：2017-03-09 12:21:54</li>
+										<li class="mui-table-view-cell">安装地点：贵溪市石膏矿</li>
+									</ul>
+								</div>
+							</div>
 							<div class="mui-card">
 								<div class="mui-card-header">同类设备对比</div>
 								<div class="mui-card-content">
@@ -231,318 +222,132 @@
 								</div>
 							</div>
 						</div>
-						<div class="mui-control-content">
-							<div class="mui-card">
-								<div class="mui-card-header">设备状态</div>
-								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>通讯状态</th>
-											<th>电池状态</th>
-											<th>运行状态</th>
-											<th>设备频率</th>
+						<div class="mui-card">
+							<div class="mui-card-header">雨量折线图</div>
+							<div class="mui-card-content">
+								<div id="device-rain-monitor" class="chart-container">
 
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-									</table>
 								</div>
-							</div>
-						</div>
-						<div class="mui-control-content">
-							<div class="mui-card">
-								<div class="mui-card-header">雨量折线图</div>
-								<div class="mui-card-content">
-									<div id="device-rain-monitor" class="chart-container">
-
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
 									</div>
-									<form class="mui-input-group">
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>时间类型：</label>
-												<div style="padding: 10px;">实时数据</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>开始时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>结束时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-											</a>
-										</div>
-									</form>
-								</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
 							</div>
 						</div>
-						<div class="mui-control-content">
-							<div class="mui-card">
-								<div class="mui-card-header">数据列表</div>
-								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>设备名称</th>
-											<th>降雨量(mm)</th>
-											<th>时间</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>YLJ</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>YLJ</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>YLJ</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>YLJ</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>YLJ</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>YLJ</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-									</table>
-									<form class="mui-input-group">
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>时间类型：</label>
-												<div style="padding: 10px;">实时数据</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>开始时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>结束时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-											</a>
-										</div>
-									</form>
-								</div>
+						<div class="mui-card">
+							<div class="mui-card-header">报警信息</div>
+							<div class="mui-card-content">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+								</ul>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
 							</div>
 						</div>
-						<div class="mui-control-content">
-							<div class="mui-card">
-								<div class="mui-card-header">报警信息</div>
-								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>报警等级</th>
-											<th>报警时间</th>
-											<th>报警内容</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>8</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-									</table>
-									<form class="mui-input-group">
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>时间类型：</label>
-												<div style="padding: 10px;">实时数据</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>开始时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>结束时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-											</a>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<div class="mui-control-content">
-							<div class="mui-card">
-								<div class="mui-card-header">雨量报表</div>
-								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>测站编号</th>
-											<th>测站名称</th>
-											<th>雨量</th>
-											<th>时间</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>YLJ01</td>
-											<td>雨量站1</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>YLJ02</td>
-											<td>雨量站2</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>YLJ03</td>
-											<td>雨量站3</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>YLJ04</td>
-											<td>雨量站4</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>YLJ05</td>
-											<td>雨量站5</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>YLJ06</td>
-											<td>雨量站6</td>
-											<td>12.1</td>
-											<td>2017/05/06 01:38:19</td>
-										</tr>
-									</table>
-									<form class="mui-input-group">
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>时间类型：</label>
-												<div style="padding: 10px;">实时数据</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>开始时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>结束时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-											</a>
-										</div>
-									</form>
-								</div>
+						<div class="mui-card">
+							<div class="mui-card-header">雨量报表</div>
+							<div class="mui-card-content">
+								<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<h5>雨量站1<span style="float: right;">测站编号：YLJ01</span></h5>
+											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>雨量站1<span style="float: right;">测站编号：YLJ01</span></h5>
+											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>雨量站1<span style="float: right;">测站编号：YLJ01</span></h5>
+											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>雨量站1<span style="float: right;">测站编号：YLJ01</span></h5>
+											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>雨量站1<span style="float: right;">测站编号：YLJ01</span></h5>
+											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
+										</li>
+									</ul>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="mui-off-canvas-backdrop"></div>
-		</div>
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
