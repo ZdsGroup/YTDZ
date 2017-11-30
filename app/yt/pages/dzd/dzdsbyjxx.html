@@ -191,14 +191,14 @@
 			if(mui.os.plus) {
 				mui.plusReady(function() {
 					setTimeout(function() {
-						mui('#pullrefresh').scroll().pullupLoading();
+						mui('#pullrefresh').pullRefresh().pullupLoading();
 					}, 1000);
 					initApp();
 
 				});
 			} else {
 				mui.ready(function() {
-					mui('#pullrefresh').scroll().pullupLoading();
+					mui('#pullrefresh').pullRefresh().pullupLoading();
 					initApp();
 				});
 			}
