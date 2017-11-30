@@ -251,9 +251,9 @@
 						url: pageUrl,
 						id: pageId,
 						extras:{
-							xjType: typeT,
-							xjID: idT,
-							xjTab: tabT 
+							xqType: typeT,
+							xqID: idT,
+							xqTab: tabT 
 						}
 					});
 				}
@@ -290,14 +290,14 @@
 				}, 1000);
 			}
 			//初始化应用
-			var dzType = '';
-			var dzID = '';
+			var xqType = '';
+			var xqID = '';
 			var initParams = function(){
 				var objPage = plus.webview.currentWebview();
 				if (objPage) {
-					dzType = objPage.xjType;
-					dzID = objPage.xjID;
-					alert(dzType+"_"+dzID);
+					xqType = objPage.xqType;
+					xqID = objPage.xqID;
+					alert(xqType+"_"+xqID);
 				}
 			}
 			var initApp = function() {
