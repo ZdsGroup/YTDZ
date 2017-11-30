@@ -213,7 +213,7 @@
 				//添加警告列表项的点击事件
 				mui("#item2mobile .mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = e.target.parentElement.parentElement;
-					//TODO 需要把选中的info.id(type_id)传到详情页面
+					//把选中的info.id(type_id)传到详情页面
 					var typeT = info.id.split('_')[0];
 					var idT = info.id.split('_')[1];
 					//定位到具体的告警tab
@@ -249,14 +249,19 @@
 					}
 					mui.openWindow({
 						url: pageUrl,
-						id: pageId
+						id: pageId,
+						extras:{
+							xjType: typeT,
+							xjID: idT,
+							xjTab: tabT 
+						}
 					});
 				}
 
 				//添加设备列表项的点击事件
 				mui("#item3mobile .mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = e.target.parentElement;
-					//TODO 需要把选中的info.id(type_id)传到详情页面
+					//把选中的info.id(type_id)传到详情页面
 					var typeT = info.id.split('_')[0];
 					var idT = info.id.split('_')[1];
 					var tabT = 'main'
@@ -285,7 +290,19 @@
 				}, 1000);
 			}
 			//初始化应用
+			var dzType = '';
+			var dzID = '';
+			var initParams = function(){
+				var objPage = plus.webview.currentWebview();
+				if (objPage) {
+					dzType = objPage.xjType;
+					dzID = objPage.xjID;
+					alert(dzType+"_"+dzID);
+				}
+			}
 			var initApp = function() {
+				//TODO 真机运行才可以打开该方法获取传递的参数，同时使用mui.plusReady(initApp);
+//				this.initParams();
 				this.initEvent();
 			};
 			mui.ready(initApp);

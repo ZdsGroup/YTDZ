@@ -42,8 +42,6 @@
 				var localMarker = null;
 
 				function onLocationFound(e) {
-					//					var radius = e.accuracy;
-					//					L.circle(e.latlng, radius).addTo(myMap);
 					if(localMarker == null) {
 						var pulsingIcon = L.icon.pulse({
 							iconSize: [10, 10],
@@ -134,25 +132,32 @@
 						url: 'pages/common/search.html',
 						id: 'search-page-1'
 					});
-
-					//预加载
-					/*var searchPage = mui.preload({
-						url: 'pages/search.html',
-						id: 'search-page-1’',
-						styles: {}, //窗口参数
-						extras: {} //自定义扩展参数
-					});
-					searchPage.show();*/
 				});
 
 				//底部ytfooter点击事件进入详情面板
-				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(evt) {
+
+					var action = evt.target.value;
+					//TODO 调用后台把该对象进行收藏
+					if(action == 'ftstar'){
+						var obj = mui('#ftstar')[0];
+						if(obj.classList.contains('ytfooter-star'))
+						{
+							obj.classList.remove('ytfooter-star');
+							obj.classList.add('ytfooter-star-color');
+						}else{
+							obj.classList.remove('ytfooter-star-color');
+							obj.classList.add('ytfooter-star');
+						}
+						return
+					}
+
 					var info = mui('.mui-table-cell')[0];
-					//TODO 需要把选中的info.id(type_id)传到详情页面
+					//把选中的info.id(type_id)传到详情页面
 					var typeT = info.id.split('_')[0];
 					var idT = info.id.split('_')[1];
 					var pageUrl = '';
-					var pageId = ''
+					var pageId = '';
 					switch(typeT) {
 						case 'dzd':
 							{
@@ -185,19 +190,13 @@
 						default:
 							break;
 					}
-					/*var detailPage = mui.preload({
-						url: pageUrl,
-						id: pageId,
-						styles: {}, //窗口参数
-						extras: {
-							type: typeT,
-							id: idT
-						} //自定义扩展参数
-					});
-					detailPage.show();*/
 					mui.openWindow({
 						url: pageUrl,
-						id: pageId
+						id: pageId,
+						extras:{
+							xjType: typeT,
+							xjID:idT
+						}
 					});
 				});
 				//监听点击事件,获取所有按钮，绑定按钮的点击事件
@@ -242,29 +241,35 @@
 								break;
 							}
 						case 'warn':
-							{
-								var color = evt.target.style.color;
-								if(color == '' || color == 'rgb(192, 57, 43)') {
-									color = 'rgba(52, 73, 94, 1.0)';
+							{								
+								var obj = evt.target;
+								if(obj.classList.contains('map-tool-warn-color'))
+								{
+									obj.classList.remove('map-tool-warn-color');
+									obj.classList.add('map-tool-warn');
 									showAllDZMarksOnMap();
-								} else {
-									color = 'rgba(192, 57, 43, 1.0)';
+								}else{
+									obj.classList.remove('map-tool-warn');
+									obj.classList.add('map-tool-warn-color');
 									showWarnDZMarksOnMap();
 								}
-								evt.target.style.color = color;
 								break;
 							}
 						case 'star': //显示收藏的地灾点 、设备
 							{
-								var color = evt.target.style.color;
-								if(color == '' || color == 'rgb(52, 73, 94)') {
-									color = 'rgba(192, 57, 43, 1.0)';
-									showStarMarksOnMap();
-								} else {
-									color = 'rgba(52, 73, 94, 1.0)';
-									closeStarMarksOnMap();
+								var obj = evt.target;
+								if(obj.classList.contains('map-tool-star'))
+								{
+									obj.classList.remove('map-tool-star');
+									obj.classList.remove('yt-star');
+									obj.classList.add('map-tool-star-color');
+									obj.classList.add('yt-star-color');
+								}else{
+									obj.classList.remove('map-tool-star-color');
+									obj.classList.remove('yt-star-color');
+									obj.classList.add('map-tool-star');
+									obj.classList.add('yt-star');
 								}
-								evt.target.style.color = color;
 								break;
 							}
 						default:
@@ -273,7 +278,7 @@
 				});
 			};
 			
-			//过滤显示被收藏的地灾点、设备点
+			//TODO 过滤显示被收藏的地灾点、设备点
 			function showStarMarksOnMap() {
 				
 			};
@@ -516,7 +521,7 @@
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
 			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
-			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn"></button>
+			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
 			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
 			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
 			<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
@@ -546,7 +551,7 @@
 							<%}%>
 							<div class="mui-table-cell mui-col-xs-1 mui-text-right">
 								<!--<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>-->
-								<button id="ytfooter-star" value="ftstar" type="button"  value="star" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+								<button id="ftstar" value="ftstar" type="button"  value="star" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
 							</div>
 						</script>
 					</div>
