@@ -136,9 +136,9 @@
 				  self.addEventListener('show',function(e){
 				  	count = 0;
 				  	document.getElementById("ullist").innerHTML = "";
-				  	mui('#pullrefresh').scroll().refresh(true);     //恢复滚动
-					mui('#pullrefresh').scroll().scrollTo(0,0,100);
-					mui('#pullrefresh').scroll().pullupLoading();
+				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+					mui('#pullrefresh').pullRefresh().pullupLoading();
 				  	
             });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
