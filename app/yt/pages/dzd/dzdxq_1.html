@@ -6,8 +6,16 @@
 		<title>地灾点详情</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-dev/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/leaflet.awesome-markers.css" />
+		<link rel="stylesheet" href="../../js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/leaflet/leaflet.js" ></script>
+		<script type="text/javascript" src="../../js/leaflet/leaflet.ChineseTmsProviders.js"></script>
+		<script type="text/javascript" src="../../js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="../../js/leaflet-awesome/L.Icon.Pulse.js"></script>
 		<script type="text/javascript" src="../../js/template-native.js"></script>
 		<script type="text/javascript" src="../../js/testdata.js"></script>
 	</head>
@@ -35,6 +43,10 @@
 				height: 150px;
 				max-width: 100%;
 				max-height: 100%;
+			}
+			#dzmap{
+				width: auto;
+				height: 250px;
 			}
 			/*图片等比自动缩放*/
 			img {
@@ -66,10 +78,9 @@
 				<div class="mui-scroll">
 					<div class="mui-control-content mui-active">
 						<div class="mui-card">
-							<div class="mui-card-content">
+							<!--<div class="mui-card-content">
 								<div id="slider-pictures" class="mui-slider">
 									<div class="mui-slider-group mui-slider-loop">
-										<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 										<div class="mui-slider-item mui-slider-item-duplicate">
 											<a href="#">
 												<img src="../../photos/2.png">
@@ -94,7 +105,6 @@
 												<p class="mui-slider-title mui-text-center">监测设备2</p>
 											</a>
 										</div>
-										<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 										<div class="mui-slider-item mui-slider-item-duplicate">
 											<a href="#">
 												<img src="../../photos/dz1.png">
@@ -108,6 +118,8 @@
 										<div class="mui-indicator"></div>
 									</div>
 								</div>
+							</div>-->
+							<div id="dzmap" class="mui-card-content">
 							</div>
 						</div>
 						<div class="mui-card">
@@ -240,8 +252,21 @@
 		<script type="text/javascript">
 			mui.init({
 //				swipeBack: false, //启用右滑打开功能
-
 			});
+			var myMap = null;
+			var initMap = function() {
+				var me = this;
+				myMap = L.map('dzmap', {
+					zoomControl: false,
+					attributionControl: false
+				}).setView(L.latLng(28.220454, 117.202889),14);
+				
+				L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+					maxZoom: 18,
+					attribution: 'leaflet',
+					id: 'gaodem'
+				}).addTo(myMap);
+			}
 			//初始化事件
 			var initEvent = function() {
 				var me = this;
@@ -278,6 +303,7 @@
 			var initApp = function() {
 				//TODO 真机运行才可以打开该方法获取传递的参数，同时使用mui.plusReady(initApp);
 //				this.initParams();
+				this.initMap();
 				this.initEvent();
 			};
 			mui.ready(initApp);
