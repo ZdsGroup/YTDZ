@@ -46,7 +46,7 @@
 			}
 			#dzmap{
 				width: auto;
-				height: 250px;
+				height: 160px;
 			}
 			/*图片等比自动缩放*/
 			img {
@@ -56,20 +56,19 @@
 				max-height: 100%;
 			}
 
-			/*.mui-card-header{
-				background-color: #efeff4;
-				color: blue;
+			.mui-card-header{
+				background-color: whitesmoke;
+				color: royalblue ;
 			}
 			.mui-card-header-self{
-				background-color: #efeff4;
-				color: blue;
+				background-color: whitesmoke;
+				color: royalblue ;
 				font-size: 17px;
 			}
 			.mui-table-view-self{
-				background-color: #efeff4;
-			}*/
-
-
+				background-color: whitesmoke;
+				color: royalblue ;
+			}
 		</style>
 
 		<header class="mui-bar mui-bar-nav">
@@ -80,47 +79,6 @@
 				<div class="mui-scroll">
 					<div class="mui-control-content mui-active">
 						<div class="mui-card">
-							<!--<div class="mui-card-content">
-								<div id="slider-pictures" class="mui-slider">
-									<div class="mui-slider-group mui-slider-loop">
-										<div class="mui-slider-item mui-slider-item-duplicate">
-											<a href="#">
-												<img src="../../photos/2.png">
-												<p class="mui-slider-title mui-text-center">监测设备2</p>
-											</a>
-										</div>
-										<div class="mui-slider-item">
-											<a href="#">
-												<img src="../../photos/dz1.png">
-												<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
-											</a>
-										</div>
-										<div class="mui-slider-item">
-											<a href="#">
-												<img src="../../photos/1.png">
-												<p class="mui-slider-title mui-text-center">监测设备1</p>
-											</a>
-										</div>
-										<div class="mui-slider-item">
-											<a href="#">
-												<img src="../../photos/2.png">
-												<p class="mui-slider-title mui-text-center">监测设备2</p>
-											</a>
-										</div>
-										<div class="mui-slider-item mui-slider-item-duplicate">
-											<a href="#">
-												<img src="../../photos/dz1.png">
-												<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
-											</a>
-										</div>
-									</div>
-									<div class="mui-slider-indicator mui-text-right">
-										<div class="mui-indicator mui-active"></div>
-										<div class="mui-indicator"></div>
-										<div class="mui-indicator"></div>
-									</div>
-								</div>
-							</div>-->
 							<div id="dzmap" class="mui-card-content">
 							</div>
 						</div>
@@ -135,10 +93,7 @@
 										负责人：张三
 									</li>
 									<li class="mui-table-view-cell">
-										监测设备类型：4种
-									</li>
-									<li class="mui-table-view-cell">
-										共计监测设备：11个
+										监测设备：4种类型  | 共计11个
 									</li>
 									<li class="mui-table-view-cell">
 										简介：鹰潭市为地质灾害防治制定发布了《鹰潭市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了鹰潭市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。
@@ -165,7 +120,7 @@
 								<ul class="mui-table-view mui-table-view-self">
 								 	 <li class="mui-table-view-cell">
 						                <a class="mui-navigate-right">
-						                    <span class="mui-badge mui-badge-success">查看全部设备</span>
+						                    <span class="mui-badge mui-badge-blue">查看全部设备</span>
 						                    	监测设备
 						                </a>
 						            </li>
@@ -233,7 +188,7 @@
 							</div>
 							<div class="mui-card-content">
 								<!--评论列表-->
-								<ul id="commullist" class="mui-table-view mui-table-view-chevron">
+								<ul id="commullist" class="mui-table-view">
 									<script id="ul-li-template" type="text/html">
 										<% for(var i=0;i<list.length;i++){%>
 										<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
