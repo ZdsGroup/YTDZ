@@ -236,3 +236,29 @@ var searchListData = [{
 		msg: '警告信息4'
 	}
 ]
+
+var commentListData = [{
+		userid: '1',
+		name: '用户1',
+		type: 'dzd',
+		id:'dzd1',
+		le: '3',
+		msg: '该地灾点设备安装牢固，监测数据准确，不错！'
+	},
+	{
+		userid: '1',
+		name: '用户2',
+		type: 'dzd',
+		id:'dzd1',
+		le: '4',
+		msg: '该地灾点设备被破坏，请尽快安排人修理！'
+	},
+	{
+		userid: '1',
+		name: '用户3',
+		type: 'dzd',
+		id:'dzd1',
+		le: '5',
+		msg: '有了这种地灾监测设备，可以实时报警，很好！'
+	},
+]
