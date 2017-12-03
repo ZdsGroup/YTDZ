@@ -1,7 +1,10 @@
 {
 	"index.html": {
 		"refer": [
-			"pages/dzd/dzdxq.html"
+			"pages/dzd/dzdxq.html",
+			"pages/dzd/dzdsbyjxx.html",
+			"pages/dzd/dzdxq_1.html",
+			"pages/common/search.html"
 		]
 	}
 }

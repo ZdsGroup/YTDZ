@@ -24,8 +24,28 @@
 	<body>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				gestureConfig: {
+					tap: true, //默认为true
+					doubletap: true, //默认为false
+					longtap: true, //默认为false
+					swipe: true, //默认为true
+					drag: true, //默认为true
+					hold: false, //默认为false，不监听
+					release: false //默认为false，不监听
+				}
+			});
 			var myMap = null;
+			//地图上显示地灾对象图层	
+			var dzMarkersLayerGroup = new L.layerGroup();
+			var dzQueryResults = null;
+			//底图上显示监测设备对象图层
+			var jcMarkersLayerGroup = new L.layerGroup();
+			var jcQueryResults = null;
+			var warnBounds = null;
+			var maxZoomShow = 15;
+			var footerHeight = 101;
+			var topNavHeight = 25; //手机顶部状态栏高度
 			var initMap = function() {
 				var me = this;
 				myMap = L.map('ytmap', {
@@ -47,7 +67,7 @@
 							iconSize: [10, 10],
 							color: '#3385FF',
 							fillColor: '#3385FF',
-							heartbeat:2
+							heartbeat: 2
 						});
 						localMarker = L.marker(e.latlng, {
 							icon: pulsingIcon
@@ -85,22 +105,22 @@
 				showWarnDZMarksOnMap();
 				showWarnInfoOnMap();
 			};
-			
+
 			//显示告警信息汇总提示栏，5秒后消失
-			function showWarnInfoOnMap(){
+			function showWarnInfoOnMap() {
 				var warnInfo = queryWarnInfo();
-				if (warnInfo != '') {
+				if(warnInfo != '') {
 					var obj = mui('#warn-info')[0];
 					obj.innerHTML = warnInfo;
 				}
-				setTimeout(function (){
-						var obj = mui('.warn-info-container')[0];
-						obj.style.display = 'none';
-				},10000);
+				setTimeout(function() {
+					var obj = mui('.warn-info-container')[0];
+					obj.style.display = 'none';
+				}, 10000);
 			}
-			
+
 			//TODO 查询后台服务器，获取警告信息汇总
-			function queryWarnInfo(){
+			function queryWarnInfo() {
 				var info = '今日报警：地灾点5个，监测设备26个';
 				return info;
 			}
@@ -111,14 +131,14 @@
 				var mapContent = mui('#ytmap')[0];
 				mapFooter.style.height = fh + 'px';
 				mapFooter.style.display = 'block';
-				mapContent.style.height = (screen.availHeight - fh) + 'px';
+				mapContent.style.height = (screen.availHeight - fh - topNavHeight) + 'px';
 			};
 
 			/*隐藏底部要素概要面板, fh=0*/
-			var hideFooterPanle = function(fh) {
+			var hideFooterPanle = function() {
 				var mapFooter = mui('#ytfooter')[0];
 				var mapContent = mui('#ytmap')[0];
-				mapFooter.style.height = fh + 'px';
+				mapFooter.style.height = '0px';
 				mapFooter.style.display = 'none';
 				mapContent.style.height = '100%';
 			};
@@ -126,6 +146,47 @@
 			//初始化事件
 			var initEvent = function() {
 				var me = this;
+				//首页底部面板拖动
+				var ytFooterHeight = 0
+				var zoomin = mui('#yt-map-zoomin')[0];
+				var zoomout = mui('#yt-map-zoomout')[0];
+				mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
+					ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
+					if(ytFooterHeight < me.footerHeight) {
+						ytFooterHeight = me.footerHeight;
+					}
+					me.showFooterPanel(ytFooterHeight);
+
+					zoomin.classList.add("mui-hidden");
+					zoomout.classList.add("mui-hidden");
+				});
+				mui('#ytfooter')[0].addEventListener('drag', function(evt) {
+					ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
+					if(ytFooterHeight < me.footerHeight) {
+						ytFooterHeight = me.footerHeight;
+					}
+					me.showFooterPanel(ytFooterHeight);
+				});
+				mui('#ytfooter')[0].addEventListener('dragend', function(evt) {
+					ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
+					if(ytFooterHeight < me.footerHeight) {
+						ytFooterHeight = me.footerHeight;
+					}
+					var step1 = screen.availHeight / 3;
+					var step2 = screen.availHeight * 2 / 3;
+					if(ytFooterHeight <= step1) {
+						ytFooterHeight = me.footerHeight;
+
+						zoomin.classList.remove("mui-hidden");
+						zoomout.classList.remove("mui-hidden");
+					} else if(ytFooterHeight <= step2) {
+						ytFooterHeight = parseInt(step2);
+					} else {
+						ytFooterHeight = screen.availHeight - topNavHeight;
+					}
+					me.showFooterPanel(ytFooterHeight);
+				});
+
 				//搜索框聚焦激活搜索面板
 				mui('#search-input-text-id')[0].addEventListener('focus', function() {
 					mui.openWindow({
@@ -139,13 +200,12 @@
 
 					var action = evt.target.value;
 					//TODO 调用后台把该对象进行收藏
-					if(action == 'ftstar'){
+					if(action == 'ftstar') {
 						var obj = mui('#ftstar')[0];
-						if(obj.classList.contains('ytfooter-star'))
-						{
+						if(obj.classList.contains('ytfooter-star')) {
 							obj.classList.remove('ytfooter-star');
 							obj.classList.add('ytfooter-star-color');
-						}else{
+						} else {
 							obj.classList.remove('ytfooter-star-color');
 							obj.classList.add('ytfooter-star');
 						}
@@ -161,7 +221,7 @@
 					switch(typeT) {
 						case 'dzd':
 							{
-								pageUrl = 'pages/dzd/dzdxq.html';
+								pageUrl = 'pages/dzd/dzdxq_1.html';
 								pageId = 'dzdxq';
 								break;
 							}
@@ -193,9 +253,9 @@
 					mui.openWindow({
 						url: pageUrl,
 						id: pageId,
-						extras:{
+						extras: {
 							xqType: typeT,
-							xqID:idT
+							xqID: idT
 						}
 					});
 				});
@@ -241,14 +301,13 @@
 								break;
 							}
 						case 'warn':
-							{								
+							{
 								var obj = evt.target;
-								if(obj.classList.contains('map-tool-warn-color'))
-								{
+								if(obj.classList.contains('map-tool-warn-color')) {
 									obj.classList.remove('map-tool-warn-color');
 									obj.classList.add('map-tool-warn');
 									showAllDZMarksOnMap();
-								}else{
+								} else {
 									obj.classList.remove('map-tool-warn');
 									obj.classList.add('map-tool-warn-color');
 									showWarnDZMarksOnMap();
@@ -258,13 +317,12 @@
 						case 'star': //显示收藏的地灾点 、设备
 							{
 								var obj = evt.target;
-								if(obj.classList.contains('map-tool-star'))
-								{
+								if(obj.classList.contains('map-tool-star')) {
 									obj.classList.remove('map-tool-star');
 									obj.classList.remove('yt-star');
 									obj.classList.add('map-tool-star-color');
 									obj.classList.add('yt-star-color');
-								}else{
+								} else {
 									obj.classList.remove('map-tool-star-color');
 									obj.classList.remove('yt-star-color');
 									obj.classList.add('map-tool-star');
@@ -277,25 +335,15 @@
 					}
 				});
 			};
-			
+
 			//TODO 过滤显示被收藏的地灾点、设备点
 			function showStarMarksOnMap() {
-				
+
 			};
 			//显示所有的地灾点、设备点
 			function closeStarMarksOnMap() {
-				
-			};
 
-			//地图上显示地灾对象图层	
-			var dzMarkersLayerGroup = new L.layerGroup();
-			var dzQueryResults = null;
-			//底图上显示监测设备对象图层
-			var jcMarkersLayerGroup = new L.layerGroup();
-			var jcQueryResults = null;
-			var warnBounds = null;
-			var maxZoomShow = 15;
-			var footerHeight = 150;
+			};
 
 			function showAllDZMarksOnMap() {
 				//0所有地灾点
@@ -510,6 +558,13 @@
 				this.initEvent();
 			};
 			mui.ready(initApp);
+
+			var initAppPlus = function() {
+				//获取状态栏高度
+				this.topNavHeight = plus.navigator.getStatusbarHeight();
+			};
+
+			mui.plusReady(initAppPlus);
 		</script>
 		<div id="ytmap" class="mui-content">
 			<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
@@ -522,8 +577,8 @@
 			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
 			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
-			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
-			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+			<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
+			<button id="yt-map-zoomout" type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
 			<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
 			<div class="warn-info-container">
 				<label id="warn-info"></label>
@@ -551,7 +606,7 @@
 							<%}%>
 							<div class="mui-table-cell mui-col-xs-1 mui-text-right">
 								<!--<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>-->
-								<button id="ftstar" value="ftstar" type="button"  value="star" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+								<button id="ftstar" value="ftstar" type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
 							</div>
 						</script>
 					</div>
