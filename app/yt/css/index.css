@@ -79,7 +79,7 @@
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
-	top: 105px;
+	top: 60px;
 	color: rgba(243, 156, 18, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
@@ -87,11 +87,36 @@
 
 /*开启预警点显示开关*/
 
+.map-tool-warn-color {
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 105px;
+	color: rgba(192, 57, 43, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
 .map-tool-warn {
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
-	top: 60px;
+	top: 105px;
+	color: rgba(52, 73, 94, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+/*开启收藏点显示开关*/
+.map-tool-star{
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 150px;
+	color: rgba(52, 73, 94, 1.0);
+	background-color: rgba(255, 255, 255, 1);
+}
+.map-tool-star-color{
+	position: absolute;
+	z-index: 1000;
+	right: 10px;
+	top: 150px;
 	color: rgba(192, 57, 43, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
@@ -181,4 +206,11 @@
 .ytfooter-main{
 	width: 20px;
 	color: lightgreen;
+}
+.ytfooter-star{
+	border: 0px solid white;
+}
+.ytfooter-star-color{
+	border: 0px solid white;
+	color: rgba(192, 57, 43, 1.0);
 }

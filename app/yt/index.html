@@ -13,489 +13,23 @@
 		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
 		<link rel="stylesheet" href="js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
-		<script type="text/javascript" src="js/template-native.js"></script>
-		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
 	<body>
-		<script src="js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init();
-			var myMap = null;
-			var initMap = function() {
-				var me = this;
-				myMap = L.map('ytmap', {
-					zoomControl: false,
-					attributionControl: false
-				}).fitWorld();
-
-				L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
-					maxZoom: 18,
-					attribution: 'leaflet',
-					id: 'gaodem'
-				}).addTo(myMap);
-
-				var localMarker = null;
-
-				function onLocationFound(e) {
-					//					var radius = e.accuracy;
-					//					L.circle(e.latlng, radius).addTo(myMap);
-					if(localMarker == null) {
-						var pulsingIcon = L.icon.pulse({
-							iconSize: [15, 15],
-							color: 'blue',
-							fillColor: 'blue'
-						});
-						localMarker = L.marker(e.latlng, {
-							icon: pulsingIcon
-						}).addTo(myMap);
-					} else {
-						localMarker.setLatLng(e.latlng);
-					}
-				}
-
-				function onLocationError(e) {
-					mui.toast('未获取位置，请稍后再试！', {
-						duration: 'short',
-						type: 'div'
-					})
-					myMap.setView(L.latLng(36.55, 102.71), 4);
-				}
-
-				myMap.on('locationfound', onLocationFound);
-				myMap.on('locationerror', onLocationError);
-
-				myMap.locate({
-					setView: true,
-					timeout: 5000,
-					maxZoom: 13
-				});
-
-				myMap.on('click', function(e) {
-					var isMarker = false;
-					var target = e.originalEvent.target;
-					if(target.type != 'button') {
-						me.hideFooterPanle(100);
-					}
-				});
-
-				showWarnDZMarksOnMap();
-				showWarnInfoOnMap();
-			};
-			
-			//显示告警信息汇总提示栏，5秒后消失
-			function showWarnInfoOnMap(){
-				var warnInfo = queryWarnInfo();
-				if (warnInfo != '') {
-					var obj = mui('#warn-info')[0];
-					obj.innerHTML = warnInfo;
-				}
-				setTimeout(function (){
-						var obj = mui('.warn-info-container')[0];
-						obj.style.display = 'none';
-				},10000);
-			}
-			
-			//TODO 查询后台服务器，获取警告信息汇总
-			function queryWarnInfo(){
-				var info = '今日报警：地灾点5个，监测设备26个';
-				return info;
-			}
-
-			/*显示底部要素概要面板，fh=100*/
-			var showFooterPanel = function(fh) {
-				var mapFooter = mui('#ytfooter')[0];
-				var mapContent = mui('#ytmap')[0];
-				mapFooter.style.height = fh + 'px';
-				mapFooter.style.display = 'block';
-				mapContent.style.height = (screen.availHeight - fh) + 'px';
-			};
-
-			/*隐藏底部要素概要面板, fh=0*/
-			var hideFooterPanle = function(fh) {
-				var mapFooter = mui('#ytfooter')[0];
-				var mapContent = mui('#ytmap')[0];
-				mapFooter.style.height = fh + 'px';
-				mapFooter.style.display = 'none';
-				mapContent.style.height = '100%';
-			};
-
-			//初始化事件
-			var initEvent = function() {
-				var me = this;
-				//搜索框聚焦激活搜索面板
-				mui('#search-input-text-id')[0].addEventListener('focus', function() {
-					mui.openWindow({
-						url: 'pages/common/search.html',
-						id: 'search-page-1'
-					});
-
-					//预加载
-					/*var searchPage = mui.preload({
-						url: 'pages/search.html',
-						id: 'search-page-1’',
-						styles: {}, //窗口参数
-						extras: {} //自定义扩展参数
-					});
-					searchPage.show();*/
-				});
-
-				//底部ytfooter点击事件进入详情面板
-				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
-					var info = mui('.mui-table-cell')[0];
-					//TODO 需要把选中的info.id(type_id)传到详情页面
-					var typeT = info.id.split('_')[0];
-					var idT = info.id.split('_')[1];
-					var pageUrl = '';
-					var pageId = ''
-					switch(typeT) {
-						case 'dzd':
-							{
-								pageUrl = 'pages/dzd/dzdxq.html';
-								pageId = 'dzdxq';
-								break;
-							}
-
-						case 'bmwyjc':
-							{
-								pageUrl = 'pages/jcsb/bmwyjc.html';
-								pageId = 'bmwyjc';
-								break;
-							}
-
-						case 'lfjc':
-							{
-								pageUrl = 'pages/jcsb/lfjc.html';
-								pageId = 'lfjc';
-								break;
-							}
-
-						case 'yljc':
-							{
-								pageUrl = 'pages/jcsb/yljc.html';
-								pageId = 'yljc';
-								break;
-							}
-
-						default:
-							break;
-					}
-					/*var detailPage = mui.preload({
-						url: pageUrl,
-						id: pageId,
-						styles: {}, //窗口参数
-						extras: {
-							type: typeT,
-							id: idT
-						} //自定义扩展参数
-					});
-					detailPage.show();*/
-					mui.openWindow({
-						url: pageUrl,
-						id: pageId
-					});
-				});
-				//监听点击事件,获取所有按钮，绑定按钮的点击事件
-				mui('.mui-content').on("tap", "button", function(evt) {
-					var action = evt.target.value;
-					switch(action) {
-						case 'usercenter':
-							{
-								break;
-							}
-						case 'info':
-							/*已发生预警地灾点列表*/
-							{
-								//预加载
-								var flPage = mui.preload({
-									url: 'pages/dzd/dzdsbyjxx.html',
-									id: action,
-									styles: {}, //窗口参数
-									extras: {} //自定义扩展参数
-								});
-								flPage.show();
-								break;
-							}
-						case 'locate':
-							{
-								me.hideFooterPanle(0); //定位功能，测试底部面板隐藏
-								myMap.locate({
-									setView: true,
-									timeout: 5000,
-									maxZoom: 15
-								});
-								break;
-							}
-						case 'zoomin':
-							{
-								myMap.zoomIn();
-								break;
-							}
-						case 'zoomout':
-							{
-								myMap.zoomOut();
-								break;
-							}
-						case 'warn':
-							{
-								var color = evt.target.style.color;
-								if(color == '' || color == 'rgb(192, 57, 43)') {
-									color = 'rgba(52, 73, 94, 1.0)';
-									showAllDZMarksOnMap();
-								} else {
-									color = 'rgba(192, 57, 43, 1.0)';
-									showWarnDZMarksOnMap();
-								}
-								evt.target.style.color = color;
-								break;
-							}
-						default:
-							break;
-					}
-				});
-			};
-
-			//地图上显示地灾对象图层	
-			var dzMarkersLayerGroup = new L.layerGroup();
-			var dzQueryResults = null;
-			//底图上显示监测设备对象图层
-			var jcMarkersLayerGroup = new L.layerGroup();
-			var jcQueryResults = null;
-			var warnBounds = null;
-			var maxZoomShow = 15;
-			var footerHeight = 150;
-
-			function showAllDZMarksOnMap() {
-				//0所有地灾点
-				var results = queryMarkers(0);
-				if(results != null && results.length > 0) {
-					dzMarkersLayerGroup.clearLayers();
-					getDZMarkersLayerGroup(results);
-					myMap.addLayer(dzMarkersLayerGroup);
-					myMap.flyToBounds(warnBounds, {
-						maxZoom: maxZoomShow
-					});
-				} else {
-					mui.toast('无查询结果！', {
-						duration: 'short',
-						type: 'div'
-					})
-				}
-			}
-			//显示告警对象
-			function showWarnDZMarksOnMap() {
-				//1所有地灾点，包括报警级别信息
-				var results = queryMarkers(1);
-				if(results != null && results.length > 0) {
-					dzMarkersLayerGroup.clearLayers();
-					getDZMarkersLayerGroup(results);
-					myMap.addLayer(dzMarkersLayerGroup);
-					myMap.flyToBounds(warnBounds, {
-						maxZoom: maxZoomShow
-					});
-				} else {
-					mui.toast('无查询结果！', {
-						duration: 'short',
-						type: 'div'
-					})
-				}
-			}
-			//请求后台服务获取不同对象数据
-			function queryMarkers(markType) {
-				switch(markType) {
-					case 0:
-						return dzMarkersData;
-						break;
-					case 1:
-						return warnDZMarkersData;
-						break;
-					case 2:
-						return warnjcMarkersData;
-						break;
-					default:
-						break;
-				}
-			}
-			//生成markers并添加到地灾markerlayergroup
-			function getDZMarkersLayerGroup(results) {
-				dzQueryResults = results;
-				var latLngsArr = new Array();
-				var iconName = 'bolt';
-				var markColor = 'purple';
-				var level = '';
-				for(var i = 0; i < results.length; i++) {
-					level = results[i].le;
-					markColor = getMarkerColorByWarnLevel(level);
-					var iconObj = L.AwesomeMarkers.icon({
-						icon: iconName,
-						markerColor: markColor,
-						prefix: 'fa',
-						spin: false
-					});
-					var mId = results[i].id;
-					var mType = results[i].type;
-					var mX = results[i].x;
-					var mY = results[i].y;
-					var mN = results[i].name;
-					var mMsg = results[i].msg;
-					var markerObj = new L.marker([mX, mY], {
-						icon: iconObj,
-						title: mId,
-						type: mType
-					}).bindPopup(mN, {
-						closeButton: false
-					}).on('click', function(e) {
-						showJCMarkerByDZid(mId);
-						setFooterContentByInfo(e.target.options.type, e.target.options.title);
-						showFooterPanel(footerHeight);
-					});
-					dzMarkersLayerGroup.addLayer(markerObj);
-					latLngsArr.push(markerObj.getLatLng());
-
-				}
-				warnBounds = L.latLngBounds(latLngsArr);
-			}
-			//根据不同的告警级别获取不同的颜色值
-			function getMarkerColorByWarnLevel(level) {
-				var markColor = '';
-				switch(level) {
-					case 'red':
-						{
-							markColor = 'red';
-							break;
-						}
-					case 'orange':
-						{
-							markColor = 'orange';
-							break;
-						}
-					case 'yellow':
-						{
-							markColor = 'yellow';
-							break;
-						}
-					case 'blue':
-						{
-							markColor = 'blue';
-							break;
-						}
-					case 'normal':
-						{
-							markColor = 'green';
-							break;
-						}
-					default:
-						{
-							markColor = 'cadetblue';
-							break;
-						}
-				}
-				return markColor;
-			}
-
-			//地灾点的点击事件，显示该地灾点的监测设备
-			function showJCMarkerByDZid(dzID) {
-				//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
-				var results = queryMarkers(2);
-				if(results != null && results.length > 0) {
-					jcMarkersLayerGroup.clearLayers();
-					getJCMarkersLayerGroup(results);
-					myMap.addLayer(jcMarkersLayerGroup);
-					myMap.flyToBounds(warnBounds, {
-						maxZoom: maxZoomShow
-					});
-				} else {
-					mui.toast('无查询结果！', {
-						duration: 'short',
-						type: 'div'
-					})
-				}
-			}
-			//生成markers并添加到监测设备markerlayergroup
-			function getJCMarkersLayerGroup(results) {
-				jcQueryResults = results;
-				var latLngsArr = new Array();
-				var iconName = 'camera';
-				var markColor = 'purple';
-				var level = '';
-				for(var i = 0; i < results.length; i++) {
-					level = results[i].le;
-					markColor = getMarkerColorByWarnLevel(level);
-					var mId = results[i].id;
-					var mType = results[i].type;
-					var mX = results[i].x;
-					var mY = results[i].y;
-					var mN = results[i].name;
-					var mMsg = results[i].msg;
-					var iconObj = L.AwesomeMarkers.icon({
-						icon: iconName,
-						markerColor: markColor,
-						prefix: 'fa',
-						spin: false
-					});
-
-					var markerObj = new L.marker([mX, mY], {
-						icon: iconObj,
-						title: mId,
-						type: mType
-					}).bindPopup(mN, {
-						closeButton: false
-					}).on('click', function(e) {
-						setFooterContentByInfo(e.target.options.type, e.target.options.title);
-						myMap.flyTo(e.latlng);
-						showFooterPanel(footerHeight);
-					});
-					jcMarkersLayerGroup.addLayer(markerObj);
-					latLngsArr.push(markerObj.getLatLng());
-				}
-				warnBounds = L.latLngBounds(latLngsArr);
-			}
-			//设置底部栏的内容，根据点击的地灾点或者设备点
-			function setFooterContentByInfo(Type, infoID) {
-				var tempResults = null;
-				var infoT = null;
-				if(Type == 'dzd') {
-					tempResults = dzQueryResults;
-				} else {
-					tempResults = jcQueryResults;
-				}
-				for(var i = 0; i < tempResults.length; i++) {
-					if(tempResults[i].id == infoID) {
-						infoT = tempResults[i];
-						break;
-					}
-				}
-				var html = template('ul-li-template', {
-					info: infoT,
-					type: Type
-				});
-				document.getElementById("footer-table").innerHTML = html;
-			}
-
-			//初始化应用
-			var initApp = function() {
-				this.initMap();
-				this.initEvent();
-			};
-			mui.ready(initApp);
-		</script>
 		<div id="ytmap" class="mui-content">
 			<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
 			<form class="mui-input-group">
 				<div class="mui-input-row ">
-					<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="查找地灾点">
+					<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、设备">
 				</div>
 			</form>
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
 			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
 			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
-			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn"></button>
-			<button type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
-			<button type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
+			<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
+			<button id="yt-map-zoomout" type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+			<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
 			<div class="warn-info-container">
 				<label id="warn-info"></label>
 			</div>
@@ -506,28 +40,36 @@
 					<div id="footer-table" class="mui-table">
 						<script id="ul-li-template" type="text/html">
 							<%if (type=='dzd') {%>
-							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-11">
 								<h4 class="mui-ellipsis"><%=info.name%></h4>
 								<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
 				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
 								<h5><span class="mapfooterfont4 ytfooter-main"></span> 四类  | 11个监测设备 | 报警等级：橙色</h5>
 							</div>
 							<%}else{%>
-							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-10">
+							<div id='<%=type%>_<%=info.id%>' class="mui-table-cell mui-col-xs-11">
 								<h4 class="mui-ellipsis"><%=info.name%></h4>
 								<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
 				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
-								<h5><span class="mapfooterfont4 ytfooter-main"></span> 报警等级：红色</h5>
+								<h5><span class="mapfooterfont4 ytfooter-main"></span> 裂缝监测 | 报警等级：红色</h5>
 							</div>
 							<%}%>
-							<div class="mui-table-cell mui-col-xs-2 mui-text-right">
-								<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>
+							<div class="mui-table-cell mui-col-xs-1 mui-text-right">
+								<!--<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>-->
+								<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
 							</div>
 						</script>
 					</div>
 				</li>
 			</ul>
 		</div>
+		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
+		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
+		<script type="text/javascript" src="js/template-native.js"></script>
+		<script type="text/javascript" src="js/testdata.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/pages/index.js" type="text/javascript" charset="utf-8"></script>
 	</body>
-
 </html>

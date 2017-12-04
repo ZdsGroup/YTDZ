@@ -82,6 +82,7 @@
 			.mui-slider {
 				height: 200px;
 			}
+			
 		</style>
 	</head>
 
@@ -94,15 +95,14 @@
 						<ul class="mui-table-view">
 							<li class="mui-table-view-cell" value="0">设备项目详情</li>
 							<li class="mui-table-view-cell" value="1">设备对比</li>
-							<li class="mui-table-view-cell" value="2">设备状态</li>
-							<li class="mui-table-view-cell" value="3">位移变化图</li>
-							<li class="mui-table-view-cell" value="4">断面曲线图</li>
-							<li class="mui-table-view-cell" value="5">速度图</li>
-							<li class="mui-table-view-cell" value="6">加速度图</li>
-							<li class="mui-table-view-cell" value="7">散点图</li>
-							<li class="mui-table-view-cell" value="8">平面矢量图</li>
-							<li class="mui-table-view-cell" value="9">数据列表</li>
-							<li class="mui-table-view-cell" value="10">报警查询</li>
+							<li class="mui-table-view-cell" value="2">位移变化图</li>
+							<li class="mui-table-view-cell" value="3">断面曲线图</li>
+							<li class="mui-table-view-cell" value="4">速度图</li>
+							<li class="mui-table-view-cell" value="5">加速度图</li>
+							<li class="mui-table-view-cell" value="6">散点图</li>
+							<li class="mui-table-view-cell" value="7">平面矢量图</li>
+							<li class="mui-table-view-cell" value="8">数据列表</li>
+							<li class="mui-table-view-cell" value="9">报警查询</li>
 						</ul>
 					</div>
 				</div>
@@ -116,7 +116,7 @@
 					<h1 class="mui-title">表面位移监测设备详情</h1>
 				</header>
 
-				<div id="muiscrollid" class="mui-content mui-scroll-wrapper">
+				<div id="muiscrollid" class="mui-content mui-scroll-wrapper" style="min-height: calc(100vh);">
 					<div class="mui-scroll">
 						<div class="mui-control-content mui-active">
 							<div class="mui-card">
@@ -153,38 +153,29 @@
 								</div>
 							</div>
 							<div class="mui-card">
-								<div class="mui-card-header">维护信息</div>
+								<div class="mui-card-header">设备状态</div>
 								<div class="mui-card-content">
-									<table class="table">
-										<tr>
-											<td class="colmkey">负责人:</td>
-											<td>张三</td>
-										</tr>
-										<tr>
-											<td>联系电话:</td>
-											<td>18099000001</td>
-										</tr>
-										<tr>
-											<td>维护周期:</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>上次维护时间:</td>
-											<td>5分钟前最后一次上传数据</td>
-										</tr>
-										<tr>
-											<td>安装时间:</td>
-											<td>2017/03/13 09:45:18</td>
-										</tr>
-										<tr>
-											<td>安装地点:</td>
-											<td>贵溪市石膏矿</td>
-										</tr>
-									</table>
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">通讯状态：正常</li>
+										<li class="mui-table-view-cell">电池状态：正常</li>
+										<li class="mui-table-view-cell">电池状态：正常</li>
+										<li class="mui-table-view-cell">设备频率：30min/次</li>
+									</ul>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">维护信息</div>
+								<div class="mui-card-content">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">负责人：丁一一</li>
+										<li class="mui-table-view-cell">联系电话：18532149807</li>
+										<li class="mui-table-view-cell">维护周期：30min/次</li>
+										<li class="mui-table-view-cell">上次维护时间：5分钟前最后一次上传数据</li>
+										<li class="mui-table-view-cell">安装时间：2017-03-09 12:21:54</li>
+										<li class="mui-table-view-cell">安装地点：贵溪市石膏矿</li>
+									</ul>
+								</div>
+							</div>
 							<div class="mui-card">
 								<div class="mui-card-header">同类设备对比</div>
 								<div class="mui-card-content">
@@ -229,53 +220,6 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
-							<div class="mui-card">
-								<div class="mui-card-header">设备状态</div>
-								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>通讯状态</th>
-											<th>电池状态</th>
-											<th>运行状态</th>
-											<th>设备频率</th>
-
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>正常</td>
-											<td>30min/次</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">位移变化图</div>
 								<div class="mui-card-content">
@@ -304,8 +248,6 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">断面曲线图</div>
 								<div class="mui-card-content">
@@ -334,8 +276,6 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">速度图</div>
 								<div class="mui-card-content">
@@ -364,8 +304,6 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">加速度图</div>
 								<div class="mui-card-content">
@@ -394,8 +332,6 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">散点图</div>
 								<div class="mui-card-content">
@@ -424,8 +360,6 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">平面矢量图</div>
 								<div class="mui-card-content">
@@ -454,61 +388,29 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
-								<div class="mui-card-header">数据列表</div>
+								<div class="mui-card-header">数据列表<span style="float: right;">[单位:mm]</span></div>
 								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>时间</th>
-											<th>DX(mm)</th>
-											<th>DY(mm)</th>
-											<th>DH(mm)</th>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td style="color: red;">16.7</td>
-											<td>12.1</td>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td>12.5</td>
-											<td>12.1</td>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td>15.7</td>
-											<td>12.1</td>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td>11.1</td>
-											<td>12.1</td>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td>8.9</td>
-											<td>12.1</td>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td>7.5</td>
-											<td>12.1</td>
-										</tr>
-										<tr>
-											<td>2017/05/06 01:38:19</td>
-											<td>14.5</td>
-											<td>14.5</td>
-											<td>12.1</td>
-										</tr>
-									</table>
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<h5>2017/05/06 01:38:19<span style="float: right;">DX:10.1&nbsp;DY:10.3&nbsp;DH:5</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>2017/05/06 01:38:19<span style="float: right;">DX:10.1&nbsp;DY:10.3&nbsp;DH:5</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>2017/05/06 01:38:19<span style="float: right;">DX:10.1&nbsp;DY:10.3&nbsp;DH:5</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>2017/05/06 01:38:19<span style="float: right;">DX:10.1&nbsp;DY:10.3&nbsp;DH:5</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>2017/05/06 01:38:19<span style="float: right;">DX:10.1&nbsp;DY:10.3&nbsp;DH:5</span></h5>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5>2017/05/06 01:38:19<span style="float: right;">DX:10.1&nbsp;DY:10.3&nbsp;DH:5</span></h5>
+										</li>
+									</ul>
 									<form class="mui-input-group">
 										<div class="mui-input-row">
 											<a class="mui-navigate-right">
@@ -531,112 +433,72 @@
 									</form>
 								</div>
 							</div>
-						</div>
-						<div class="mui-control-content">
 							<div class="mui-card">
-								<div class="mui-card-header">报警信息</div>
-								<div class="mui-card-content">
-									<table id="tablevalue" class="table">
-										<tr>
-											<th>序号</th>
-											<th>报警等级</th>
-											<th>报警时间</th>
-											<th>报警内容</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-										<tr>
-											<td>8</td>
-											<td>红色</td>
-											<td>2017/05/06 01:38:19</td>
-											<td>发生无数据故障报警</td>
-										</tr>
-									</table>
-									<form class="mui-input-group">
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>时间类型：</label>
-												<div style="padding: 10px;">实时数据</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>开始时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-											</a>
-										</div>
-										<div class="mui-input-row">
-											<a class="mui-navigate-right">
-												<label>结束时间：</label>
-												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-											</a>
-										</div>
-									</form>
-								</div>
+								<div class="mui-card-header">报警查询</div>
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+									<li class="mui-table-view-cell">
+										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+									</li>
+								</ul>
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>时间类型：</label>
+											<div style="padding: 10px;">实时数据</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>开始时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+										</a>
+									</div>
+									<div class="mui-input-row">
+										<a class="mui-navigate-right">
+											<label>结束时间：</label>
+											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+										</a>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="mui-off-canvas-backdrop"></div>
 			</div>
-			<div class="mui-off-canvas-backdrop"></div>
-		</div>
-		</div>
-		<script src="../../js/mui.min.js"></script>
-		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/pages/bmwyjc.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			mui.init({
-				swipeBack: false //启用右滑关闭功能
-			});
-			mui('.mui-scroll-wrapper').scroll();
+			<script src="../../js/mui.min.js"></script>
+			<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../js/pages/bmwyjc.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				mui.init({
+					swipeBack: false //启用右滑关闭功能
+				});
+				mui('.mui-scroll-wrapper').scroll();
 
-			var initApp = function() {
-				this.initEvent();
-				this.initChart();
-			};
-			mui.ready(initApp);
-		</script>
+				var initApp = function() {
+					this.initEvent();
+					this.initChart();
+				};
+				mui.ready(initApp);
+			</script>
 	</body>
 
 </html>

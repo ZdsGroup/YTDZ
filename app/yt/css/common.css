@@ -1,6 +1,6 @@
 html,
 body {
-	overflow:auto;
+	overflow: auto;
 	width: 100%;
 	height: 100%;
 }
@@ -18,6 +18,7 @@ body {
 	-webkit-text-size-adjust: none;
 }
 
+
 /*.mui-bar {
 	background-color: rgba(52, 152, 219, 1.0);
 }*/
@@ -26,9 +27,11 @@ body {
 	z-index: 998 !important;
 }
 
+
 /*.mui-icon {
 	color: rgba(255, 255, 255, 1);
 }*/
+
 
 /*.mui-title {
 	color: rgba(255, 255, 255, 1);
@@ -37,3 +40,9 @@ body {
 .mui-table-view {
 	margin-top: 0px !important;
 }
+
+
+/*.mui-card-header {
+	background-color: rgba(52, 152, 219,1.0);
+	color: #FFF !important;
+}*/

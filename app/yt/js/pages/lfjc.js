@@ -1,7 +1,7 @@
 //当前显示的内容项目索引
 var currentPid = 0;
 //存储当前页面中所有图形对象
-var bmwy_charts = {};
+var lfjc_charts = {};
 //侧滑容器父节点
 var offCanvasWrapper = null;
 var initEvent = function() {
@@ -26,7 +26,7 @@ var initEvent = function() {
 		//关闭侧滑面板
 		offCanvasWrapper.offCanvas('close');
 		//刷新统计图
-		me.refreshChart(bmwy_charts['menu_' + currentPid]);
+		me.refreshChart(lfjc_charts['menu_' + currentPid]);
 	});
 
 	//时间选择器
@@ -531,7 +531,7 @@ var initChart = function() {
 	var dom = echarts.init(mui('#device-offset-monitor')[0]);
 	dom.setOption(getOption('device-offset-monitor'));
 
-	bmwy_charts['menu_1'] = [dtc];
-	bmwy_charts['menu_2'] = [ddc];
-	bmwy_charts['menu_4'] = [dom];
+	lfjc_charts['menu_1'] = [dtc];
+	lfjc_charts['menu_2'] = [ddc];
+	lfjc_charts['menu_4'] = [dom];
 };
