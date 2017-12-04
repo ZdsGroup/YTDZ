@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../../js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<script type="text/javascript" src="../../js/mui.min.js"></script>
-		<script type="text/javascript" src="../../js/leaflet/leaflet.js" ></script>
+		<script type="text/javascript" src="../../js/leaflet/leaflet.js"></script>
 		<script type="text/javascript" src="../../js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 		<script type="text/javascript" src="../../js/leaflet-awesome/leaflet.awesome-markers.js"></script>
 		<script type="text/javascript" src="../../js/leaflet-awesome/L.Icon.Pulse.js"></script>
@@ -35,39 +35,45 @@
 				height: 200px;
 				border-bottom: 1px solid black;
 			}
-			#mui-slider-jcsb{
+			
+			#mui-slider-jcsb {
 				height: 200px;
 			}
-			#mui-slider-jcsb img{
+			
+			#mui-slider-jcsb img {
 				width: auto;
 				height: 150px;
 				max-width: 100%;
 				max-height: 100%;
 			}
-			#dzmap{
+			
+			#dzmap {
 				width: auto;
 				height: 160px;
 			}
 			/*图片等比自动缩放*/
+			
 			img {
 				width: auto;
 				height: 200px;
 				max-width: 100%;
 				max-height: 100%;
 			}
-
-			.mui-card-header{
+			
+			.mui-card-header {
 				background-color: whitesmoke;
-				color: royalblue ;
+				color: royalblue;
 			}
-			.mui-card-header-self{
+			
+			.mui-card-header-self {
 				background-color: whitesmoke;
-				color: royalblue ;
+				color: royalblue;
 				font-size: 17px;
 			}
-			.mui-table-view-self{
+			
+			.mui-table-view-self {
 				background-color: whitesmoke;
-				color: royalblue ;
+				color: royalblue;
 			}
 		</style>
 
@@ -75,140 +81,177 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">地灾点详情</h1>
 		</header>
-			<div id="muiscrollid" class="mui-content mui-scroll-wrapper" style="min-height: calc(100vh);">
-				<div class="mui-scroll">
-					<div class="mui-control-content mui-active">
-						<div class="mui-card">
-							<div id="dzmap" class="mui-card-content">
-							</div>
+		<div id="muiscrollid" class="mui-content mui-scroll-wrapper" style="min-height: calc(100vh);">
+			<div class="mui-scroll">
+				<div class="mui-control-content mui-active">
+					<div class="mui-card">
+						<div id="dzmap" class="mui-card-content">
 						</div>
-						<div class="mui-card">
-							<div class="mui-card-header">基本情况</div>
-							<div class="mui-card-content">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										承担单位：鹰潭市国土资源局
-									</li>
-									<li class="mui-table-view-cell">
-										负责人：张三
-									</li>
-									<li class="mui-table-view-cell">
-										监测设备：4种类型  | 共计11个
-									</li>
-									<li class="mui-table-view-cell">
-										简介：鹰潭市为地质灾害防治制定发布了《鹰潭市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了鹰潭市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。
+					</div>
+					<div class="mui-card">
+						<div class="mui-card-header">基本情况</div>
+						<div class="mui-card-content">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									地灾点：贵溪市石膏矿采空塌陷地灾点
+								</li>
+								<li class="mui-table-view-cell">
+									承担单位：鹰潭市国土资源局
+								</li>
+								<li class="mui-table-view-cell">
+									负责人：张志辉
+								</li>
+								<li class="mui-table-view-cell">
+									监测设备：4种类型 | 共计11个
+								</li>
+								<li class="mui-table-view-cell">
+									简介：贵溪市为地质灾害防治制定发布了《贵溪市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了贵溪市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mui-card">
+						<div class="mui-card-content">
+							<div class="mui-card-header-self">
+								<ul class="mui-table-view mui-table-view-self">
+									<li id="warnlist" class="mui-table-view-cell">
+										<a class="mui-navigate-right" href="#">
+											<span class="mui-badge mui-badge-danger">15</span> 预警信息
+										</a>
 									</li>
 								</ul>
 							</div>
-						</div>	
-						<div class="mui-card">
-							<div class="mui-card-content">
-								<div class="mui-card-header-self">
-									 <ul class="mui-table-view mui-table-view-self">
-									 	 <li class="mui-table-view-cell">
-							                <a class="mui-navigate-right">
-							                    <span class="mui-badge mui-badge-danger">15</span>
-							                    	告警信息
-							                </a>
-							            </li>
-									 </ul>	
-								 </div>
-							</div>	
-						</div>	
-						<div class="mui-card">
-							<div class="mui-card-header-self">
-								<ul class="mui-table-view mui-table-view-self">
-								 	 <li class="mui-table-view-cell">
-						                <a class="mui-navigate-right">
-						                    <span class="mui-badge mui-badge-blue">查看全部设备</span>
-						                    	监测设备
-						                </a>
-						            </li>
-								 </ul>	
+						</div>
+					</div>
+					<div class="mui-card">
+						<div class="mui-card-header-self">
+							<ul class="mui-table-view mui-table-view-self">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span class="mui-badge mui-badge-blue">查看全部设备</span> 监测设备
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="mui-card-content">
+							<div id="mui-slider-jcsb" class="mui-slider">
+								<div class="mui-slider-group mui-slider-loop">
+									<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一个图文表格) -->
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<ul class="mui-table-view mui-grid-view">
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/bmwy-2.jpg">
+													<div class="mui-media-body">表面位移监测2</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/yljc-1.png">
+													<div class="mui-media-body">雨量监测1</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/yljc-2.png">
+													<div class="mui-media-body">雨量监测2</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="mui-slider-item">
+										<ul class="mui-table-view mui-grid-view">
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/1.png">
+													<div class="mui-media-body">裂缝监测1</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/2.png">
+													<div class="mui-media-body">裂缝监测2</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/bmwy-1.jpg">
+													<div class="mui-media-body">表面位移监测1</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="mui-slider-item">
+										<ul class="mui-table-view mui-grid-view">
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/bmwy-2.jpg">
+													<div class="mui-media-body">表面位移监测2</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/yljc-1.png">
+													<div class="mui-media-body">雨量监测1</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/yljc-2.png">
+													<div class="mui-media-body">雨量监测2</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一个图文表格) -->
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<ul class="mui-table-view mui-grid-view">
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/1.png">
+													<div class="mui-media-body">裂缝监测1</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/2.png">
+													<div class="mui-media-body">裂缝监测2</div>
+												</a>
+											</li>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="../../photos/bmwy-1.jpg">
+													<div class="mui-media-body">表面位移监测1</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
-							<div class="mui-card-content">
-								 <div  id="mui-slider-jcsb" class="mui-slider">
-							        <div class="mui-slider-group mui-slider-loop">
-							        	<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一个图文表格) -->
-							            <div class="mui-slider-item mui-slider-item-duplicate">
-							               <ul class="mui-table-view mui-grid-view">
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/bmwy-2.jpg">
-							                            <div class="mui-media-body">表面位移监测2</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/yljc-1.png">
-							                            <div class="mui-media-body">雨量监测1</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/yljc-2.png">
-							                            <div class="mui-media-body">雨量监测2</div></a></li>
-							                </ul>
-							            </div>
-							            <div class="mui-slider-item">
-							                <ul class="mui-table-view mui-grid-view">
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/1.png">
-							                            <div class="mui-media-body">裂缝监测1</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/2.png">
-							                            <div class="mui-media-body">裂缝监测2</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/bmwy-1.jpg">
-							                            <div class="mui-media-body">表面位移监测1</div></a></li>
-							                </ul>
-							            </div>
-							            <div class="mui-slider-item">
-							                <ul class="mui-table-view mui-grid-view">
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/bmwy-2.jpg">
-							                            <div class="mui-media-body">表面位移监测2</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/yljc-1.png">
-							                            <div class="mui-media-body">雨量监测1</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/yljc-2.png">
-							                            <div class="mui-media-body">雨量监测2</div></a></li>
-							                </ul>
-							            </div>
-							            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一个图文表格) -->
-							            <div class="mui-slider-item mui-slider-item-duplicate">
-							               <ul class="mui-table-view mui-grid-view">
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/1.png">
-							                            <div class="mui-media-body">裂缝监测1</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/2.png">
-							                            <div class="mui-media-body">裂缝监测2</div></a></li>
-							                    <li class="mui-table-view-cell mui-media mui-col-xs-4"><a href="#"><img class="mui-media-object" src="../../photos/bmwy-1.jpg">
-							                            <div class="mui-media-body">表面位移监测1</div></a></li>
-							                </ul>
-							            </div>
-							        </div>
-							    </div>
-							</div>
-						</div>	
-						<div class="mui-card">
-							<div class="mui-card-header-self">
-								<ul class="mui-table-view mui-table-view-self">
-					                <li class="mui-table-view-cell">
-										累计评论
-										<button type="button" class="mui-btn mui-btn-primary">
+						</div>
+					</div>
+					<div class="mui-card">
+						<div class="mui-card-header-self">
+							<ul class="mui-table-view mui-table-view-self">
+								<li class="mui-table-view-cell">
+									累计评论
+									<button type="button" class="mui-btn mui-btn-primary">
 											写评论
 										</button>
-									</li>
-								 </ul>	
-							</div>
-							<div class="mui-card-content">
-								<!--评论列表-->
-								<ul id="commullist" class="mui-table-view">
-									<script id="ul-li-template" type="text/html">
-										<% for(var i=0;i<list.length;i++){%>
-										<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-											<div class="mui-slider-cell">
-												<h4><span class=""><%=list[i].name%></span></h4>
-												<h5>评论信息: <%=list[i].msg%></h5>
-											</div>
-										</li>
-										<%}%>
-									</script>
-								</ul>
-							</div>
+								</li>
+							</ul>
 						</div>
-					</div>	
+						<div class="mui-card-content">
+							<!--评论列表-->
+							<ul id="commullist" class="mui-table-view">
+								<script id="ul-li-template" type="text/html">
+									<% for(var i=0;i<list.length;i++){%>
+									<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+										<div class="mui-slider-cell">
+											<h4><span class=""><%=list[i].name%></span></h4>
+											<h5>评论信息: <%=list[i].msg%></h5>
+										</div>
+									</li>
+									<%}%>
+								</script>
+							</ul>
+						</div>
+					</div>
 				</div>
-			</div>			
+			</div>
+		</div>
 
 		<script type="text/javascript">
 			mui.init({
-//				swipeBack: false, //启用右滑打开功能
+				//				swipeBack: false, //启用右滑打开功能
 			});
 			var myMap = null;
 			var initMap = function() {
@@ -216,8 +259,8 @@
 				myMap = L.map('dzmap', {
 					zoomControl: false,
 					attributionControl: false
-				}).setView(L.latLng(28.220454, 117.202889),14);
-				
+				}).setView(L.latLng(28.220454, 117.202889), 14);
+
 				L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
 					maxZoom: 18,
 					attribution: 'leaflet',
@@ -236,30 +279,41 @@
 				sliderPics.slider({
 					interval: 5000
 				});
-				
+
 				//初始化评论列表
 				setTimeout(function() {
-							var html = template('ul-li-template', {
-								list: commentListData
-							});
-							document.getElementById("commullist").innerHTML = html;
-						}, 500);
+					var html = template('ul-li-template', {
+						list: commentListData
+					});
+					document.getElementById("commullist").innerHTML = html;
+				}, 500);
+
+				//点击预警，显示预警列表
+				mui('#warnlist')[0].addEventListener("tap", function() {
+					var flPage = mui.preload({
+						url: 'dzdsbyjxx.html',
+						id: 'dzdsbyjxx',
+						styles: {}, //窗口参数
+						extras: {} //自定义扩展参数
+					});
+					flPage.show();
+				});
 			}
-			
+
 			//初始化应用
 			var xqType = '';
 			var xqID = '';
-			var initParams = function(){
+			var initParams = function() {
 				var objPage = plus.webview.currentWebview();
-				if (objPage) {
+				if(objPage) {
 					xqType = objPage.xqType;
 					xqID = objPage.xqID;
-					alert(xqType+"_"+xqID);
+					alert(xqType + "_" + xqID);
 				}
 			}
 			var initApp = function() {
 				//TODO 真机运行才可以打开该方法获取传递的参数，同时使用mui.plusReady(initApp);
-//				this.initParams();
+				//				this.initParams();
 				this.initMap();
 				this.initEvent();
 			};

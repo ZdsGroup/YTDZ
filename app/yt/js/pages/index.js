@@ -140,6 +140,7 @@ var initEvent = function() {
 	var ytFooterHeight = 0
 	var zoomin = mui('#yt-map-zoomin')[0];
 	var zoomout = mui('#yt-map-zoomout')[0];
+	var detailInfo = mui("#detailInfo")[0];
 	mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
 		ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
 		if(ytFooterHeight < me.footerHeight) {
@@ -147,6 +148,8 @@ var initEvent = function() {
 		}
 		me.showFooterPanel(ytFooterHeight);
 
+		detailInfo.style.display = "block";
+		detailInfo.style.Position = "static";
 		zoomin.classList.add("mui-hidden");
 		zoomout.classList.add("mui-hidden");
 	});
@@ -169,11 +172,15 @@ var initEvent = function() {
 
 			zoomin.classList.remove("mui-hidden");
 			zoomout.classList.remove("mui-hidden");
+
+			detailInfo.style.display = "none";
+			detailInfo.style.Position = "absolute";
 		} else if(ytFooterHeight <= step2) {
 			ytFooterHeight = parseInt(step2);
 		} else {
 			ytFooterHeight = screen.availHeight - topNavHeight;
 		}
+
 		me.showFooterPanel(ytFooterHeight);
 	});
 

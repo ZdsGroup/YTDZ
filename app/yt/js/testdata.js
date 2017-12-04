@@ -1,7 +1,7 @@
 var warnDZMarkersData = [{
 		id: '1',
 		type: 'dzd',
-		name: '地灾点1',
+		name: '贵溪市石膏矿采空塌陷区',
 		x: '28.220454',
 		y: '117.202889',
 		le: 'red',
@@ -10,7 +10,7 @@ var warnDZMarkersData = [{
 	{
 		id: '2',
 		type: 'dzd',
-		name: '地灾点2',
+		name: '雷溪采空塌陷区',
 		x: '28.240131',
 		y: '117.203318',
 		le: 'red',
@@ -19,7 +19,7 @@ var warnDZMarkersData = [{
 	{
 		id: '3',
 		type: 'dzd',
-		name: '地灾点3',
+		name: '二水采空塌陷区',
 		x: '28.216921',
 		y: '117.217595',
 		le: 'yellow',
@@ -28,7 +28,7 @@ var warnDZMarkersData = [{
 	{
 		id: '4',
 		type: 'dzd',
-		name: '地灾点4',
+		name: '承信采空塌陷区',
 		x: '28.193918',
 		y: '117.208754',
 		le: 'blue',
@@ -37,7 +37,7 @@ var warnDZMarkersData = [{
 	{
 		id: '5',
 		type: 'dzd',
-		name: '地灾点5',
+		name: '罗河采空塌陷区',
 		x: '28.237177',
 		y: '117.177512',
 		le: 'normal',
@@ -46,7 +46,7 @@ var warnDZMarkersData = [{
 	{
 		id: '6',
 		type: 'dzd',
-		name: '地灾点6',
+		name: '罗塘石膏矿区鱼种场',
 		x: '28.270822',
 		y: '117.190043',
 		le: 'normal',
