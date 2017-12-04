@@ -13,44 +13,9 @@
 		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
 		<link rel="stylesheet" href="js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
-		<script type="text/javascript" src="js/template-native.js"></script>
-		<script type="text/javascript" src="js/testdata.js"></script>
 	</head>
 
 	<body>
-		<script src="js/mui.min.js"></script>
-		<script src="js/pages/index.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			mui.init({
-				gestureConfig: {
-					tap: true, //默认为true
-					doubletap: true, //默认为false
-					longtap: true, //默认为false
-					swipe: true, //默认为true
-					drag: true, //默认为true
-					hold: false, //默认为false，不监听
-					release: false //默认为false，不监听
-				}
-			});
-
-			//初始化应用
-			var initApp = function() {
-				this.initMap();
-				this.initEvent();
-			};
-			mui.ready(initApp);
-
-			var initAppPlus = function() {
-				//获取状态栏高度
-				this.topNavHeight = plus.navigator.getStatusbarHeight();
-			};
-
-			mui.plusReady(initAppPlus);
-		</script>
 		<div id="ytmap" class="mui-content">
 			<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
 			<form class="mui-input-group">
@@ -91,13 +56,20 @@
 							<%}%>
 							<div class="mui-table-cell mui-col-xs-1 mui-text-right">
 								<!--<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>-->
-								<button id="ftstar" value="ftstar" type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+								<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
 							</div>
 						</script>
 					</div>
 				</li>
 			</ul>
 		</div>
+		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
+		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
+		<script type="text/javascript" src="js/template-native.js"></script>
+		<script type="text/javascript" src="js/testdata.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/pages/index.js" type="text/javascript" charset="utf-8"></script>
 	</body>
-
 </html>

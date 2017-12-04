@@ -13,7 +13,7 @@ var warnDZMarkersData = [{
 		name: '地灾点2',
 		x: '28.240131',
 		y: '117.203318',
-		le: 'orange',
+		le: 'red',
 		msg: '警告信息2'
 	},
 	{
@@ -60,7 +60,7 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.220454',
 		y: '117.202889',
-		le: '',
+		le: 'red',
 		msg: '全部信息1'
 	},
 	{
@@ -69,7 +69,7 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.240131',
 		y: '117.203318',
-		le: '',
+		le: 'normal',
 		msg: '全部信息2'
 	},
 	{
@@ -78,7 +78,7 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.216921',
 		y: '117.217595',
-		le: '',
+		le: 'normal',
 		msg: '全部信息3'
 	},
 	{
@@ -87,7 +87,7 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.193918',
 		y: '117.208754',
-		le: '',
+		le: 'normal',
 		msg: '全部信息4'
 	},
 	{
@@ -96,7 +96,7 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.237177',
 		y: '117.177512',
-		le: '',
+		le: 'normal',
 		msg: '全部信息5'
 	},
 	{
@@ -105,7 +105,7 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.270822',
 		y: '117.190043',
-		le: '',
+		le: 'red',
 		msg: '全部信息6'
 	}
 ]

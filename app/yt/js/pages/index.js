@@ -9,6 +9,33 @@ var warnBounds = null;
 var maxZoomShow = 15;
 var footerHeight = 101;
 var topNavHeight = 25; //手机顶部状态栏高度
+
+mui.init({
+	gestureConfig: {
+		tap: true, //默认为true
+		doubletap: true, //默认为false
+		longtap: true, //默认为false
+		swipe: true, //默认为true
+		drag: true, //默认为true
+		hold: false, //默认为false，不监听
+		release: false //默认为false，不监听
+	}
+});
+
+//初始化应用
+var initApp = function() {
+	this.initMap();
+	this.initEvent();
+};
+mui.ready(initApp);
+
+var initAppPlus = function() {
+	//获取状态栏高度
+	this.topNavHeight = plus.navigator.getStatusbarHeight();
+};
+
+mui.plusReady(initAppPlus);
+
 var initMap = function() {
 	var me = this;
 	myMap = L.map('ytmap', {
@@ -363,8 +390,8 @@ function queryMarkers(markType) {
 function getDZMarkersLayerGroup(results) {
 	dzQueryResults = results;
 	var latLngsArr = new Array();
-	var iconName = 'bolt';
-	var markColor = 'purple';
+	var iconName = 'bullseye';
+	var markColor = 'green';
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
 		level = results[i].le;
