@@ -186,15 +186,9 @@ var initEvent = function() {
 		
 		//地图大小变化
 		changeMapStatus();
-		
+		//初始化评论列表
+		initComentList();
 	});
-	
-	function changeMapStatus(){
-		myMap.invalidateSize();
-		myMap.flyToBounds(warnBounds, {
-			maxZoom: maxZoomShow
-		});
-	}
 
 	//搜索框聚焦激活搜索面板
 	mui('#search-input-text-id')[0].addEventListener('focus', function() {
@@ -370,6 +364,22 @@ function showAllDZMarksOnMap() {
 			type: 'div'
 		})
 	}
+}
+
+//检查地图size变化
+function changeMapStatus(){
+	myMap.invalidateSize();
+	myMap.flyToBounds(warnBounds, {
+		maxZoom: maxZoomShow
+	});
+}
+function initComentList(){
+	setTimeout(function() {
+			var html = template('com-ul-li-template', {
+				list: commentListData
+			});
+			document.getElementById("commullist").innerHTML = html;
+		}, 500);
 }
 //显示告警对象
 function showWarnDZMarksOnMap() {
@@ -554,7 +564,7 @@ function setFooterContentByInfo(Type, infoID) {
 			break;
 		}
 	}
-	var html = template('ul-li-template', {
+	var html = template('brief-ul-li-template', {
 		info: infoT,
 		type: Type
 	});
