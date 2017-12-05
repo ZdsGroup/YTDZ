@@ -393,6 +393,14 @@ function initJcsbPictureList(){
 		totalPage = totalPage + 1;
 	}
 	
+	template.defaults.debug=true
+	var html = template('jcsb-pics-list-template', {
+				list: jscbImgListData,
+				pageNum: totalPage,
+				pageSize: picListPageSize,
+				pageRem: remNum
+			});
+	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
 function showWarnDZMarksOnMap() {
