@@ -17,235 +17,211 @@
 
 	<body>
 		<style type="text/css">
-			.footer-brief:before,.footer-brief:after,.footer-brief:before,.footer-brief:after
-			{
-				height:0px !important;
+			.footercardcontent {
+				background: #FFF;
+				position: relative;
+				padding: 10px;
+				margin: 0px 0px 5px 0px;
+				overflow: hidden;
 			}
-			.footer-brief{
-				padding: 0px 5px;
+			/*图片等比自动缩放*/
+			
+			#slider-pictures {
+				height: 200px;
+				border-bottom: 1px solid black;
+			}
+			
+			#mui-slider-jcsb {
+				height: 200px;
+			}
+			
+			#mui-slider-jcsb img {
+				width: auto;
+				height: 150px;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			img {
+				width: auto;
+				height: 200px;
+				max-width: 100%;
+				max-height: 100%;
 			}
 		</style>
 		<div id="ytmap" class="mui-content">
-			<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
-			<form class="mui-input-group">
-				<div class="mui-input-row ">
-					<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、设备">
+			<div id="toolFloatContainer" style="position: absolute; width: 100%; height: 100%;top: 0; left: 0;style=" z-index: 0; "">
+				<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
+				<form class="mui-input-group">
+					<div class="mui-input-row ">
+						<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、设备">
+					</div>
+				</form>
+				<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
+				<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
+				<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
+				<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
+				<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
+				<button id="yt-map-zoomout" type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+				<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
+				<div class="warn-info-container">
+					<label id="warn-info"></label>
 				</div>
-			</form>
-			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
-			<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
-			<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
-			<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
-			<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
-			<button id="yt-map-zoomout" type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
-			<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
-			<div class="warn-info-container">
-				<label id="warn-info"></label>
 			</div>
 		</div>
-		<div id="ytfooter" style="background-color: #FFF;">
-			<ul class="mui-table-view footer-brief">
-				<!--默认显示内容区域,简讯-->
-				<li id="briefInfo" class="mui-table-view-cell footer-brief">
-					<div class="mui-card-content">
-						<div id="footer-table" class="mui-table">
-							<script id="brief-ul-li-template" type="text/html">
-								<ul class="mui-table-view footer-brief">
-									<li id='<%=type%>_<%=info.id%>' class="mui-table-view-cell footer-brief">
-										<h4 class="mui-ellipsis"><%=info.name%></h4>
-									</li>
-									<li class="mui-table-view-cell footer-brief">
-										<h5><span class="mapfooterfont4 ytfooter-user"></span><span> 王克</span>
-				                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458</h5>
-				                   </li>
-									<%if (type=='dzd') {%>
-					                <li class="mui-table-view-cell footer-brief">
-										<h5><span class="mapfooterfont4 ytfooter-main"></span> 四类  | 11个监测设备 | 报警等级：橙色</h5>
-							 		</li>		
-									<%}else{%>
-									<li class="mui-table-view-cell footer-brief">
-										<h5><span class="mapfooterfont4 ytfooter-main"></span> 裂缝监测 | 报警等级：红色</h5>
-									</li>	
-									<%}%>
-								</ul>
-								<div class="mui-table-cell mui-col-xs-1 mui-text-right">
-									<!--<span class="mui-h5 mapfooterfont4 ytfooter-infos"></span>-->
-									<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
-								</div>
-							</script>
-						</div>
-					</div>
-				</li>
-			</ul>
-			<!--滑动到中部，内容区域-->
-			<div id="detailInfo" style="display: none"  class="mui-control-content mui-active">
-				<div class="mui-card">
-					<div class="mui-card-header">基本情况</div>
-					<div class="mui-card-content">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell">
-								地灾点：贵溪市石膏矿采空塌陷地灾点
-							</li>
-							<li class="mui-table-view-cell">
-								承担单位：鹰潭市国土资源局
-							</li>
-							<li class="mui-table-view-cell">
-								负责人：张志辉
-							</li>
-							<li class="mui-table-view-cell">
-								监测设备：4种类型 | 共计11个
-							</li>
-							<li class="mui-table-view-cell">
-								简介：贵溪市为地质灾害防治制定发布了《贵溪市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了贵溪市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。
-							</li>
-						</ul>
-					</div>
+		<div id="ytfooter" style="background-color: #EEEEEE;overflow: hidden;">
+			<div style="position: relative;">
+				<div id="footer-table" class="footercardcontent">
+					<script id="brief-ul-li-template" type="text/html">
+						<%if (type=='dzd') {%>
+						<p id='<%=type%>_<%=info.id%>'>
+							<span style="font-size: 1.1em;"><%=info.name%> </span>
+							<span style="color: #FFA500;padding-left: 0.1em;">(地灾点)</span>
+							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.warn%></span>
+						</p>
+						<p>
+							<i class="fa fa-map-marker  fa-fw"></i>南山大道与火炬大道交叉口西北100米</span>
+						</p>
+						<%}else{%>
+						<p id='<%=type%>_<%=info.id%>'>
+							<span style="font-size: 1.1em;"><%=info.name%></span>
+							<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>)</span>
+							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.warn%></span>
+						</p>
+						<p>
+							<span class="fa-map-marker  fa-fw">南山大道与火炬大道交叉口西北100米</span>
+						</p>
+						<%}%>
+					</script>
 				</div>
-				<div class="mui-card">
-					<div class="mui-card-content">
-						<div class="mui-card-header-self">
-							<ul class="mui-table-view mui-table-view-self">
-								<li id="warnlist" class="mui-table-view-cell">
-									<a class="mui-navigate-right" href="#">
-										<span class="mui-badge mui-badge-danger">15</span> 预警信息
+				<div style="position: absolute; top: 5px;right: 10px;">
+					<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+				</div>
+			</div>
+			<div class="footercardcontent">
+				<p>承担单位：鹰潭市国土资源局</p>
+				<p>负责人：张志辉</p>
+				<p>监测设备：4种类型 | 共计11个</p>
+				<p>简介：贵溪市为地质灾害防治制定发布了《贵溪市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了贵溪市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。</p>
+			</div>
+			<div class="footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#">
+					<span class="mui-badge mui-badge-danger">15</span> 预警信息
+				</a>
+			</div>
+			<div class="footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#">
+					<span class="mui-badge mui-badge-danger">全部</span> 监测设备
+				</a>
+				<div id="mui-slider-jcsb" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一个图文表格) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<ul class="mui-table-view mui-grid-view">
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/bmwy-2.jpg">
+										<div class="mui-media-body">表面位移监测2</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/yljc-1.png">
+										<div class="mui-media-body">雨量监测1</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/yljc-2.png">
+										<div class="mui-media-body">雨量监测2</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="mui-slider-item">
+							<ul class="mui-table-view mui-grid-view">
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/1.png">
+										<div class="mui-media-body">裂缝监测1</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/2.png">
+										<div class="mui-media-body">裂缝监测2</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/bmwy-1.jpg">
+										<div class="mui-media-body">表面位移监测1</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="mui-slider-item">
+							<ul class="mui-table-view mui-grid-view">
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/bmwy-2.jpg">
+										<div class="mui-media-body">表面位移监测2</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/yljc-1.png">
+										<div class="mui-media-body">雨量监测1</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/yljc-2.png">
+										<div class="mui-media-body">雨量监测2</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一个图文表格) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<ul class="mui-table-view mui-grid-view">
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/1.png">
+										<div class="mui-media-body">裂缝监测1</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/2.png">
+										<div class="mui-media-body">裂缝监测2</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4">
+									<a href="#"><img class="mui-media-object" src="photos/bmwy-1.jpg">
+										<div class="mui-media-body">表面位移监测1</div>
 									</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="mui-card">
-					<div class="mui-card-header-self">
-						<ul class="mui-table-view mui-table-view-self">
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									<span class="mui-badge mui-badge-blue">查看全部设备</span> 监测设备
-								</a>
-							</li>
-						</ul>
-					</div>
-					<div class="mui-card-content">
-						<div id="mui-slider-jcsb" class="mui-slider">
-							<div class="mui-slider-group mui-slider-loop">
-								<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一个图文表格) -->
-								<div class="mui-slider-item mui-slider-item-duplicate">
-									<ul class="mui-table-view mui-grid-view">
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/bmwy-2.jpg">
-												<div class="mui-media-body">表面位移监测2</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/yljc-1.png">
-												<div class="mui-media-body">雨量监测1</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/yljc-2.png">
-												<div class="mui-media-body">雨量监测2</div>
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="mui-slider-item">
-									<ul class="mui-table-view mui-grid-view">
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/1.png">
-												<div class="mui-media-body">裂缝监测1</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/2.png">
-												<div class="mui-media-body">裂缝监测2</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/bmwy-1.jpg">
-												<div class="mui-media-body">表面位移监测1</div>
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="mui-slider-item">
-									<ul class="mui-table-view mui-grid-view">
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/bmwy-2.jpg">
-												<div class="mui-media-body">表面位移监测2</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/yljc-1.png">
-												<div class="mui-media-body">雨量监测1</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/yljc-2.png">
-												<div class="mui-media-body">雨量监测2</div>
-											</a>
-										</li>
-									</ul>
-								</div>
-								<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一个图文表格) -->
-								<div class="mui-slider-item mui-slider-item-duplicate">
-									<ul class="mui-table-view mui-grid-view">
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/1.png">
-												<div class="mui-media-body">裂缝监测1</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/2.png">
-												<div class="mui-media-body">裂缝监测2</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object-self" src="photos/bmwy-1.jpg">
-												<div class="mui-media-body">表面位移监测1</div>
-											</a>
-										</li>
-									</ul>
-								</div>
+			</div>
+			<div class="footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#" style="line-height: 2em; ">
+					<span class="mui-badge mui-badge-danger" >写评论</span> 累计评论
+				</a>
+				<ul id="commullist" class="mui-table-view" style="font-size: 1em;">
+					<script id="com-ul-li-template" type="text/html">
+						<% for(var i=0;i<list.length;i++){%>
+						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+							<div class="mui-slider-cell">
+								<style="font-size: 1em;"><%=list[i].name%></p>
+								<p style="font-size: 0.8em;">评论信息: <%=list[i].msg%></p>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="mui-card">
-					<div class="mui-card-header-self">
-						<ul class="mui-table-view mui-table-view-self">
-							<li class="mui-table-view-cell">
-								累计评论
-								<button type="button" class="mui-btn mui-btn-primary">
-										写评论
-									</button>
-							</li>
-						</ul>
-					</div>
-					<div class="mui-card-content">
-						<!--评论列表-->
-						<ul id="commullist" class="mui-table-view">
-							<script id="com-ul-li-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-									<div class="mui-slider-cell">
-										<h4><span class=""><%=list[i].name%></span></h4>
-										<h5>评论信息: <%=list[i].msg%></h5>
-									</div>
-								</li>
-								<%}%>
-							</script>
-						</ul>
-					</div>
-				</div>
+						</li>
+						<%}%>
+					</script>
+				</ul>
 			</div>
 		</div>
-		<script type="text/javascript" src="js/leaflet-dev/leaflet.js" charset="utf-8"></script>
+		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
 		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
 		<script type="text/javascript" src="js/template-native.js"></script>
-		<script type="text/javascript" src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/pages/index.js" charset="utf-8"></script>
 		<script type="text/javascript" src="js/testdata.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/pages/index.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>
