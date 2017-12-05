@@ -25,6 +25,7 @@
 				overflow: hidden;
 			}
 			/*图片等比自动缩放*/
+			
 			#slider-pictures {
 				height: 200px;
 				border-bottom: 1px solid black;
@@ -46,22 +47,6 @@
 				height: 200px;
 				max-width: 100%;
 				max-height: 100%;
-			}
-			
-			.mui-card-header {
-				background-color: whitesmoke;
-				color: royalblue;
-			}
-			
-			.mui-card-header-self {
-				background-color: whitesmoke;
-				color: royalblue;
-				font-size: 17px;
-			}
-			
-			.mui-table-view-self {
-				background-color: whitesmoke;
-				color: royalblue;
 			}
 		</style>
 		<div id="ytmap" class="mui-content">
@@ -124,9 +109,9 @@
 					<span class="mui-badge mui-badge-danger">15</span> 预警信息
 				</a>
 			</div>
-			<div class="footercardcontent" mui-table-view-cell">
+			<div class="footercardcontent mui-table-view-cell">
 				<a class="mui-navigate-right" href="#">
-					<span class="mui-badge mui-badge-danger">15</span> 监测设备
+					<span class="mui-badge mui-badge-danger">全部</span> 监测设备
 				</a>
 				<div id="mui-slider-jcsb" class="mui-slider">
 					<div class="mui-slider-group mui-slider-loop">
@@ -210,6 +195,23 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#" style="line-height: 2em; ">
+					<span class="mui-badge mui-badge-danger" >写评论</span> 累计评论
+				</a>
+				<ul id="commullist" class="mui-table-view" style="font-size: 1em;">
+					<script id="com-ul-li-template" type="text/html">
+						<% for(var i=0;i<list.length;i++){%>
+						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+							<div class="mui-slider-cell">
+								<style="font-size: 1em;"><%=list[i].name%></p>
+								<p style="font-size: 0.8em;">评论信息: <%=list[i].msg%></p>
+							</div>
+						</li>
+						<%}%>
+					</script>
+				</ul>
 			</div>
 		</div>
 		<script src="js/leaflet-dev/leaflet.js" type="text/javascript" charset="utf-8"></script>
