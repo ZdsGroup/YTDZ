@@ -89,6 +89,7 @@ var initMap = function() {
 		var target = e.originalEvent.target;
 		if(target.type != 'button') {
 			me.hideFooterPanle(0);
+			changeMapStatus();
 		}
 	});
 
@@ -182,7 +183,18 @@ var initEvent = function() {
 		}
 
 		me.showFooterPanel(ytFooterHeight);
+		
+		//地图大小变化
+		changeMapStatus();
+		
 	});
+	
+	function changeMapStatus(){
+		myMap.invalidateSize();
+		myMap.flyToBounds(warnBounds, {
+			maxZoom: maxZoomShow
+		});
+	}
 
 	//搜索框聚焦激活搜索面板
 	mui('#search-input-text-id')[0].addEventListener('focus', function() {
