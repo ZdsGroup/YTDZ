@@ -5,6 +5,7 @@ var warnDZMarkersData = [{
 		x: '28.220454',
 		y: '117.202889',
 		le: 'red',
+		warn:'五级',
 		msg: '警告信息1'
 	},
 	{
@@ -14,6 +15,7 @@ var warnDZMarkersData = [{
 		x: '28.240131',
 		y: '117.203318',
 		le: 'red',
+		warn:'五级',
 		msg: '警告信息2'
 	},
 	{
@@ -23,6 +25,7 @@ var warnDZMarkersData = [{
 		x: '28.216921',
 		y: '117.217595',
 		le: 'yellow',
+		warn:'三级',
 		msg: '警告信息3'
 	},
 	{
@@ -32,6 +35,7 @@ var warnDZMarkersData = [{
 		x: '28.193918',
 		y: '117.208754',
 		le: 'blue',
+		warn:'二级',
 		msg: '警告信息4'
 	},
 	{
@@ -41,6 +45,7 @@ var warnDZMarkersData = [{
 		x: '28.237177',
 		y: '117.177512',
 		le: 'normal',
+		warn:'一级',
 		msg: '警告信息5'
 	},
 	{
@@ -50,6 +55,7 @@ var warnDZMarkersData = [{
 		x: '28.270822',
 		y: '117.190043',
 		le: 'normal',
+		warn:'一级',
 		msg: '警告信息6'
 	}
 ]
@@ -61,6 +67,7 @@ var dzMarkersData = [{
 		x: '28.220454',
 		y: '117.202889',
 		le: 'red',
+		warn:'五级',
 		msg: '全部信息1'
 	},
 	{
@@ -70,6 +77,7 @@ var dzMarkersData = [{
 		x: '28.240131',
 		y: '117.203318',
 		le: 'normal',
+		warn:'一级',
 		msg: '全部信息2'
 	},
 	{
@@ -79,6 +87,7 @@ var dzMarkersData = [{
 		x: '28.216921',
 		y: '117.217595',
 		le: 'normal',
+		warn:'一级',
 		msg: '全部信息3'
 	},
 	{
@@ -88,6 +97,7 @@ var dzMarkersData = [{
 		x: '28.193918',
 		y: '117.208754',
 		le: 'normal',
+		warn:'一级',
 		msg: '全部信息4'
 	},
 	{
@@ -97,6 +107,7 @@ var dzMarkersData = [{
 		x: '28.237177',
 		y: '117.177512',
 		le: 'normal',
+		warn:'一级',
 		msg: '全部信息5'
 	},
 	{
@@ -106,6 +117,7 @@ var dzMarkersData = [{
 		x: '28.270822',
 		y: '117.190043',
 		le: 'red',
+		warn:'五级',
 		msg: '全部信息6'
 	}
 ]
@@ -118,7 +130,9 @@ var warnjcMarkersData = [{
 		x: '28.224357',
 		y: '117.204488',
 		le: 'red',
-		msg: '警告信息1'
+		warn:'五级',
+		msg: '警告信息1',
+		typeNM:'裂缝监测设备'
 	},
 	{
 		id: '2',
@@ -128,7 +142,9 @@ var warnjcMarkersData = [{
 		x: '28.219786',
 		y: '117.205647',
 		le: 'orange',
-		msg: '警告信息2'
+		warn:'四级',
+		msg: '警告信息2',
+		typeNM:'位移监测设备'
 	},
 	{
 		id: '3',
@@ -138,7 +154,9 @@ var warnjcMarkersData = [{
 		x: '28.221610',
 		y: '117.200626',
 		le: 'yellow',
-		msg: '警告信息3'
+		warn:'三级',
+		msg: '警告信息3',
+		typeNM:'位移监测设备'
 	},
 	{
 		id: '4',
@@ -148,7 +166,9 @@ var warnjcMarkersData = [{
 		x: '28.223155',
 		y: '117.201356',
 		le: 'blue',
-		msg: '警告信息4'
+		warn:'二级',
+		msg: '警告信息4',
+		typeNM:'雨量测设备'
 	},
 	{
 		id: '5',
@@ -158,7 +178,9 @@ var warnjcMarkersData = [{
 		x: '28.217533',
 		y: '117.201635',
 		le: 'normal',
-		msg: '警告信息5'
+		warn:'一级',
+		msg: '警告信息5',
+		typeNM:'雨量监测设备'
 	},
 	{
 		id: '6',
@@ -168,7 +190,9 @@ var warnjcMarkersData = [{
 		x: '28.215559',
 		y: '117.203952',
 		le: 'normal',
-		msg: '警告信息6'
+		msg: '警告信息6',
+		warn:'一级',
+		typeNM:'位移监测设备'
 	}
 ]
 
@@ -187,7 +211,7 @@ var searchListData = [{
 		type: 'dzd',
 		x: '28.240131',
 		y: '117.203318',
-		le: '',
+		le: 'red',
 		msg: '全部信息2'
 	},
 	{
@@ -196,7 +220,7 @@ var searchListData = [{
 		type: 'dzd',
 		x: '28.216921',
 		y: '117.217595',
-		le: '',
+		le: 'red',
 		msg: '全部信息3'
 	},
 	{

@@ -139,44 +139,39 @@ var hideFooterPanle = function() {
 var initEvent = function() {
 	var me = this;
 	//首页底部面板拖动
-	var ytFooterHeight = 0
+	var ytFooterHeight = 0;
 	var zoomin = mui('#yt-map-zoomin')[0];
 	var zoomout = mui('#yt-map-zoomout')[0];
 	var detailInfo = mui("#detailInfo")[0];
+	var toolFloatContainer = mui("#toolFloatContainer")[0];
+	var startY= 0;
 	mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
-		ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
-		if(ytFooterHeight < me.footerHeight) {
-			ytFooterHeight = me.footerHeight;
-		}
-		me.showFooterPanel(ytFooterHeight);
+		ytFooterHeight = parseInt(document.getElementById("ytfooter").style.height);
+		startY = evt.detail.center.y;
+//		if(ytFooterHeight < me.footerHeight) {
+//			ytFooterHeight = me.footerHeight;
+//		}
+//		me.showFooterPanel(ytFooterHeight);
 
-		detailInfo.style.display = "block";
-		detailInfo.style.Position = "static";
-		zoomin.classList.add("mui-hidden");
-		zoomout.classList.add("mui-hidden");
+		toolFloatContainer.classList.add("mui-hidden");
 	});
 	mui('#ytfooter')[0].addEventListener('drag', function(evt) {
-		ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
+		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
+		startY = evt.detail.center.y;
 		if(ytFooterHeight < me.footerHeight) {
 			ytFooterHeight = me.footerHeight;
 		}
 		me.showFooterPanel(ytFooterHeight);
 	});
 	mui('#ytfooter')[0].addEventListener('dragend', function(evt) {
-		ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
-		if(ytFooterHeight < me.footerHeight) {
-			ytFooterHeight = me.footerHeight;
-		}
+		//		ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
+		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
 		var step1 = screen.availHeight / 3;
 		var step2 = screen.availHeight * 2 / 3;
+
 		if(ytFooterHeight <= step1) {
 			ytFooterHeight = me.footerHeight;
-
-			zoomin.classList.remove("mui-hidden");
-			zoomout.classList.remove("mui-hidden");
-
-			detailInfo.style.display = "none";
-			detailInfo.style.Position = "absolute";
+			toolFloatContainer.classList.remove("mui-hidden");
 		} else if(ytFooterHeight <= step2) {
 			ytFooterHeight = parseInt(step2);
 		} else {
