@@ -148,11 +148,6 @@ var initEvent = function() {
 	mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
 		ytFooterHeight = parseInt(document.getElementById("ytfooter").style.height);
 		startY = evt.detail.center.y;
-//		if(ytFooterHeight < me.footerHeight) {
-//			ytFooterHeight = me.footerHeight;
-//		}
-//		me.showFooterPanel(ytFooterHeight);
-
 		toolFloatContainer.classList.add("mui-hidden");
 	});
 	mui('#ytfooter')[0].addEventListener('drag', function(evt) {
@@ -164,7 +159,6 @@ var initEvent = function() {
 		me.showFooterPanel(ytFooterHeight);
 	});
 	mui('#ytfooter')[0].addEventListener('dragend', function(evt) {
-		//		ytFooterHeight = screen.availHeight - topNavHeight - evt.detail.center.y;
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
 		var step1 = screen.availHeight / 3;
 		var step2 = screen.availHeight * 2 / 3;
