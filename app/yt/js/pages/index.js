@@ -9,6 +9,7 @@ var warnBounds = null;
 var maxZoomShow = 15;
 var footerHeight = 101;
 var topNavHeight = 25; //手机顶部状态栏高度
+var picListPageSize = 3;
 
 mui.init({
 	gestureConfig: {
@@ -188,6 +189,8 @@ var initEvent = function() {
 		changeMapStatus();
 		//初始化评论列表
 		initComentList();
+		//初始化检测设备图片列表
+		initJcsbPictureList();
 	});
 
 	//搜索框聚焦激活搜索面板
@@ -380,6 +383,16 @@ function initComentList(){
 			});
 			document.getElementById("commullist").innerHTML = html;
 		}, 500);
+}
+function initJcsbPictureList(){
+	debugger
+	var picsNum = jscbImgListData.length;
+	var totalPage = parseInt(picsNum / picListPageSize);
+	var remNum = picsNum % picListPageSize;
+	if(remNum != 0){
+		totalPage = totalPage + 1;
+	}
+	
 }
 //显示告警对象
 function showWarnDZMarksOnMap() {

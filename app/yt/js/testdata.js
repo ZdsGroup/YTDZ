@@ -262,3 +262,47 @@ var commentListData = [{
 		msg: '有了这种地灾监测设备，可以实时报警，很好！'
 	},
 ]
+
+var jscbImgListData = [{
+		id:'lfjc1',
+		title: '裂缝监测1',
+		type: 'lfjc',
+		src: 'photos/1.png'
+	},
+	{
+		type: 'lfjc2',
+		title: '裂缝监测2',
+		type: 'lfjc',
+		src: 'photos/2.png'
+	},
+	{
+		id:'bmwyjc1',
+		title: '表面位移监测1',
+		type: 'bmwyjc',
+		src: 'photos/yljc-2.png'
+	},
+	{
+		id:'bmwyjc2',
+		title: '表面位移监测2',
+		type: 'bmwyjc',
+		src: 'photos/yljc-1.png'
+	},
+	{
+		id:'yljc1',
+		title: '雨量监测1',
+		type: 'yljc',
+		src: 'photos/yljc-1.png'
+	},
+	{
+		id:'yljc2',
+		title: '雨量监测2',
+		type: 'yljc',
+		src: 'photos/yljc-2.png'
+	},
+	{
+		id:'dzd1',
+		title: '测试设备',
+		type: 'yljc',
+		src: 'photos/dz1.png'
+	}
+]
