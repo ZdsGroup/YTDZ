@@ -95,6 +95,7 @@
 	color: rgba(192, 57, 43, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
+
 .map-tool-warn {
 	position: absolute;
 	z-index: 1000;
@@ -103,8 +104,11 @@
 	color: rgba(52, 73, 94, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
+
+
 /*开启收藏点显示开关*/
-.map-tool-star{
+
+.map-tool-star {
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
@@ -112,7 +116,8 @@
 	color: rgba(52, 73, 94, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
-.map-tool-star-color{
+
+.map-tool-star-color {
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
@@ -125,7 +130,8 @@
 	position: absolute;
 	z-index: 1000;
 	right: 10px;
-	bottom: 240px;/**240,205*/
+	bottom: 240px;
+	/**240,205*/
 	color: rgba(52, 73, 94, 1.0);
 	background-color: rgba(255, 255, 255, 1);
 }
@@ -161,56 +167,68 @@
 	right: 50px;
 	height: 26px;
 	line-height: 24px;
-	background-color: rgba(65,105,225, 0.6);
+	background-color: rgba(65, 105, 225, 0.6);
 	font-size: 14px;
 	padding-left: 10px;
 	color: yellow;
-	border:1px solid lightgray;
+	border: 1px solid lightgray;
 	border-radius: 3px;
 }
 
 //ytfooter 布局
-.mui-table h4,.mui-table h5,.mui-table .mui-h6,.mui-table p,.mui-table .mui-h5{
-    margin-top: 0;
-    float: left;
+.mui-table h4,
+.mui-table h5,
+.mui-table .mui-h6,
+.mui-table p,
+.mui-table .mui-h5 {
+	margin-top: 0;
+	float: left;
 }
 
-.mui-table h4{
-    line-height: 21px;
-    font-weight: 500;
+.mui-table h4 {
+	line-height: 21px;
+	font-weight: 500;
 }
 
-.mui-table .oa-icon{
-    position: absolute;
-    right:0;
-    bottom: 0;
+.mui-table .oa-icon {
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
-.mui-table .oa-icon-star-filled{
-    color:#f14e41;
+
+.mui-table .oa-icon-star-filled {
+	color: #f14e41;
 }
-.mui-ellipsis{
+
+.mui-ellipsis {
 	color: black;
 }
-.ytfooter-infos{
+
+.ytfooter-infos {
 	color: blue;
 	font-size: 32;
 }
-.ytfooter-user{
-	width: 20px;	
-	color: lightgreen;
-}
-.ytfooter-tel{
+
+.ytfooter-user {
 	width: 20px;
 	color: lightgreen;
 }
-.ytfooter-main{
+
+.ytfooter-tel {
 	width: 20px;
 	color: lightgreen;
 }
-.ytfooter-star{
+
+.ytfooter-main {
+	width: 20px;
+	color: lightgreen;
+}
+
+.ytfooter-star {
 	border: 0px solid white;
 }
-.ytfooter-star-color{
+
+.ytfooter-star-color {
 	border: 0px solid white;
 	color: rgba(192, 57, 43, 1.0);
 }
@@ -231,11 +249,62 @@
 	color: royalblue;
 }
 
-/*图片等比自动缩放*/		
+
+/*图片等比自动缩放*/
+
 .mui-media-object-self {
 	width: auto;
 	height: 130px;
 	max-width: 100%;
 	max-height: 100%;
 }
-		
+
+.footercardcontent {
+	background: #FFF;
+	position: relative;
+	padding: 12px 15px;
+	margin: 0px 0px 5px 0px;
+	overflow: hidden;
+}
+
+.dzd-footercardcontent {
+	background: #FFF;
+	position: relative;
+	padding: 12px 15px;
+	margin: 0px 0px 5px 0px;
+	overflow: hidden;
+}
+
+.jcsb-footercardcontent {
+	background: #FFF;
+	position: relative;
+	padding: 12px 15px;
+	margin: 0px 0px 5px 0px;
+	overflow: hidden;
+}
+
+#mui-slider-jcsb {
+	height: 170px;
+}
+
+
+/*图片等比自动缩放*/
+
+#mui-slider-jcsb img {
+	width: auto;
+	height: 130px;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.mui-btn-self {
+	padding: 3px 12px;
+}
+
+.mui-badge-self {
+	padding: 5px 11px;
+	color: #6C6C6C !important;
+	background-color: rgba(255, 255, 255, 0) !important;
+	margin-right: 3px !important;
+	right: 15px !important;
+}

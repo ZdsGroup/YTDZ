@@ -10,6 +10,7 @@ var maxZoomShow = 15;
 var footerHeight = 101;
 var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
+var currentSelectedFeature = null; //当前选定的要素（地灾点或监测设备）
 
 mui.init({
 	gestureConfig: {
@@ -144,7 +145,7 @@ var initEvent = function() {
 	var zoomout = mui('#yt-map-zoomout')[0];
 	var detailInfo = mui("#detailInfo")[0];*/
 	var toolFloatContainer = mui("#toolFloatContainer")[0];
-	var startY= 0;
+	var startY = 0;
 	mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
 		ytFooterHeight = parseInt(document.getElementById("ytfooter").style.height);
 		startY = evt.detail.center.y;
@@ -173,7 +174,7 @@ var initEvent = function() {
 		}
 
 		me.showFooterPanel(ytFooterHeight);
-		
+
 		//地图大小变化
 		changeMapStatus();
 		//初始化评论列表
@@ -359,36 +360,38 @@ function showAllDZMarksOnMap() {
 }
 
 //检查地图size变化
-function changeMapStatus(){
+function changeMapStatus() {
 	myMap.invalidateSize();
 	myMap.fitBounds(warnBounds, {
 		maxZoom: maxZoomShow
 	});
 }
-function initComentList(){
+
+function initComentList() {
 	setTimeout(function() {
-			var html = template('com-ul-li-template', {
-				list: commentListData
-			});
-			document.getElementById("commullist").innerHTML = html;
-		}, 500);
+		var html = template('com-ul-li-template', {
+			list: commentListData
+		});
+		document.getElementById("commullist").innerHTML = html;
+	}, 500);
 }
-function initJcsbPictureList(){
+
+function initJcsbPictureList() {
 	//debugger
 	var picsNum = jscbImgListData.length;
 	var totalPage = parseInt(picsNum / picListPageSize);
 	var remNum = picsNum % picListPageSize;
-	if(remNum != 0){
+	if(remNum != 0) {
 		totalPage = totalPage + 1;
 	}
-	
-	template.defaults.debug=true
+
+	template.defaults.debug = true
 	var html = template('jcsb-pics-list-template', {
-				list: jscbImgListData,
-				pageNum: totalPage,
-				pageSize: picListPageSize,
-				pageRem: remNum
-			});
+		list: jscbImgListData,
+		pageNum: totalPage,
+		pageSize: picListPageSize,
+		pageRem: remNum
+	});
 	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
@@ -579,4 +582,41 @@ function setFooterContentByInfo(Type, infoID) {
 		type: Type
 	});
 	document.getElementById("footer-table").innerHTML = html;
+	
+	this.currentSelectedFeature = infoT;//记录当前选中的要素，用于指导要素详情细分页面跳转
+	this.showDetailPanel(infoT);
+}
+
+//根据地灾点或监测设备类型显示详情信息，此处为三层分层信息面板
+function showDetailPanel(feature) {
+	var dzdDetailList = mui('.dzd-footercardcontent');
+	var jcsbDetailList = mui('.jcsb-footercardcontent');
+	if(dzdDetailList && dzdDetailList.length > 0) {
+		var len = dzdDetailList.length;
+		for(var i = 0; i < len; i++) {
+			dzdDetailList[i].classList.add('mui-hidden');
+		}
+	}
+	if(jcsbDetailList && jcsbDetailList.length > 0) {
+		var len = jcsbDetailList.length;
+		for(var i = 0; i < len; i++) {
+			jcsbDetailList[i].classList.add('mui-hidden');
+		}
+	}
+	var type = feature.type;
+	if(type == 'dzd') {
+		if(dzdDetailList && dzdDetailList.length > 0) {
+			var len = dzdDetailList.length;
+			for(var i = 0; i < len; i++) {
+				dzdDetailList[i].classList.remove('mui-hidden');
+			}
+		}
+	} else {
+		if(jcsbDetailList && jcsbDetailList.length > 0) {
+			var len = jcsbDetailList.length;
+			for(var i = 0; i < len; i++) {
+				jcsbDetailList[i].classList.remove('mui-hidden');
+			}
+		}
+	}
 }
