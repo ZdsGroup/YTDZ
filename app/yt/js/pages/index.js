@@ -347,7 +347,7 @@ function showAllDZMarksOnMap() {
 		dzMarkersLayerGroup.clearLayers();
 		getDZMarkersLayerGroup(results);
 		myMap.addLayer(dzMarkersLayerGroup);
-		myMap.flyToBounds(warnBounds, {
+		myMap.fitBounds(warnBounds, {
 			maxZoom: maxZoomShow
 		});
 	} else {
@@ -361,7 +361,7 @@ function showAllDZMarksOnMap() {
 //检查地图size变化
 function changeMapStatus(){
 	myMap.invalidateSize();
-	myMap.flyToBounds(warnBounds, {
+	myMap.fitBounds(warnBounds, {
 		maxZoom: maxZoomShow
 	});
 }
@@ -399,7 +399,7 @@ function showWarnDZMarksOnMap() {
 		dzMarkersLayerGroup.clearLayers();
 		getDZMarkersLayerGroup(results);
 		myMap.addLayer(dzMarkersLayerGroup);
-		myMap.flyToBounds(warnBounds, {
+		myMap.fitBounds(warnBounds, {
 			maxZoom: maxZoomShow
 		});
 	} else {
@@ -510,7 +510,7 @@ function showJCMarkerByDZid(dzID) {
 		jcMarkersLayerGroup.clearLayers();
 		getJCMarkersLayerGroup(results);
 		myMap.addLayer(jcMarkersLayerGroup);
-		myMap.flyToBounds(warnBounds, {
+		myMap.fitBounds(warnBounds, {
 			maxZoom: maxZoomShow
 		});
 	} else {
