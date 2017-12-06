@@ -140,9 +140,9 @@ var initEvent = function() {
 	var me = this;
 	//首页底部面板拖动
 	var ytFooterHeight = 0;
-	var zoomin = mui('#yt-map-zoomin')[0];
+	/*var zoomin = mui('#yt-map-zoomin')[0];
 	var zoomout = mui('#yt-map-zoomout')[0];
-	var detailInfo = mui("#detailInfo")[0];
+	var detailInfo = mui("#detailInfo")[0];*/
 	var toolFloatContainer = mui("#toolFloatContainer")[0];
 	var startY= 0;
 	mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
@@ -374,7 +374,7 @@ function initComentList(){
 		}, 500);
 }
 function initJcsbPictureList(){
-	debugger
+	//debugger
 	var picsNum = jscbImgListData.length;
 	var totalPage = parseInt(picsNum / picListPageSize);
 	var remNum = picsNum % picListPageSize;

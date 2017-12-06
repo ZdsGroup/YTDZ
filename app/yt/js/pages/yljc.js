@@ -365,6 +365,7 @@ var initChart = function() {
 	//单设备多时段对比图
 	var ddc = echarts.init(mui('#device-date-compare')[0]);
 	ddc.setOption(getOption('device-date-compare'));
+	
 
 	//雨量折线图
 	var drm = echarts.init(mui('#device-rain-monitor')[0]);

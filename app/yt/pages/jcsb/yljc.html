@@ -63,7 +63,7 @@
 			}
 			
 			.chart-container {
-				width: 100%;
+				width: 100vw;
 				height: 260px;
 				overflow: hidden;
 				margin: 0;
@@ -93,15 +93,10 @@
 						<div class="off-title">设备详情导航</div>
 						<ul class="mui-table-view">
 							<li class="mui-table-view-cell" value="0">设备项目详情</li>
-							<li class="mui-table-view-cell" value="1">设备对比</li>
-							<li class="mui-table-view-cell" value="2">设备状态</li>
-							<li class="mui-table-view-cell" value="3">雨量折线图</li>
-							<!--<li class="mui-table-view-cell" value="4">断面曲线图</li>
-							<li class="mui-table-view-cell" value="5">速度图</li>
-							<li class="mui-table-view-cell" value="6">加速度图</li>
-							<li class="mui-table-view-cell" value="7">散点图</li>
-							<li class="mui-table-view-cell" value="8">平面矢量图</li>-->
-							<li class="mui-table-view-cell" value="4">数据列表</li>
+							<li class="mui-table-view-cell" value="1">同类设备对比</li>
+							<li class="mui-table-view-cell" value="2">当前设备多年对比</li>
+							<li class="mui-table-view-cell" value="3">设备状态</li>
+							<li class="mui-table-view-cell" value="4">雨量折线图</li>
 							<li class="mui-table-view-cell" value="5">报警查询</li>
 							<li class="mui-table-view-cell" value="6">雨量报表</li>
 						</ul>
@@ -117,7 +112,7 @@
 					<h1 class="mui-title">雨量监测设备详情</h1>
 				</header>
 
-				<div id="muiscrollid" class="mui-content mui-scroll-wrapper" style="min-height: calc(100vh);">
+				<div id="muiscrollid" class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div class="mui-control-content mui-active">
 							<div class="mui-card">
@@ -154,17 +149,6 @@
 								</div>
 							</div>
 							<div class="mui-card">
-								<div class="mui-card-header">设备状态</div>
-								<div class="mui-card-content">
-									<ul class="mui-table-view">
-										<li class="mui-table-view-cell">通讯状态：正常</li>
-										<li class="mui-table-view-cell">电池状态：正常</li>
-										<li class="mui-table-view-cell">电池状态：正常</li>
-										<li class="mui-table-view-cell">设备频率：30min/次</li>
-									</ul>
-								</div>
-							</div>
-							<div class="mui-card">
 								<div class="mui-card-header">维护信息</div>
 								<div class="mui-card-content">
 									<ul class="mui-table-view">
@@ -177,6 +161,8 @@
 									</ul>
 								</div>
 							</div>
+						</div>
+						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">同类设备对比</div>
 								<div class="mui-card-content">
@@ -199,6 +185,8 @@
 									</form>
 								</div>
 							</div>
+						</div>
+						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">当前设备多年对比</div>
 								<div class="mui-card-content">
@@ -222,85 +210,103 @@
 								</div>
 							</div>
 						</div>
-						<div class="mui-card">
-							<div class="mui-card-header">雨量折线图</div>
-							<div class="mui-card-content">
-								<div id="device-rain-monitor" class="chart-container">
-
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">设备状态</div>
+								<div class="mui-card-content">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">通讯状态：正常</li>
+										<li class="mui-table-view-cell">电池状态：正常</li>
+										<li class="mui-table-view-cell">电池状态：正常</li>
+										<li class="mui-table-view-cell">设备频率：30min/次</li>
+									</ul>
 								</div>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>时间类型：</label>
-											<div style="padding: 10px;">实时数据</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>开始时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>结束时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-										</a>
-									</div>
-								</form>
 							</div>
 						</div>
-						<div class="mui-card">
-							<div class="mui-card-header">报警信息</div>
-							<div class="mui-card-content">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell">
-										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
-										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
-									</li>
-									<li class="mui-table-view-cell">
-										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
-										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
-									</li>
-									<li class="mui-table-view-cell">
-										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
-										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
-									</li>
-									<li class="mui-table-view-cell">
-										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
-										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
-									</li>
-									<li class="mui-table-view-cell">
-										<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
-										<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
-									</li>
-								</ul>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>时间类型：</label>
-											<div style="padding: 10px;">实时数据</div>
-										</a>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">雨量折线图</div>
+								<div class="mui-card-content">
+									<div id="device-rain-monitor" class="chart-container">
+
 									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>开始时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>结束时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-										</a>
-									</div>
-								</form>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
-						<div class="mui-card">
-							<div class="mui-card-header">雨量报表</div>
-							<div class="mui-card-content">
-								<ul class="mui-table-view">
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">报警信息</div>
+								<div class="mui-card-content">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+											<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+											<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+											<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+											<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+										</li>
+										<li class="mui-table-view-cell">
+											<h5><span style="float: left; margin-bottom: 10px;">报警等级:红色 </span><span style="float: right;">2017/05/06 01:40:19</span></h5>
+											<h6 style="clear: both;">报警内容:发生无数据故障报警</h6>
+										</li>
+									</ul>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="mui-control-content">
+							<div class="mui-card">
+								<div class="mui-card-header">雨量报表</div>
+								<div class="mui-card-content">
+									<ul class="mui-table-view">
 										<li class="mui-table-view-cell">
 											<h5>雨量站1<span style="float: right;">测站编号：YLJ01</span></h5>
 											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
@@ -322,32 +328,33 @@
 											<h5>雨量：12.1<span style="float: right;">时间：2017/05/06 01:38:19</span></h5>
 										</li>
 									</ul>
-								<form class="mui-input-group">
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>时间类型：</label>
-											<div style="padding: 10px;">实时数据</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>开始时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-										</a>
-									</div>
-									<div class="mui-input-row">
-										<a class="mui-navigate-right">
-											<label>结束时间：</label>
-											<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-										</a>
-									</div>
-								</form>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="mui-off-canvas-backdrop"></div>
 			</div>
-			<div class="mui-off-canvas-backdrop"></div>
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
