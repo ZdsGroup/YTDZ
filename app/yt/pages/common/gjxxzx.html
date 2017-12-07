@@ -14,28 +14,28 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title">地灾点所有告警信息<a class="mui-pull-caption"></a></h1>
+			<h1 class="mui-title">告警消息中心<a class="mui-pull-caption"></a></h1>
 		</header>
 		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="top: 50px;">
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul id="ullist" class="mui-table-view mui-table-view-chevron">
 					<script id="ul-li-template" type="text/html">
 						<% for(var i=0;i<list.length;i++){%>
-						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell mui-media">
-							<a class="mui-navigate-right">
-								<img class="mui-media-object mui-pull-left" src="../../<%=list[i].src%>">
-								<div class="mui-media-body">
-									<h4>告警设备: <%=list[i].name%></h4>
-									<p> 告警：<%=list[i].le%> 级 ；<%=list[i].msg%></p>
-								</div>
-							</a>
+						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+							<div class="mui-slider-cell">
+								<h4>告警设备: <%=list[i].name%></h5>
+								<h5>地灾点: <%=list[i].dzd%></h5>
+								<h5>告警等级：<%=list[i].le%> </h5>
+								<h5>告警信息: <%=list[i].msg%></h5>
+							</div>
 						</li>
 						<%}%>
 					</script>
 				</ul>
 			</div>
+			
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
@@ -54,12 +54,38 @@
 						}
 					}
 				});
-
+//				$('.mui-scroll-wrapper').scroll({
+//					indicators: true //是否显示滚动条
+//				});
+//				$('.mui-scroll-wrapper').scroll({
+//					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+//				});
 			})(mui);;
 			/**
 			 * 下拉刷新具体业务实现
 			 */
 			function pulldownRefresh() {
+				//				派发数据请求
+				//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
+				//                mui.ajax(func_url,{
+				//					data:{start:start,end:end},
+				//					dataType:'jsonp',//服务器返回json格式数据
+				//					//dataType:'json',
+				//					type:'post',//HTTP请求类型
+				//					//timeout:10000,//超时时间设置为10秒；
+				//					jsonp:"jsoncallback",   
+				//					success:function(data){ 
+				//					//console.log("测试："+data);    
+				//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
+				//					if(configData && configData.length>0) {
+				//					}
+				//					},
+				//					error:function(xhr,type,errorThrown){
+				//					//异常处理；
+				//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
+				//					}
+				//					});
+
 				setTimeout(function() {
 					var html = template('ul-li-template', {
 						list: warnjcMarkersData
@@ -73,7 +99,26 @@
 			 * 上拉加载具体业务实现
 			 */
 			function pullupRefresh() {
-				
+				//				派发数据请求
+				//				  var func_url=ServerUrl.IP+"/tan.maven.springmvc Maven Webapp/users.do?method=getAllUserLimit&callback='jsoncallback'"; 
+				//                mui.ajax(func_url,{
+				//					data:{start:start,end:end},
+				//					dataType:'jsonp',//服务器返回json格式数据
+				//					//dataType:'json',
+				//					type:'post',//HTTP请求类型
+				//					//timeout:10000,//超时时间设置为10秒；
+				//					jsonp:"jsoncallback",   
+				//					success:function(data){ 
+				//					//console.log("测试："+data);    
+				//					var configData=JSON.parse(data);        //解析数据 cinfig：OK
+				//					if(configData && configData.length>0) {
+				//					}
+				//					},
+				//					error:function(xhr,type,errorThrown){
+				//					//异常处理；
+				//					//console.log(xhr.Message+"  "+type+" "+errorThrown);
+				//					}
+				//					});
 
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 4)); //参数为true代表没有更多数据了。

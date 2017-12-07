@@ -6,6 +6,7 @@ var warnDZMarkersData = [{
 		y: '117.202889',
 		le: '4',
 //		warn:'五级',
+		addr:'南山大道与火炬大道交叉口东200米',
 		msg: '警告信息1'
 	},
 	{
@@ -16,6 +17,7 @@ var warnDZMarkersData = [{
 		y: '117.203318',
 		le: '3',
 //		warn:'五级',
+		addr:'南山大道与火炬大道交叉口东100米',
 		msg: '警告信息2'
 	},
 	{
@@ -26,6 +28,7 @@ var warnDZMarkersData = [{
 		y: '117.217595',
 		le: '2',
 //		warn:'三级',
+		addr:'南山大道与火炬大道交叉口北200米',
 		msg: '警告信息3'
 	},
 	{
@@ -36,6 +39,7 @@ var warnDZMarkersData = [{
 		y: '117.208754',
 		le: '1',
 //		warn:'二级',
+		addr:'南山大道与火炬大道交叉口北100米',
 		msg: '警告信息4'
 	},
 	{
@@ -46,6 +50,7 @@ var warnDZMarkersData = [{
 		y: '117.177512',
 		le: '0',
 //		warn:'一级',
+		addr:'南山大道与火炬大道交叉口西北300米',
 		msg: '警告信息5'
 	},
 	{
@@ -56,6 +61,7 @@ var warnDZMarkersData = [{
 		y: '117.190043',
 		le: '0',
 //		warn:'一级',
+		addr:'南山大道与火炬大道交叉口西200米',
 		msg: '警告信息6'
 	}
 ]
@@ -68,6 +74,7 @@ var dzMarkersData = [{
 		y: '117.202889',
 		le: '',
 //		warn:'五级',
+		addr:'南山大道与火炬大道交叉口东200米',
 		msg: '全部信息1'
 	},
 	{
@@ -78,6 +85,7 @@ var dzMarkersData = [{
 		y: '117.203318',
 		le: '',
 //		warn:'一级',
+		addr:'南山大道与火炬大道交叉口东100米',
 		msg: '全部信息2'
 	},
 	{
@@ -88,6 +96,7 @@ var dzMarkersData = [{
 		y: '117.217595',
 		le: '',
 //		warn:'一级',
+		addr:'南山大道与火炬大道交叉口北200米',
 		msg: '全部信息3'
 	},
 	{
@@ -98,6 +107,7 @@ var dzMarkersData = [{
 		y: '117.208754',
 		le: '',
 //		warn:'一级',
+		addr:'南山大道与火炬大道交叉口北100米',
 		msg: '全部信息4'
 	},
 	{
@@ -108,6 +118,7 @@ var dzMarkersData = [{
 		y: '117.177512',
 		le: '',
 //		warn:'一级',
+		addr:'南山大道与火炬大道交叉口西北300米',
 		msg: '全部信息5'
 	},
 	{
@@ -118,6 +129,7 @@ var dzMarkersData = [{
 		y: '117.190043',
 		le: '',
 //		warn:'五级',
+		addr:'南山大道与火炬大道交叉口西200米',
 		msg: '全部信息6'
 	}
 ]
@@ -133,7 +145,8 @@ var warnjcMarkersData = [{
 //		warn:'五级',
 		msg: '警告信息1',
 		src: 'photos/1.png',
-		typeNM:'裂缝监测设备'
+		addr:'南山大道与火炬大道交叉口西200米',
+		typeNM:'裂缝监测'
 	},
 	{
 		id: '2',
@@ -146,7 +159,8 @@ var warnjcMarkersData = [{
 //		warn:'四级',
 		msg: '警告信息2',
 		src: 'photos/yljc-1.png',
-		typeNM:'位移监测设备'
+		addr:'南山大道与火炬大道交叉口西北300米',
+		typeNM:'位移监测'
 	},
 	{
 		id: '3',
@@ -159,7 +173,22 @@ var warnjcMarkersData = [{
 //		warn:'三级',
 		msg: '警告信息3',
 		src: 'photos/yljc-2.png',
-		typeNM:'位移监测设备'
+		addr:'南山大道与火炬大道交叉口北100米',
+		typeNM:'位移监测'
+	},
+	{
+		id: '6',
+		name: '位移监测设备3',
+		dzd:'贵溪市煤矿',
+		type: 'bmwyjc',
+		x: '28.215559',
+		y: '117.203952',
+		le: '0',
+		msg: '警告信息6',
+		src: 'photos/2.png',
+		addr:'南山大道与火炬大道交叉口北200米',
+//		warn:'一级',
+		typeNM:'位移监测'
 	},
 	{
 		id: '4',
@@ -172,7 +201,8 @@ var warnjcMarkersData = [{
 //		warn:'二级',
 		msg: '警告信息4',
 		src: 'photos/yljc-1.png',
-		typeNM:'雨量测设备'
+		addr:'南山大道与火炬大道交叉口东100米',
+		typeNM:'雨量监测'
 	},
 	{
 		id: '5',
@@ -185,20 +215,8 @@ var warnjcMarkersData = [{
 //		warn:'一级',
 		msg: '警告信息5',
 		src: 'photos/yljc-2.png',
-		typeNM:'雨量监测设备'
-	},
-	{
-		id: '6',
-		name: '位移监测设备3',
-		dzd:'贵溪市煤矿',
-		type: 'bmwyjc',
-		x: '28.215559',
-		y: '117.203952',
-		le: '0',
-		msg: '警告信息6',
-		src: 'photos/2.png',
-//		warn:'一级',
-		typeNM:'位移监测设备'
+		addr:'南山大道与火炬大道交叉口东200米',
+		typeNM:'雨量监测'
 	}
 ]
 
