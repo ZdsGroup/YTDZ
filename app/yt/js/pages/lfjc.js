@@ -531,7 +531,6 @@ var initChart = function() {
 	var dom = echarts.init(mui('#device-offset-monitor')[0]);
 	dom.setOption(getOption('device-offset-monitor'));
 
-	lfjc_charts['menu_1'] = [dtc];
-	lfjc_charts['menu_2'] = [ddc];
-	lfjc_charts['menu_4'] = [dom];
+	lfjc_charts['menu_1'] = [dtc, ddc];
+	lfjc_charts['menu_3'] = [dom];
 };

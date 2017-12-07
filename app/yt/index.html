@@ -39,7 +39,7 @@
 		<div id="ytfooter" style="background-color: #EEEEEE;overflow: hidden;">
 			<div style="position: relative;">
 				<div id="footer-table" class="footercardcontent">
-					<script id="brief-ul-li-template" type="text/html">
+					<script id="brief-ul-li-template" type="text/template">
 						<%if (type=='dzd') {%>
 						<p id='<%=type%>_<%=info.id%>'>
 							<span style="font-size: 1.1em;"><%=info.name%> </span>
@@ -73,7 +73,7 @@
             -->
 			<div class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
 				<a class="mui-navigate-right" href="#">
-					<span title='jcsbmain' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
+					<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
 				</a>
 				<p>负责人：张志辉</p>
 				<!--<p>监测设备：4种类型 | 共计11个</p>-->
@@ -81,12 +81,12 @@
 			</div>
 			<div class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
 				<a class="mui-navigate-right" href="#">
-					<span title='jscbwarn' class="mui-badge mui-badge-danger">15</span> 预警信息
+					<span title='jcsb-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
 				</a>
 			</div>
 			<div class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
 				<a class="mui-navigate-right" href="#">
-					<span title='analy' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
+					<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
 				</a>
 			</div>
 
@@ -97,7 +97,7 @@
             -->
 			<div class="dzd-footercardcontent mui-table-view-cell">
 				<a class="mui-navigate-right" href="#">
-					<span title='dzdmain' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
+					<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
 				</a>
 				<p>负责人：张志辉</p>
 				<p>监测设备：4种类型 | 共计11个</p>
@@ -105,12 +105,12 @@
 			</div>
 			<div class="dzd-footercardcontent mui-table-view-cell">
 				<a class="mui-navigate-right" href="#">
-					<span title='dzdwarn' class="mui-badge mui-badge-danger">15</span> 预警信息
+					<span title='dzd-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
 				</a>
 			</div>
 			<div class="dzd-footercardcontent mui-table-view-cell">
 				<a class="mui-navigate-right" href="#">
-					<span title='jcsb' class="mui-badge mui-badge-blue mui-badge-self">查看全部设备</span>监测设备
+					<span title='dzd-jcsb-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部设备</span>监测设备
 				</a>
 				<div id="mui-slider-jcsb" class="mui-slider">
 					<div class="mui-slider-group mui-slider-loop">

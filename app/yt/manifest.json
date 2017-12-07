@@ -208,7 +208,10 @@
 					"pages/common/search.html",
 					"pages/jcsb/trhsljc.html",
 					"pages/dzd/dzdxq_1.html",
-					"pages/common/user.html"
+					"pages/common/user.html",
+					"pages/dzd/dzdgdxx.html",
+					"pages/jcsb/bmwyjcanalylist.html",
+					"pages/dzd/dzdjcsblist.html"
 				],
 				"priority": 0
 			},

@@ -10,7 +10,6 @@ var maxZoomShow = 15;
 var footerHeight = 101;
 var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
-var currentSelectedFeature = null; //当前选定的要素（地灾点或监测设备）
 
 mui.init({
 	gestureConfig: {
@@ -190,12 +189,12 @@ var initEvent = function() {
 			id: 'search-page-1'
 		});
 	});
-	
+
 	//底部对象概要信息收藏按钮点击事件
 	mui('#ftstar')[0].addEventListener('click', function(evt) {
 		debugger
 		var action = evt.target.value;
-		var  starStatus = 0;
+		var starStatus = 0;
 		if(action == 'ftstar') {
 			var obj = mui('#ftstar')[0];
 			if(obj.classList.contains('ytfooter-star')) {
@@ -211,52 +210,76 @@ var initEvent = function() {
 			return
 		}
 	});
-	
+
 	//首页底部栏上更多详细按钮的点击事件
 	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
-		debugger
 		var action = evt.target.title;
 		var info = mui('#footer-table p')[0];
 		var typeT = info.id.split('_')[0];
 		var idT = info.id.split('_')[1];
 		var pageUrl = '';
 		var pageId = '';
-		if(info){
-			switch (action){
-				case 'dzdmain':
+		var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
+		debugger
+		if(info) {
+			switch(action) {
+				case 'dzd-more-info':
 					pageUrl = 'pages/dzd/dzdgdxx.html';
-					pageId = 'dzdgdxx';
+					pageId = 'dzd-more-info';
 					break;
-				case 'dzdwarn':
+				case 'dzd-warn-info':
 					pageUrl = 'pages/dzd/dzdsbyjxx.html';
-					pageId = 'dzdsbyjxx';
+					pageId = 'dzd-warn-info';
 					break;
-				case 'jcsb':
-					pageUrl = 'pages/jcsb/jcsb.html';
-					pageId = 'jcsb';
+				case 'dzd-jcsb-all':
+					debugger
+					pageUrl = 'pages/dzd/dzdjcsblist.html';
+					pageId = 'dzd-jcsb-all';
 					break;
-				case 'jcsbmain':
+				case 'jcsb-more-info':
 					break;
-				case 'jscbwarn':
+				case 'jcsb-warn-info':
 					pageUrl = 'pages/jcsb/jcsbyjxx.html';
-					pageId = 'jcsbyjxx';
+					pageId = 'jcsb-warn-info';
 					break;
-				case 'analy':
+				case 'jcsb-analy-all':
+					if(selectedFeature) {
+						debugger
+						var jcsb_type = selectedFeature.type;
+						switch(jcsb_type) {
+							case 'bmwyjc':
+								pageUrl = 'pages/jcsb/bmwyjcanalylist.html';
+								pageId = 'jcsb-bmwyjc-analylist';
+								break;
+							case 'lfjc':
+								pageUrl = 'pages/jcsb/lfjcanalylist.html';
+								pageId = 'jcsb-lfjc-analylist';
+								break;
+							case 'yljc':
+								pageUrl = 'pages/jcsb/yljcanalylist.html';
+								pageId = 'jcsb-yljc-analylist';
+								break;
+							default:
+								break;
+						}
+					}
 					break;
 				default:
 					break;
 			}
+
 			mui.openWindow({
-						url: pageUrl,
-						id: pageId,
-						extras:{
-							xqType: typeT,
-							xqID: idT
-						}
-					});
+				url: pageUrl,
+				id: pageId,
+				extras: {
+					xqType: typeT,
+					xqID: idT,
+					xqFeature: selectedFeature
+				}
+			});
 		}
 	});
-	
+
 	//底部地灾点写评论按钮点击事件
 	mui('#comment')[0].addEventListener('click', function(evt) {
 		debugger
@@ -408,7 +431,7 @@ function initJcsbPictureList() {
 		pageSize: picListPageSize,
 		pageRem: remNum
 	});
-//	document.getElementById("jcsb-pics-list").innerHTML = html;
+	//	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
 function showWarnDZMarksOnMap() {
@@ -598,8 +621,8 @@ function setFooterContentByInfo(Type, infoID) {
 		type: Type
 	});
 	document.getElementById("footer-table").innerHTML = html;
-	
-	this.currentSelectedFeature = infoT;//记录当前选中的要素，用于指导要素详情细分页面跳转
+
+	localStorage.setItem("currentSelectedFeature", JSON.stringify(infoT)); //记录当前选中的要素，用于指导要素详情细分页面跳转
 	this.showDetailPanel(infoT);
 }
 

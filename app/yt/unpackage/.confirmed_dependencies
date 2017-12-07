@@ -2,7 +2,10 @@
 	"index.html": {
 		"refer": [
 			"pages/dzd/dzdxq_1.html",
-			"pages/dzd/dzdsbyjxx.html"
+			"pages/dzd/dzdsbyjxx.html",
+			"pages/dzd/dzdgdxx.html",
+			"pages/jcsb/bmwyjcanalylist.html",
+			"pages/dzd/dzdjcsblist.html"
 		]
 	}
 }
