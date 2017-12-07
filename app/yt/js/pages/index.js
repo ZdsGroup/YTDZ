@@ -221,24 +221,26 @@ var initEvent = function() {
 		var idT = info.id.split('_')[1];
 		var pageUrl = '';
 		var pageId = '';
-		if(objId){
+		if(info){
 			switch (action){
 				case 'dzdmain':
 					pageUrl = 'pages/dzd/dzdgdxx.html';
 					pageId = 'dzdgdxx';
 					break;
 				case 'dzdwarn':
-				
+					pageUrl = 'pages/dzd/dzdsbyjxx.html';
+					pageId = 'dzdsbyjxx';
 					break;
 				case 'jcsb':
-					pageUrl = 'pages/dzd/dzdgdxx.html';
-					pageId = 'dzdgdxx';
+					pageUrl = 'pages/jcsb/jcsb.html';
+					pageId = 'jcsb';
 					break;
 				case 'jcsbmain':
 					break;
 				case 'jscbwarn':
+					pageUrl = 'pages/jcsb/jcsbyjxx.html';
+					pageId = 'jcsbyjxx';
 					break;
-					
 				case 'analy':
 					break;
 				default:
@@ -282,8 +284,8 @@ var initEvent = function() {
 				{
 					//预加载
 					var flPage = mui.preload({
-						url: 'pages/dzd/dzdsbyjxx.html',
-						id: 'dzdsbyjxx',
+						url: 'pages/common/gjxxzx.html',
+						id: 'gjxxzx',
 						styles: {}, //窗口参数
 						extras: {} //自定义扩展参数
 					});
@@ -357,7 +359,6 @@ function closeStarMarksOnMap() {
 
 function showAllDZMarksOnMap() {
 	//0所有地灾点
-	debugger
 	var results = queryMarkers(0);
 	if(results != null && results.length > 0) {
 		dzMarkersLayerGroup.clearLayers();
@@ -393,7 +394,7 @@ function initComentList() {
 
 function initJcsbPictureList() {
 	//debugger
-	var picsNum = jscbImgListData.length;
+	var picsNum = warnjcMarkersData.length;
 	var totalPage = parseInt(picsNum / picListPageSize);
 	var remNum = picsNum % picListPageSize;
 	if(remNum != 0) {
@@ -402,7 +403,7 @@ function initJcsbPictureList() {
 
 	template.defaults.debug = true
 	var html = template('jcsb-pics-list-template', {
-		list: jscbImgListData,
+		list: warnjcMarkersData,
 		pageNum: totalPage,
 		pageSize: picListPageSize,
 		pageRem: remNum

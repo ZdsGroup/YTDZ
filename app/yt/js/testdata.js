@@ -132,6 +132,7 @@ var warnjcMarkersData = [{
 		le: '4',
 //		warn:'五级',
 		msg: '警告信息1',
+		src: 'photos/1.png',
 		typeNM:'裂缝监测设备'
 	},
 	{
@@ -144,6 +145,7 @@ var warnjcMarkersData = [{
 		le: '3',
 //		warn:'四级',
 		msg: '警告信息2',
+		src: 'photos/yljc-1.png',
 		typeNM:'位移监测设备'
 	},
 	{
@@ -156,6 +158,7 @@ var warnjcMarkersData = [{
 		le: '2',
 //		warn:'三级',
 		msg: '警告信息3',
+		src: 'photos/yljc-2.png',
 		typeNM:'位移监测设备'
 	},
 	{
@@ -168,6 +171,7 @@ var warnjcMarkersData = [{
 		le: '1',
 //		warn:'二级',
 		msg: '警告信息4',
+		src: 'photos/yljc-1.png',
 		typeNM:'雨量测设备'
 	},
 	{
@@ -180,6 +184,7 @@ var warnjcMarkersData = [{
 		le: '0',
 //		warn:'一级',
 		msg: '警告信息5',
+		src: 'photos/yljc-2.png',
 		typeNM:'雨量监测设备'
 	},
 	{
@@ -191,6 +196,7 @@ var warnjcMarkersData = [{
 		y: '117.203952',
 		le: '0',
 		msg: '警告信息6',
+		src: 'photos/2.png',
 //		warn:'一级',
 		typeNM:'位移监测设备'
 	}
@@ -287,9 +293,10 @@ var commentListData = [{
 	},
 ]
 
-var jscbImgListData = [{
+var jscbListData = [{
 		id:'lfjc1',
-		title: '裂缝监测1',
+		name: '裂缝监测1',
+		dzd:'贵溪市煤矿',
 		type: 'lfjc',
 		src: 'photos/1.png'
 	},
