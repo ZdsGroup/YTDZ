@@ -47,7 +47,7 @@
 							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
 						</p>
 						<p>
-							<i class="fa fa-map-marker fa-fw"></i>南山大道与火炬大道交叉口西北100米</span>
+							<i class="fa fa-map-marker fa-fw"></i><%=info.addr%></span>
 						</p>
 						<%}else{%>
 						<p id='<%=type%>_<%=info.id%>'>
@@ -56,7 +56,7 @@
 							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
 						</p>
 						<p>
-							<i class="fa fa-map-marker fa-fw"></i>南山大道与火炬大道交叉口西北100米</span>
+							<i class="fa fa-map-marker fa-fw"></i><%=info.addr%></span>
 						</p>
 						<%}%>
 					</script>
@@ -105,7 +105,7 @@
 			</div>
 			<div class="dzd-footercardcontent mui-table-view-cell">
 				<a class="mui-navigate-right" href="#">
-					<span title='dzdwarn' class="mui-badge mui-badge-danger">15</span> 预警信息
+					<span title='dzdwarn' class="mui-badge mui-badge-danger">15</span> 告警信息
 				</a>
 			</div>
 			<div class="dzd-footercardcontent mui-table-view-cell">

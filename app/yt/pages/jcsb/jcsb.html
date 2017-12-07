@@ -14,7 +14,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title">地灾点所有告警信息<a class="mui-pull-caption"></a></h1>
+			<h1 class="mui-title">地灾点所有监测设备<a class="mui-pull-caption"></a></h1>
 		</header>
 		<!--下拉刷新容器-->
 		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
@@ -27,8 +27,8 @@
 							<a class="mui-navigate-right">
 								<img class="mui-media-object mui-pull-left" src="../../<%=list[i].src%>">
 								<div class="mui-media-body">
-									<h4>告警设备: <%=list[i].name%></h4>
-									<p> 告警：<%=list[i].le%> 级 ；<%=list[i].msg%></p>
+									<h4> 设备名称: <%=list[i].name%></h4>
+									<p class='mui-ellipsis'> 用途：<%=list[i].typeNM%></p>
 								</div>
 							</a>
 						</li>
@@ -36,6 +36,7 @@
 					</script>
 				</ul>
 			</div>
+			
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
@@ -73,8 +74,7 @@
 			 * 上拉加载具体业务实现
 			 */
 			function pullupRefresh() {
-				
-
+			
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 4)); //参数为true代表没有更多数据了。
 //					var content = template(warnDZMarkersData);
