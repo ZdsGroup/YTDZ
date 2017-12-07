@@ -207,7 +207,8 @@
 					"pages/jcsb/yljc.html",
 					"pages/common/search.html",
 					"pages/jcsb/trhsljc.html",
-					"pages/dzd/dzdxq_1.html"
+					"pages/dzd/dzdxq_1.html",
+					"pages/common/user.html"
 				],
 				"priority": 0
 			},

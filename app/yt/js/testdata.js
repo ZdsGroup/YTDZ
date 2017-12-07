@@ -4,8 +4,8 @@ var warnDZMarkersData = [{
 		name: '贵溪市石膏矿采空塌陷区',
 		x: '28.220454',
 		y: '117.202889',
-		le: 'red',
-		warn:'五级',
+		le: '4',
+//		warn:'五级',
 		msg: '警告信息1'
 	},
 	{
@@ -14,8 +14,8 @@ var warnDZMarkersData = [{
 		name: '雷溪采空塌陷区',
 		x: '28.240131',
 		y: '117.203318',
-		le: 'red',
-		warn:'五级',
+		le: '3',
+//		warn:'五级',
 		msg: '警告信息2'
 	},
 	{
@@ -24,8 +24,8 @@ var warnDZMarkersData = [{
 		name: '二水采空塌陷区',
 		x: '28.216921',
 		y: '117.217595',
-		le: 'yellow',
-		warn:'三级',
+		le: '2',
+//		warn:'三级',
 		msg: '警告信息3'
 	},
 	{
@@ -34,8 +34,8 @@ var warnDZMarkersData = [{
 		name: '承信采空塌陷区',
 		x: '28.193918',
 		y: '117.208754',
-		le: 'blue',
-		warn:'二级',
+		le: '1',
+//		warn:'二级',
 		msg: '警告信息4'
 	},
 	{
@@ -44,8 +44,8 @@ var warnDZMarkersData = [{
 		name: '罗河采空塌陷区',
 		x: '28.237177',
 		y: '117.177512',
-		le: 'normal',
-		warn:'一级',
+		le: '0',
+//		warn:'一级',
 		msg: '警告信息5'
 	},
 	{
@@ -54,8 +54,8 @@ var warnDZMarkersData = [{
 		name: '罗塘石膏矿区鱼种场',
 		x: '28.270822',
 		y: '117.190043',
-		le: 'normal',
-		warn:'一级',
+		le: '0',
+//		warn:'一级',
 		msg: '警告信息6'
 	}
 ]
@@ -66,8 +66,8 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.220454',
 		y: '117.202889',
-		le: 'red',
-		warn:'五级',
+		le: '',
+//		warn:'五级',
 		msg: '全部信息1'
 	},
 	{
@@ -76,8 +76,8 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.240131',
 		y: '117.203318',
-		le: 'normal',
-		warn:'一级',
+		le: '',
+//		warn:'一级',
 		msg: '全部信息2'
 	},
 	{
@@ -86,8 +86,8 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.216921',
 		y: '117.217595',
-		le: 'normal',
-		warn:'一级',
+		le: '',
+//		warn:'一级',
 		msg: '全部信息3'
 	},
 	{
@@ -96,8 +96,8 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.193918',
 		y: '117.208754',
-		le: 'normal',
-		warn:'一级',
+		le: '',
+//		warn:'一级',
 		msg: '全部信息4'
 	},
 	{
@@ -106,8 +106,8 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.237177',
 		y: '117.177512',
-		le: 'normal',
-		warn:'一级',
+		le: '',
+//		warn:'一级',
 		msg: '全部信息5'
 	},
 	{
@@ -116,8 +116,8 @@ var dzMarkersData = [{
 		type: 'dzd',
 		x: '28.270822',
 		y: '117.190043',
-		le: 'red',
-		warn:'五级',
+		le: '',
+//		warn:'五级',
 		msg: '全部信息6'
 	}
 ]
@@ -129,8 +129,8 @@ var warnjcMarkersData = [{
 		type: 'lfjc',
 		x: '28.224357',
 		y: '117.204488',
-		le: 'red',
-		warn:'五级',
+		le: '4',
+//		warn:'五级',
 		msg: '警告信息1',
 		typeNM:'裂缝监测设备'
 	},
@@ -141,8 +141,8 @@ var warnjcMarkersData = [{
 		type: 'bmwyjc',
 		x: '28.219786',
 		y: '117.205647',
-		le: 'orange',
-		warn:'四级',
+		le: '3',
+//		warn:'四级',
 		msg: '警告信息2',
 		typeNM:'位移监测设备'
 	},
@@ -153,8 +153,8 @@ var warnjcMarkersData = [{
 		type: 'bmwyjc',
 		x: '28.221610',
 		y: '117.200626',
-		le: 'yellow',
-		warn:'三级',
+		le: '2',
+//		warn:'三级',
 		msg: '警告信息3',
 		typeNM:'位移监测设备'
 	},
@@ -165,8 +165,8 @@ var warnjcMarkersData = [{
 		type: 'yljc',
 		x: '28.223155',
 		y: '117.201356',
-		le: 'blue',
-		warn:'二级',
+		le: '1',
+//		warn:'二级',
 		msg: '警告信息4',
 		typeNM:'雨量测设备'
 	},
@@ -177,8 +177,8 @@ var warnjcMarkersData = [{
 		type: 'yljc',
 		x: '28.217533',
 		y: '117.201635',
-		le: 'normal',
-		warn:'一级',
+		le: '0',
+//		warn:'一级',
 		msg: '警告信息5',
 		typeNM:'雨量监测设备'
 	},
@@ -189,9 +189,9 @@ var warnjcMarkersData = [{
 		type: 'bmwyjc',
 		x: '28.215559',
 		y: '117.203952',
-		le: 'normal',
+		le: '0',
 		msg: '警告信息6',
-		warn:'一级',
+//		warn:'一级',
 		typeNM:'位移监测设备'
 	}
 ]

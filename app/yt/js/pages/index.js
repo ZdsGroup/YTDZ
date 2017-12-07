@@ -190,77 +190,91 @@ var initEvent = function() {
 			id: 'search-page-1'
 		});
 	});
-
-	//底部ytfooter点击事件进入详情面板
-	mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(evt) {
-
+	
+	//底部对象概要信息收藏按钮点击事件
+	mui('#ftstar')[0].addEventListener('click', function(evt) {
+		debugger
 		var action = evt.target.value;
-		//TODO 调用后台把该对象进行收藏
+		var  starStatus = 0;
 		if(action == 'ftstar') {
 			var obj = mui('#ftstar')[0];
 			if(obj.classList.contains('ytfooter-star')) {
 				obj.classList.remove('ytfooter-star');
 				obj.classList.add('ytfooter-star-color');
+				starStatus = 1;
 			} else {
 				obj.classList.remove('ytfooter-star-color');
 				obj.classList.add('ytfooter-star');
+				starStatus = 0;
 			}
+			//TODO 调用后台把该对象进行收藏
 			return
 		}
-
-		var info = mui('.mui-table-cell')[0];
-		//把选中的info.id(type_id)传到详情页面
+	});
+	
+	//首页底部栏上更多详细按钮的点击事件
+	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
+		debugger
+		var action = evt.target.title;
+		var info = mui('#footer-table p')[0];
 		var typeT = info.id.split('_')[0];
 		var idT = info.id.split('_')[1];
 		var pageUrl = '';
 		var pageId = '';
-		switch(typeT) {
-			case 'dzd':
-				{
-					pageUrl = 'pages/dzd/dzdxq_1.html';
-					pageId = 'dzdxq';
+		if(objId){
+			switch (action){
+				case 'dzdmain':
+					pageUrl = 'pages/dzd/dzdgdxx.html';
+					pageId = 'dzdgdxx';
 					break;
-				}
-
-			case 'bmwyjc':
-				{
-					pageUrl = 'pages/jcsb/bmwyjc.html';
-					pageId = 'bmwyjc';
+				case 'dzdwarn':
+				
 					break;
-				}
-
-			case 'lfjc':
-				{
-					pageUrl = 'pages/jcsb/lfjc.html';
-					pageId = 'lfjc';
+				case 'jcsb':
+					pageUrl = 'pages/dzd/dzdgdxx.html';
+					pageId = 'dzdgdxx';
 					break;
-				}
-
-			case 'yljc':
-				{
-					pageUrl = 'pages/jcsb/yljc.html';
-					pageId = 'yljc';
+				case 'jcsbmain':
 					break;
-				}
-
-			default:
-				break;
-		}
-		mui.openWindow({
-			url: pageUrl,
-			id: pageId,
-			extras: {
-				xqType: typeT,
-				xqID: idT
+				case 'jscbwarn':
+					break;
+					
+				case 'analy':
+					break;
+				default:
+					break;
 			}
-		});
+			mui.openWindow({
+						url: pageUrl,
+						id: pageId,
+						extras:{
+							xqType: typeT,
+							xqID: idT
+						}
+					});
+		}
 	});
+	
+	//底部地灾点写评论按钮点击事件
+	mui('#comment')[0].addEventListener('click', function(evt) {
+		debugger
+		var objcomm = evt.target;
+		if(objcomm) {
+			//TODO 调用写评论界面写评论
+			return
+		}
+	});
+
 	//监听点击事件,获取所有按钮，绑定按钮的点击事件
 	mui('.mui-content').on("tap", "button", function(evt) {
 		var action = evt.target.value;
 		switch(action) {
 			case 'usercenter':
 				{
+					mui.openWindow({
+						url: 'pages/common/user.html',
+						id: 'user',
+					});
 					break;
 				}
 			case 'info':
@@ -343,6 +357,7 @@ function closeStarMarksOnMap() {
 
 function showAllDZMarksOnMap() {
 	//0所有地灾点
+	debugger
 	var results = queryMarkers(0);
 	if(results != null && results.length > 0) {
 		dzMarkersLayerGroup.clearLayers();
@@ -392,7 +407,7 @@ function initJcsbPictureList() {
 		pageSize: picListPageSize,
 		pageRem: remNum
 	});
-	document.getElementById("jcsb-pics-list").innerHTML = html;
+//	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
 function showWarnDZMarksOnMap() {
@@ -471,27 +486,27 @@ function getDZMarkersLayerGroup(results) {
 function getMarkerColorByWarnLevel(level) {
 	var markColor = '';
 	switch(level) {
-		case 'red':
+		case '4':
 			{
 				markColor = 'red';
 				break;
 			}
-		case 'orange':
+		case '3':
 			{
 				markColor = 'orange';
 				break;
 			}
-		case 'yellow':
+		case '2':
 			{
 				markColor = 'yellow';
 				break;
 			}
-		case 'blue':
+		case '1':
 			{
 				markColor = 'blue';
 				break;
 			}
-		case 'normal':
+		case '0':
 			{
 				markColor = 'green';
 				break;
