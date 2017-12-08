@@ -213,7 +213,7 @@ var initEvent = function() {
 
 	//底部对象概要信息收藏按钮点击事件
 	mui('#ftstar')[0].addEventListener('click', function(evt) {
-		debugger
+
 		var action = evt.target.value;
 		var starStatus = 0;
 		if(action == 'ftstar') {
@@ -241,7 +241,7 @@ var initEvent = function() {
 		var pageUrl = '';
 		var pageId = '';
 		var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
-		debugger
+//		debugger
 		if(info) {
 			switch(action) {
 				case 'dzd-more-info':
@@ -253,11 +253,12 @@ var initEvent = function() {
 					pageId = 'dzd-warn-info';
 					break;
 				case 'dzd-jcsb-all':
-					debugger
 					pageUrl = 'pages/dzd/dzdjcsblist.html';
 					pageId = 'dzd-jcsb-all';
 					break;
 				case 'jcsb-more-info':
+					pageUrl = 'pages/jcsb/jcsbgdxx.html';
+					pageId = 'jcsb-more-info';
 					break;
 				case 'jcsb-warn-info':
 					pageUrl = 'pages/jcsb/jcsbyjxx.html';
@@ -265,7 +266,6 @@ var initEvent = function() {
 					break;
 				case 'jcsb-analy-all':
 					if(selectedFeature) {
-						debugger
 						var jcsb_type = selectedFeature.type;
 						switch(jcsb_type) {
 							case 'bmwyjc':
@@ -303,7 +303,6 @@ var initEvent = function() {
 
 	//底部地灾点写评论按钮点击事件
 	mui('#comment')[0].addEventListener('click', function(evt) {
-		debugger
 		var objcomm = evt.target;
 		if(objcomm) {
 			//TODO 调用写评论界面写评论
@@ -437,7 +436,6 @@ function initComentList() {
 }
 
 function initJcsbPictureList() {
-	//debugger
 	var picsNum = warnjcMarkersData.length;
 	var totalPage = parseInt(picsNum / picListPageSize);
 	var remNum = picsNum % picListPageSize;
@@ -452,6 +450,7 @@ function initJcsbPictureList() {
 		pageSize: picListPageSize,
 		pageRem: remNum
 	});
+	//TODO 需要从后台获取数据动态生成
 	//	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
