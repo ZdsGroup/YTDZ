@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-<!doctype html>
-<html>
-
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css" />
-		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/leaflet.awesome-markers.css" />
-		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/L.Icon.Pulse.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
-		<style type="text/css">
-			.jcsb-detail-cardcontent {
-				background-color: #FFFFFF;
-				padding: 12px 15px 0px;
-				margin: 50px 0px 5px 0px;
-				overflow: hidden;
-			}
-		</style>
-=======
 <!DOCTYPE html>
 <html>
 
@@ -33,12 +9,10 @@
 		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
->>>>>>> 2386dcaee8b5360f925383392f1f685302b533ad
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-<<<<<<< HEAD
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">监测设备详情</h1>
 		</header>
@@ -110,181 +84,7 @@
 			mui.ready(initApp);
 
 			mui.plusReady(function() {
-				//页面传值
-				/*var self = plus.webview.currentWebview();
-				var name = self.name;
-				var version = self.version;*/
-
-				/*var html = template('jcsb-brief-ul-li-template', {
-					info: {
-						id: '2',
-						name: '位移监测设备1',
-						dzd: '贵溪市石膏矿',
-						type: 'bmwyjc',
-						x: '28.219786',
-						y: '117.205647',
-						le: '3',
-						//		warn:'四级',
-						msg: '警告信息2',
-						src: 'photos/yljc-1.png',
-						typeNM: '位移监测设备'
-					},
-					type: 'jcsb'
-				});
-				mui(".jcsb-detail-cardcontent")[0].innerHTML = html;*/
 			});
-=======
-			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title">地灾点所有监测设备<a class="mui-pull-caption"></a></h1>
-		</header>
-		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<!--数据列表-->
-				<ul id="ullist" class="mui-table-view mui-table-view-chevron">
-					<script id="ul-li-template" type="text/html">
-						<% for(var i=0;i<list.length;i++){%>
-						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell mui-media">
-							<a class="mui-navigate-right">
-								<img class="mui-media-object mui-pull-left" src="../../<%=list[i].src%>">
-								<div class="mui-media-body">
-									<h4> 设备名称: <%=list[i].name%></h4>
-									<p class='mui-ellipsis'> 用途：<%=list[i].typeNM%></p>
-								</div>
-							</a>
-						</li>
-						<%}%>
-					</script>
-				</ul>
-			</div>
-			
-		</div>
-		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			(function($) {
-				$.init({
-					pullRefresh: {
-						container: '#pullrefresh',
-						down: {
-							callback: pulldownRefresh //下拉，获取更多数据
-						},
-						up: {
-							contentrefresh: '正在加载...',
-							callback: pullupRefresh //上拉， 刷新最新数据
-						}
-					}
-				});
-
-			})(mui);;
-			/**
-			 * 下拉刷新具体业务实现
-			 */
-			function pulldownRefresh() {
-				setTimeout(function() {
-					var html = template('ul-li-template', {
-						list: warnjcMarkersData
-					});
-					document.getElementById("ullist").innerHTML = html;
-					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-				}, 1000);
-			}
-			var count = 0;
-			/**
-			 * 上拉加载具体业务实现
-			 */
-			function pullupRefresh() {
-			
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 4)); //参数为true代表没有更多数据了。
-//					var content = template(warnDZMarkersData);
-					var html = template('ul-li-template', {
-						list: warnjcMarkersData
-					});
-					document.getElementById("ullist").innerHTML = document.getElementById("ullist").innerHTML + html;
-				}, 1000);
-			}
-
-			//添加列表项的点击事件
-			var initEvent = function() {
-				var self = plus.webview.currentWebview();
-				  self.addEventListener('show',function(e){
-				  	count = 0;
-				  	document.getElementById("ullist").innerHTML = "";
-				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
-					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				  	
-            });
-				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
-					var info = e.target.parentElement.parentElement;
-					//把选中的info.id(type_id)传到详情页面
-					var typeT = info.id.split('_')[0];
-					var idT = info.id.split('_')[1];
-					//定位到具体的告警tab
-					var tabT = 'warn'
-					openInfoPage(typeT,idT,tabT);
-				});
-				
-				//根据类型和id打开对应的设备详情页面
-				function openInfoPage(typeT,idT,tabT){
-					var pageUrl = '';
-					var pageId = '';
-					switch(typeT) {
-						case 'bmwyjc':
-							{
-								pageUrl = '../../pages/jcsb/bmwyjc.html';
-								pageId = 'bmwyjc';
-								break;
-							}
-						case 'lfjc':
-							{
-								pageUrl = '../../pages/jcsb/lfjc.html';
-								pageId = 'lfjc';
-								break;
-							}
-						case 'yljc':
-							{
-								pageUrl = '../../pages/jcsb/yljc.html';
-								pageId = 'yljc';
-								break;
-							}
-						default:
-							break;
-					}
-					mui.openWindow({
-						url: pageUrl,
-						id: pageId,
-						extras:{
-							xqType: typeT,
-							xqID: idT,
-							xqTab: tabT 
-						}
-					});
-				}
-			}
-			
-
-			var initApp = function() {
-				this.initEvent();
-			};
-			if(mui.os.plus) {
-				mui.plusReady(function() {
-					setTimeout(function() {
-						mui('#pullrefresh').pullRefresh().pullupLoading();
-					}, 1000);
-					initApp();
-
-				});
-			} else {
-				mui.ready(function() {
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-					initApp();
-				});
-			}
->>>>>>> 2386dcaee8b5360f925383392f1f685302b533ad
-		</script>
 	</body>
 
 </html>
