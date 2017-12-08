@@ -302,6 +302,10 @@ var initEvent = function() {
 						}
 					}
 					break;
+				case 'comment-info':
+					pageUrl = 'pages/dzd/comment.html';
+					pageId = 'comment-info';
+					break;
 				default:
 					break;
 			}
