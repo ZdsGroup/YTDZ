@@ -28,7 +28,7 @@ var initApp = function() {
 	this.initMap();
 	this.initEvent();
 	scroller = mui('.mui-scroll-wrapper').scroll({
-		indicators:false,
+		indicators: false,
 		bounce: false
 	});
 	scroller.setStopped(true); //暂时禁止
@@ -38,9 +38,28 @@ mui.ready(initApp);
 var initAppPlus = function() {
 	//获取状态栏高度
 	this.topNavHeight = plus.navigator.getStatusbarHeight();
+
+	plus.key.addEventListener('backbutton', function() {
+		hideFooterPanle();
+		return false;
+	}, false);
 };
 
 mui.plusReady(initAppPlus);
+
+var data = 0;
+mui.back = function() {
+	if(!first) { //首次按键，提示‘再按一次退出应用’
+		data += 1;
+		setTimeout(function() {
+			data = 0;
+		}, 1000);
+	}
+	if(data == 2) {
+		plus.runtime.quit();
+
+	}
+};
 
 var initMap = function() {
 	var me = this;
@@ -138,6 +157,8 @@ var hideFooterPanle = function() {
 	mapFooter.style.height = '0px';
 	mapFooter.style.display = 'none';
 	mapContent.style.height = '100%';
+	scroller.setStopped(true); //禁止滚动
+	toolFloatContainer.classList.remove("mui-hidden");
 };
 
 //初始化事件
@@ -154,9 +175,6 @@ var initEvent = function() {
 		ytFooterHeight = parseInt(document.getElementById("ytfooter").style.height);
 		startY = evt.detail.center.y;
 		toolFloatContainer.classList.add("mui-hidden");
-		if(scroller.stopped == false && scroller.maxScrollY == 0) {
-			//scroller.setStopped(true);
-		}
 	});
 	mui('#ytfooter')[0].addEventListener('drag', function(evt) {
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
@@ -197,11 +215,10 @@ var initEvent = function() {
 		scrollStart = event.detail.y;
 	});
 	mui(".mui-scroll-wrapper")[0].addEventListener("scroll", function() {
-		if (scrollStart == 0 && event.detail.y == 0 && scroller != null) {
+		if(scrollStart == 0 && event.detail.y == 0 && scroller != null) {
 			scroller.setStopped(true);
 		}
 	});
-
 
 	//搜索框聚焦激活搜索面板
 	mui('#search-input-text-id')[0].addEventListener('focus', function() {
