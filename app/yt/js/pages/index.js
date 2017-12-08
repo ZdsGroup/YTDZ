@@ -10,7 +10,7 @@ var maxZoomShow = 15;
 var footerHeight = 101;
 var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
-
+var scroller = null;
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -27,6 +27,11 @@ mui.init({
 var initApp = function() {
 	this.initMap();
 	this.initEvent();
+	scroller = mui('.mui-scroll-wrapper').scroll({
+		indicators:false,
+		bounce: false
+	});
+	scroller.setStopped(true); //暂时禁止
 };
 mui.ready(initApp);
 
@@ -149,6 +154,9 @@ var initEvent = function() {
 		ytFooterHeight = parseInt(document.getElementById("ytfooter").style.height);
 		startY = evt.detail.center.y;
 		toolFloatContainer.classList.add("mui-hidden");
+		if(scroller.stopped == false && scroller.maxScrollY == 0) {
+			//scroller.setStopped(true);
+		}
 	});
 	mui('#ytfooter')[0].addEventListener('drag', function(evt) {
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
@@ -162,7 +170,7 @@ var initEvent = function() {
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
 		var step1 = screen.availHeight / 3;
 		var step2 = screen.availHeight * 2 / 3;
-
+		//scroller.setStopped(true);
 		if(ytFooterHeight <= step1) {
 			ytFooterHeight = me.footerHeight;
 			toolFloatContainer.classList.remove("mui-hidden");
@@ -170,6 +178,7 @@ var initEvent = function() {
 			ytFooterHeight = parseInt(step2);
 		} else {
 			ytFooterHeight = screen.availHeight - topNavHeight;
+			scroller.setStopped(false);
 		}
 
 		me.showFooterPanel(ytFooterHeight);
@@ -181,6 +190,18 @@ var initEvent = function() {
 		//初始化检测设备图片列表
 		initJcsbPictureList();
 	});
+
+	//监听滚动事件
+	var scrollStart = 0;
+	mui(".mui-scroll-wrapper")[0].addEventListener("scrollstart", function() {
+		scrollStart = event.detail.y;
+	});
+	mui(".mui-scroll-wrapper")[0].addEventListener("scroll", function() {
+		if (scrollStart == 0 && event.detail.y == 0 && scroller != null) {
+			scroller.setStopped(true);
+		}
+	});
+
 
 	//搜索框聚焦激活搜索面板
 	mui('#search-input-text-id')[0].addEventListener('focus', function() {
