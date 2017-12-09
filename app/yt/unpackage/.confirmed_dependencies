@@ -1,1 +1,15 @@
-null
+{
+	"index.html": {
+		"refer": [
+			"pages/dzd/dzdjcsblist.html",
+			"pages/dzd/dzdsbyjxx.html",
+			"pages/dzd/dzdgdxx.html",
+			"pages/dzd/comment.html"
+		]
+	},
+	"pages/dzd/dzdjcsblist.html": {
+		"refer": [
+			"pages/jcsb/jcsb.html"
+		]
+	}
+}

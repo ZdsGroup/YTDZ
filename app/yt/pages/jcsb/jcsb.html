@@ -64,6 +64,7 @@
 		</div>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
 			//初始化事件
@@ -71,52 +72,44 @@
 			//初始化应用
 			var initApp = function() {
 				this.initEvent();
-
-				//固定值仅用于测试，实际需要根据页面传值动态获取
-				var html = template('jcsb-brief-ul-li-template', {
-					info: {
-						id: '2',
-						name: '位移监测设备1',
-						dzd: '贵溪市石膏矿',
-						type: 'bmwyjc',
-						x: '28.219786',
-						y: '117.205647',
-						le: '3',
-						//		warn:'四级',
-						msg: '警告信息2',
-						src: 'photos/yljc-1.png',
-						typeNM: '位移监测设备'
-					},
-					type: 'jcsb'
-				});
-				mui(".jcsb-detail-cardcontent")[0].innerHTML = html;
 			};
 
 			mui.ready(initApp);
 
+			//根据类型及ID查询监测设备数据
+			var getJcsbData = function(type, id) {
+				var cf = null; //当前监测
+				var isExist = false;
+				if(warnjcMarkersData) {
+					var len = warnjcMarkersData.length;
+					if(len > 0) {
+						for(var i = 0; i < len; i++) {
+							if(!isExist) {
+								var f = warnjcMarkersData[i];
+								if(f && f['type'] == type && f['id'] == parseInt(id)) {
+									cf = f;
+									isExist = true;
+								}
+							}
+						}
+					}
+				}
+				return cf;
+			}
+
 			mui.plusReady(function() {
 				//页面传值
-				/*var self = plus.webview.currentWebview();
-				var name = self.name;
-				var version = self.version;*/
-
-				/*var html = template('jcsb-brief-ul-li-template', {
-					info: {
-						id: '2',
-						name: '位移监测设备1',
-						dzd: '贵溪市石膏矿',
-						type: 'bmwyjc',
-						x: '28.219786',
-						y: '117.205647',
-						le: '3',
-						//		warn:'四级',
-						msg: '警告信息2',
-						src: 'photos/yljc-1.png',
-						typeNM: '位移监测设备'
-					},
-					type: 'jcsb'
-				});
-				mui(".jcsb-detail-cardcontent")[0].innerHTML = html;*/
+				var self = plus.webview.currentWebview();
+				var jcsbType = self.xqType;
+				var jcsbId = self.xqID;
+				//根据地灾点对应的预警监测数据查找，测试数据为：warnjcMarkersData
+				var jcData = this.getJcsbData(jcsbType, jcsbId);
+				if(jcData) {
+					var html = template('jcsb-brief-ul-li-template', {
+						info: jcData
+					});
+					mui(".jcsb-detail-cardcontent")[0].innerHTML = html;
+				}
 			});
 		</script>
 	</body>

@@ -356,6 +356,13 @@
 					"pages/jcsb/yljc.html"
 				],
 				"priority": 0
+			},
+			"pages/dzd/dzdjcsblist.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/jcsb.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
