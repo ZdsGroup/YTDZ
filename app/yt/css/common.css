@@ -3,6 +3,7 @@ body {
 	overflow: auto;
 	width: 100%;
 	height: 100%;
+	color: #000000 !important;
 }
 
 body {
@@ -46,3 +47,8 @@ body {
 	background-color: rgba(52, 152, 219,1.0);
 	color: #FFF !important;
 }*/
+
+a.mui-active{
+	background-color: transparent!important;
+	
+}

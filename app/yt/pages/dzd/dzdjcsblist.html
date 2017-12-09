@@ -6,14 +6,15 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<script type="text/javascript" src="../../js/mui.min.js" ></script>
-		<script type="text/javascript" src="../../js/template-native.js" ></script>
-		<script type="text/javascript" src="../../js/testdata.js" ></script>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/template-native.js"></script>
+		<script type="text/javascript" src="../../js/testdata.js"></script>
 		<style type="text/css">
-			.mui-table-view-cell{
+			.mui-table-view-cell {
 				font-size: 18px;
 			}
-			.mui-navigate-right-self{
+			
+			.mui-navigate-right-self {
 				font-size: 15px;
 			}
 		</style>
@@ -21,67 +22,74 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">地灾点监测设备列表</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">地灾点监测设备列表</h1>
 		</header>
 		<div class="mui-content" style="padding-top: 30px;">
-			<div class="mui-card">
-				<ul class="mui-table-view mui-table-view-chevron">
-					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">裂缝监测</a>
-						<ul id="lfjc-ul-list" class="mui-table-view mui-table-view-chevron">
-							<script id="lfjc-ul-list-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-								<%if (list[i].type=='lfjc') {%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-									<a class="mui-navigate-right mui-navigate-right-self" href="#"><%=list[i].name%></a>
-								</li>
-								<%}}%>
-							</script>
-						</ul>
-					</li>
-					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">表面位移监测</a>
-						<ul id="bmwyjc-ul-list" class="mui-table-view mui-table-view-chevron">
-							<script id="bmwyjc-ul-list-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-								<%if (list[i].type=='bmwyjc') {%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-									<a class="mui-navigate-right mui-navigate-right-self" href="#"><%=list[i].name%></a>
-								</li>
-								<%}}%>
-							</script>
-						</ul>
-					</li>					
-					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">雨量监测</a>
-						<ul id="yljc-ul-list" class="mui-table-view mui-table-view-chevron">
-							<script id="yljc-ul-list-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-								<%if (list[i].type=='yljc') {%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-									<a class="mui-navigate-right mui-navigate-right-self" href="#"><%=list[i].name%></a>
-								</li>
-								<%}}%>
-							</script>
-						</ul>
-					</li>
-				</ul>
-			</div>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">裂缝监测</a>
+					<ul id="lfjc-ul-list" class="mui-table-view mui-table-view-chevron">
+						<script id="lfjc-ul-list-template" type="text/html">
+							<% for(var i=0;i<list.length;i++){%>
+							<%if (list[i].type=='lfjc') {%>
+							<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+								<a class="mui-navigate-right mui-navigate-right-self" href="#">
+									<%=list[i].name%>
+								</a>
+							</li>
+							<%}}%>
+						</script>
+					</ul>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">表面位移监测</a>
+					<ul id="bmwyjc-ul-list" class="mui-table-view mui-table-view-chevron">
+						<script id="bmwyjc-ul-list-template" type="text/html">
+							<% for(var i=0;i<list.length;i++){%>
+							<%if (list[i].type=='bmwyjc') {%>
+							<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+								<a class="mui-navigate-right mui-navigate-right-self" href="#">
+									<%=list[i].name%>
+								</a>
+							</li>
+							<%}}%>
+						</script>
+					</ul>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">雨量监测</a>
+					<ul id="yljc-ul-list" class="mui-table-view mui-table-view-chevron">
+						<script id="yljc-ul-list-template" type="text/html">
+							<% for(var i=0;i<list.length;i++){%>
+							<%if (list[i].type=='yljc') {%>
+							<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+								<a class="mui-navigate-right mui-navigate-right-self" href="#">
+									<%=list[i].name%>
+								</a>
+							</li>
+							<%}}%>
+						</script>
+					</ul>
+				</li>
+			</ul>
 		</div>
 
 		<script type="text/javascript">
 			mui.init();
-			
-			var initEvent = function(){
+
+			var initEvent = function() {
 				//初始化各个监测类型下面的监测设备
 				initTemplateContent();
-				
+
 				//对监测设备添加点击事件到具体的设备详情页面
 				initJcsbListEvent();
 			};
-			
-			function initJcsbListEvent(){
+
+			function initJcsbListEvent() {
 				mui('#bmwyjc-ul-list, #lfjc-ul-list, #yljc-ul-list').on('tap', '.mui-navigate-right-self', function(evt) {
 					var info = evt.target.parentElement;
-					if(info){
+					if(info) {
 						var typeT = info.id.split('_')[0];
 						var idT = info.id.split('_')[1];
 						debugger
@@ -96,27 +104,28 @@
 					}
 				})
 			}
-			
-			function initTemplateContent(){
+
+			function initTemplateContent() {
 				var bmwyjcH = template('bmwyjc-ul-list-template', {
-						list: warnjcMarkersData
-					});
+					list: warnjcMarkersData
+				});
 				document.getElementById("bmwyjc-ul-list").innerHTML = bmwyjcH;
 				var lfjcH = template('lfjc-ul-list-template', {
-						list: warnjcMarkersData
-					});
+					list: warnjcMarkersData
+				});
 				document.getElementById("lfjc-ul-list").innerHTML = lfjcH;
 				var yljcH = template('yljc-ul-list-template', {
 					list: warnjcMarkersData
 				});
 				document.getElementById("yljc-ul-list").innerHTML = yljcH;
 			}
-			var initApp = function(){
+			var initApp = function() {
 				this.initEvent();
 			}
-			mui.ready(function(){
+			mui.ready(function() {
 				this.initApp();
 			});
 		</script>
 	</body>
+
 </html>
