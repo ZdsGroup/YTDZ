@@ -363,6 +363,13 @@
 					"pages/jcsb/jcsb.html"
 				],
 				"priority": 0
+			},
+			"pages/jcsb/jcsb.html": {
+				"resources": [
+					"photos/jcsb/2.jpg"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {

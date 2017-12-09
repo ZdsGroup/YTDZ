@@ -15,6 +15,8 @@
 		<style type="text/css">
 			.jcsb-detail-cardcontent {
 				background-color: #FFFFFF;
+				padding: 12px 15px 0px;
+				margin: 5px 0px 5px 0px;
 				overflow: hidden;
 			}
 			
@@ -80,33 +82,41 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-			<div class="jcsb-detail-cardcontent">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-
-						设备名称：裂缝监测设备1
-					</li>
-					<li class="mui-table-view-cell">
-						所属地灾点：贵溪市石膏矿采空塌陷地灾点
-					</li>
-					<li class="mui-table-view-cell">
-						安装时间：2017/03/13
-					</li>
-					<li class="mui-table-view-cell">
-						负责人：张志辉
-					</li>
-					<li class="mui-table-view-cell">
-						联系电话：18102300170
-					</li>
-					<li class="mui-table-view-cell">
-						维护周期：1次/月
-					</li>
-					<li class="mui-table-view-cell">
-						上次维护时间：2017/10/13
-					</li>
-				</ul>
+			<div style="position: relative;">
+				<div class="jcsb-detail-cardcontent">
+					<script id="jcsb-brief-ul-li-template" type="text/templete">
+						<p id='<%=type%>_<%=info.id%>'>
+							<span style="font-size: 1.1em;"><%=info.name%></span>
+							<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>)</span>
+							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
+						</p>
+						<p>
+							<span>南山大道与火炬大道交叉口西北100米</span>
+						</p>
+					</script>
+				</div>
+				<div style="position: absolute; top: 5px;right: 10px;">
+					<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+				</div>
 			</div>
-			<div class="jcsb-footercardcontent mui-table-view-cell">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					安装时间：2017/03/13
+				</li>
+				<li class="mui-table-view-cell">
+					负责人：张志辉
+				</li>
+				<li class="mui-table-view-cell">
+					联系电话：18102300170
+				</li>
+				<li class="mui-table-view-cell">
+					维护周期：1次/月
+				</li>
+				<li class="mui-table-view-cell">
+					上次维护时间：2017/10/13
+				</li>
+			</ul>
+			<div class="jcsb-footercardcontent mui-table-view-cell" style="margin-top: 5px;">
 				<a class="mui-navigate-right" href="#">
 					<span title='jcsb-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
 				</a>

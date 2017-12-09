@@ -11,5 +11,10 @@
 		"refer": [
 			"pages/jcsb/jcsb.html"
 		]
+	},
+	"pages/jcsb/jcsb.html": {
+		"resources": [
+			"photos/jcsb/2.jpg"
+		]
 	}
 }
