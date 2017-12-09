@@ -49,6 +49,7 @@ mui.plusReady(initAppPlus);
 
 var data = 0;
 mui.back = function() {
+	var first = null;
 	if(!first) { //首次按键，提示‘再按一次退出应用’
 		data += 1;
 		setTimeout(function() {
