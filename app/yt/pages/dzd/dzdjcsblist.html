@@ -27,18 +27,6 @@
 		<div class="mui-content" style="padding-top: 30px;">
 			<div class="mui-card">
 				<ul class="mui-table-view mui-table-view-chevron">
-					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">表面位移监测</a>
-						<ul id="bmwyjc-ul-list" class="mui-table-view mui-table-view-chevron">
-							<script id="bmwyjc-ul-list-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-								<%if (list[i].type=='bmwyjc') {%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-									<a class="mui-navigate-right mui-navigate-right-self" href="#"><%=list[i].name%></a>
-								</li>
-								<%}}%>
-							</script>
-						</ul>
-					</li>
 					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">裂缝监测</a>
 						<ul id="lfjc-ul-list" class="mui-table-view mui-table-view-chevron">
 							<script id="lfjc-ul-list-template" type="text/html">
@@ -51,6 +39,18 @@
 							</script>
 						</ul>
 					</li>
+					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">表面位移监测</a>
+						<ul id="bmwyjc-ul-list" class="mui-table-view mui-table-view-chevron">
+							<script id="bmwyjc-ul-list-template" type="text/html">
+								<% for(var i=0;i<list.length;i++){%>
+								<%if (list[i].type=='bmwyjc') {%>
+								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+									<a class="mui-navigate-right mui-navigate-right-self" href="#"><%=list[i].name%></a>
+								</li>
+								<%}}%>
+							</script>
+						</ul>
+					</li>					
 					<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">雨量监测</a>
 						<ul id="yljc-ul-list" class="mui-table-view mui-table-view-chevron">
 							<script id="yljc-ul-list-template" type="text/html">

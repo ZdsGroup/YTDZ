@@ -15,9 +15,19 @@
 		<style type="text/css">
 			.jcsb-detail-cardcontent {
 				background-color: #FFFFFF;
-				padding: 12px 15px 0px;
-				margin: 50px 0px 5px 0px;
 				overflow: hidden;
+			}
+			#slider-pictures {
+				height: 270px;
+				border-bottom: 1px solid black;
+			}
+			/*图片等比自动缩放*/
+			
+			img {
+				width: auto;
+				height: 270px;
+				max-width: 100%;
+				max-height: 100%;
 			}
 		</style>
 	</head>
@@ -27,69 +37,139 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">监测设备详情</h1>
 		</header>
-		<div style="position: relative;">
+		<div class="mui-content">
+			<div id="slider-pictures" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../../photos/jcsb/3.jpg">
+							<p class="mui-slider-title">安装拍照3</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../photos/jcsb/1.jpg">
+							<p class="mui-slider-title">安装拍照1</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../photos/jcsb/2.jpg">
+							<p class="mui-slider-title">安装拍照2</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../photos/jcsb/3.jpg">
+							<p class="mui-slider-title">安装拍照3</p>
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../../photos/jcsb/1.jpg">
+							<p class="mui-slider-title">安装拍照1</p>
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator mui-text-right">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
 			<div class="jcsb-detail-cardcontent">
-				<script id="jcsb-brief-ul-li-template" type="text/templete">
-					<p id='<%=type%>_<%=info.id%>'>
-						<span style="font-size: 1.1em;"><%=info.name%></span>
-						<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>)</span>
-						<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
-					</p>
-					<p>
-						<i class="fa fa-map-marker fa-fw"></i>南山大道与火炬大道交叉口西北100米</span>
-					</p>
-				</script>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						设备名称：裂缝监测设备1
+					</li>
+					<li class="mui-table-view-cell">
+						所属地灾点：贵溪市石膏矿采空塌陷地灾点
+					</li>
+					<li class="mui-table-view-cell">
+						承担单位：鹰潭市国土资源局
+					</li>
+					<li class="mui-table-view-cell">
+						负责人：张志辉
+					</li>
+					<li class="mui-table-view-cell">
+						联系电话：18102300170
+					</li>
+					<li class="mui-table-view-cell">
+						设备类型：裂缝监测
+					</li>
+				</ul>
 			</div>
-			<div style="position: absolute; top: 5px;right: 10px;">
-				<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+			<div class="jcsb-footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#">
+					<span title='jcsb-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
+				</a>
 			</div>
-		</div>
-		<div class="jcsb-footercardcontent mui-table-view-cell">
-			<a class="mui-navigate-right" href="#">
-				<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
-			</a>
-			<p>负责人：张志辉</p>
-			<!--<p>监测设备：4种类型 | 共计11个</p>-->
-			<p>简介：贵溪市为地质灾害防治制定发布了《贵溪市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了贵溪市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。</p>
-		</div>
-		<div class="jcsb-footercardcontent mui-table-view-cell">
-			<a class="mui-navigate-right" href="#">
-				<span title='jcsb-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
-			</a>
-		</div>
-		<div class="jcsb-footercardcontent mui-table-view-cell">
-			<a class="mui-navigate-right" href="#">
-				<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
-			</a>
-		</div>
+			<div class="jcsb-footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#">
+					<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
+				</a>
+			</div>
+		</div>		
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
-			//初始化事件
-			var initEvent = function() {};
-			//初始化应用
+
+			var initEvent = function() {
+				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
+					var action = evt.target.title;
+					var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
+					var info = '';
+					var typeT = '';
+					var idT = '';
+					var pageUrl = '';
+					var pageId = '';
+					switch(action) {
+						case 'jcsb-warn-info':
+							pageUrl = 'jcsbyjxx.html';
+							pageId = 'dzd-more-info';
+							break;
+						case 'jcsb-analy-all':
+							if(selectedFeature) {
+								var jcsb_type = selectedFeature.type;
+								switch(jcsb_type) {
+									case 'bmwyjc':
+										pageUrl = 'bmwyjcanalylist.html';
+										pageId = 'jcsb-bmwyjc-analylist';
+										break;
+									case 'lfjc':
+										pageUrl = 'lfjcanalylist.html';
+										pageId = 'jcsb-lfjc-analylist';
+										break;
+									case 'yljc':
+										pageUrl = 'yljcanalylist.html';
+										pageId = 'jcsb-yljc-analylist';
+										break;
+									default:
+										break;
+								}
+							}
+							break;
+						default:
+							break;
+					}
+				
+					mui.openWindow({
+						url: pageUrl,
+						id: pageId,
+						extras: {
+							xqType: typeT,
+							xqID: idT,
+							xqFeature: selectedFeature
+						}
+					});
+				})
+			};
+
 			var initApp = function() {
 				this.initEvent();
-
-				//固定值仅用于测试，实际需要根据页面传值动态获取
-				var html = template('jcsb-brief-ul-li-template', {
-					info: {
-						id: '2',
-						name: '位移监测设备1',
-						dzd: '贵溪市石膏矿',
-						type: 'bmwyjc',
-						x: '28.219786',
-						y: '117.205647',
-						le: '3',
-						//		warn:'四级',
-						msg: '警告信息2',
-						src: 'photos/yljc-1.png',
-						typeNM: '位移监测设备'
-					},
-					type: 'jcsb'
-				});
-				mui(".jcsb-detail-cardcontent")[0].innerHTML = html;
 			};
 
 			mui.ready(initApp);
@@ -100,23 +180,6 @@
 				var name = self.name;
 				var version = self.version;*/
 
-				/*var html = template('jcsb-brief-ul-li-template', {
-					info: {
-						id: '2',
-						name: '位移监测设备1',
-						dzd: '贵溪市石膏矿',
-						type: 'bmwyjc',
-						x: '28.219786',
-						y: '117.205647',
-						le: '3',
-						//		warn:'四级',
-						msg: '警告信息2',
-						src: 'photos/yljc-1.png',
-						typeNM: '位移监测设备'
-					},
-					type: 'jcsb'
-				});
-				mui(".jcsb-detail-cardcontent")[0].innerHTML = html;*/
 			});
 		</script>
 	</body>
