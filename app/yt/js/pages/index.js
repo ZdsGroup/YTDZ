@@ -156,6 +156,9 @@ function queryWarnInfo() {
 
 /*显示底部要素概要面板，fh=100*/
 var showFooterPanel = function(fh) {
+	if(fh == footerHeight && scroller.maxScrollY < 0) {
+		scroller.scrollTo(0,0,100);
+	}
 	var mapFooter = mui('#ytfooter')[0];
 	var mapContent = mui('#ytmap')[0];
 	mapFooter.style.height = fh + 'px';
@@ -172,6 +175,10 @@ var hideFooterPanle = function() {
 	mapContent.style.height = '100%';
 	//地图大小变化
 	changeMapStatus();
+	if (scroller.maxScrollY < 0) {
+		scroller.scrollTo(0,0,100);
+	}
+	
 	scroller.setStopped(true); //禁止滚动
 	toolFloatContainer.classList.remove("mui-hidden");
 };
@@ -427,22 +434,21 @@ var initEvent = function() {
 						obj.classList.add('map-tool-baselayer-color');
 						//显示影像地图
 						clearLayerByID('gaodem');
-						var googlimg = L.tileLayer.chinaProvider('Google.Satellite.Map', {
+						var gaodeimg = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
 							maxZoom: 18,
 							id: 'googleimg'
 						});
-						var googleimga = L.tileLayer.chinaProvider('Google.Satellite.Annotion', {
-							maxZoom: 18,
+						var gaodeimga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
 							maxZoom: 18,
 							id: 'googleimgano'
 						});
-						L.layerGroup([googlimg, googleimga]).addTo(myMap);
+						L.layerGroup([gaodeimg, gaodeimga]).addTo(myMap);
 					} else {
 						//显示矢量地图
 						obj.classList.remove('map-tool-baselayer-color');
 						obj.classList.add('map-tool-baselayer');
-						clearLayerByID('googleimg');
-						clearLayerByID('googleimgano');
+						clearLayerByID('gaodeimg');
+						clearLayerByID('gaodeimga');
 						L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
 							maxZoom: 18,
 							attribution: 'leaflet',

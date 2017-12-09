@@ -27,8 +27,8 @@
 							<a class="mui-navigate-right">
 								<img class="mui-media-object mui-pull-left" src="../../<%=list[i].src%>">
 								<div class="mui-media-body">
-									<h4>告警设备: <%=list[i].name%></h4>
-									<p> 告警：<%=list[i].le%> 级 ；<%=list[i].msg%></p>
+									<span style="font-size: 1.1em;">告警设备: <%=list[i].name%></span>
+									<p> 告警：<%=list[i].le%> 级 <span style="float: right;"><%=list[i].msg%></span></p>
 								</div>
 							</a>
 						</li>
@@ -87,15 +87,16 @@
 
 			//添加列表项的点击事件
 			var initEvent = function() {
-				var self = plus.webview.currentWebview();
-				  self.addEventListener('show',function(e){
-				  	count = 0;
-				  	document.getElementById("ullist").innerHTML = "";
-				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
-					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				  	
-            });
+				//针对预加载页面，第二次显示，通过show事件，重新加载。如果是open的页面不用进行下面操作
+//				var self = plus.webview.currentWebview();
+//				  self.addEventListener('show',function(e){
+//				  	count = 0;
+//				  	document.getElementById("ullist").innerHTML = "";
+//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+//					mui('#pullrefresh').pullRefresh().pullupLoading();
+//				  	
+//          });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = e.target.parentElement.parentElement;
 					//把选中的info.id(type_id)传到详情页面

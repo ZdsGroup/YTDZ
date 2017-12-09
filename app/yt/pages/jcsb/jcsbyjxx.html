@@ -29,9 +29,9 @@
 					<script id="ul-li-template" type="text/html">
 						<% for(var i=0;i<list.length;i++){%>
 						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-							<div class="mui-slider-cell">
-								<h5>告警等级：<%=list[i].le%> 级</h5>
-								<h5>告警信息: <%=list[i].msg%></h5>
+							<div class="mui-slider-cell" style="line-height: 1.5em;">
+								<p style="font-size: 1.1em;">告警等级：<%=list[i].le%> 级</p>
+								<p>告警信息: <%=list[i].msg%></p>
 							</div>
 						</li>
 						<%}%>
@@ -90,15 +90,15 @@
 
 			//添加列表项的点击事件
 			var initEvent = function() {
-				var self = plus.webview.currentWebview();
-				  self.addEventListener('show',function(e){
-				  	count = 0;
-				  	document.getElementById("ullist").innerHTML = "";
-				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
-					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				  	
-            });
+//				var self = plus.webview.currentWebview();
+//				  self.addEventListener('show',function(e){
+//				  	count = 0;
+//				  	document.getElementById("ullist").innerHTML = "";
+//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+//					mui('#pullrefresh').pullRefresh().pullupLoading();
+//				  	
+//          });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = e.target.parentElement.parentElement;
 					//把选中的info.id(type_id)传到详情页面

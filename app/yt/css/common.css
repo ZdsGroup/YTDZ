@@ -46,3 +46,8 @@ body {
 	background-color: rgba(52, 152, 219,1.0);
 	color: #FFF !important;
 }*/
+
+a.mui-active{
+	background-color: transparent!important;
+	
+}
