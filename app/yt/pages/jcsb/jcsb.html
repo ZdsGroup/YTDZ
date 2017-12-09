@@ -1,14 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/leaflet.awesome-markers.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<style type="text/css">
+			.jcsb-detail-cardcontent {
+				background-color: #FFFFFF;
+				padding: 12px 15px 0px;
+				margin: 50px 0px 5px 0px;
+				overflow: hidden;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -84,7 +95,30 @@
 			mui.ready(initApp);
 
 			mui.plusReady(function() {
+				//页面传值
+				/*var self = plus.webview.currentWebview();
+				var name = self.name;
+				var version = self.version;*/
+
+				/*var html = template('jcsb-brief-ul-li-template', {
+					info: {
+						id: '2',
+						name: '位移监测设备1',
+						dzd: '贵溪市石膏矿',
+						type: 'bmwyjc',
+						x: '28.219786',
+						y: '117.205647',
+						le: '3',
+						//		warn:'四级',
+						msg: '警告信息2',
+						src: 'photos/yljc-1.png',
+						typeNM: '位移监测设备'
+					},
+					type: 'jcsb'
+				});
+				mui(".jcsb-detail-cardcontent")[0].innerHTML = html;*/
 			});
+		</script>
 	</body>
 
 </html>
