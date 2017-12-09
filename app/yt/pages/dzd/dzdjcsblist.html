@@ -73,7 +73,29 @@
 			var initEvent = function(){
 				//初始化各个监测类型下面的监测设备
 				initTemplateContent();
+				
+				//对监测设备添加点击事件到具体的设备详情页面
+				initJcsbListEvent();
 			};
+			
+			function initJcsbListEvent(){
+				mui('#bmwyjc-ul-list, #lfjc-ul-list, #yljc-ul-list').on('tap', '.mui-navigate-right-self', function(evt) {
+					debugger
+					var info = evt.target.parentElement;
+					if(info){
+						var typeT = info.id.split('_')[0];
+						var idT = info.id.split('_')[1];
+						mui.openWindow({
+							url: '../jcsb/jcsb.html',
+							id: 'jcsbxq',
+							extras: {
+								xqType: typeT,
+								xqID: idT
+							}
+						});
+					}
+				})
+			}
 			
 			function initTemplateContent(){
 				var bmwyjcH = template('bmwyjc-ul-list-template', {

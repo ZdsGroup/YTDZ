@@ -49,6 +49,7 @@ mui.plusReady(initAppPlus);
 
 var data = 0;
 mui.back = function() {
+	var first = null;
 	if(!first) { //首次按键，提示‘再按一次退出应用’
 		data += 1;
 		setTimeout(function() {
@@ -122,6 +123,18 @@ var initMap = function() {
 	showWarnInfoOnMap();
 };
 
+function clearLayerByID(id) {
+	if(myMap != null) {
+		var i;
+		for(i in myMap._layers) {
+			if(myMap._layers[i].options.id == id) {
+				myMap._layers[i].remove();
+				return;
+			}
+		}
+	}
+}
+
 //显示告警信息汇总提示栏，5秒后消失
 function showWarnInfoOnMap() {
 	var warnInfo = queryWarnInfo();
@@ -157,6 +170,8 @@ var hideFooterPanle = function() {
 	mapFooter.style.height = '0px';
 	mapFooter.style.display = 'none';
 	mapContent.style.height = '100%';
+	//地图大小变化
+	changeMapStatus();
 	scroller.setStopped(true); //禁止滚动
 	toolFloatContainer.classList.remove("mui-hidden");
 };
@@ -402,6 +417,39 @@ var initEvent = function() {
 						obj.classList.add('map-tool-star');
 						obj.classList.add('yt-star');
 					}
+					break;
+				}
+			case 'map': //底图切换
+				{
+					var obj = evt.target;
+					if(obj.classList.contains('map-tool-baselayer')) {
+						obj.classList.remove('map-tool-baselayer');
+						obj.classList.add('map-tool-baselayer-color');
+						//显示影像地图
+						clearLayerByID('gaodem');
+						var googlimg = L.tileLayer.chinaProvider('Google.Satellite.Map', {
+							maxZoom: 18,
+							id: 'googleimg'
+						});
+						var googleimga = L.tileLayer.chinaProvider('Google.Satellite.Annotion', {
+							maxZoom: 18,
+							maxZoom: 18,
+							id: 'googleimgano'
+						});
+						L.layerGroup([googlimg, googleimga]).addTo(myMap);
+					} else {
+						//显示矢量地图
+						obj.classList.remove('map-tool-baselayer-color');
+						obj.classList.add('map-tool-baselayer');
+						clearLayerByID('googleimg');
+						clearLayerByID('googleimgano');
+						L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+							maxZoom: 18,
+							attribution: 'leaflet',
+							id: 'gaodem'
+						}).addTo(myMap);
+					}
+
 					break;
 				}
 			default:
