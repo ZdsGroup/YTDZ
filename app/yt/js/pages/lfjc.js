@@ -9,25 +9,10 @@ var initEvent = function() {
 	//初始化图片轮播
 	var sliderPics = mui("#slider-pictures");
 	sliderPics.slider({
-		interval: 5000
+		interval: 4000
 	});
 
 	var me = this;
-
-	offCanvasWrapper = mui('#offCanvasWrapper');
-
-	//侧滑选择器
-	mui('.mui-table-view').on('tap', 'li', function(evt) {
-		var cs = mui('.mui-control-content');
-		cs[currentPid].classList.remove('mui-active');
-		currentPid = evt.target.value;
-		cs[currentPid].classList.add('mui-active');
-
-		//关闭侧滑面板
-		offCanvasWrapper.offCanvas('close');
-		//刷新统计图
-		me.refreshChart(lfjc_charts['menu_' + currentPid]);
-	});
 
 	//时间选择器
 	mui('.mui-input-group').on('tap', '.ytdatepick', function() {　
@@ -41,6 +26,26 @@ var initEvent = function() {
 		});
 	}, false);
 };
+
+//切换面板内容,其中pageId-内容ID, pageFeature-地图选中的监测设备对象,用于动态获取数据
+var switchJcAnalyContent = function(pageId, pageFeature) {
+	//初始滚动化容器对象
+	/*offCanvasWrapper = mui('#offCanvasWrapper');*/
+	
+	var cs = mui('.mui-control-content');
+	cs[currentPid].classList.remove('mui-active');
+	currentPid = pageId;
+	cs[currentPid].classList.add('mui-active');
+
+	//关闭侧滑面板
+	/*offCanvasWrapper.offCanvas('close');*/
+
+	//切花菜单项目内容自动置顶
+	mui('#muiscrollid').scroll().scrollTo(0, 0);
+
+	//刷新统计图
+	this.refreshChart(lfjc_charts['menu_' + currentPid]);
+}
 
 var refreshChart = function(charts) {
 	//刷新统计图

@@ -19,28 +19,50 @@
 			<h1 class="mui-title">裂缝监测设备分析列表</h1>
 		</header>
 		<ul class="mui-table-view">
-			<li class="mui-table-view-cell" value="0">
-				<a class="mui-navigate-right">设备项目详情</a>
+			<!--<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" title="0">设备项目详情</a>
+			</li>-->
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" title="1">设备对比</a>
 			</li>
-			<li class="mui-table-view-cell" value="1">
-				<a class="mui-navigate-right">设备对比</a>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" title="2">设备状态</a>
 			</li>
-			<li class="mui-table-view-cell" value="2">
-				<a class="mui-navigate-right">设备状态</a>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" title="3">变化过程线</a>
 			</li>
-			<li class="mui-table-view-cell" value="3">
-				<a class="mui-navigate-right">变化过程线</a>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" title="4">数据列表</a>
 			</li>
-			<li class="mui-table-view-cell" value="4">
-				<a class="mui-navigate-right">数据列表</a>
-			</li>
-			<li class="mui-table-view-cell" value="5">
-				<a class="mui-navigate-right">报警查询</a>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" title="5">报警查询</a>
 			</li>
 		</ul>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			//初始化事件
+			var initEvent = function() {
+				//列表事件
+				mui('.mui-table-view').on('tap', 'li', function(evt) {
+					var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
+					var currentPid = evt.target.title;
+					mui.openWindow({
+						url: 'lfjc.html',
+						id: 'lfjc-analy-detail',
+						extras: {
+							pageId: currentPid,
+							pageFeature: selectedFeature
+						}
+					});
+				});
+			};
+			//初始化应用
+			var initApp = function() {
+				this.initEvent();
+			};
+
+			mui.ready(initApp);
 		</script>
 	</body>
 

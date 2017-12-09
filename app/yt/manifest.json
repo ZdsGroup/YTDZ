@@ -211,7 +211,12 @@
 					"pages/common/user.html",
 					"pages/dzd/dzdgdxx.html",
 					"pages/jcsb/bmwyjcanalylist.html",
-					"pages/dzd/dzdjcsblist.html"
+					"pages/dzd/dzdjcsblist.html",
+					"pages/jcsb/jcsbgdxx.html",
+					"pages/jcsb/jcsbyjxx.html",
+					"pages/common/gjxxzx.html",
+					"pages/jcsb/lfjcanalylist.html",
+					"pages/jcsb/yljcanalylist.html"
 				],
 				"priority": 0
 			},
@@ -282,6 +287,35 @@
 				"resources": [],
 				"refer": [
 					"pages/dzd/dzdsbyjxx.html"
+				],
+				"priority": 0
+			},
+			"pages/common/gjxxzx.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/bmwyjc.html",
+					"pages/jcsb/yljc.html"
+				],
+				"priority": 0
+			},
+			"pages/jcsb/bmwyjcanalylist.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/bmwyjc.html"
+				],
+				"priority": 0
+			},
+			"pages/jcsb/lfjcanalylist.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/lfjc.html"
+				],
+				"priority": 0
+			},
+			"pages/jcsb/yljcanalylist.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/yljc.html"
 				],
 				"priority": 0
 			}

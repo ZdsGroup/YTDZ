@@ -80,7 +80,7 @@
 
 	<body>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
-			<aside class="mui-off-canvas-right" id="offCanvasSide">
+			<!--<aside class="mui-off-canvas-right" id="offCanvasSide">
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div class="off-title">设备详情导航</div>
@@ -94,19 +94,19 @@
 						</ul>
 					</div>
 				</div>
-			</aside>
+			</aside>-->
 			<!-- 主页面容器 -->
 			<div class="mui-inner-wrap">
 				<!-- 主页面标题 -->
 				<header class="mui-bar mui-bar-nav">
 					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide"></a>
+					<!--<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide"></a>-->
 					<h1 class="mui-title">裂缝监测设备</h1>
 				</header>
 
 				<div class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
-						<div class="mui-control-content mui-active">
+						<div class="mui-control-content">
 							<div class="mui-card">
 								<div class="mui-card-header">施工安装示意图</div>
 								<div class="mui-card-content">
@@ -278,163 +278,197 @@
 							</div>
 						</div>
 						<div class="mui-control-content">
-							<div class="ytdevscrollparent" style="min-height: calc(100vh - 200px);">
-								<div class="mui-scroll-wrapper">
-									<div class="mui-scroll">
-										<table id="tablevalue" class="table">
-											<tr>
-												<th>序号</th>
-												<th>裂缝长度(mm)</th>
-												<th>时间</th>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>16.7</td>
-												<td>2017/05/06 01:38:19</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>16.5</td>
-												<td>2017/05/07 01:38:19</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>16.6</td>
-												<td>2017/05/08 01:38:19</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>16.7</td>
-												<td>2017/05/09 01:38:19</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>16.7</td>
-												<td>2017/05/10 01:38:19</td>
-											</tr>
-											<tr>
-												<td>6</td>
-												<td>16.7</td>
-												<td>2017/05/11 01:38:19</td>
-											</tr>
-											<tr>
-												<td>7</td>
-												<td>16.6</td>
-												<td>2017/05/12 01:38:19</td>
-											</tr>
-											<tr>
-												<td>8</td>
-												<td>16.9</td>
-												<td>2017/05/13 01:38:19</td>
-											</tr>
-										</table>
-									</div>
+							<div class="mui-card">
+								<div class="mui-card-header">数据列表</div>
+								<div class="mui-card-content">
+									<table id="tablevalue" class="table">
+										<tr>
+											<th>序号</th>
+											<th>裂缝长度(mm)</th>
+											<th>时间</th>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>16.7</td>
+											<td>2017/05/06 01:38:19</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>16.5</td>
+											<td>2017/05/07 01:38:19</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>16.6</td>
+											<td>2017/05/08 01:38:19</td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td>16.7</td>
+											<td>2017/05/09 01:38:19</td>
+										</tr>
+										<tr>
+											<td>5</td>
+											<td>16.7</td>
+											<td>2017/05/10 01:38:19</td>
+										</tr>
+										<tr>
+											<td>6</td>
+											<td>16.7</td>
+											<td>2017/05/11 01:38:19</td>
+										</tr>
+										<tr>
+											<td>7</td>
+											<td>16.6</td>
+											<td>2017/05/12 01:38:19</td>
+										</tr>
+										<tr>
+											<td>8</td>
+											<td>16.9</td>
+											<td>2017/05/13 01:38:19</td>
+										</tr>
+									</table>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
 								</div>
 							</div>
-							<form class="mui-input-group">
-								<div class="mui-input-row">
-									<a class="mui-navigate-right">
-										<label>时间类型：</label>
-										<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
-									</a>
-								</div>
-								<div class="mui-input-row">
-									<a class="mui-navigate-right">
-										<label>开始时间：</label>
-										<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-									</a>
-								</div>
-								<div class="mui-input-row">
-									<a class="mui-navigate-right">
-										<label>结束时间：</label>
-										<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-									</a>
-								</div>
-							</form>
 						</div>
 						<div class="mui-control-content">
-							<div class="ytdevscrollparent" style="min-height: calc(100vh - 200px);">
-								<div class="mui-scroll-wrapper">
-									<div class="mui-scroll">
-										<table id="tablevalue" class="table">
-											<tr>
-												<th>序号</th>
-												<th>报警等级</th>
-												<th>报警时间</th>
-												<th>报警内容</th>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>红色</td>
-												<td>2017/05/06 01:40:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>红色</td>
-												<td>2017/05/07 10:32:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>红色</td>
-												<td>2017/05/08 13:28:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>红色</td>
-												<td>2017/05/09 09:30:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>红色</td>
-												<td>2017/05/10 14:08:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>6</td>
-												<td>红色</td>
-												<td>2017/05/11 01:38:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>7</td>
-												<td>红色</td>
-												<td>2017/05/12 13:34:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-											<tr>
-												<td>8</td>
-												<td>红色</td>
-												<td>2017/05/13 11:08:19</td>
-												<td>发生无数据故障报警</td>
-											</tr>
-										</table>
-									</div>
+							<div class="mui-card">
+								<div class="mui-card-header">报警查询</div>
+								<div class="mui-card-content">
+									<table id="tablevalue" class="table">
+										<tr>
+											<th>序号</th>
+											<th>报警等级</th>
+											<th>报警时间</th>
+											<th>报警内容</th>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>红色</td>
+											<td>2017/05/06 01:40:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>红色</td>
+											<td>2017/05/07 10:32:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>红色</td>
+											<td>2017/05/08 13:28:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td>红色</td>
+											<td>2017/05/09 09:30:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>5</td>
+											<td>红色</td>
+											<td>2017/05/10 14:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>6</td>
+											<td>红色</td>
+											<td>2017/05/11 01:38:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>7</td>
+											<td>红色</td>
+											<td>2017/05/12 13:34:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>8</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>9</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>10</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>11</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>12</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>13</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+										<tr>
+											<td>14</td>
+											<td>红色</td>
+											<td>2017/05/13 11:08:19</td>
+											<td>发生无数据故障报警</td>
+										</tr>
+									</table>
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>时间类型：</label>
+												<div style="padding: 10px;">实时数据</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>开始时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
+											</a>
+										</div>
+										<div class="mui-input-row">
+											<a class="mui-navigate-right">
+												<label>结束时间：</label>
+												<div class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
+											</a>
+										</div>
+									</form>
 								</div>
 							</div>
-							<form class="mui-input-group">
-								<div class="mui-input-row">
-									<a class="mui-navigate-right">
-										<label>时间类型：</label>
-										<div id="rlDevTMType" style="padding: 10px;">实时数据</div>
-									</a>
-								</div>
-								<div class="mui-input-row">
-									<a class="mui-navigate-right">
-										<label>开始时间：</label>
-										<div id="devstarttm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-12 08:00</div>
-									</a>
-								</div>
-								<div class="mui-input-row">
-									<a class="mui-navigate-right">
-										<label>结束时间：</label>
-										<div id="devendtm" class="ytdatepick" data-options='{"type":"datetime","beginYear":2000,"endYear":2017}'>2017-04-20 08:00</div>
-									</a>
-								</div>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -457,6 +491,14 @@
 				this.initChart();
 			};
 			mui.ready(initApp);
+
+			mui.plusReady(function() {
+				//页面传值
+				var self = plus.webview.currentWebview();
+				var pId = self.pageId;
+				var pFeature = self.pageFeature;
+				this.switchJcAnalyContent(pId, pFeature);
+			});
 		</script>
 	</body>
 

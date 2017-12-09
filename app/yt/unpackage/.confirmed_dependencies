@@ -5,7 +5,33 @@
 			"pages/dzd/dzdsbyjxx.html",
 			"pages/dzd/dzdgdxx.html",
 			"pages/jcsb/bmwyjcanalylist.html",
-			"pages/dzd/dzdjcsblist.html"
+			"pages/dzd/dzdjcsblist.html",
+			"pages/jcsb/jcsbgdxx.html",
+			"pages/jcsb/jcsbyjxx.html",
+			"pages/common/gjxxzx.html",
+			"pages/jcsb/lfjcanalylist.html",
+			"pages/jcsb/yljcanalylist.html"
+		]
+	},
+	"pages/common/gjxxzx.html": {
+		"refer": [
+			"pages/jcsb/bmwyjc.html",
+			"pages/jcsb/yljc.html"
+		]
+	},
+	"pages/jcsb/bmwyjcanalylist.html": {
+		"refer": [
+			"pages/jcsb/bmwyjc.html"
+		]
+	},
+	"pages/jcsb/lfjcanalylist.html": {
+		"refer": [
+			"pages/jcsb/lfjc.html"
+		]
+	},
+	"pages/jcsb/yljcanalylist.html": {
+		"refer": [
+			"pages/jcsb/yljc.html"
 		]
 	}
 }
