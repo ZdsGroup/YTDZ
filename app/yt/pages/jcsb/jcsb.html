@@ -66,9 +66,8 @@
 
 			var initEvent = function() {
 				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
-					debugger
 					var action = evt.target.title;
-					var selectedFeature = '';
+					var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
 					var info = '';
 					var typeT = '';
 					var idT = '';
