@@ -258,7 +258,6 @@ var initEvent = function() {
 		var pageUrl = '';
 		var pageId = '';
 		var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
-//		debugger
 		if(info) {
 			switch(action) {
 				case 'dzd-more-info':
@@ -302,10 +301,6 @@ var initEvent = function() {
 						}
 					}
 					break;
-				case 'comment-info':
-					pageUrl = 'pages/dzd/comment.html';
-					pageId = 'comment-info';
-					break;
 				default:
 					break;
 			}
@@ -326,7 +321,10 @@ var initEvent = function() {
 	mui('#comment')[0].addEventListener('click', function(evt) {
 		var objcomm = evt.target;
 		if(objcomm) {
-			//TODO 调用写评论界面写评论
+			mui.openWindow({
+				url: 'pages/dzd/comment.html',
+				id: 'comment-info'
+			});
 			return
 		}
 	});
