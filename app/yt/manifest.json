@@ -212,7 +212,9 @@
 					"pages/dzd/dzdgdxx.html",
 					"pages/jcsb/bmwyjcanalylist.html",
 					"pages/dzd/dzdjcsblist.html",
-					"pages/dzd/comment.html"
+					"pages/dzd/comment.html",
+					"pages/common/gjxxzx.html",
+					"pages/jcsb/jcsbgdxx.html"
 				],
 				"priority": 0
 			},
@@ -283,6 +285,13 @@
 				"resources": [],
 				"refer": [
 					"pages/dzd/dzdsbyjxx.html"
+				],
+				"priority": 0
+			},
+			"pages/common/gjxxzx.html": {
+				"resources": [],
+				"refer": [
+					"pages/jcsb/lfjc.html"
 				],
 				"priority": 0
 			}

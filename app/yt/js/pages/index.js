@@ -170,6 +170,8 @@ var hideFooterPanle = function() {
 	mapFooter.style.height = '0px';
 	mapFooter.style.display = 'none';
 	mapContent.style.height = '100%';
+	//地图大小变化
+	changeMapStatus();
 	scroller.setStopped(true); //禁止滚动
 	toolFloatContainer.classList.remove("mui-hidden");
 };
