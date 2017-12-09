@@ -88,14 +88,14 @@
 
 			function initJcsbListEvent() {
 				mui('#bmwyjc-ul-list, #lfjc-ul-list, #yljc-ul-list').on('tap', '.mui-navigate-right-self', function(evt) {
-					debugger
 					var info = evt.target.parentElement;
 					if(info) {
 						var typeT = info.id.split('_')[0];
 						var idT = info.id.split('_')[1];
+						debugger
 						mui.openWindow({
 							url: '../jcsb/jcsb.html',
-							id: 'jcsbxq',
+							id: 'jcsb-detail-id',
 							extras: {
 								xqType: typeT,
 								xqID: idT

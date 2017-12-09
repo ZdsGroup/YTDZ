@@ -17,6 +17,7 @@
 				background-color: #FFFFFF;
 				overflow: hidden;
 			}
+			
 			#slider-pictures {
 				height: 270px;
 				border-bottom: 1px solid black;
@@ -82,13 +83,14 @@
 			<div class="jcsb-detail-cardcontent">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
+
 						设备名称：裂缝监测设备1
 					</li>
 					<li class="mui-table-view-cell">
 						所属地灾点：贵溪市石膏矿采空塌陷地灾点
 					</li>
 					<li class="mui-table-view-cell">
-						承担单位：鹰潭市国土资源局
+						安装时间：2017/03/13
 					</li>
 					<li class="mui-table-view-cell">
 						负责人：张志辉
@@ -97,7 +99,10 @@
 						联系电话：18102300170
 					</li>
 					<li class="mui-table-view-cell">
-						设备类型：裂缝监测
+						维护周期：1次/月
+					</li>
+					<li class="mui-table-view-cell">
+						上次维护时间：2017/10/13
 					</li>
 				</ul>
 			</div>
@@ -111,9 +116,10 @@
 					<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
 				</a>
 			</div>
-		</div>		
+		</div>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
 
@@ -155,7 +161,7 @@
 						default:
 							break;
 					}
-				
+
 					mui.openWindow({
 						url: pageUrl,
 						id: pageId,
@@ -174,12 +180,40 @@
 
 			mui.ready(initApp);
 
+			//根据类型及ID查询监测设备数据
+			var getJcsbData = function(type, id) {
+				var cf = null; //当前监测
+				var isExist = false;
+				if(warnjcMarkersData) {
+					var len = warnjcMarkersData.length;
+					if(len > 0) {
+						for(var i = 0; i < len; i++) {
+							if(!isExist) {
+								var f = warnjcMarkersData[i];
+								if(f && f['type'] == type && f['id'] == parseInt(id)) {
+									cf = f;
+									isExist = true;
+								}
+							}
+						}
+					}
+				}
+				return cf;
+			}
+
 			mui.plusReady(function() {
 				//页面传值
-				/*var self = plus.webview.currentWebview();
-				var name = self.name;
-				var version = self.version;*/
-
+				var self = plus.webview.currentWebview();
+				var jcsbType = self.xqType;
+				var jcsbId = self.xqID;
+				//根据地灾点对应的预警监测数据查找，测试数据为：warnjcMarkersData
+				var jcData = this.getJcsbData(jcsbType, jcsbId);
+				if(jcData) {
+					var html = template('jcsb-brief-ul-li-template', {
+						info: jcData
+					});
+					mui(".jcsb-detail-cardcontent")[0].innerHTML = html;
+				}
 			});
 		</script>
 	</body>
