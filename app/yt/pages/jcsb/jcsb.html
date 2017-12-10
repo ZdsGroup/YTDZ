@@ -18,10 +18,10 @@
 				padding: 12px 15px 0px;
 				margin: 5px 0px 5px 0px;
 				overflow: hidden;
-				color: #000000 !important; 
+				color: #000000 !important;
 			}
 			
-			span{
+			span {
 				font-size: 16px;
 			}
 			
@@ -37,7 +37,6 @@
 				max-width: 100%;
 				max-height: 100%;
 			}
-			
 		</style>
 	</head>
 
@@ -97,7 +96,7 @@
 							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
 						</p>
 						<p>
-							<span  style="font-size: 1.1em;">南山大道与火炬大道交叉口西北100米</span>
+							<span style="font-size: 1.1em;">南山大道与火炬大道交叉口西北100米</span>
 						</p>
 					</script>
 				</div>
@@ -159,7 +158,7 @@
 		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
-
+			var jcsb_type = null;//监测设备类型
 			var initEvent = function() {
 				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
 					var action = evt.target.title;
@@ -169,6 +168,7 @@
 					var idT = '';
 					var pageUrl = '';
 					var pageId = '';
+					debugger
 					switch(action) {
 						case 'jcsb-warn-info':
 							pageUrl = 'jcsbyjxx.html';
@@ -176,7 +176,9 @@
 							break;
 						case 'jcsb-analy-all':
 							if(selectedFeature) {
-								var jcsb_type = selectedFeature.type;
+								if(selectedFeature.type != 'dzd'){
+									jcsb_type = selectedFeature.type;
+								}
 								switch(jcsb_type) {
 									case 'bmwyjc':
 										pageUrl = 'bmwyjcanalylist.html';
@@ -243,6 +245,7 @@
 				var self = plus.webview.currentWebview();
 				var jcsbType = self.xqType;
 				var jcsbId = self.xqID;
+				this.jcsb_type = jcsbType;
 				//根据地灾点对应的预警监测数据查找，测试数据为：warnjcMarkersData
 				var jcData = this.getJcsbData(jcsbType, jcsbId);
 				if(jcData) {
@@ -254,5 +257,4 @@
 			});
 		</script>
 	</body>
-
 </html>
