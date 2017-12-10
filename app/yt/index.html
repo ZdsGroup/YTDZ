@@ -45,9 +45,8 @@
 								<%if (type=='dzd') {%>
 								<p id='<%=type%>_<%=info.id%>'>
 									<span style="font-size: 1.2em;color: #000000;"><%=info.name%> </span>
-									<span style="color: #FFA500;padding-left: 0.1em;">(地灾点)</span>
+									<span style="color: #FFA500;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
 								</p>
-								<p> <span> 预警等级 <%=info.le%> 级</span></p>
 								<p>
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.addr%>
@@ -56,9 +55,8 @@
 								<%}else{%>
 								<p id='<%=type%>_<%=info.id%>'>
 									<span style="font-size: 1.2em;color: #000000;"><%=info.name%></span>
-									<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>)</span>
+									<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
 								</p>
-								<p><span> 预警等级 <%=info.le%> 级</span></p>
 								<p>
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.addr%>
