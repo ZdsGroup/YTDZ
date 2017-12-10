@@ -157,7 +157,7 @@ function queryWarnInfo() {
 /*显示底部要素概要面板，fh=100*/
 var showFooterPanel = function(fh) {
 	if(fh == footerHeight && scroller.maxScrollY < 0) {
-		scroller.scrollTo(0,0,100);
+		scroller.scrollTo(0, 0, 100);
 	}
 	var mapFooter = mui('#ytfooter')[0];
 	var mapContent = mui('#ytmap')[0];
@@ -165,7 +165,7 @@ var showFooterPanel = function(fh) {
 	mapFooter.style.height = fh + 'px';
 	mapFooter.style.display = 'block';
 	mapContent.style.height = (screen.availHeight - fh - topNavHeight) + 'px';
-	if (fh !=footerHeight) {
+	if(fh != footerHeight) {
 		baseinfo.classList.add("footercardcontentfloat");
 	} else {
 		baseinfo.classList.remove("footercardcontentfloat");
@@ -181,10 +181,10 @@ var hideFooterPanle = function() {
 	mapContent.style.height = '100%';
 	//地图大小变化
 	changeMapStatus();
-	if (scroller.maxScrollY < 0) {
-		scroller.scrollTo(0,0,100);
+	if(scroller.maxScrollY < 0) {
+		scroller.scrollTo(0, 0, 100);
 	}
-	
+
 	scroller.setStopped(true); //禁止滚动
 	toolFloatContainer.classList.remove("mui-hidden");
 };
@@ -436,26 +436,27 @@ var initEvent = function() {
 			case 'map': //底图切换
 				{
 					var obj = evt.target;
+					//显示影像地图
+					clearLayerByID('gaodeimg');
+					clearLayerByID('gaodeimga');
+					clearLayerByID('gaodem');
 					if(obj.classList.contains('map-tool-baselayer')) {
 						obj.classList.remove('map-tool-baselayer');
 						obj.classList.add('map-tool-baselayer-color');
-						//显示影像地图
-						clearLayerByID('gaodem');
+
 						var gaodeimg = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
 							maxZoom: 18,
-							id: 'googleimg'
+							id: 'gaodeimg'
 						});
 						var gaodeimga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
 							maxZoom: 18,
-							id: 'googleimgano'
+							id: 'gaodeimga'
 						});
 						L.layerGroup([gaodeimg, gaodeimga]).addTo(myMap);
 					} else {
 						//显示矢量地图
 						obj.classList.remove('map-tool-baselayer-color');
 						obj.classList.add('map-tool-baselayer');
-						clearLayerByID('gaodeimg');
-						clearLayerByID('gaodeimga');
 						L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
 							maxZoom: 18,
 							attribution: 'leaflet',
