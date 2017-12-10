@@ -217,21 +217,7 @@ var warnjcMarkersData = [{
 		src: 'photos/yljc-2.png',
 		addr:'南山大道与火炬大道交叉口东200米',
 		typeNM:'雨量监测'
-	},
-	{
-		id: '7',
-		name: '裂缝监测设备2',
-		dzd:'贵溪市石膏矿',
-		type: 'lfjc',
-		x: '28.784357',
-		y: '117.494488',
-		le: '4',
-//		warn:'五级',
-		msg: '警告信息1',
-		src: 'photos/1.png',
-		addr:'南山大道与火炬大道交叉口西200米',
-		typeNM:'裂缝监测'
-	},
+	}
 ]
 
 var searchListData = [{
