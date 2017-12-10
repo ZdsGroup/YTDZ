@@ -28,7 +28,8 @@
 								<img class="mui-media-object mui-pull-left" src="../../<%=list[i].src%>">
 								<div class="mui-media-body">
 									<span style="font-size: 1.1em;">告警设备: <%=list[i].name%></span>
-									<p> 告警：<%=list[i].le%> 级 <span style="float: right;"><%=list[i].msg%></span></p>
+									<p> 告警：
+										<%=list[i].le%> 级 <span style="float: right;"><%=list[i].msg%></span></p>
 								</div>
 							</a>
 						</li>
@@ -73,11 +74,10 @@
 			 * 上拉加载具体业务实现
 			 */
 			function pullupRefresh() {
-				
 
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 4)); //参数为true代表没有更多数据了。
-//					var content = template(warnDZMarkersData);
+					//					var content = template(warnDZMarkersData);
 					var html = template('ul-li-template', {
 						list: warnjcMarkersData
 					});
@@ -88,15 +88,15 @@
 			//添加列表项的点击事件
 			var initEvent = function() {
 				//针对预加载页面，第二次显示，通过show事件，重新加载。如果是open的页面不用进行下面操作
-//				var self = plus.webview.currentWebview();
-//				  self.addEventListener('show',function(e){
-//				  	count = 0;
-//				  	document.getElementById("ullist").innerHTML = "";
-//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
-//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-//					mui('#pullrefresh').pullRefresh().pullupLoading();
-//				  	
-//          });
+				//				var self = plus.webview.currentWebview();
+				//				  self.addEventListener('show',function(e){
+				//				  	count = 0;
+				//				  	document.getElementById("ullist").innerHTML = "";
+				//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+				//					mui('#pullrefresh').pullRefresh().pullupLoading();
+				//				  	
+				//          });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = e.target.parentElement.parentElement;
 					//把选中的info.id(type_id)传到详情页面
@@ -104,30 +104,30 @@
 					var idT = info.id.split('_')[1];
 					//定位到具体的告警tab
 					var tabT = 'warn'
-					openInfoPage(typeT,idT,tabT);
+					openInfoPage(typeT, idT, tabT);
 				});
-				
+
 				//根据类型和id打开对应的设备详情页面
-				function openInfoPage(typeT,idT,tabT){
+				function openInfoPage(typeT, idT, tabT) {
 					var pageUrl = '';
 					var pageId = '';
 					switch(typeT) {
 						case 'bmwyjc':
 							{
-								pageUrl = '../../pages/jcsb/bmwyjc.html';
-								pageId = 'bmwyjc';
+								pageUrl = '../../pages/jcsb/jcsbyjxx.html';
+								pageId = 'dzd-bmwyjc-yjxx';
 								break;
 							}
 						case 'lfjc':
 							{
-								pageUrl = '../../pages/jcsb/lfjc.html';
-								pageId = 'lfjc';
+								pageUrl = '../../pages/jcsb/jcsbyjxx.html';
+								pageId = 'dzd-lfjc-yjxx';
 								break;
 							}
 						case 'yljc':
 							{
-								pageUrl = '../../pages/jcsb/yljc.html';
-								pageId = 'yljc';
+								pageUrl = '../../pages/jcsb/jcsbyjxx.html';
+								pageId = 'dzd-yljc-yjxx';
 								break;
 							}
 						default:
@@ -136,15 +136,14 @@
 					mui.openWindow({
 						url: pageUrl,
 						id: pageId,
-						extras:{
+						extras: {
 							xqType: typeT,
 							xqID: idT,
-							xqTab: tabT 
+							xqTab: tabT
 						}
 					});
 				}
 			}
-			
 
 			var initApp = function() {
 				this.initEvent();

@@ -26,7 +26,8 @@
 	},
 	"pages/dzd/dzdsbyjxx.html": {
 		"refer": [
-			"pages/jcsb/bmwyjc.html"
+			"pages/jcsb/bmwyjc.html",
+			"pages/jcsb/jcsbyjxx.html"
 		]
 	},
 	"pages/jcsb/jcsbyjxx.html": {

@@ -159,6 +159,8 @@
 		<script type="text/javascript">
 			mui.init();
 			var jcsb_type = null;//监测设备类型
+			var jcsb_id = null;//监测设备ID，仅用于测试数据
+			var jcsb_feature = null;
 			var initEvent = function() {
 				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
 					var action = evt.target.title;
@@ -176,8 +178,11 @@
 							break;
 						case 'jcsb-analy-all':
 							if(selectedFeature) {
+								//判断地图入口点要素类型：地灾点或监测设备，此处只需要监测设备数据
 								if(selectedFeature.type != 'dzd'){
 									jcsb_type = selectedFeature.type;
+									jcsb_id = selectedFeature.id;
+									jcsb_feature = selectedFeature;
 								}
 								switch(jcsb_type) {
 									case 'bmwyjc':
@@ -204,10 +209,11 @@
 					mui.openWindow({
 						url: pageUrl,
 						id: pageId,
+						//以后参数后续服务调用时需要用到
 						extras: {
-							xqType: typeT,
-							xqID: idT,
-							xqFeature: selectedFeature
+							xqType: jcsb_type,
+							xqID: jcsb_id,
+							xqFeature: jcsb_feature
 						}
 					});
 				})
@@ -246,6 +252,7 @@
 				var jcsbType = self.xqType;
 				var jcsbId = self.xqID;
 				this.jcsb_type = jcsbType;
+				this.jcsb_id = jcsbId;
 				//根据地灾点对应的预警监测数据查找，测试数据为：warnjcMarkersData
 				var jcData = this.getJcsbData(jcsbType, jcsbId);
 				if(jcData) {
