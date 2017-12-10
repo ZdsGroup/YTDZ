@@ -7,6 +7,20 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<style>
+			#slider-pictures {
+				height: 270px;
+				border-bottom: 1px solid black;
+			}
+			/*图片等比自动缩放*/
+			
+			img {
+				width: auto;
+				height: 270px;
+				max-width: 100%;
+				max-height: 100%;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -19,6 +33,47 @@
 		    <h1 class="mui-title">地灾点项目详细情况</h1>
 		</header>
 		<div class="mui-content">
+			<div id="slider-pictures" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../../photos/2.png">
+							<p class="mui-slider-title">监测设备2</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../photos/dz1.png">
+							<p class="mui-slider-title">地灾点公示牌</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../photos/1.png">
+							<p class="mui-slider-title">监测设备1</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../photos/2.png">
+							<p class="mui-slider-title">监测设备2</p>
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../../photos/dz1.png">
+							<p class="mui-slider-title">地灾点公示牌</p>
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator mui-text-right">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					地灾点：贵溪市石膏矿采空塌陷地灾点
