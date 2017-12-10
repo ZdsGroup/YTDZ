@@ -623,7 +623,7 @@ function getMarkerColorByWarnLevel(level) {
 			}
 		case '2':
 			{
-				markColor = 'yellow';
+				markColor = 'purple';//就是yellow颜色
 				break;
 			}
 		case '1':
