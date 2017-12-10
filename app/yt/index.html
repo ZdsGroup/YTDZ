@@ -44,10 +44,10 @@
 							<script id="brief-ul-li-template" type="text/template">
 								<%if (type=='dzd') {%>
 								<p id='<%=type%>_<%=info.id%>'>
-									<span style="font-size: 1.1em;"><%=info.name%> </span>
+									<span style="font-size: 1.2em;color: #000000;"><%=info.name%> </span>
 									<span style="color: #FFA500;padding-left: 0.1em;">(地灾点)</span>
-									<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
 								</p>
+								<p> <span> 预警等级 <%=info.le%> 级</span></p>
 								<p>
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.addr%>
@@ -55,10 +55,10 @@
 								</p>
 								<%}else{%>
 								<p id='<%=type%>_<%=info.id%>'>
-									<span style="font-size: 1.1em;"><%=info.name%></span>
+									<span style="font-size: 1.2em;color: #000000;"><%=info.name%></span>
 									<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>)</span>
-									<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
 								</p>
+								<p><span> 预警等级 <%=info.le%> 级</span></p>
 								<p>
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.addr%>
