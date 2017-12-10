@@ -29,7 +29,7 @@
 					<script id="ul-li-template" type="text/html">
 						<% for(var i=0;i<list.length;i++){%>
 						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-							<a class="mui-navigate-right" href="">
+							<a class="mui-navigate-right">
 								<div class="mui-slider-cell" style="line-height: 1.5em;">
 									<p style="font-size: 1.1em;">告警等级：
 										<%=list[i].le%> 级</p>
@@ -104,10 +104,10 @@
 				//				  	
 				//          });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
-					var info = e.target.parentElement.parentElement;
+					var info = this.getAttribute("id");
 					//把选中的info.id(type_id)传到详情页面
-					var typeT = info.id.split('_')[0];
-					var idT = info.id.split('_')[1];
+					var typeT = info.split('_')[0];
+					var idT = info.split('_')[1];
 					//定位到具体的告警tab
 					var tabT = 'warn'
 					openInfoPage(typeT, idT, tabT);
