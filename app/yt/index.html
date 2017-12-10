@@ -39,25 +39,27 @@
 		<div id="ytfooter" style="background-color: #EEEEEE;position: relative;">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
-					<div style="position: relative;">
+					<div id="baseinfo" style="position: relative;">
 						<div id="footer-table" class="footercardcontent">
 							<script id="brief-ul-li-template" type="text/template">
 								<%if (type=='dzd') {%>
-								<p id='<%=type%>_<%=info.id%>'>
-									<span style="font-size: 1.2em;color: #000000;"><%=info.name%> </span>
+								<p id='<%=type%>_<%=info.id%>' class="yt-normal-color">
+									<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%> </span>
 									<span style="color: #FFA500;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
 								</p>
 								<p>
+									<span class="">
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.addr%>
 									</span>
 								</p>
 								<%}else{%>
 								<p id='<%=type%>_<%=info.id%>'>
-									<span style="font-size: 1.2em;color: #000000;"><%=info.name%></span>
+									<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%></span>
 									<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
 								</p>
 								<p>
+									<span>
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.addr%>
 									</span>

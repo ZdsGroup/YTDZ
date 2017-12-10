@@ -258,6 +258,10 @@
 	color: royalblue;
 }
 
+.yt-normal-color{
+	color: #000000;
+}
+
 
 /*图片等比自动缩放*/
 
@@ -270,10 +274,16 @@
 
 .footercardcontent {
 	background: #FFF;
+	color: #373737;
 	position: relative;
 	padding: 12px 15px;
 	margin: 0px 0px 5px 0px;
 	overflow: hidden;
+}
+
+.footercardcontentfloat *{
+	background: #4186FF;
+	color: #FFF;
 }
 
 .dzd-footercardcontent {

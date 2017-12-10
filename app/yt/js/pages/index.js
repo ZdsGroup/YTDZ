@@ -161,9 +161,15 @@ var showFooterPanel = function(fh) {
 	}
 	var mapFooter = mui('#ytfooter')[0];
 	var mapContent = mui('#ytmap')[0];
+	var baseinfo = mui('#baseinfo')[0];
 	mapFooter.style.height = fh + 'px';
 	mapFooter.style.display = 'block';
 	mapContent.style.height = (screen.availHeight - fh - topNavHeight) + 'px';
+	if (fh !=footerHeight) {
+		baseinfo.classList.add("footercardcontentfloat");
+	} else {
+		baseinfo.classList.remove("footercardcontentfloat");
+	}
 };
 
 /*隐藏底部要素概要面板, fh=0*/
@@ -193,12 +199,13 @@ var initEvent = function() {
 	var detailInfo = mui("#detailInfo")[0];*/
 	var toolFloatContainer = mui("#toolFloatContainer")[0];
 	var startY = 0;
-	mui('#ytfooter')[0].addEventListener('dragstart', function(evt) {
+	var ytfooter = mui('#ytfooter')[0];
+	ytfooter.addEventListener('dragstart', function(evt) {
 		ytFooterHeight = parseInt(document.getElementById("ytfooter").style.height);
 		startY = evt.detail.center.y;
 		toolFloatContainer.classList.add("mui-hidden");
 	});
-	mui('#ytfooter')[0].addEventListener('drag', function(evt) {
+	ytfooter.addEventListener('drag', function(evt) {
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
 		startY = evt.detail.center.y;
 		if(ytFooterHeight < me.footerHeight) {
@@ -206,7 +213,7 @@ var initEvent = function() {
 		}
 		me.showFooterPanel(ytFooterHeight);
 	});
-	mui('#ytfooter')[0].addEventListener('dragend', function(evt) {
+	ytfooter.addEventListener('dragend', function(evt) {
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
 		var step1 = screen.availHeight / 3;
 		var step2 = screen.availHeight * 2 / 3;
