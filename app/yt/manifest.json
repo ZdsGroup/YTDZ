@@ -7,7 +7,7 @@
 	"id": "H5683D136",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "鹰潭地灾",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.1",/*应用版本名称*/
+		"name": "1.1.0",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -214,9 +214,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"hdpi": "C:/Users/LBM/Desktop/47.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/LBM/Desktop/470.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/LBM/Desktop/71.png"
 				}
 			}
 		}
@@ -254,7 +254,8 @@
 					"pages/jcsb/lfjcanalylist.html",
 					"pages/jcsb/yljcanalylist.html",
 					"pages/dzd/comment.html",
-					"pages/common/gjxxzx.html"
+					"pages/common/gjxxzx.html",
+					"pages/jcsb/jcsb.html"
 				],
 				"priority": 0
 			},

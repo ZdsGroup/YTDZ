@@ -278,6 +278,24 @@ var initEvent = function() {
 		}
 	});
 
+	//监测设备图文轮播事件
+	mui(".mui-media").on('tap', 'img', function(evt) {
+		var info = evt.target.title;
+		if(info) {
+			var typeT = info.split('_')[0];
+			var idT = info.split('_')[1];
+			//debugger
+			mui.openWindow({
+				url: 'pages/jcsb/jcsb.html',
+				id: 'jcsb-detail-id',
+				extras: {
+					xqType: typeT,
+					xqID: idT
+				}
+			});
+		}
+	});
+
 	//首页底部栏上更多详细按钮的点击事件
 	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
 		var action = evt.target.title;
@@ -623,7 +641,7 @@ function getMarkerColorByWarnLevel(level) {
 			}
 		case '2':
 			{
-				markColor = 'purple';//就是yellow颜色
+				markColor = 'purple'; //就是yellow颜色
 				break;
 			}
 		case '1':
