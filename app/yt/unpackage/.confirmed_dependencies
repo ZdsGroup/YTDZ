@@ -9,7 +9,9 @@
 			"pages/jcsb/jcsbgdxx.html",
 			"pages/jcsb/jcsbyjxx.html",
 			"pages/common/gjxxzx.html",
-			"pages/common/user.html"
+			"pages/common/user.html",
+			"pages/jcsb/bmwyjcanalylist.html",
+			"pages/jcsb/lfjcanalylist.html"
 		]
 	},
 	"pages/dzd/dzdjcsblist.html": {
@@ -55,6 +57,11 @@
 			"pages/jcsb/lfjc.html",
 			"pages/jcsb/yljc.html",
 			"pages/jcsb/jcsbyjxx.html"
+		]
+	},
+	"pages/jcsb/lfjcanalylist.html": {
+		"refer": [
+			"pages/jcsb/lfjc.html"
 		]
 	}
 }
