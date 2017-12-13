@@ -6,11 +6,12 @@ var dzQueryResults = null;
 var jcMarkersLayerGroup = new L.layerGroup();
 var jcQueryResults = null;
 var warnBounds = null;
-var maxZoomShow = 15;
+var maxZoomShow = 16;
 var footerHeight = 101;
 var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
 var scroller = null;
+var jcsbMaxZoomShow = 14;
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -121,6 +122,18 @@ var initMap = function() {
 
 	showWarnDZMarksOnMap();
 	showWarnInfoOnMap();
+	
+	//监测设备根据不同的地图级别进行显示隐藏
+	myMap.on('zoomend zoomlevelschange', function(e){
+		var curLel = myMap.getZoom();
+		if (curLel < jcsbMaxZoomShow) {
+			myMap.removeLayer(jcMarkersLayerGroup);
+		}else{
+			if(myMap.hasLayer(jcMarkersLayerGroup) == false){
+				myMap.addLayer(jcMarkersLayerGroup);
+			}
+		}
+	});
 };
 
 function clearLayerByID(id) {
@@ -275,6 +288,24 @@ var initEvent = function() {
 			}
 			//TODO 调用后台把该对象进行收藏
 			return
+		}
+	});
+
+	//监测设备图文轮播事件
+	mui(".mui-media").on('tap', 'img', function(evt) {
+		var info = evt.target.title;
+		if(info) {
+			var typeT = info.split('_')[0];
+			var idT = info.split('_')[1];
+			//debugger
+			mui.openWindow({
+				url: 'pages/jcsb/jcsb.html',
+				id: 'jcsb-detail-id',
+				extras: {
+					xqType: typeT,
+					xqID: idT
+				}
+			});
 		}
 	});
 
@@ -623,7 +654,7 @@ function getMarkerColorByWarnLevel(level) {
 			}
 		case '2':
 			{
-				markColor = 'purple';//就是yellow颜色
+				markColor = 'purple'; //就是yellow颜色
 				break;
 			}
 		case '1':
