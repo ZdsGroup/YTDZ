@@ -104,44 +104,12 @@
 					<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
 				</div>
 			</div>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">张三</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">18099000001</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">贵溪市石膏矿</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/03/13</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">1次/月</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护时间:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/10/13</span>
-					</div>
-				</li>
-			</ul>
+			<div class="jcsb-footercardcontent mui-table-view-cell">
+				<a class="mui-navigate-right" href="#">
+					<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
+				</a>
+				<p>负责人：张志辉</p>
+			</div>
 			<div class="jcsb-footercardcontent mui-table-view-cell" style="margin-top: 5px;">
 				<a class="mui-navigate-right" href="#">
 					<span title='jcsb-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
@@ -170,8 +138,11 @@
 					var idT = '';
 					var pageUrl = '';
 					var pageId = '';
-					debugger
 					switch(action) {
+						case 'jcsb-more-info':
+							pageUrl = 'jcsbgdxx.html';
+							pageId = 'jcsb-more-info';
+							break;
 						case 'jcsb-warn-info':
 							pageUrl = 'jcsbyjxx.html';
 							pageId = 'dzd-more-info';
