@@ -123,6 +123,7 @@ var initMap = function() {
 	showWarnDZMarksOnMap();
 	showWarnInfoOnMap();
 	
+	//监测设备根据不同的地图级别进行显示隐藏
 	myMap.on('zoomend zoomlevelschange', function(e){
 		var curLel = myMap.getZoom();
 		if (curLel < jcsbMaxZoomShow) {
