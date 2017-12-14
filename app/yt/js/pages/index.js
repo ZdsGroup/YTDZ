@@ -24,6 +24,22 @@ mui.init({
 	}
 });
 
+//后台交互
+var muiQuery = function(url, params, success, error) {
+	mui.ajax(url, {
+		data: params,
+		dataType: 'json',
+		type: 'get',
+		timeout: 10000,
+		/*crossDomain: true,//这里如果强制跨域，可能需要在plusReady中执行，具体需要真机测试下
+		headers: {
+			'Content-Type': 'application/json'
+		},*/
+		success: success,
+		error: error
+	});
+}
+
 //初始化应用
 var initApp = function() {
 	this.initMap();
@@ -33,6 +49,16 @@ var initApp = function() {
 		bounce: false
 	});
 	scroller.setStopped(true); //暂时禁止
+
+	//调用方式-与后台交互测试
+	this.muiQuery('http://quake.anruence.com/oracle/users', {
+		pageno: 1,
+		pagesize: 50
+	}, function(result) {
+		debugger;
+	}, function(message) {
+		debugger;
+	})
 };
 mui.ready(initApp);
 
@@ -122,14 +148,14 @@ var initMap = function() {
 
 	showWarnDZMarksOnMap();
 	showWarnInfoOnMap();
-	
+
 	//监测设备根据不同的地图级别进行显示隐藏
-	myMap.on('zoomend zoomlevelschange', function(e){
+	myMap.on('zoomend zoomlevelschange', function(e) {
 		var curLel = myMap.getZoom();
-		if (curLel < jcsbMaxZoomShow) {
+		if(curLel < jcsbMaxZoomShow) {
 			myMap.removeLayer(jcMarkersLayerGroup);
-		}else{
-			if(myMap.hasLayer(jcMarkersLayerGroup) == false){
+		} else {
+			if(myMap.hasLayer(jcMarkersLayerGroup) == false) {
 				myMap.addLayer(jcMarkersLayerGroup);
 			}
 		}
