@@ -7,6 +7,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<script type="text/javascript" src="../../js/template-native.js"></script>
+		<script type="text/javascript" src="../../js/testdata.js"></script>
 		<style>
 			#slider-pictures {
 				height: 270px;
@@ -74,45 +76,69 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">张三</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">18099000001</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">贵溪市石膏矿</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/03/13</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">1次/月</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护时间:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/10/13</span>
-					</div>
-				</li>
+			<ul id="jcsbxq-ul-list" class="mui-table-view">
+				<script id="jcsbxq-ul-list-template" type="text/html">
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].person%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].persontel%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].buildaddr%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].builddate%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].maintenancecycle%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护时间:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].lastmaintenance%></span>
+						</div>
+					</li>
+				</script>
 			</ul>
 		</div>
+		<script type="text/javascript">
+			mui.init();
+			
+			var initEvent = function() {
+				//初始化监测设备更多详情信息
+				initJcsbTemplateContent();
+			};
+			
+			function initJcsbTemplateContent(){
+				var jcsbXqxx = template('jcsbxq-ul-list-template', {
+					list: jcsbGdxxData
+				});
+				document.getElementById("jcsbxq-ul-list").innerHTML = jcsbXqxx;
+			}
+			
+			var initApp = function() {
+				this.initEvent();
+			}
+			mui.ready(function() {
+				this.initApp();
+			});
+		</script>
 	</body>
 
 </html>
