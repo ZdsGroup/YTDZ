@@ -239,7 +239,7 @@
 
 .ytfooter-star-color {
 	border: 0px solid white;
-	color: rgba(192, 57, 43, 1.0);
+	color: rgba(192, 57, 43, 1.0)!important;
 }
 
 .mui-card-header {
