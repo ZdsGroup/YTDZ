@@ -355,3 +355,34 @@ var jscbListData = [{
 		src: 'photos/dz1.png'
 	}
 ]
+
+var dzGdxxData = [{
+		id: '1',
+		type: 'dzd',
+		name: '贵溪市罗塘石膏矿区雷溪乡采空区',
+		company: '鹰潭市国土资源局',
+		dangertype: '地面塌陷',
+		dangerLev: '大型',
+		threatPersonNum: '1838',
+		measures: '监测、避让、巡查',
+		warnmethod: '口哨、铜锣',
+		avoidaddr: '村委会、投亲戚家、邻居',
+		leaveline: '村前公路',
+		person: '张志辉',		
+		persontel: '18102300170',
+		jcsbbreif: '总计4种类型，11个监测设备',
+		probreif: '该地灾点的险情等级很高，威胁人数很多，需要重点监测。'
+	}
+]
+
+var jcsbGdxxData = [{
+		id: '1',
+		type: 'jcsb',
+		person: '张三',		
+		persontel: '18099000001',
+		buildaddr: '贵溪市罗塘石膏矿区雷溪乡采空区',
+		builddate: '2017/03/13',
+		maintenancecycle: '1次/月',
+		lastmaintenance: '2017/10/13'
+	}
+]

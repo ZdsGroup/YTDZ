@@ -7,6 +7,9 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/template-native.js"></script>
+		<script type="text/javascript" src="../../js/testdata.js"></script>
 		<style>
 			#slider-pictures {
 				height: 270px;
@@ -24,10 +27,7 @@
 	</head>
 
 	<body>
-		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+		
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">地灾点项目详细情况</h1>
@@ -74,45 +74,111 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-3 mui-text-left">地灾点:</span>
-						<span class="mui-table-cell mui-col-xs-9 mui-text-left">贵溪市石膏矿采空塌陷地灾点</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-3 mui-text-left">承担单位:</span>
-						<span class="mui-table-cell mui-col-xs-9 mui-text-left">鹰潭市国土资源局</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-3 mui-text-left">负责人:</span>
-						<span class="mui-table-cell mui-col-xs-9 mui-text-left">张志辉</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-3 mui-text-left">联系电话:</span>
-						<span class="mui-table-cell mui-col-xs-9 mui-text-left">18102300170</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-3 mui-text-left">监测设备:</span>
-						<span class="mui-table-cell mui-col-xs-9 mui-text-left">总计4种类型，11个监测设备</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-3 mui-text-left">简介:</span>
-						<span class="mui-table-cell mui-col-xs-9 mui-text-left">贵溪市为地质灾害防治制定发布了《贵溪市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了贵溪市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。</span>
-					</div>
-				</li>
+			<ul id="dzdxq-ul-list" class="mui-table-view">
+				<script id="dzdxq-ul-list-template" type="text/html">
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">地灾点:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].name%></span>
+						</div>
+					</li>					
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">承担单位:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].company%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">灾害类型:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].dangertype%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">险情等级:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].dangerLev%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">威胁人数:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].threatPersonNum%> (人)</span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">防治措施:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].measures%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">报警方式:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].warnmethod%></span>
+						</div>   
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">预定避灾地点:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].avoidaddr%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">人员撤离路线:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].leaveline%></span>
+						</div>
+					</li>					
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">负责人:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].person%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">联系电话:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].persontel%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">监测设备:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].jcsbbreif%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-3 mui-text-left">简介:</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].probreif%></span>
+						</div>
+					</li>
+				</script>
 			</ul>
 		</div>
+		
+		<script type="text/javascript">
+			mui.init();
+			
+			var initEvent = function() {
+				//初始化地灾点项目详情信息
+				initDzdTemplateContent();
+			};
+			
+			function initDzdTemplateContent(){
+				var dzdXqxx = template('dzdxq-ul-list-template', {
+					list: dzGdxxData
+				});
+				document.getElementById("dzdxq-ul-list").innerHTML = dzdXqxx;
+			}
+			
+			var initApp = function() {
+				this.initEvent();
+			}
+			mui.ready(function() {
+				this.initApp();
+			});
+		</script>
 	</body>
-
 </html>
