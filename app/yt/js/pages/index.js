@@ -24,22 +24,6 @@ mui.init({
 	}
 });
 
-//后台交互
-var muiQuery = function(url, params, success, error) {
-	mui.ajax(url, {
-		data: params,
-		dataType: 'json',
-		type: 'get',
-		timeout: 10000,
-		/*crossDomain: true,//这里如果强制跨域，可能需要在plusReady中执行，具体需要真机测试下
-		headers: {
-			'Content-Type': 'application/json'
-		},*/
-		success: success,
-		error: error
-	});
-}
-
 //初始化应用
 var initApp = function() {
 	this.initMap();
@@ -51,14 +35,20 @@ var initApp = function() {
 	scroller.setStopped(true); //暂时禁止
 
 	//调用方式-与后台交互测试
-	this.muiQuery('http://quake.anruence.com/oracle/users', {
+	mui.myMuiQuery('http://quake.anruence.com/oracle/users', {
 		pageno: 1,
 		pagesize: 50
 	}, function(result) {
-		debugger;
+		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
+			duration: 'long',
+			type: 'div'
+		})
 	}, function(message) {
-		debugger;
-	})
+		mui.toast('获取数据出错，请稍后再试！', {
+			duration: 'short',
+			type: 'div'
+		})
+	});
 };
 mui.ready(initApp);
 
