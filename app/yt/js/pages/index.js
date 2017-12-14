@@ -35,17 +35,20 @@ var initApp = function() {
 	scroller.setStopped(true); //暂时禁止
 
 	//调用方式-与后台交互测试
-	muiQuery('http://quake.anruence.com/oracle/users', {
+	mui.myMuiQuery('http://quake.anruence.com/oracle/users', {
 		pageno: 1,
 		pagesize: 50
 	}, function(result) {
-		alert(result);
+		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
+			duration: 'long',
+			type: 'div'
+		})
 	}, function(message) {
 		mui.toast('获取数据出错，请稍后再试！', {
 			duration: 'short',
 			type: 'div'
 		})
-	})
+	});
 };
 mui.ready(initApp);
 
