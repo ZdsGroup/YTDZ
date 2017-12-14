@@ -757,6 +757,38 @@ function setFooterContentByInfo(Type, infoID) {
 		tempResults = dzQueryResults;
 	} else {
 		tempResults = jcQueryResults;
+
+		var jcsbhtml = template('jczb-ul-li-template', {
+			type: Type
+		});
+		//释放事件监听
+		mui('#jcsb-jczb-list').off('tap', 'li');
+		document.getElementById("jcsb-jczb-list").innerHTML = jcsbhtml;
+		mui(".mui-slider").slider();
+		mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
+			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
+			var currentPid = this.getAttribute('title');
+			var type = this.getAttribute('tp');
+			var preUrl = "pages/jcsb/";
+			var info = {
+				url:preUrl,
+				extras: {
+					pageId: currentPid,
+					pageFeature: selectedFeature
+				}
+			};
+			if(type == "lfjc") {
+				info.url += 'lfjc.html';
+				info.id = 'lfjc-analy-detail';
+			} else if(type == "bmwyjc") {
+				info.url += 'bmwyjc.html';
+				info.id = 'bmwyjc-analy-detail';
+			} else if(type == "yljc") {
+				info.url += 'yljc.html';
+				info.id = 'yljc-analy-detail';
+			}
+			mui.openWindow(info);
+		});
 	}
 	for(var i = 0; i < tempResults.length; i++) {
 		if(tempResults[i].id == infoID) {

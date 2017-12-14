@@ -308,12 +308,18 @@
 
 
 /*图片等比自动缩放*/
+.mui-slider-item img {
+	width: auto !important;
+	height: 90px !important;
+	max-width: 100% !important;
+	max-height: 100% !important;
+}
 
-#mui-slider-jcsb img {
-	width: auto;
-	height: 130px;
-	max-width: 100%;
-	max-height: 100%;
+#jcsb-jczb-list img {
+	width: auto !important;
+	height: 50px !important;
+	max-width: 100% !important;
+	max-height: 100% !important;
 }
 
 .mui-btn-self {
