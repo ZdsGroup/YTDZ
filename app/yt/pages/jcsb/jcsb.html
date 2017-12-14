@@ -25,15 +25,11 @@
 				font-size: 16px;
 			}
 			
-			#slider-pictures {
-				height: 270px;
-				border-bottom: 1px solid black;
-			}
 			/*图片等比自动缩放*/
 			
 			img {
 				width: auto;
-				height: 270px;
+				height: 200px;
 				max-width: 100%;
 				max-height: 100%;
 			}
@@ -119,6 +115,163 @@
 				<a class="mui-navigate-right" href="#">
 					<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
 				</a>
+				<div id="jcsb-jczb-list">
+					<script id="jczb-ul-li-template" type="text/template">
+						<!-- 裂缝监测设备——监测分析 -->
+						<%if (type =='lfjc') {%>
+						<div class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="1" tp="lfjc">
+											<a href="#"><img class="mui-media-object" src="../../images/device.png">
+												<div class="mui-media-body">设备状态</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="2" tp="lfjc">
+											<a href="#"><img class="mui-media-object" src="../../images/compare.png">
+												<div class="mui-media-body">设备对比</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="3" tp="lfjc">
+											<a href="#"><img class="mui-media-object" src="../../images/changeline.png">
+												<div class="mui-media-body">变化过程线</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="4" tp="lfjc">
+											<a href="#"><img class="mui-media-object" src="../../images/reportlist.png">
+												<div class="mui-media-body">数据列表</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="5" tp="lfjc">
+											<a href="#"><img class="mui-media-object" src="../../images/warninfo.png">
+												<div class="mui-media-body">报警查询</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<%}%>
+						<!-- 位移设备——监测分析 -->
+						<%if (type =='bmwyjc') {%>
+						<div class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="1" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/device.png">
+												<div class="mui-media-body">设备状态</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="2" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/compare.png">
+												<div class="mui-media-body">设备对比</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="3" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/positionmove.png">
+												<div class="mui-media-body">位移变化图</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="4" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/section.png">
+												<div class="mui-media-body">断面曲线图</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="5" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/movespeed.png">
+												<div class="mui-media-body">速度图</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="6" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/speed.png">
+												<div class="mui-media-body">加速度图</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="7" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/scatter.png">
+												<div class="mui-media-body">散点图</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="8" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/vector.png">
+												<div class="mui-media-body">平面矢量图</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="9" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/reportlist.png">
+												<div class="mui-media-body">数据列表</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="10" tp="bmwyjc">
+											<a href="#"><img class="mui-media-object" src="../../images/warninfo.png">
+												<div class="mui-media-body">报警查询</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<%}%>
+						<!-- 雨量设备——监测分析 -->
+						<%if (type =='yljc') {%>
+						<div class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="1" tp="yljc">
+											<a href="#"><img class="mui-media-object" src="../../images/device.png">
+												<div class="mui-media-body">设备状态</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="2" tp="yljc">
+											<a href="#"><img class="mui-media-object" src="../../images/compare.png">
+												<div class="mui-media-body">设备对比</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="3" tp="yljc">
+											<a href="#"><img class="mui-media-object" src="../../images/linechart.png">
+												<div class="mui-media-body">雨量折线图</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="mui-slider-item">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="4" tp="yljc">
+											<a href="#"><img class="mui-media-object" src="../../images/warninfo.png">
+												<div class="mui-media-body">报警信息</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-4" title="5" tp="yljc">
+											<a href="#"><img class="mui-media-object" src="../../images/reportlist.png">
+												<div class="mui-media-body">雨量报表</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<%}%>
+					</script>
+				</div>
 			</div>
 		</div>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
@@ -126,8 +279,8 @@
 		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
-			var jcsb_type = null;//监测设备类型
-			var jcsb_id = null;//监测设备ID，仅用于测试数据
+			var jcsb_type = null; //监测设备类型
+			var jcsb_id = null; //监测设备ID，仅用于测试数据
 			var jcsb_feature = null;
 			var initEvent = function() {
 				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
@@ -150,7 +303,7 @@
 						case 'jcsb-analy-all':
 							if(selectedFeature) {
 								//判断地图入口点要素类型：地灾点或监测设备，此处只需要监测设备数据
-								if(selectedFeature.type != 'dzd'){
+								if(selectedFeature.type != 'dzd') {
 									jcsb_type = selectedFeature.type;
 									jcsb_id = selectedFeature.id;
 									jcsb_feature = selectedFeature;
@@ -232,7 +385,38 @@
 					});
 					mui(".jcsb-detail-cardcontent")[0].innerHTML = html;
 				}
+				var jcsbhtml = template('jczb-ul-li-template', {
+					type: jcsbType
+				});
+				//释放事件监听
+				mui('#jcsb-jczb-list').off('tap', 'li');
+				document.getElementById("jcsb-jczb-list").innerHTML = jcsbhtml;
+				mui(".mui-slider").slider();
+				mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
+					var currentPid = this.getAttribute('title');
+					var type = this.getAttribute('tp');
+					var preUrl = "";
+					var info = {
+						url: preUrl,
+						extras: {
+							pageId: currentPid,
+							pageFeature: jcsb_id  //需要对yljc,lfjc,bmwyjc页面传参做处理
+						}
+					};
+					if(type == "lfjc") {
+						info.url += 'lfjc.html';
+						info.id = 'lfjc-analy-detail';
+					} else if(type == "bmwyjc") {
+						info.url += 'bmwyjc.html';
+						info.id = 'bmwyjc-analy-detail';
+					} else if(type == "yljc") {
+						info.url += 'yljc.html';
+						info.id = 'yljc-analy-detail';
+					}
+					mui.openWindow(info);
+				});
 			});
 		</script>
 	</body>
+
 </html>

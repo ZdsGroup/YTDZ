@@ -373,7 +373,10 @@
 				],
 				"refer": [
 					"pages/jcsb/jcsbyjxx.html",
-					"pages/jcsb/bmwyjcanalylist.html"
+					"pages/jcsb/bmwyjcanalylist.html",
+					"pages/jcsb/bmwyjc.html",
+					"pages/jcsb/yljc.html",
+					"pages/jcsb/lfjc.html"
 				],
 				"priority": 0
 			},

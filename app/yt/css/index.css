@@ -308,9 +308,9 @@
 
 
 /*图片等比自动缩放*/
-.mui-slider-item img {
+#mui-slider-jcsb img {
 	width: auto !important;
-	height: 90px !important;
+	height: 120px !important;
 	max-width: 100% !important;
 	max-height: 100% !important;
 }
