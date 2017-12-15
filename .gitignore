@@ -8,3 +8,7 @@ app/yt/manifest.json
 *.json
 app/yt/manifest.json
 *.json
+/app/yt/unpackage/release
+/app/yt/unpackage/res
+/app/yt/unpackage/.confirmed_dependencies
+/app/yt/unpackage/.dependencies

@@ -39,10 +39,10 @@ var initApp = function() {
 		pageno: 1,
 		pagesize: 50
 	}, function(result) {
-		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
-			duration: 'long',
-			type: 'div'
-		})
+//		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
+//			duration: 'long',
+//			type: 'div'
+//		})
 	}, function(message) {
 		mui.toast('获取数据出错，请稍后再试！', {
 			duration: 'short',
