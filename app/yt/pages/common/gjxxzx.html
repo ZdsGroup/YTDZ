@@ -17,7 +17,6 @@
 				padding-right: 15px;
 				padding-bottom: 5px;
 				width: 100%;
-				z-index: 999;
 			}
 			.mui-icon-clear{
 				right: 5px !important;
@@ -26,8 +25,10 @@
 				left: 15px !important;
 			}
 			#pullrefresh{
+				position: absolute;
 				top: 90px;
 				padding-top: 0px;
+				width: 100%;
 			}
 			
 		</style>
@@ -159,15 +160,15 @@
 
 			//添加列表项的点击事件
 			var initEvent = function() {
-				var self = plus.webview.currentWebview();
-				  self.addEventListener('show',function(e){
-				  	count = 0;
-				  	document.getElementById("ullist").innerHTML = "";
-				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
-					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				  	
-            });
+//				var self = plus.webview.currentWebview();
+//				  self.addEventListener('show',function(e){
+//				  	count = 0;
+//				  	document.getElementById("ullist").innerHTML = "";
+//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+//					mui('#pullrefresh').pullRefresh().pullupLoading();
+//				  	
+//          });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = this.getAttribute("id");
 					var typeT = info.split('_')[0];
