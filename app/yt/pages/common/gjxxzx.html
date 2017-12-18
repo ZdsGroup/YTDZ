@@ -9,61 +9,81 @@
 		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
 		<style type="text/css">
-			.mui-search{
-				position: absolute;
-				top: 50px;
-				padding-left: 15px;
-				padding-right: 15px;
-				padding-bottom: 5px;
-				width: 100%;
-			}
-			.mui-icon-clear{
+			.mui-icon-clear {
 				right: 5px !important;
 			}
-			.mui-search.mui-active:before{
-				left: 15px !important;
-			}
-			#pullrefresh{
+			/*#pullrefresh {
 				position: absolute;
 				top: 90px;
 				padding-top: 0px;
 				width: 100%;
+			}*/
+			
+			.ytdevscrollparent {
+				position: relative;
 			}
 			
+			.mui-active {
+				background-color: #4186FF!important;
+				color: #FFF!important;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title">预警消息中心<a class="mui-pull-caption"></a></h1>
+			<h1 class="mui-title">预警信息中心<a class="mui-pull-caption"></a></h1>
 		</header>
-		<div class="mui-input-row mui-search" >
-			<input type="search" class="mui-input-clear" placeholder="地灾点、检测设备">
-		</div>
 		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<!--数据列表-->
-				<ul id="ullist" class="mui-table-view mui-table-view-chevron">
-					<script id="ul-li-template" type="text/html">
-						<% for(var i=0;i<list.length;i++){%>
-						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-							<a class="mui-navigate-right">
-								<div class="mui-slider-cell">
-									<h4>预警设备: <%=list[i].name%></h5>
-									<h5>地灾点: <%=list[i].dzd%></h5>
-									<h5>预警等级：<%=list[i].le%> </h5>
-									<h5>预警: 2017/11/13 21:30:19  <%=list[i].msg%></h5>						
-								</div>
-							</a>
-						</li>
-						<%}%>
-					</script>
-				</ul>
+		<div class="mui-content">
+			<div class="footercardcontent">
+				<div style="line-height: 30px;height: 30px;">
+					<div class="mui-table">
+						<span class="mui-table-cell mui-col-xs-3 mui-text-left">预警时间</span>
+						<div class="mui-table-cell mui-col-xs-9 mui-text-left">
+							<button type="button" class="mui-btn mui-btn-outlined mui-active">今天</button>
+							<button type="button" class="mui-btn mui-btn-outlined">本周</button>
+							<button type="button" class="mui-btn mui-btn-outlined">本月</button>
+						</div>
+					</div>
+				</div>
+				<div style="line-height: 30px;height: 30px;">
+					<div class="mui-table">
+						<span class="mui-table-cell mui-col-xs-3 mui-text-left">预警等级</span>
+						<div class="mui-table-cell mui-col-xs-9 mui-text-left">
+							<button type="button" class="mui-btn mui-btn-outlined mui-active">一级</button>
+							<button type="button" class="mui-btn mui-btn-outlined">二级</button>
+							<button type="button" class="mui-btn mui-btn-outlined">三级</button>
+							<button type="button" class="mui-btn mui-btn-outlined">四级</button>
+						</div>
+					</div>
+				</div>
 			</div>
-			
+			<div class="ytdevscrollparent">
+				<div id="pullrefresh" class="mui-scroll-wrapper" style="height: calc(100vh - 104px);">
+					<div class="mui-scroll">
+						<ul id="ullist" class="mui-table-view mui-table-view-chevron">
+							<script id="ul-li-template" type="text/html">
+								<% for(var i=0;i<list.length;i++){%>
+								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<div class="mui-slider-cell">
+											<p><span class="yt-normal-color" style="font-size: 1.2em;">预警设备: <%=list[i].name%></span></p>
+											<p><span>地灾点: <%=list[i].dzd%></span></p>
+											<p><span>预警等级：<%=list[i].le%> </span></p>
+											<p><span>预警: 2017/11/13 21:30:19  <%=list[i].msg%></span></p>
+										</div>
+									</a>
+								</li>
+								<%}%>
+							</script>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
@@ -82,12 +102,12 @@
 						}
 					}
 				});
-//				$('.mui-scroll-wrapper').scroll({
-//					indicators: true //是否显示滚动条
-//				});
-//				$('.mui-scroll-wrapper').scroll({
-//					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-//				});
+				//				$('.mui-scroll-wrapper').scroll({
+				//					indicators: true //是否显示滚动条
+				//				});
+				//				$('.mui-scroll-wrapper').scroll({
+				//					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				//				});
 			})(mui);;
 			/**
 			 * 下拉刷新具体业务实现
@@ -150,7 +170,7 @@
 
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 4)); //参数为true代表没有更多数据了。
-//					var content = template(warnDZMarkersData);
+					//					var content = template(warnDZMarkersData);
 					var html = template('ul-li-template', {
 						list: warnjcMarkersData
 					});
@@ -160,26 +180,26 @@
 
 			//添加列表项的点击事件
 			var initEvent = function() {
-//				var self = plus.webview.currentWebview();
-//				  self.addEventListener('show',function(e){
-//				  	count = 0;
-//				  	document.getElementById("ullist").innerHTML = "";
-//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
-//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
-//					mui('#pullrefresh').pullRefresh().pullupLoading();
-//				  	
-//          });
+				//				var self = plus.webview.currentWebview();
+				//				  self.addEventListener('show',function(e){
+				//				  	count = 0;
+				//				  	document.getElementById("ullist").innerHTML = "";
+				//				  	mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				//					mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+				//					mui('#pullrefresh').pullRefresh().pullupLoading();
+				//				  	
+				//          });
 				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
 					var info = this.getAttribute("id");
 					var typeT = info.split('_')[0];
 					var idT = info.split('_')[1];
 					//定位到具体的预警tab
 					var tabT = 'warn'
-					openInfoPage(typeT,idT,tabT);
+					openInfoPage(typeT, idT, tabT);
 				});
-				
+
 				//根据类型和id打开对应的设备详情页面
-				function openInfoPage(typeT,idT,tabT){
+				function openInfoPage(typeT, idT, tabT) {
 					var pageUrl = '';
 					var pageId = '';
 					switch(typeT) {
@@ -207,15 +227,14 @@
 					mui.openWindow({
 						url: pageUrl,
 						id: pageId,
-						extras:{
+						extras: {
 							xqType: typeT,
 							xqID: idT,
-							xqTab: tabT 
+							xqTab: tabT
 						}
 					});
 				}
 			}
-			
 
 			var initApp = function() {
 				this.initEvent();
