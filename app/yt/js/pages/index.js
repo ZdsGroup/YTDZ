@@ -39,10 +39,10 @@ var initApp = function() {
 		pageno: 1,
 		pagesize: 50
 	}, function(result) {
-//		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
-//			duration: 'long',
-//			type: 'div'
-//		})
+		//		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
+		//			duration: 'long',
+		//			type: 'div'
+		//		})
 	}, function(message) {
 		mui.toast('获取数据出错，请稍后再试！', {
 			duration: 'short',
@@ -57,7 +57,7 @@ var initAppPlus = function() {
 	this.topNavHeight = plus.navigator.getStatusbarHeight();
 
 	plus.key.addEventListener('backbutton', function() {
-		hideFooterPanle();
+		hideFooterPanel();
 		return false;
 	}, false);
 };
@@ -131,7 +131,7 @@ var initMap = function() {
 		var isMarker = false;
 		var target = e.originalEvent.target;
 		if(target.type != 'button') {
-			me.hideFooterPanle(0);
+			me.hideFooterPanel(0);
 			changeMapStatus();
 		}
 	});
@@ -183,17 +183,88 @@ function queryWarnInfo() {
 	return info;
 }
 
+//实时监控虚拟导航栏开启已经实现，目前暂时无法实现停止，停止的时机还没有找到,待完善，包括拖拽功能。
+var isCurVirtualNavChange = false;
+var isPreVirtualNavChange = null;
+var isVnChange = false;
+var monitorVirtualNav = function() {
+	//判断是否为android手机
+	if(mui.os.android) {
+		//开启全局监听判断界面是否显示了虚拟导航栏
+		setInterval(function() {
+			var mapFooter = mui('#ytfooter')[0];
+			var mapContent = mui('#ytmap')[0];
+			var baseinfo = mui('#baseinfo')[0];
+			var ytMask = mui('#ytmask')[0];
+
+			//判断是否显示了虚拟导航栏
+			if(screen.availHeight == ytMask.clientHeight + topNavHeight) {
+				//没有显示虚拟导航栏
+				isCurVirtualNavChange = false;
+			} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
+				//已经显示虚拟导航栏，先计算虚拟导航栏的高度
+				isCurVirtualNavChange = true;
+			}
+
+			if(isPreVirtualNavChange == null) {
+				isPreVirtualNavChange = isCurVirtualNavChange;
+				isVnChange = true;
+			} else if(isCurVirtualNavChange != isPreVirtualNavChange) {
+				isPreVirtualNavChange = isCurVirtualNavChange;
+				isVnChange = true;
+			} else {
+				isVnChange = false;
+			}
+
+			var virtualNavH = screen.availHeight - ytMask.clientHeight - topNavHeight;
+			if(isVnChange && mapFooter.style.display == 'block' && mapFooter.style.height == (virtualNavH + footerHeight) + 'px') {
+				//判断是否显示了虚拟导航栏
+				if(screen.availHeight == ytMask.clientHeight + topNavHeight) {
+					//没有显示虚拟导航栏
+					mapFooter.style.height = footerHeight + 'px';
+					mapFooter.style.display = 'block';
+					mapContent.style.height = (screen.availHeight - footerHeight - topNavHeight) + 'px';
+				} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
+					//已经显示虚拟导航栏，先计算虚拟导航栏的高度
+					var virtualNavH = screen.availHeight - ytMask.clientHeight - topNavHeight;
+					//没有显示虚拟导航栏
+					mapFooter.style.height = (virtualNavH + footerHeight) + 'px';
+					mapFooter.style.display = 'block';
+					mapContent.style.height = (screen.availHeight - footerHeight - topNavHeight - virtualNavH) + 'px';
+				}
+			}
+		}, 200);
+	}
+};
+
 /*显示底部要素概要面板，fh=100*/
 var showFooterPanel = function(fh) {
 	if(fh == footerHeight && scroller.maxScrollY < 0) {
 		scroller.scrollTo(0, 0, 100);
 	}
+
+	//this.monitorVirtualNav(fh);
+
 	var mapFooter = mui('#ytfooter')[0];
 	var mapContent = mui('#ytmap')[0];
 	var baseinfo = mui('#baseinfo')[0];
-	mapFooter.style.height = fh + 'px';
-	mapFooter.style.display = 'block';
-	mapContent.style.height = (screen.availHeight - fh - topNavHeight) + 'px';
+	var ytMask = mui('#ytmask')[0];
+
+	//判断是否显示了虚拟导航栏
+	if(screen.availHeight == ytMask.clientHeight + topNavHeight) {
+		//没有显示虚拟导航栏
+		mapFooter.style.height = fh + 'px';
+		mapFooter.style.display = 'block';
+		mapContent.style.height = (screen.availHeight - fh - topNavHeight) + 'px';
+	} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
+		//已经显示虚拟导航栏，先计算虚拟导航栏的高度
+		var virtualNavH = screen.availHeight - ytMask.clientHeight - topNavHeight;
+		//没有显示虚拟导航栏
+		mapFooter.style.height = (virtualNavH + fh) + 'px';
+		mapFooter.style.display = 'block';
+		mapContent.style.height = (screen.availHeight - fh - topNavHeight - virtualNavH) + 'px';
+	}
+
 	if(fh != footerHeight) {
 		baseinfo.classList.add("footercardcontentfloat");
 	} else {
@@ -202,7 +273,7 @@ var showFooterPanel = function(fh) {
 };
 
 /*隐藏底部要素概要面板, fh=0*/
-var hideFooterPanle = function() {
+var hideFooterPanel = function() {
 	var mapFooter = mui('#ytfooter')[0];
 	var mapContent = mui('#ytmap')[0];
 	mapFooter.style.height = '0px';
@@ -221,6 +292,7 @@ var hideFooterPanle = function() {
 //初始化事件
 var initEvent = function() {
 	var me = this;
+
 	//首页底部面板拖动
 	var ytFooterHeight = 0;
 	/*var zoomin = mui('#yt-map-zoomin')[0];
@@ -432,7 +504,7 @@ var initEvent = function() {
 				}
 			case 'locate':
 				{
-					me.hideFooterPanle(0); //定位功能，测试底部面板隐藏
+					me.hideFooterPanel(0); //定位功能，测试底部面板隐藏
 					myMap.locate({
 						setView: true,
 						timeout: 5000,
@@ -771,7 +843,7 @@ function setFooterContentByInfo(Type, infoID) {
 			var type = this.getAttribute('tp');
 			var preUrl = "pages/jcsb/";
 			var info = {
-				url:preUrl,
+				url: preUrl,
 				extras: {
 					pageId: currentPid,
 					pageFeature: selectedFeature
