@@ -12,3 +12,4 @@ app/yt/manifest.json
 /app/yt/unpackage/res
 /app/yt/unpackage/.confirmed_dependencies
 /app/yt/unpackage/.dependencies
+/pc/client/V2/.idea
