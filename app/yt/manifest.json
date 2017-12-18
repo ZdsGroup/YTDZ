@@ -376,7 +376,9 @@
 					"pages/jcsb/bmwyjcanalylist.html",
 					"pages/jcsb/bmwyjc.html",
 					"pages/jcsb/yljc.html",
-					"pages/jcsb/lfjc.html"
+					"pages/jcsb/lfjc.html",
+					"pages/jcsb/lfjcanalylist.html",
+					"pages/jcsb/yljcanalylist.html"
 				],
 				"priority": 0
 			},
