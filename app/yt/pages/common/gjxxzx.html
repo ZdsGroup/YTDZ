@@ -37,7 +37,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
-			<h1 class="mui-title">告警消息中心<a class="mui-pull-caption"></a></h1>
+			<h1 class="mui-title">预警消息中心<a class="mui-pull-caption"></a></h1>
 		</header>
 		<div class="mui-input-row mui-search" >
 			<input type="search" class="mui-input-clear" placeholder="地灾点、检测设备">
@@ -52,10 +52,10 @@
 						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
 							<a class="mui-navigate-right">
 								<div class="mui-slider-cell">
-									<h4>告警设备: <%=list[i].name%></h5>
+									<h4>预警设备: <%=list[i].name%></h5>
 									<h5>地灾点: <%=list[i].dzd%></h5>
-									<h5>告警等级：<%=list[i].le%> </h5>
-									<h5>告警: 2017/11/13 21:30:19  <%=list[i].msg%></h5>						
+									<h5>预警等级：<%=list[i].le%> </h5>
+									<h5>预警: 2017/11/13 21:30:19  <%=list[i].msg%></h5>						
 								</div>
 							</a>
 						</li>
@@ -173,7 +173,7 @@
 					var info = this.getAttribute("id");
 					var typeT = info.split('_')[0];
 					var idT = info.split('_')[1];
-					//定位到具体的告警tab
+					//定位到具体的预警tab
 					var tabT = 'warn'
 					openInfoPage(typeT,idT,tabT);
 				});
