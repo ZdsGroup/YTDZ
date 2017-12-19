@@ -633,21 +633,27 @@ function initJcsbPictureList() {
 //显示告警对象
 function showWarnDZMarksOnMap() {
 	//1所有地灾点，包括报警级别信息
-	var results = queryMarkers(1);
-	if(results != null && results.length > 0) {
-		dzMarkersLayerGroup.clearLayers();
-		getDZMarkersLayerGroup(results);
-		myMap.addLayer(dzMarkersLayerGroup);
-		myMap.fitBounds(warnBounds, {
-			maxZoom: maxZoomShow
-		});
-	} else {
-		mui.toast('无查询结果！', {
-			duration: 'short',
-			type: 'div'
-		})
-	}
+	var url = mui.myMuiQueryBaseInfo.baseURL + "/quakes/all";
+	mui.myMuiQuery(url, '',
+		function(results){
+//			debugger
+			if(results != null && results.data.quakes.length > 0) {
+				dzMarkersLayerGroup.clearLayers();
+				getDZMarkersLayerGroup(results);
+				myMap.addLayer(dzMarkersLayerGroup);
+				myMap.fitBounds(warnBounds, {
+					maxZoom: maxZoomShow
+				});
+			} else {
+				mui.myMuiQueryNoResult('查询所有地灾点无结果！');
+			}
+		},
+		function(){
+			mui.myMuiQueryErr('查询所有地灾点失败，请稍后再试！');
+		}
+	)
 }
+
 //请求后台服务获取不同对象数据
 function queryMarkers(markType) {
 	switch(markType) {
