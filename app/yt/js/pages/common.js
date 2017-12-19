@@ -17,3 +17,25 @@
 		});
 	}
 })(mui, window);
+
+(function($, window) {
+	//查询出错公用显示
+	$.myMuiQueryErr = function(msg) {
+		mui.toast(msg, {
+					duration: 'short',
+					type: 'div'
+				})
+	},
+	//查询无结果公用显示
+	$.myMuiQueryNoResult = function(msg) {
+		mui.toast(msg, {
+					duration: 'short',
+					type: 'div'
+				})
+	},
+	$.myMuiQueryBaseInfo = {
+		baseURL:'http://quake.anruence.com/oracle',
+		pageStartIndex:1
+	}
+})(mui, window);
+
