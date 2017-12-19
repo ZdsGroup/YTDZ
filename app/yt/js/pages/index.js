@@ -35,17 +35,17 @@ var initApp = function() {
 	scroller.setStopped(true); //暂时禁止
 
 	//TODO调用方式-与后台交互测试
-//	myMuiQueryTest();
+	//	myMuiQueryTest();
 };
 mui.ready(initApp);
 
-function  myMuiQueryTest(){
-	
+function myMuiQueryTest() {
+
 	mui.myMuiQuery('http://quake.anruence.com/oracle/users', {
 		pageno: 1,
 		pagesize: 50
 	}, function(result) {
-		mui.toast('测试请求后台真实服务获取数据条数：'+ result.data.size, {
+		mui.toast('测试请求后台真实服务获取数据条数：' + result.data.size, {
 			duration: 'long',
 			type: 'div'
 		})
@@ -188,59 +188,32 @@ function queryWarnInfo() {
 	return info;
 }
 
-//实时监控虚拟导航栏开启已经实现，目前暂时无法实现停止，停止的时机还没有找到,待完善，包括拖拽功能。
-var isCurVirtualNavChange = false;
-var isPreVirtualNavChange = null;
-var isVnChange = false;
-var monitorVirtualNav = function() {
-	//判断是否为android手机
-	if(mui.os.android) {
-		//开启全局监听判断界面是否显示了虚拟导航栏
-		setInterval(function() {
-			var mapFooter = mui('#ytfooter')[0];
-			var mapContent = mui('#ytmap')[0];
-			var baseinfo = mui('#baseinfo')[0];
-			var ytMask = mui('#ytmask')[0];
+//开启华为设备虚拟导航栏实时监控
+var preVirtualNavHeight = 0;
+var virtualNavHeight = 0;
+var monitormonitorVirtualMenu = function(fh) {
+	setInterval(function() {
+		var mapFooter = mui('#ytfooter')[0];
+		var mapContent = mui('#ytmap')[0];
+		var ytMask = mui('#ytmask')[0];
 
-			//判断是否显示了虚拟导航栏
-			if(screen.availHeight == ytMask.clientHeight + topNavHeight) {
-				//没有显示虚拟导航栏
-				isCurVirtualNavChange = false;
-			} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
-				//已经显示虚拟导航栏，先计算虚拟导航栏的高度
-				isCurVirtualNavChange = true;
-			}
+		//判断是否显示了虚拟导航栏
+		if((screen.availHeight == ytMask.clientHeight + topNavHeight) || screen.availHeight == ytMask.clientHeight) {
+			//没有显示虚拟导航栏
+			this.virtualNavHeight = 0;
+		} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
+			//已经显示虚拟导航栏，先计算虚拟导航栏的高度
+			this.virtualNavHeight = screen.availHeight - ytMask.clientHeight - topNavHeight;
+		}
 
-			if(isPreVirtualNavChange == null) {
-				isPreVirtualNavChange = isCurVirtualNavChange;
-				isVnChange = true;
-			} else if(isCurVirtualNavChange != isPreVirtualNavChange) {
-				isPreVirtualNavChange = isCurVirtualNavChange;
-				isVnChange = true;
-			} else {
-				isVnChange = false;
-			}
-
-			var virtualNavH = screen.availHeight - ytMask.clientHeight - topNavHeight;
-			if(isVnChange && mapFooter.style.display == 'block' && mapFooter.style.height == (virtualNavH + footerHeight) + 'px') {
-				//判断是否显示了虚拟导航栏
-				if(screen.availHeight == ytMask.clientHeight + topNavHeight) {
-					//没有显示虚拟导航栏
-					mapFooter.style.height = footerHeight + 'px';
-					mapFooter.style.display = 'block';
-					mapContent.style.height = (screen.availHeight - footerHeight - topNavHeight) + 'px';
-				} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
-					//已经显示虚拟导航栏，先计算虚拟导航栏的高度
-					var virtualNavH = screen.availHeight - ytMask.clientHeight - topNavHeight;
-					//没有显示虚拟导航栏
-					mapFooter.style.height = (virtualNavH + footerHeight) + 'px';
-					mapFooter.style.display = 'block';
-					mapContent.style.height = (screen.availHeight - footerHeight - topNavHeight - virtualNavH) + 'px';
-				}
-			}
-		}, 200);
-	}
-};
+		if(preVirtualNavHeight != virtualNavHeight && mapFooter.clientHeight < 150) {
+			mapFooter.style.height = (virtualNavHeight + fh) + 'px';
+			mapFooter.style.display = 'block';
+			mapContent.style.height = (screen.availHeight - fh - topNavHeight - virtualNavHeight) + 'px';
+			preVirtualNavHeight = virtualNavHeight;
+		}
+	}, 200);
+}
 
 /*显示底部要素概要面板，fh=100*/
 var showFooterPanel = function(fh) {
@@ -248,7 +221,7 @@ var showFooterPanel = function(fh) {
 		scroller.scrollTo(0, 0, 100);
 	}
 
-	//this.monitorVirtualNav(fh);
+	this.monitormonitorVirtualMenu(footerHeight);
 
 	var mapFooter = mui('#ytfooter')[0];
 	var mapContent = mui('#ytmap')[0];
@@ -256,7 +229,7 @@ var showFooterPanel = function(fh) {
 	var ytMask = mui('#ytmask')[0];
 
 	//判断是否显示了虚拟导航栏
-	if(screen.availHeight == ytMask.clientHeight + topNavHeight) {
+	if((screen.availHeight == ytMask.clientHeight + topNavHeight) || screen.availHeight == ytMask.clientHeight) {
 		//没有显示虚拟导航栏
 		mapFooter.style.height = fh + 'px';
 		mapFooter.style.display = 'block';
@@ -264,7 +237,6 @@ var showFooterPanel = function(fh) {
 	} else if(screen.availHeight > ytMask.clientHeight + topNavHeight) {
 		//已经显示虚拟导航栏，先计算虚拟导航栏的高度
 		var virtualNavH = screen.availHeight - ytMask.clientHeight - topNavHeight;
-		//没有显示虚拟导航栏
 		mapFooter.style.height = (virtualNavH + fh) + 'px';
 		mapFooter.style.display = 'block';
 		mapContent.style.height = (screen.availHeight - fh - topNavHeight - virtualNavH) + 'px';
@@ -321,8 +293,8 @@ var initEvent = function() {
 	});
 	ytfooter.addEventListener('dragend', function(evt) {
 		ytFooterHeight = ytFooterHeight - (evt.detail.center.y - startY);
-		var step1 = screen.availHeight / 3;
-		var step2 = screen.availHeight * 2 / 3;
+		var step1 = (screen.availHeight - me.virtualNavHeight) / 3;
+		var step2 = (screen.availHeight - me.virtualNavHeight) * 2 / 3;
 		//scroller.setStopped(true);
 		if(ytFooterHeight <= step1) {
 			ytFooterHeight = me.footerHeight;
@@ -330,7 +302,7 @@ var initEvent = function() {
 		} else if(ytFooterHeight <= step2) {
 			ytFooterHeight = parseInt(step2);
 		} else {
-			ytFooterHeight = screen.availHeight - topNavHeight;
+			ytFooterHeight = screen.availHeight - topNavHeight - me.virtualNavHeight;
 			scroller.setStopped(false);
 		}
 
