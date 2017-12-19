@@ -18,7 +18,7 @@
 
 		//查询无结果公用显示
 		function globalSuccess(result) {
-			if(result.code == 0 && result.data.total == 0) {
+			if(result.code == 0 && result.data != null && result.data.total == 0) {
 				plus.nativeUI.toast("无查询结果",{
 					icon:'/images/info.png',
 					duration: 'short',

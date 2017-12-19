@@ -73,7 +73,7 @@
 									<a class="mui-navigate-right">
 										<div class="mui-slider-cell">
 											<p><span class="yt-normal-color" style="font-size: 1em;">预警设备: <%=list[i].devicename%></span>
-												<span style="float: right;">预警等级：
+												<span style="float: right;">
 												<%if (list[i].rank==1) {%>
 												<span style="color:#B43E32">
 												<%}else if (list[i].rank==2){%>
@@ -86,9 +86,9 @@
 													<i class="dzlevelfont icon-dz-disaster"></i>
 												</span></span>
 											</p>
-											<p>预警时间: <%=list[i].addtime%></p>
+											<p>时间: <%=list[i].addtime%></p>
 											<p><span>地灾点: <%=list[i].quakename%></p>
-											<p>预警详情： <%=list[i].content%></p>
+											<p>详情： <%=list[i].content%></p>
 										</div>
 									</a>
 								</li>
