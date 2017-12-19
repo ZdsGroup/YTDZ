@@ -28,6 +28,27 @@
 	src: url('../fonts/fontawesome-webfont.ttf?v=4.0.0') format('truetype')
 }
 
+@font-face {
+	font-family: "dzlevelfont";
+	src: url('../fonts/dzlevelfont.ttf?t=1513649661858') format('truetype');
+}
+
+.dzlevelfont {
+	font-family: "dzlevelfont" !important;
+	font-size: 1.5em;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-dz-star:before {
+	content: "\e603";
+}
+
+.icon-dz-disaster:before {
+	content: "\e604";
+}
+
 
 /*鹰潭字体图标库*/
 
@@ -225,11 +246,14 @@
 	content: "\e6b5";
 }
 
+
 /*收藏开关*/
-.yt-star:before{
+
+.yt-star:before {
 	content: "\f006";
 }
-.yt-star-color:before{
+
+.yt-star-color:before {
 	content: "\f005";
 }
 
@@ -328,34 +352,55 @@
 	content: "\e501";
 }
 
+
 /*ytfooter 详情*/
-.ytfooter-infos:before{
+
+.ytfooter-infos:before {
 	content: '\f080';
 }
+
+
 /*ytfooter 用户*/
-.ytfooter-user:before{
+
+.ytfooter-user:before {
 	content: '\f007';
 }
+
+
 /*ytfooter 电话*/
-.ytfooter-tel:before{
+
+.ytfooter-tel:before {
 	content: '\f098';
 }
+
+
 /*ytfooter 概要*/
-.ytfooter-main:before{
+
+.ytfooter-main:before {
 	content: '\f02b';
 }
+
+
 /*ytfooter 收藏*/
-.ytfooter-star:before{
+
+.ytfooter-star:before {
 	content: '\f006';
 }
-.ytfooter-star-color:before{
+
+.ytfooter-star-color:before {
 	content: '\f005';
 }
+
+
 /*searchlist 定位*/
-.searchlist-local:before{
+
+.searchlist-local:before {
 	content: '\f041';
 }
+
+
 /*searchlist 地址*/
-.searchlist-addr:before{
+
+.searchlist-addr:before {
 	content: '\f015';
 }

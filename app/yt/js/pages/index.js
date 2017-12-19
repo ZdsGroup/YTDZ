@@ -643,12 +643,9 @@ function showWarnDZMarksOnMap() {
 				myMap.fitBounds(warnBounds, {
 					maxZoom: maxZoomShow
 				});
-			} else {
-				mui.myMuiQueryNoResult('查询所有地灾点无结果！');
-			}
+			} 
 		},
 		function(){
-			mui.myMuiQueryErr('查询所有地灾点失败，请稍后再试！');
 		}
 	)
 }

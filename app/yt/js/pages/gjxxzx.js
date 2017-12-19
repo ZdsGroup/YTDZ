@@ -13,9 +13,6 @@
 	});
 })(mui);
 
-var action = "alarms";
-var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
-
 function pullUpSuccess(result) {
 	if(result.code == 0) {
 		var data = result.data;
@@ -58,6 +55,8 @@ function falult(message) {
 	//异常处理；
 }
 
+var action = "alarms";
+var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 function pulldownRefresh() {
 	pageno = 1;
 	var queryParam = getQueryParam();
