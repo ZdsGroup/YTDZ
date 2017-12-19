@@ -693,11 +693,12 @@ function getDZMarkersLayerGroup(results) {
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
 			title: mN,
-			type: mType
+			type: mType,
+			id:mId
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
-			showJCMarkerByDZid(mId);
+			showJCMarkerByDZid(e.target.options.id);
 			setFooterContentByInfo(e.target.options.type, e.target.options.title);
 			showFooterPanel(footerHeight);
 		});
@@ -748,6 +749,7 @@ function getMarkerColorByWarnLevel(level) {
 //地灾点的点击事件，显示该地灾点的监测设备
 function showJCMarkerByDZid(dzID) {
 	//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
+	debugger
 	var results = queryMarkers(2);
 	if(results != null && results.length > 0) {
 		jcMarkersLayerGroup.clearLayers();
