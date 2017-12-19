@@ -633,8 +633,8 @@ function initJcsbPictureList() {
 //显示告警对象
 function showWarnDZMarksOnMap() {
 	//1所有地灾点，包括报警级别信息
-	var url = mui.myMuiQueryBaseInfo.baseURL + "/quakes/all";
-	mui.myMuiQuery(url, '',
+	var action = "quakes/all";
+	mui.myMuiQuery(action, '',
 		function(results){
 			if(results != null && results.data.quakes.length > 0) {
 				dzMarkersLayerGroup.clearLayers();
@@ -678,7 +678,6 @@ function getDZMarkersLayerGroup(results) {
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
 		level = results[i].rank;
-		debugger
 		markColor = getMarkerColorByWarnLevel(level);
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -688,13 +687,12 @@ function getDZMarkersLayerGroup(results) {
 		});
 		var mId = results[i].quakeid;
 		var mType = 'dzd';
-		var mX = eval(results[i].attr)[0].longitude;
-		var mY = eval(results[i].attr)[0].latitude;
+		var mX = eval(results[i].attr)[0].latitude;
+		var mY = eval(results[i].attr)[0].longitude;
 		var mN = results[i].name;
-//		var mMsg = results[i].msg;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
-			title: mId,
+			title: mN,
 			type: mType
 		}).bindPopup(mN, {
 			closeButton: false
