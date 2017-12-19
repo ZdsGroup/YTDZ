@@ -664,10 +664,9 @@ function showWarnDZMarksOnMap() {
 	var url = mui.myMuiQueryBaseInfo.baseURL + "/quakes/all";
 	mui.myMuiQuery(url, '',
 		function(results){
-//			debugger
 			if(results != null && results.data.quakes.length > 0) {
 				dzMarkersLayerGroup.clearLayers();
-				getDZMarkersLayerGroup(results);
+				getDZMarkersLayerGroup(results.data.quakes);
 				myMap.addLayer(dzMarkersLayerGroup);
 				myMap.fitBounds(warnBounds, {
 					maxZoom: maxZoomShow
@@ -706,7 +705,8 @@ function getDZMarkersLayerGroup(results) {
 	var markColor = 'green';
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
-		level = results[i].le;
+		level = results[i].rank;
+		debugger
 		markColor = getMarkerColorByWarnLevel(level);
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -714,12 +714,12 @@ function getDZMarkersLayerGroup(results) {
 			prefix: 'fa',
 			spin: false
 		});
-		var mId = results[i].id;
-		var mType = results[i].type;
-		var mX = results[i].x;
-		var mY = results[i].y;
+		var mId = results[i].quakeid;
+		var mType = 'dzd';
+		var mX = eval(results[i].attr)[0].longitude;
+		var mY = eval(results[i].attr)[0].latitude;
 		var mN = results[i].name;
-		var mMsg = results[i].msg;
+//		var mMsg = results[i].msg;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
 			title: mId,
@@ -740,7 +740,7 @@ function getDZMarkersLayerGroup(results) {
 //根据不同的告警级别获取不同的颜色值
 function getMarkerColorByWarnLevel(level) {
 	var markColor = '';
-	switch(level) {
+	switch(String(level)) {
 		case '4':
 			{
 				markColor = 'red';
