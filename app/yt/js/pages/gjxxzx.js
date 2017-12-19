@@ -13,8 +13,8 @@
 	});
 })(mui);
 
-var url = systeminfo.baseURL + "/alarms";
-var pageno = 1;
+var action = "alarms";
+var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 
 function pullUpSuccess(result) {
 	if(result.code == 0) {
@@ -62,7 +62,7 @@ function pulldownRefresh() {
 	pageno = 1;
 	var queryParam = getQueryParam();
 	queryParam.pageno = pageno;
-	mui.myMuiQuery(url, queryParam,
+	mui.myMuiQuery(action, queryParam,
 		pullDownSuccess,
 		falult
 	)
@@ -73,7 +73,7 @@ function pulldownRefresh() {
 function pullupRefresh() {
 	var queryParam = getQueryParam();
 	queryParam.pageno = pageno;
-	mui.myMuiQuery(url, queryParam,
+	mui.myMuiQuery(action, queryParam,
 		pullUpSuccess,
 		falult
 	)
@@ -116,7 +116,7 @@ var initEvent = function() {
 		pageno = 1;
 		var queryParam = getQueryParam();
 		queryParam.pageno = pageno;
-		mui.myMuiQuery(url, queryParam,
+		mui.myMuiQuery(action, queryParam,
 			pullDownSuccess,
 			falult
 		)
@@ -165,7 +165,7 @@ function getQueryParam() {
 	var warnSelect = document.getElementById("warnType").getElementsByClassName("mui-active")[0];
 	var queryParam = {
 		pageno: pageno,
-		pagesize: systeminfo.pagesize
+		pagesize: mui.myMuiQueryBaseInfo.pageSize
 	}
 	//判读时间
 	var begin = null;
