@@ -12,6 +12,7 @@ var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
 var scroller = null;
 var jcsbMaxZoomShow = 14;
+var warnInfoIsShow = false;
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -142,8 +143,7 @@ var initMap = function() {
 	});
 
 	showWarnDZMarksOnMap();
-	showWarnInfoOnMap();
-
+	
 	//监测设备根据不同的地图级别进行显示隐藏
 	myMap.on('zoomend zoomlevelschange', function(e) {
 		var curLel = myMap.getZoom();
@@ -185,7 +185,26 @@ function showWarnInfoOnMap() {
 
 //TODO 查询后台服务器，获取警告信息汇总
 function queryWarnInfo() {
-	var info = '今日报警：地灾点5个，监测设备26个';
+	var dzNum = 0;
+	var jcsbNum = 0;
+	if(dzQueryResults){
+		var quakerArr = dzQueryResults.quakes;
+		var devicesArr = dzQueryResults.devices;
+		for (var i = 0; i < quakerArr.length; i++) {
+			if(quakerArr[i].rank > 0 ){
+				dzNum++;
+			}
+		}
+		for (var i = 0; i < devicesArr.length; i++) {
+			if(devicesArr[i].rank > 0 ){
+				jcsbNum++;
+			}
+		}
+	}
+	var info = '今日报警：地灾点' + dzNum + '个，监测设备'+jcsbNum+'个';
+	if(dzNum == 0 && jcsbNum == 0){
+		info = '今日报警：无'	
+	}
 	return info;
 }
 
@@ -579,19 +598,28 @@ function closeStarMarksOnMap() {
 
 function showAllDZMarksOnMap() {
 	//0所有地灾点
-	var results = queryMarkers(0);
-	if(results != null && results.length > 0) {
-		dzMarkersLayerGroup.clearLayers();
-		getDZMarkersLayerGroup(results);
+	dzMarkersLayerGroup.clearLayers();
+	if(dzQueryResults){
+		getDZMarkersLayerGroup(dzQueryResults.quakes, false);
 		myMap.addLayer(dzMarkersLayerGroup);
-		myMap.fitBounds(warnBounds, {
-			maxZoom: maxZoomShow
-		});
-	} else {
-		mui.toast('无查询结果！', {
-			duration: 'short',
-			type: 'div'
-		})
+	}else{
+		var action = "quakes/all";
+		mui.myMuiQuery(action, '',
+			function(results){
+				if(results != null && results.data.quakes.length > 0) {
+					dzQueryResults = results.data;
+					getDZMarkersLayerGroup(dzQueryResults.quakes, false);
+					myMap.addLayer(dzMarkersLayerGroup);
+				} else {
+					mui.myMuiQueryNoResult('查询无结果！');
+					dzQueryResults = null;
+				}
+			},
+			function(){
+				mui.myMuiQueryErr('查询失败，请稍后再试！');
+				dzQueryResults = null;
+			}
+		)
 	}
 }
 
@@ -633,24 +661,33 @@ function initJcsbPictureList() {
 //显示告警对象
 function showWarnDZMarksOnMap() {
 	//1所有地灾点，包括报警级别信息
-	var action = "quakes/all";
-	mui.myMuiQuery(action, '',
-		function(results){
-			if(results != null && results.data.quakes.length > 0) {
-				dzMarkersLayerGroup.clearLayers();
-				getDZMarkersLayerGroup(results.data.quakes);
-				myMap.addLayer(dzMarkersLayerGroup);
-				myMap.fitBounds(warnBounds, {
-					maxZoom: maxZoomShow
-				});
-			} else {
-				mui.myMuiQueryNoResult('查询所有地灾点无结果！');
+	dzMarkersLayerGroup.clearLayers();
+	if(dzQueryResults){
+		getDZMarkersLayerGroup(dzQueryResults.quakes, true);
+		myMap.addLayer(dzMarkersLayerGroup);
+	}else{
+		var action = "quakes/all";
+		mui.myMuiQuery(action, '',
+			function(results){
+				if(results != null && results.data.quakes.length > 0) {
+					dzQueryResults = results.data;
+					getDZMarkersLayerGroup(dzQueryResults.quakes, true);
+					myMap.addLayer(dzMarkersLayerGroup);
+					if(!warnInfoIsShow){
+						showWarnInfoOnMap();
+						warnInfoIsShow = true;
+					}
+				} else {
+					mui.myMuiQueryNoResult('查询无结果！');
+					dzQueryResults = null;
+				}
+			},
+			function(){
+				mui.myMuiQueryErr('查询失败，请稍后再试！');
+				dzQueryResults = null;
 			}
-		},
-		function(){
-			mui.myMuiQueryErr('查询所有地灾点失败，请稍后再试！');
-		}
-	)
+		)
+	}
 }
 
 //请求后台服务获取不同对象数据
@@ -670,14 +707,16 @@ function queryMarkers(markType) {
 	}
 }
 //生成markers并添加到地灾markerlayergroup
-function getDZMarkersLayerGroup(results) {
-	dzQueryResults = results;
+function getDZMarkersLayerGroup(results, isWarn) {
 	var latLngsArr = new Array();
 	var iconName = 'bullseye';
 	var markColor = 'green';
 	var level = '';
-	for(var i = 0; i < dzQueryResults.length; i++) {
-		level = dzQueryResults[i].rank;
+	for(var i = 0; i < results.length; i++) {
+		level = results[i].rank;
+		if(isWarn == false){
+			level = -1;
+		}
 		markColor = getMarkerColorByWarnLevel(level);
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -685,12 +724,12 @@ function getDZMarkersLayerGroup(results) {
 			prefix: 'fa',
 			spin: false
 		});
-		var mId = dzQueryResults[i].quakeid;
+		var mId = results[i].quakeid;
 		var mType = 'dzd';
-		var picker = mui.parseJSON(dzQueryResults[i].attr)[0];
+		var picker = mui.parseJSON(results[i].attr)[0];
 		var mX = picker.latitude;
 		var mY = picker.longitude;
-		var mN = dzQueryResults[i].name;
+		var mN = results[i].name;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
 			title: mN,
@@ -707,7 +746,14 @@ function getDZMarkersLayerGroup(results) {
 		latLngsArr.push(markerObj.getLatLng());
 
 	}
-	warnBounds = L.latLngBounds(latLngsArr);
+	if(latLngsArr.length > 0) {
+		warnBounds = L.latLngBounds(latLngsArr);
+		setTimeout(function() {
+			myMap.fitBounds(warnBounds, {
+				maxZoom: maxZoomShow
+			});
+		}, 500);
+	}
 }
 //根据不同的告警级别获取不同的颜色值
 function getMarkerColorByWarnLevel(level) {
