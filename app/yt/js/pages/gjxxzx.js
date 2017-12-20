@@ -52,6 +52,7 @@ function pullDownSuccess(result) {
 
 function falult(message) {
 	document.getElementById("ullist").innerHTML = '';
+	mui.showMsg('查询失败');
 	//异常处理；
 }
 
@@ -78,15 +79,18 @@ function pullupRefresh() {
 	)
 }
 
-//添加列表项的点击事件
+//预警信息列表项的点击事件
 var initEvent = function() {
 	mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
-		var info = this.getAttribute("id");
-		var typeT = info.split('_')[0];
-		var idT = info.split('_')[1];
-		//定位到具体的预警tab
-		var tabT = 'warn'
-		openInfoPage(typeT, idT, tabT);
+		var warnId = this.getAttribute("id");
+		var pageUrl = '../../pages/common/yjxxxq.html';
+		mui.openWindow({
+			url: pageUrl,
+			id: "yjxxxq",
+			extras: {
+				warnId: warnId
+			}
+		});
 	});
 
 	function siblingElems(elem) {
@@ -121,42 +125,6 @@ var initEvent = function() {
 		)
 	});
 
-	//根据类型和id打开对应的设备详情页面
-	function openInfoPage(typeT, idT, tabT) {
-		var pageUrl = '';
-		var pageId = '';
-		switch(typeT) {
-			case 'bmwyjc':
-				{
-					pageUrl = '../../pages/jcsb/jcsbyjxx.html';
-					pageId = 'dzd-bmwyjc-yjxx';
-					break;
-				}
-			case 'lfjc':
-				{
-					pageUrl = '../../pages/jcsb/jcsbyjxx.html';
-					pageId = 'dzd-lfjc-yjxx';
-					break;
-				}
-			case 'yljc':
-				{
-					pageUrl = '../../pages/jcsb/jcsbyjxx.html';
-					pageId = 'dzd-yljc-yjxx';
-					break;
-				}
-			default:
-				break;
-		}
-		mui.openWindow({
-			url: pageUrl,
-			id: pageId,
-			extras: {
-				xqType: typeT,
-				xqID: idT,
-				xqTab: tabT
-			}
-		});
-	}
 }
 
 function getQueryParam() {

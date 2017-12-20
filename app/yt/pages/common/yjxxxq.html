@@ -5,79 +5,81 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-		<style>
-			#slider-pictures {
-				height: 270px;
-				border-bottom: 1px solid black;
-			}
-			/*图片等比自动缩放*/
-			
-			img {
-				width: auto;
-				height: 270px;
-				max-width: 100%;
-				max-height: 100%;
-			}
-		</style>
+		<link href="../../css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
 	</head>
 
 	<body>
-		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">预警信息详细情况</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">预警信息详细情况</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警设备:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">裂缝监测</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警等级:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">4级</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警信息:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">单位时间内裂缝超过0.4mm</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警地点:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">贵溪市石膏矿</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警时间:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/11/13 21:30:19</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系人:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">李四</span>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-table">
-						<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
-						<span class="mui-table-cell mui-col-xs-8 mui-text-left">18102300170</span>
-					</div>
-				</li>
+			<ul id="warn-Info" class="mui-table-view">
+				<script id="ul-li-template" type="text/html">
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警设备:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.devicename%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警等级:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left">
+								<%if (data.rank==1) {%>
+								<span style="color:#B43E32">
+								<%}else if (data.rank==2){%>
+									<span style="color:#E8883B">
+								<%}else if (data.rank==3){%>
+									<span style="color:#DDD858">
+								<%}else if (data.rank==4){%>
+									<span style="color:#525D93">
+								<%}%>
+									<i class="dzlevelfont icon-dz-disaster"></i>
+								</span>
+							</span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警时间:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.addtime%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">预警信息:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.content%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">地灾点:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.quakename%></span>
+						</div>
+					</li>
+					
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系人:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.username%></span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-table">
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
+							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.mobile%></span>
+						</div>
+					</li>
+				</script>
 			</ul>
 		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/pages/common.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/template-native.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/pages/yjxxxq.js" charset="utf-8"></script>
 	</body>
-
 </html>
