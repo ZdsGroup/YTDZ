@@ -684,8 +684,9 @@ function getDZMarkersLayerGroup(results) {
 		});
 		var mId = results[i].quakeid;
 		var mType = 'dzd';
-		var mX = eval(results[i].attr)[0].latitude;
-		var mY = eval(results[i].attr)[0].longitude;
+		debugger
+		var mX = mui.parseJSON(results[i].attr)[0].latitude;
+		var mY = mui.parseJSON(results[i].attr)[0].longitude;
 		var mN = results[i].name;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
