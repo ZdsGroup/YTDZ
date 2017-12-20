@@ -6,6 +6,14 @@
 		pageStartIndex: 1,
 		pageSize: 20
 	}
+	$.showMsg = function(mst) {
+		plus.nativeUI.toast(mst, {
+			icon: '/images/info.png',
+			duration: 'short',
+			align: 'center',
+			verticalAlign: 'center'
+		});
+	}
 	$.myMuiQuery = function(url, params, success, error) {
 		mui.ajax(baseURL + url, {
 			data: params,
@@ -19,11 +27,11 @@
 		//查询无结果公用显示
 		function globalSuccess(result) {
 			if(result.code == 0 && result.data != null && result.data.total == 0) {
-				plus.nativeUI.toast("无查询结果",{
-					icon:'/images/info.png',
+				plus.nativeUI.toast("无查询结果", {
+					icon: '/images/info.png',
 					duration: 'short',
 					align: 'center',
-					verticalAlign:'center'
+					verticalAlign: 'center'
 				})
 			}
 			return success(result);
@@ -32,10 +40,10 @@
 		function myMuiQueryErr(result) {
 			if(result.code != 0) {
 				plus.nativeUI.toast("查询失败”", {
-					icon:'/images/info.png',
+					icon: '/images/info.png',
 					duration: 'short',
 					align: 'center',
-					verticalAlign:'center'
+					verticalAlign: 'center'
 				})
 			}
 			return error(result);

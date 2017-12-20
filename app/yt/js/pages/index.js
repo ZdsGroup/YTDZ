@@ -471,7 +471,7 @@ var initEvent = function() {
 		}
 	});
 
-//	监听点击事件,获取所有按钮，绑定按钮的点击事件
+	//	监听点击事件,获取所有按钮，绑定按钮的点击事件
 	mui('#toolFloatContainer').on("tap", ".mui-btn", function(evt) {
 		var action = this.getAttribute('value');
 		switch(action) {
@@ -522,11 +522,11 @@ var initEvent = function() {
 					if(obj.classList.contains('map-tool-warn-color')) {
 						obj.classList.remove('map-tool-warn-color');
 						obj.classList.add('map-tool-warn');
-						showAllDZMarksOnMap();
+						getDzd(showAllDZMarksOnMap);
 					} else {
 						obj.classList.remove('map-tool-warn');
 						obj.classList.add('map-tool-warn-color');
-						showWarnDZMarksOnMap();
+						getDzd(showWarnDZMarksOnMap);
 					}
 					break;
 				}
@@ -594,22 +594,8 @@ function closeStarMarksOnMap() {
 
 };
 
-function showAllDZMarksOnMap() {
-	//0所有地灾点
-	var results = queryMarkers(0);
-	if(results != null && results.length > 0) {
-		dzMarkersLayerGroup.clearLayers();
-		getDZMarkersLayerGroup(results);
-		myMap.addLayer(dzMarkersLayerGroup);
-		myMap.fitBounds(warnBounds, {
-			maxZoom: maxZoomShow
-		});
-	} else {
-		mui.toast('无查询结果！', {
-			duration: 'short',
-			type: 'div'
-		})
-	}
+function showAllDZMarksOnMap(results) {
+	getDZMarkersLayerGroup(results, false);
 }
 
 //检查地图size变化
@@ -648,14 +634,9 @@ function initJcsbPictureList() {
 	//	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
-function showWarnDZMarksOnMap(dzdResult) {
-	//1所有地灾点，包括报警级别信息
-	dzMarkersLayerGroup.clearLayers();
-	getDZMarkersLayerGroup(dzdResult);
-	myMap.addLayer(dzMarkersLayerGroup);
-	myMap.fitBounds(warnBounds, {
-		maxZoom: maxZoomShow
-	});
+function showWarnDZMarksOnMap(result) {
+	//1所有预警的地灾点，包括报警级别信息
+	getDZMarkersLayerGroup(result, true);
 }
 
 //请求后台服务获取不同对象数据
@@ -675,7 +656,13 @@ function queryMarkers(markType) {
 	}
 }
 //生成markers并添加到地灾markerlayergroup
-function getDZMarkersLayerGroup(results) {
+function getDZMarkersLayerGroup(results, isWarn) {
+	dzMarkersLayerGroup.clearLayers();
+	if(results == null || results.quakes == null || results.quakes.length == 0) {
+		mui.showMsg("无地灾点")
+		return;
+	}
+	isWarn = isWarn != null ? isWarn : false;
 	dzQueryResults = results.quakes;
 	var latLngsArr = new Array();
 	var iconName = 'bullseye';
@@ -683,6 +670,10 @@ function getDZMarkersLayerGroup(results) {
 	var level = '';
 	for(var i = 0; i < dzQueryResults.length; i++) {
 		level = dzQueryResults[i].rank;
+		//对是否是查看预警地灾点进行过滤
+		if(isWarn == true && level == 0) {
+			continue;
+		}
 		markColor = getMarkerColorByWarnLevel(level);
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -692,8 +683,9 @@ function getDZMarkersLayerGroup(results) {
 		});
 		var mId = dzQueryResults[i].quakeid;
 		var mType = 'dzd';
-		var mX = mui.parseJSON(dzQueryResults[i].attr)[0].latitude;
-		var mY = mui.parseJSON(dzQueryResults[i].attr)[0].longitude;
+		var picker = mui.parseJSON(dzQueryResults[i].attr)[0];
+		var mX = picker.latitude;
+		var mY = picker.longitude;
 		var mN = dzQueryResults[i].name;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
@@ -711,7 +703,23 @@ function getDZMarkersLayerGroup(results) {
 		latLngsArr.push(markerObj.getLatLng());
 
 	}
-	warnBounds = L.latLngBounds(latLngsArr);
+	if(latLngsArr.length > 0) {
+		warnBounds = L.latLngBounds(latLngsArr);
+		myMap.addLayer(dzMarkersLayerGroup);
+		myMap.fitBounds(warnBounds, {
+			maxZoom: maxZoomShow
+		});
+		if (isWarn == true){
+		//	mui.showMsg(latLngsArr.length+"个预警地灾点");
+		} 
+	} else {
+		if (isWarn == true){
+		//	mui.showMsg("无地灾点预警");
+		} else {
+		//	mui.showMsg("无地灾点");
+		}
+		
+	}
 }
 //根据不同的告警级别获取不同的颜色值
 function getMarkerColorByWarnLevel(level) {
