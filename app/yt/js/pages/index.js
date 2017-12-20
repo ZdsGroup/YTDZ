@@ -12,7 +12,6 @@ var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
 var scroller = null;
 var jcsbMaxZoomShow = 14;
-var dzdResult = null; //所有地灾点查询结果，用于显示全部地灾点和预警地灾点
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -142,7 +141,7 @@ var initMap = function() {
 		}
 	});
 
-	getDzd(showWarnDZMarksOnMap);
+	showWarnDZMarksOnMap();
 	showWarnInfoOnMap();
 
 	//监测设备根据不同的地图级别进行显示隐藏
@@ -158,22 +157,6 @@ var initMap = function() {
 	});
 };
 
-function getDzd(nextfunction) {
-	//1所有地灾点，包括报警级别信息
-	if(dzdResult == null) {
-		var action = "quakes/all";
-		mui.myMuiQuery(action, {},
-			function(results) {
-				dzdResult = results.data;
-				nextfunction(dzdResult);
-			},
-			function(results) {
-				dzdResult = null;
-			});
-	} else {
-		nextfunction(dzdResult);
-	}
-}
 
 function clearLayerByID(id) {
 	if(myMap != null) {
@@ -522,11 +505,11 @@ var initEvent = function() {
 					if(obj.classList.contains('map-tool-warn-color')) {
 						obj.classList.remove('map-tool-warn-color');
 						obj.classList.add('map-tool-warn');
-						getDzd(showAllDZMarksOnMap);
+						showAllDZMarksOnMap();
 					} else {
 						obj.classList.remove('map-tool-warn');
 						obj.classList.add('map-tool-warn-color');
-						getDzd(showWarnDZMarksOnMap);
+						showWarnDZMarksOnMap();
 					}
 					break;
 				}
@@ -594,8 +577,22 @@ function closeStarMarksOnMap() {
 
 };
 
-function showAllDZMarksOnMap(results) {
-	getDZMarkersLayerGroup(results, false);
+function showAllDZMarksOnMap() {
+	//0所有地灾点
+	var results = queryMarkers(0);
+	if(results != null && results.length > 0) {
+		dzMarkersLayerGroup.clearLayers();
+		getDZMarkersLayerGroup(results);
+		myMap.addLayer(dzMarkersLayerGroup);
+		myMap.fitBounds(warnBounds, {
+			maxZoom: maxZoomShow
+		});
+	} else {
+		mui.toast('无查询结果！', {
+			duration: 'short',
+			type: 'div'
+		})
+	}
 }
 
 //检查地图size变化
@@ -634,9 +631,26 @@ function initJcsbPictureList() {
 	//	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
-function showWarnDZMarksOnMap(result) {
-	//1所有预警的地灾点，包括报警级别信息
-	getDZMarkersLayerGroup(result, true);
+function showWarnDZMarksOnMap() {
+	//1所有地灾点，包括报警级别信息
+	var action = "quakes/all";
+	mui.myMuiQuery(action, '',
+		function(results){
+			if(results != null && results.data.quakes.length > 0) {
+				dzMarkersLayerGroup.clearLayers();
+				getDZMarkersLayerGroup(results.data.quakes);
+				myMap.addLayer(dzMarkersLayerGroup);
+				myMap.fitBounds(warnBounds, {
+					maxZoom: maxZoomShow
+				});
+			} else {
+				mui.myMuiQueryNoResult('查询所有地灾点无结果！');
+			}
+		},
+		function(){
+			mui.myMuiQueryErr('查询所有地灾点失败，请稍后再试！');
+		}
+	)
 }
 
 //请求后台服务获取不同对象数据
@@ -656,24 +670,14 @@ function queryMarkers(markType) {
 	}
 }
 //生成markers并添加到地灾markerlayergroup
-function getDZMarkersLayerGroup(results, isWarn) {
-	dzMarkersLayerGroup.clearLayers();
-	if(results == null || results.quakes == null || results.quakes.length == 0) {
-		mui.showMsg("无地灾点")
-		return;
-	}
-	isWarn = isWarn != null ? isWarn : false;
-	dzQueryResults = results.quakes;
+function getDZMarkersLayerGroup(results) {
+	dzQueryResults = results;
 	var latLngsArr = new Array();
 	var iconName = 'bullseye';
 	var markColor = 'green';
 	var level = '';
 	for(var i = 0; i < dzQueryResults.length; i++) {
 		level = dzQueryResults[i].rank;
-		//对是否是查看预警地灾点进行过滤
-		if(isWarn == true && level == 0) {
-			continue;
-		}
 		markColor = getMarkerColorByWarnLevel(level);
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -703,23 +707,7 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		latLngsArr.push(markerObj.getLatLng());
 
 	}
-	if(latLngsArr.length > 0) {
-		warnBounds = L.latLngBounds(latLngsArr);
-		myMap.addLayer(dzMarkersLayerGroup);
-		myMap.fitBounds(warnBounds, {
-			maxZoom: maxZoomShow
-		});
-		if (isWarn == true){
-		//	mui.showMsg(latLngsArr.length+"个预警地灾点");
-		} 
-	} else {
-		if (isWarn == true){
-		//	mui.showMsg("无地灾点预警");
-		} else {
-		//	mui.showMsg("无地灾点");
-		}
-		
-	}
+	warnBounds = L.latLngBounds(latLngsArr);
 }
 //根据不同的告警级别获取不同的颜色值
 function getMarkerColorByWarnLevel(level) {
