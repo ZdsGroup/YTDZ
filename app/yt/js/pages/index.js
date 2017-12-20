@@ -12,6 +12,7 @@ var topNavHeight = 25; //手机顶部状态栏高度
 var picListPageSize = 3;
 var scroller = null;
 var jcsbMaxZoomShow = 14;
+var dzdResult = null; //所有地灾点查询结果，用于显示全部地灾点和预警地灾点
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -141,7 +142,7 @@ var initMap = function() {
 		}
 	});
 
-	showWarnDZMarksOnMap();
+	getDzd(showWarnDZMarksOnMap);
 	showWarnInfoOnMap();
 
 	//监测设备根据不同的地图级别进行显示隐藏
@@ -156,6 +157,23 @@ var initMap = function() {
 		}
 	});
 };
+
+function getDzd(nextfunction) {
+	//1所有地灾点，包括报警级别信息
+	if(dzdResult == null) {
+		var action = "quakes/all";
+		mui.myMuiQuery(action, {},
+			function(results) {
+				dzdResult = results.data;
+				nextfunction(dzdResult);
+			},
+			function(results) {
+				dzdResult = null;
+			});
+	} else {
+		nextfunction(dzdResult);
+	}
+}
 
 function clearLayerByID(id) {
 	if(myMap != null) {
@@ -362,7 +380,6 @@ var initEvent = function() {
 		if(info) {
 			var typeT = info.split('_')[0];
 			var idT = info.split('_')[1];
-			//debugger
 			mui.openWindow({
 				url: 'pages/jcsb/jcsb.html',
 				id: 'jcsb-detail-id',
@@ -454,9 +471,9 @@ var initEvent = function() {
 		}
 	});
 
-	//监听点击事件,获取所有按钮，绑定按钮的点击事件
-	mui('.mui-content').on("tap", "button", function(evt) {
-		var action = evt.target.value;
+//	监听点击事件,获取所有按钮，绑定按钮的点击事件
+	mui('#toolFloatContainer').on("tap", ".mui-btn", function(evt) {
+		var action = this.getAttribute('value');
 		switch(action) {
 			case 'usercenter':
 				{
@@ -631,23 +648,14 @@ function initJcsbPictureList() {
 	//	document.getElementById("jcsb-pics-list").innerHTML = html;
 }
 //显示告警对象
-function showWarnDZMarksOnMap() {
+function showWarnDZMarksOnMap(dzdResult) {
 	//1所有地灾点，包括报警级别信息
-	var action = "quakes/all";
-	mui.myMuiQuery(action, '',
-		function(results){
-			if(results != null && results.data.quakes.length > 0) {
-				dzMarkersLayerGroup.clearLayers();
-				getDZMarkersLayerGroup(results.data.quakes);
-				myMap.addLayer(dzMarkersLayerGroup);
-				myMap.fitBounds(warnBounds, {
-					maxZoom: maxZoomShow
-				});
-			} 
-		},
-		function(){
-		}
-	)
+	dzMarkersLayerGroup.clearLayers();
+	getDZMarkersLayerGroup(dzdResult);
+	myMap.addLayer(dzMarkersLayerGroup);
+	myMap.fitBounds(warnBounds, {
+		maxZoom: maxZoomShow
+	});
 }
 
 //请求后台服务获取不同对象数据
@@ -668,13 +676,13 @@ function queryMarkers(markType) {
 }
 //生成markers并添加到地灾markerlayergroup
 function getDZMarkersLayerGroup(results) {
-	dzQueryResults = results;
+	dzQueryResults = results.quakes;
 	var latLngsArr = new Array();
 	var iconName = 'bullseye';
 	var markColor = 'green';
 	var level = '';
-	for(var i = 0; i < results.length; i++) {
-		level = results[i].rank;
+	for(var i = 0; i < dzQueryResults.length; i++) {
+		level = dzQueryResults[i].rank;
 		markColor = getMarkerColorByWarnLevel(level);
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -682,17 +690,16 @@ function getDZMarkersLayerGroup(results) {
 			prefix: 'fa',
 			spin: false
 		});
-		var mId = results[i].quakeid;
+		var mId = dzQueryResults[i].quakeid;
 		var mType = 'dzd';
-		debugger
-		var mX = mui.parseJSON(results[i].attr)[0].latitude;
-		var mY = mui.parseJSON(results[i].attr)[0].longitude;
-		var mN = results[i].name;
+		var mX = mui.parseJSON(dzQueryResults[i].attr)[0].latitude;
+		var mY = mui.parseJSON(dzQueryResults[i].attr)[0].longitude;
+		var mN = dzQueryResults[i].name;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
 			title: mN,
 			type: mType,
-			id:mId
+			id: mId
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
@@ -747,7 +754,6 @@ function getMarkerColorByWarnLevel(level) {
 //地灾点的点击事件，显示该地灾点的监测设备
 function showJCMarkerByDZid(dzID) {
 	//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
-	debugger
 	var results = queryMarkers(2);
 	if(results != null && results.length > 0) {
 		jcMarkersLayerGroup.clearLayers();
