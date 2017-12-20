@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css"/>
 		<style type="text/css">
 			.mui-icon-clear {
 				right: 5px !important;
@@ -69,7 +69,7 @@
 						<ul id="ullist" class="mui-table-view mui-table-view-chevron">
 							<script id="ul-li-template" type="text/html">
 								<% for(var i=0;i<list.length;i++){%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+								<li id='<%=list[i].id%>' class="mui-table-view-cell">
 									<a class="mui-navigate-right">
 										<div class="mui-slider-cell">
 											<p><span class="yt-normal-color" style="font-size: 1em;">预警设备: <%=list[i].devicename%></span>
