@@ -35,28 +35,8 @@ var initApp = function() {
 	});
 	scroller.setStopped(true); //暂时禁止
 
-	//TODO调用方式-与后台交互测试
-	//	myMuiQueryTest();
 };
 mui.ready(initApp);
-
-function myMuiQueryTest() {
-
-	mui.myMuiQuery('http://quake.anruence.com/oracle/users', {
-		pageno: 1,
-		pagesize: 50
-	}, function(result) {
-		mui.toast('测试请求后台真实服务获取数据条数：' + result.data.size, {
-			duration: 'long',
-			type: 'div'
-		})
-	}, function(message) {
-		mui.toast('获取数据出错，请稍后再试！', {
-			duration: 'short',
-			type: 'div'
-		})
-	});
-};
 
 var initAppPlus = function() {
 	//获取状态栏高度
@@ -183,7 +163,7 @@ function showWarnInfoOnMap() {
 	}, 10000);
 }
 
-//TODO 查询后台服务器，获取警告信息汇总
+//查询后台服务器，获取警告信息汇总
 function queryWarnInfo() {
 	var dzNum = 0;
 	var jcsbNum = 0;
@@ -836,7 +816,6 @@ function getJCMarkersLayerGroup(results) {
 }
 //设置底部栏的内容，根据点击的地灾点或者设备点
 function setFooterContentByInfo(Type, infoID) {
-//	debugger
 	var tempResults = null;
 	var infoT = null;
 	if(Type == 'dzd') {
@@ -894,12 +873,13 @@ function setFooterContentByInfo(Type, infoID) {
 	});
 	document.getElementById("footer-table").innerHTML = html;
 
-	localStorage.setItem("currentSelectedFeature", JSON.stringify(infoT)); //记录当前选中的要素，用于指导要素详情细分页面跳转
-	this.showDetailPanel(infoT);
+	localStorage.setItem("currentSelectedFeature", JSON.stringify(infoT,Type)); //记录当前选中的要素，用于指导要素详情细分页面跳转
+	this.showDetailPanel(infoT,Type);
 }
 
 //根据地灾点或监测设备类型显示详情信息，此处为三层分层信息面板
-function showDetailPanel(feature) {
+function showDetailPanel(feature,type) {
+//	debugger
 	var dzdDetailList = mui('.dzd-footercardcontent');
 	var jcsbDetailList = mui('.jcsb-footercardcontent');
 	if(dzdDetailList && dzdDetailList.length > 0) {
@@ -914,7 +894,6 @@ function showDetailPanel(feature) {
 			jcsbDetailList[i].classList.add('mui-hidden');
 		}
 	}
-	var type = feature.type;
 	if(type == 'dzd') {
 		if(dzdDetailList && dzdDetailList.length > 0) {
 			var len = dzdDetailList.length;
