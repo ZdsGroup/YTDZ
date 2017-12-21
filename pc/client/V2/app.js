@@ -8,14 +8,18 @@ requirejs.config({
         data: 'data',
         // 定义框架库相关路径
         "jquery": "libs/jquery-2.1.1",
+        "jquery.nav": "libs/nav",
         "jquery.bootstrap": "libs/bootstrap.min",
-        "jquery.inspinia": "libs/inspinia",
         "jquery.pace": "libs/plugins/pace/pace.min",
-        "jquery.metisMenu": "libs/plugins/metisMenu/jquery.metisMenu",
-        "jquery.slimscroll": "libs/plugins/slimscroll/jquery.slimscroll.min",
-        "jquery.jsTree": "libs/plugins/jsTree/jstree",
         "jquery.layer": "libs/plugins/layer/layer",
-        "jquery.bootstrap.switch": "libs/plugins/bootstrap-switch/bootstrap-switch",
+
+        // 右侧浮动面板
+        "jquery.hoverIntent": "libs/plugins/mbExtruder/jquery.hoverIntent.min",
+        "jquery.mb.flipText": "libs/plugins/mbExtruder/jquery.mb.flipText",
+        "jquery.mbExtruder": "libs/plugins/mbExtruder/mbExtruder",
+
+        // 右侧简易浮动面板
+        "jquery.sliderBar": "libs/plugins/sliderBar/jquery.sliderBar",
 
         "leaflet": "libs/leaflet/leaflet-src",
     },
@@ -26,13 +30,14 @@ requirejs.config({
     },
     shim: {
         "jquery.bootstrap": { deps: ["jquery"] },
-        "jquery.metisMenu": { deps: ["jquery"] },
-        "jquery.inspinia": { deps: ["jquery","jquery.bootstrap","jquery.metisMenu"] },
         "jquery.pace": { deps: ["jquery"] },
-        "jquery.slimscroll": { deps: ["jquery"] },
-        "jquery.jsTree": { deps: ["jquery"] },
+        "jquery.nav": { deps: ["jquery"] },
         "jquery.layer": { deps: ["jquery"] },
-        "jquery.bootstrap.switch": { deps: ["jquery","jquery.bootstrap","css!libs/plugins/bootstrap-switch/bootstrap-switch.css"] },
+
+        "jquery.hoverIntent": { deps: ["jquery"] },
+        "jquery.mb.flipText": { deps: ["jquery","jquery.hoverIntent"] },
+        "jquery.mbExtruder": { deps: ["jquery","jquery.mb.flipText","css!libs/plugins/mbExtruder/mbExtruder.css"] },
+
         "leaflet": { deps: ["css!libs/leaflet/leaflet.css"] },
     }
 });
@@ -43,11 +48,7 @@ require([
     "leaflet",
     "jquery.pace",
     "jquery.bootstrap",
-    "jquery.inspinia",
-    "jquery.metisMenu",
-    "jquery.slimscroll",
-    "jquery.jsTree",
-    "jquery.bootstrap.switch"], function ($,L,pace) {
+    "jquery.nav"], function ($,L,pace) {
     // 初始化将jquery 和 bootstrap等必须的框架加入系统
     // 初始化进度条组件
     pace.start({
@@ -69,4 +70,45 @@ require([
         baselayerGroup['天地图注记'] = wmtslayer(baselayeroption.url,baselayeroption);
         L.control.layers(null,baselayerGroup).addTo(mapview);
     })
+
+    var tempicon = L.marker([40, 113]).addTo(mapview);
+    tempicon.on('click',function () {
+        require(['app/core/rightPanel'],function (rightpanel) {
+            rightpanel.init();
+        })
+    })
+    tempicon.on('dblclick',function () {
+        require(['app/core/rightPanel'],function (rightpanel) {
+            rightpanel.destroy();
+        })
+    })
+
+    // 测试接口
+    require(['app/common/restfulRequest'],function (restfulRequest) {
+        restfulRequest.sendWebRequest(
+            'regions',
+            'get',
+            { pageno : 1 , pagesize : 200 },
+            function (data) {
+                console.log(data);
+            },
+            function (data) {
+                console.log(data);
+            }
+        )
+    })
+
+    {
+        // 解决鼠标移动到dropdown 目录就可以展开，不必点击
+        //关闭click.bs.dropdown.data-api事件，使顶级菜单可点击
+        $(document).off('click.bs.dropdown.data-api');
+        //自动展开
+        $('.nav .dropdown').mouseenter(function(){
+            $(this).addClass('open');
+        });
+        //自动关闭
+        $('.nav .dropdown').mouseleave(function(){
+            $(this).removeClass('open');
+        });
+    }
 });

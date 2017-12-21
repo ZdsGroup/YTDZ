@@ -9,196 +9,291 @@
     <!-- 必须加的样式 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="font/css/font-awesome.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/nav.css">
 </head>
 <body class="md-skin" style="overflow: scroll;overflow-y: hidden;overflow-x: hidden">
-<div id="wrapper">
-    <nav class="navbar-default navbar-static-side  bg1" role="navigation">
-        <div class="sidebar-collapse bg1">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="active">
-                    <a>
-                        <i class="fa fa-table"></i>
-                        <span class="nav-label">鹰潭市</span>
-                        <span class="fa arrow"></span>
+<nav id="topMenuNav" class="navbar navbar-fixed-top banner7" role="navigation">
+    <div class="navbar-header">
+        <img src="./images/logo.png" class="logo">
+        <h1><span class="header-title">鹰潭市地质灾害监测预警预报系统</span>
+            <!--<small>V0.0.1</small>-->
+        </h1>
+    </div>
+    <ul class="nav navbar-nav navbar-top-links navbar-left" style="margin-left:300px;">
+        <li>
+            <a href="#" class="active">
+                <span class="text-xs block">地图展示</span>
+            </a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <span class="text-xs block">监测点<b class="caret"></b></span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts profile">
+                <li><a href="#">监测点分析</a></li>
+                <li class="divider"></li>
+                <li><a href="#">地灾点管理</a></li>
+                <li class="divider"></li>
+                <li><a href="#">监测设备管理</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <span class="text-xs block">监测数据<b class="caret"></b></span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts profile">
+                <li><a href="#">监测数据</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <span class="text-xs block">智能预警<b class="caret"></b></span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts profile">
+                <li><a href="#">预警信息</a></li>
+                <li class="divider"></li>
+                <li><a href="#">预警模型设置</a></li>
+                <li class="divider"></li>
+                <li><a href="#">预警信息发布</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <span class="text-xs block">系统设置<b class="caret"></b></span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts profile">
+                <li><a href="#">用户管理</a></li>
+                <li class="divider"></li>
+                <li><a href="#">角色管理</a></li>
+                <li class="divider"></li>
+                <li><a href="#">部门管理</a></li>
+                <li class="divider"></li>
+                <li><a href="#">权限设置</a></li>
+                <li class="divider"></li>
+                <li><a href="#">配置管理</a></li>
+                <li class="divider"></li>
+                <li><a href="#">日志管理</a></li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <span class="text-xs block">管理员 <b class="caret"></b></span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts profile">
+                <li>
+                    <p>手机:15000230763</p>
+                </li>
+                <li class="divider"></li>
+                <li><a href="contacts.html">修改密码</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell"></i> <span class="label label-warning">5</span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts">
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
+                            <span class="pull-right text-muted small">4 分钟 前</span>
+                        </div>
                     </a>
-                    <ul class="nav nav-second-level collapse">
-                        <li>
-                            <a href="#">余江县<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="#">余江县石膏厂<span class="badge" style="float: right">14</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">余江县煤矿<span class="badge" style="float: right">5</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">贵溪市<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="#">贵溪市煤矿1<span class="badge" style="float: right">14</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">贵溪市煤矿2<span class="badge" style="float: right">5</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
+                            <span class="pull-right text-muted small">6 分钟 前</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
+                            <span class="pull-right text-muted small">8 分钟 前</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <div class="text-center link-block">
+                        <a href="agile_board.html">
+                            <strong>查看更多</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
                 </li>
             </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <i class="fa fa-envelope"></i> <span class="label label-warning">3</span>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts">
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
+                            <span class="pull-right text-muted small">4 分钟 前</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
+                            <span class="pull-right text-muted small">6 分钟 前</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
+                            <span class="pull-right text-muted small">8 分钟 前</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <div class="text-center link-block">
+                        <a href="agile_board.html">
+                            <strong>查看更多</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="login.html">
+                <i class="fa fa-sign-out"></i> 退出
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="navnew">
+    <div class="nav-top">
+        <div style="border-bottom:1px solid rgba(255,255,255,.1)">
+            <img id="mini" src="images/mini.png" >
+            <span class="TopTitle">鹰潭市</span>
         </div>
-    </nav>
-
-    <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
-            <nav class="navbar navbar-fixed-top banner7" role="navigation">
-                <div class="navbar-header">
-                    <img src="./images/logo.png" class="logo">
-                    <h1><span class="header-title">鹰潭市地质灾害监测预警预报系统</span>
-                        <small>V0.0.1</small>
-                    </h1>
-                </div>
-                <ul class="nav navbar-nav navbar-top-links navbar-left" style="margin-left:300px;">
-                    <li>
-                        <a href="#" class="active">
-                            <span class="text-xs block">地图</b></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-xs block">智能监测</b></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-xs block">智能分析</b></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-xs block">智能预警</b></span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-top-links navbar-right">
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="text-xs block">管理员 <b class="caret"></b></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts profile">
-                            <li>
-                                <p>水利部</p>
-                                <p>手机:15000230763</p>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="contacts.html">修改密码</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell"></i> <span class="label label-warning">5</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
-                                        <span class="pull-right text-muted small">4 分钟 前</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
-                                        <span class="pull-right text-muted small">6 分钟 前</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
-                                        <span class="pull-right text-muted small">8 分钟 前</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a href="agile_board.html">
-                                        <strong>查看更多</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-envelope"></i> <span class="label label-warning">3</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
-                                        <span class="pull-right text-muted small">4 分钟 前</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
-                                        <span class="pull-right text-muted small">6 分钟 前</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-clock-o fa-fw"></i> 资源发布待审核
-                                        <span class="pull-right text-muted small">8 分钟 前</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a href="agile_board.html">
-                                        <strong>查看更多</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="login.html">
-                            <i class="fa fa-sign-out"></i> 退出
-                        </a>
-                    </li>
-                </ul>
-
-            </nav>
-        </div>
-        <div id="mapdiv"></div>
     </div>
+
+    <div id="menuSearch" class="col-sm-12" style="margin-top: 15px">
+        <div class="input-group m-b">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary">
+                <span class="fa fa-search"></span>
+            </button>
+        </span>
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+    <ul>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>余江县</span><i class="my-icon nav-more"></i></a>
+            <ul>
+                <li >
+                    <a href="javascript:;">
+                        <span>余江县石膏厂</span>
+                    </a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+                    </div>
+                </li>
+                <hr/>
+                <li >
+                    <a href="javascript:;">
+                        <span>余江县石膏厂</span>
+                    </a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+                    </div>
+                </li>
+                <hr/>
+                <li >
+                    <a href="javascript:;">
+                        <span>余江县石膏厂</span>
+                    </a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+                    </div>
+                </li>
+                <hr/>
+                <li>
+                    <a href="javascript:;"><span>余江县煤矿</span></a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;">
+                <i class="my-icon nav-icon icon_2"></i>
+                <span>贵溪市</span>
+                <i class="my-icon nav-more"></i>
+            </a>
+            <ul>
+                <li>
+                    <a href="javascript:;"><span>贵溪市煤矿1</span></a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+
+                    </div>
+                </li>
+                <hr/>
+                <li>
+                    <a href="javascript:;"><span>贵溪市煤矿2</span></a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+                    </div>
+                </li>
+                <hr/>
+                <li>
+                    <a href="javascript:;"><span>贵溪市煤矿3</span></a>
+                    <div>
+                        <p>告警等级：☆☆☆☆☆</p>
+                        <p>地址：贵溪市XX路XX号</p>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>余江县</span><i class="my-icon nav-more"></i></a>
+            <ul>
+                <li><a href="javascript:;"><span>订单列表</span></a></li>
+                <li><a href="javascript:;"><span>打个酱油</span></a></li>
+                <li><a href="javascript:;"><span>也打酱油</span></a></li>
+            </ul>
+        </li>
+    </ul>
 </div>
 
-<div class="menu-config navbar-minimalize">
-    <div class="menu-config-box ">
-        <a class="btn btn-xs btn-primary" href="#">
-            <i class="fa fa-angle-double-left"></i>
-        </a>
-    </div>
+<div id="center_panel"style="height: 100%;position: relative;margin-top: 60px;margin-left: 220px;">
+    <div id="mapdiv" style="height: 100%; width: 100%"></div>
 </div>
 <!-- Le javascript
   ================================================== -->

@@ -9541,7 +9541,8 @@ body.md-skin {
     color: #ffffff;
 }
 .md-skin .nav.navbar-left > li > a:hover {
-     background: #1ab394;
+     /*background: #1ab394;*/
+    background: rgba(0,191,243,0.8)
  }
 .md-skin .nav.navbar-left > li > a.active {
     background: #1ab394;
