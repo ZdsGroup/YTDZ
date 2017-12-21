@@ -689,9 +689,9 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		});
 		var mId = results[i].quakeid;
 		var mType = 'dzd';
-		var picker = mui.parseJSON(results[i].attr)[0];
-		var mX = picker.latitude;
-		var mY = picker.longitude;
+		var picker = mui.parseJSON(results[i].centroid);
+		var mX = picker.lat;
+		var mY = picker.lng;
 		var mN = results[i].name;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
@@ -816,19 +816,20 @@ function getJCMarkersLayerGroup(results) {
 }
 //设置底部栏的内容，根据点击的地灾点或者设备点
 function setFooterContentByInfo(Type, infoID) {
+	debugger
 	var tempResults = null;
 	var infoT = null;
 	if(Type == 'dzd') {
 		tempResults = dzQueryResults.quakes;
+		infoT = getCheckInfos(tempResults,Type, infoID);
+		initDzdContentHtml(infoT, Type);
 	} else {
 		tempResults = dzQueryResults.devices;
-
-		var jcsbhtml = template('jczb-ul-li-template', {
-			type: Type
-		});
+		infoT = getCheckInfos(tempResults,Type, infoID);
+		initJcsbContentHtml(infoT, Type);
+		
 		//释放事件监听
 		mui('#jcsb-jczb-list').off('tap', 'li');
-		document.getElementById("jcsb-jczb-list").innerHTML = jcsbhtml;
 		mui(".mui-slider").slider();
 		mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
 			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
@@ -855,26 +856,67 @@ function setFooterContentByInfo(Type, infoID) {
 			mui.openWindow(info);
 		});
 	}
-	for(var i = 0; i < tempResults.length; i++) {
-		var checkId = null;
-		if(Type == 'dzd') {
-			checkId = tempResults[i].quakeid;
-		}else{
-			checkId = tempResults[i].deviceid;
-		}
-		if(checkId == infoID) {
-			infoT = tempResults[i];
-			break;
-		}
-	}
-	var html = template('brief-ul-li-template', {
-		info: infoT,
-		type: Type
-	});
-	document.getElementById("footer-table").innerHTML = html;
+	initBriefContentHtml(infoT, Type);
 
 	localStorage.setItem("currentSelectedFeature", JSON.stringify(infoT,Type)); //记录当前选中的要素，用于指导要素详情细分页面跳转
 	this.showDetailPanel(infoT,Type);
+}
+function getCheckInfos(results,typeT, idT){
+	var infoT = null;
+	for(var i = 0; i < results.length; i++) {
+		var checkId = null;
+		if(typeT == 'dzd') {
+			checkId = results[i].quakeid;
+		}else{
+			checkId = results[i].deviceid;
+		}
+		if(checkId == idT) {
+			infoT = results[i];
+			break;
+		}
+	}
+	return infoT;
+}
+//初始化概要信息内容
+function initBriefContentHtml(infoT, typeT){
+	var html = template('brief-ul-li-template', {
+		info: infoT,
+		type: typeT
+	});
+	document.getElementById("footer-table").innerHTML = html;
+}
+//初始化地灾点内容
+function initDzdContentHtml(infoT, typeT){
+	var contentPart1 = template('dzd-content-part1-template', {
+			info: infoT,
+			type: typeT
+		});
+	document.getElementById("dzd-content-part1").innerHTML = contentPart1;
+	
+	var contentPart2 = template('dzd-content-part2-template', {
+			info: infoT,
+			type: typeT
+		});
+	document.getElementById("dzd-content-part2").innerHTML = contentPart2;
+}
+//初始化监测设备内容
+function initJcsbContentHtml(infoT, typeT){
+	var contentPart1 = template('jcsb-content-part1-template', {
+			info: infoT,
+			type: typeT
+		});
+	document.getElementById("jcsb-content-part1").innerHTML = contentPart1;
+	
+	var contentPart2 = template('jcsb-content-part2-template', {
+			info: infoT,
+			type: typeT
+		});
+	document.getElementById("jcsb-content-part2").innerHTML = contentPart2;
+	
+	var jcsbhtml = template('jczb-ul-li-template', {
+		type: typeT
+	});
+	document.getElementById("jcsb-jczb-list").innerHTML = jcsbhtml;
 }
 
 //根据地灾点或监测设备类型显示详情信息，此处为三层分层信息面板
