@@ -46,43 +46,43 @@
 								<%if (type=='dzd') {%>
 								<p id='<%=type%>_<%=info.id%>' class="yt-normal-color">
 									<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%> </span>
-									<%if (info.le=='0') {%>
-									<span style="color: green;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='1'){%>
-									<span style="color: blue;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='2'){%>
-									<span style="color: #FFD800;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='3'){%>
-									<span style="color: orange;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='4'){%>
-									<span style="color: red;padding-left: 0.1em;">(地灾点预警等级 <%=info.le%> 级)</span>
+									<%if (info.rank=='0') {%>
+									<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='1'){%>
+									<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='2'){%>
+									<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='3'){%>
+									<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='4'){%>
+									<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
 									<%}%>
 								</p>
 								<p>
 									<span class="">
 									<i class="fa fa-map-marker fa-fw"></i>
-									<%=info.addr%>
+									<%=info.address%>
 									</span>
 								</p>
 								<%}else{%>
 								<p id='<%=type%>_<%=info.id%>'>
 									<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%></span>
-									<%if (info.le=='0') {%>
-									<span style="color: green;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='1'){%>
-									<span style="color: blue;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='2'){%>
-									<span style="color: #FFD800;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='3'){%>
-									<span style="color: orange;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
-									<%}else if (info.le=='4'){%>
-									<span style="color: red;padding-left: 0.1em;">(<%=info.typeNM%>预警等级 <%=info.le%> 级)</span>
+									<%if (info.rank=='0') {%>
+									<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='1'){%>
+									<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='2'){%>
+									<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='3'){%>
+									<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+									<%}else if (info.rank=='4'){%>
+									<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
 									<%}%>
 								</p>
 								<p>
 									<span>
 									<i class="fa fa-map-marker fa-fw"></i>
-									<%=info.addr%>
+									<%=info.address%>
 									</span>
 								</p>
 								<%}%>

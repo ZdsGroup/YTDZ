@@ -597,7 +597,6 @@ function closeStarMarksOnMap() {
 };
 
 function showAllDZMarksOnMap() {
-	//0所有地灾点
 	dzMarkersLayerGroup.clearLayers();
 	if(dzQueryResults){
 		getDZMarkersLayerGroup(dzQueryResults.quakes, false);
@@ -690,22 +689,6 @@ function showWarnDZMarksOnMap() {
 	}
 }
 
-//请求后台服务获取不同对象数据
-function queryMarkers(markType) {
-	switch(markType) {
-		case 0:
-			return dzMarkersData;
-			break;
-		case 1:
-			return warnDZMarkersData;
-			break;
-		case 2:
-			return warnjcMarkersData;
-			break;
-		default:
-			break;
-	}
-}
 //生成markers并添加到地灾markerlayergroup
 function getDZMarkersLayerGroup(results, isWarn) {
 	var latLngsArr = new Array();
@@ -739,12 +722,11 @@ function getDZMarkersLayerGroup(results, isWarn) {
 			closeButton: false
 		}).on('click', function(e) {
 			showJCMarkerByDZid(e.target.options.id);
-			setFooterContentByInfo(e.target.options.type, e.target.options.title);
+			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			showFooterPanel(footerHeight);
 		});
 		dzMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
-
 	}
 	if(latLngsArr.length > 0) {
 		warnBounds = L.latLngBounds(latLngsArr);
@@ -795,53 +777,48 @@ function getMarkerColorByWarnLevel(level) {
 
 //地灾点的点击事件，显示该地灾点的监测设备
 function showJCMarkerByDZid(dzID) {
-	//2查询所有的监测设备，包括报警级别信息，以及归属的地灾点
-	var results = queryMarkers(2);
-	if(results != null && results.length > 0) {
+	if(dzID !=null &&dzQueryResults !=null){
 		jcMarkersLayerGroup.clearLayers();
-		getJCMarkersLayerGroup(results);
+		var devicesArr = dzQueryResults.devices;
+		var tempArr =new Array();
+		for (var i = 0; i < devicesArr.length; i++) {
+			if(devicesArr[i].quakeid == dzID){
+				tempArr.push(devicesArr[i]);
+			}
+		}
+		getJCMarkersLayerGroup(tempArr);
 		myMap.addLayer(jcMarkersLayerGroup);
-		myMap.fitBounds(warnBounds, {
-			maxZoom: maxZoomShow
-		});
-	} else {
-		mui.toast('无查询结果！', {
-			duration: 'short',
-			type: 'div'
-		})
 	}
 }
 //生成markers并添加到监测设备markerlayergroup
 function getJCMarkersLayerGroup(results) {
-	jcQueryResults = results;
 	var latLngsArr = new Array();
 	var iconName = 'camera';
 	var markColor = 'purple';
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
-		level = results[i].le;
+		level = results[i].rank;
 		markColor = getMarkerColorByWarnLevel(level);
-		var mId = results[i].id;
-		var mType = results[i].type;
-		var mX = results[i].x;
-		var mY = results[i].y;
+		var mId = results[i].deviceid;
+		var mType = results[i].type;		
+		var mX = results[i].lat;
+		var mY = results[i].lnt;
 		var mN = results[i].name;
-		var mMsg = results[i].msg;
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
 			markerColor: markColor,
 			prefix: 'fa',
 			spin: false
 		});
-
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
-			title: mId,
-			type: mType
+			title: mN,
+			type: mType,
+			id: mId
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
-			setFooterContentByInfo(e.target.options.type, e.target.options.title);
+			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			myMap.flyTo(e.latlng);
 			showFooterPanel(footerHeight);
 		});
@@ -849,15 +826,23 @@ function getJCMarkersLayerGroup(results) {
 		latLngsArr.push(markerObj.getLatLng());
 	}
 	warnBounds = L.latLngBounds(latLngsArr);
+	if(latLngsArr.length > 0) {
+		setTimeout(function() {
+			myMap.fitBounds(warnBounds, {
+				maxZoom: maxZoomShow
+			});
+		}, 500);
+	}
 }
 //设置底部栏的内容，根据点击的地灾点或者设备点
 function setFooterContentByInfo(Type, infoID) {
+	debugger
 	var tempResults = null;
 	var infoT = null;
 	if(Type == 'dzd') {
-		tempResults = dzQueryResults;
+		tempResults = dzQueryResults.quakes;
 	} else {
-		tempResults = jcQueryResults;
+		tempResults = dzQueryResults.devices;
 
 		var jcsbhtml = template('jczb-ul-li-template', {
 			type: Type
@@ -892,7 +877,13 @@ function setFooterContentByInfo(Type, infoID) {
 		});
 	}
 	for(var i = 0; i < tempResults.length; i++) {
-		if(tempResults[i].id == infoID) {
+		var checkId = null;
+		if(Type == 'dzd') {
+			checkId = tempResults[i].quakeid;
+		}else{
+			checkId = tempResults[i].deviceid;
+		}
+		if(checkId == infoID) {
 			infoT = tempResults[i];
 			break;
 		}
