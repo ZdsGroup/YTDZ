@@ -802,7 +802,7 @@ function getJCMarkersLayerGroup(results) {
 		var mId = results[i].deviceid;
 		var mType = results[i].type;		
 		var mX = results[i].lat;
-		var mY = results[i].lnt;
+		var mY = results[i].lng;
 		var mN = results[i].name;
 		var iconObj = L.AwesomeMarkers.icon({
 			icon: iconName,
@@ -828,7 +828,7 @@ function getJCMarkersLayerGroup(results) {
 	warnBounds = L.latLngBounds(latLngsArr);
 	if(latLngsArr.length > 0) {
 		setTimeout(function() {
-			myMap.fitBounds(warnBounds, {
+			myMap.flyToBounds(warnBounds, {
 				maxZoom: maxZoomShow
 			});
 		}, 500);
@@ -836,7 +836,7 @@ function getJCMarkersLayerGroup(results) {
 }
 //设置底部栏的内容，根据点击的地灾点或者设备点
 function setFooterContentByInfo(Type, infoID) {
-	debugger
+//	debugger
 	var tempResults = null;
 	var infoT = null;
 	if(Type == 'dzd') {
