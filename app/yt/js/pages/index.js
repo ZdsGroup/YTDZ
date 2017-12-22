@@ -759,13 +759,50 @@ function getMarkerColorByWarnLevel(level) {
 function showJCMarkerByDZid(dzID) {
 	if(dzID !=null &&dzQueryResults !=null){
 		jcMarkersLayerGroup.clearLayers();
+		var quakesArr = dzQueryResults.quakes;
+		var areaT = null;
+		var latlngs = new Array();
+		for (var i = 0; i < quakesArr.length; i++) {
+			if(quakesArr[i].quakeid == dzID){
+				areaT = mui.parseJSON(quakesArr[i].attr);
+				break;
+			}
+		}
+//		for (var i = 0; i < areaT.length; i++) {
+//			latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
+//		}
+//		var areaLine = L.polygon(latlngs, {
+//							color: 'red',
+//							weight: 2,
+//							opacity: 0.5,
+//							fillColor: 'gray',
+//							fillOpacity: 0.2,
+//							fill: true
+//						});
+//		jcMarkersLayerGroup.addLayer(areaLine);
+		
 		var devicesArr = dzQueryResults.devices;
 		var tempArr =new Array();
 		for (var i = 0; i < devicesArr.length; i++) {
 			if(devicesArr[i].quakeid == dzID){
 				tempArr.push(devicesArr[i]);
+				//TODO temp
+				latlngs.push(new L.latLng(devicesArr[i].lat, devicesArr[i].lng));
+				//
 			}
 		}
+		//TODO temp
+		var areaLine = L.polygon(latlngs, {
+							color: 'red',
+							weight: 2,
+							opacity: 0.5,
+							fillColor: '#cccccc',
+							fillOpacity: 0.4,
+							fill: true
+						});
+		jcMarkersLayerGroup.addLayer(areaLine);
+		//
+
 		getJCMarkersLayerGroup(tempArr);
 		myMap.addLayer(jcMarkersLayerGroup);
 	}
@@ -816,7 +853,7 @@ function getJCMarkersLayerGroup(results) {
 }
 //设置底部栏的内容，根据点击的地灾点或者设备点
 function setFooterContentByInfo(Type, infoID) {
-	debugger
+//	debugger
 	var tempResults = null;
 	var infoT = null;
 	if(Type == 'dzd') {
