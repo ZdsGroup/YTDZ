@@ -20,6 +20,8 @@ requirejs.config({
 
         // 右侧简易浮动面板
         "jquery.sliderBar": "libs/plugins/sliderBar/jquery.sliderBar",
+        // 模态提示窗
+        "sweetalert": "libs/plugins/sweetalert/sweetalert.min",
 
         "leaflet": "libs/leaflet/leaflet-src",
     },
@@ -38,6 +40,8 @@ requirejs.config({
         "jquery.mb.flipText": { deps: ["jquery","jquery.hoverIntent"] },
         "jquery.mbExtruder": { deps: ["jquery","jquery.mb.flipText","css!libs/plugins/mbExtruder/mbExtruder.css"] },
 
+        "sweetalert": { deps: ["css!libs/plugins/sweetalert/sweetalert.css"] },
+
         "leaflet": { deps: ["css!libs/leaflet/leaflet.css"] },
     }
 });
@@ -47,8 +51,7 @@ require([
     "jquery",
     "leaflet",
     "jquery.pace",
-    "jquery.bootstrap",
-    "jquery.nav"], function ($,L,pace) {
+    "jquery.bootstrap"], function ($,L,pace) {
     // 初始化将jquery 和 bootstrap等必须的框架加入系统
     // 初始化进度条组件
     pace.start({
@@ -71,33 +74,6 @@ require([
         L.control.layers(null,baselayerGroup).addTo(mapview);
     })
 
-    var tempicon = L.marker([40, 113]).addTo(mapview);
-    tempicon.on('click',function () {
-        require(['app/core/rightPanel'],function (rightpanel) {
-            rightpanel.init();
-        })
-    })
-    tempicon.on('dblclick',function () {
-        require(['app/core/rightPanel'],function (rightpanel) {
-            rightpanel.destroy();
-        })
-    })
-
-    // 测试接口
-    require(['app/common/restfulRequest'],function (restfulRequest) {
-        restfulRequest.sendWebRequest(
-            'regions',
-            'get',
-            { pageno : 1 , pagesize : 200 },
-            function (data) {
-                console.log(data);
-            },
-            function (data) {
-                console.log(data);
-            }
-        )
-    })
-
     {
         // 解决鼠标移动到dropdown 目录就可以展开，不必点击
         //关闭click.bs.dropdown.data-api事件，使顶级菜单可点击
@@ -111,4 +87,8 @@ require([
             $(this).removeClass('open');
         });
     }
+
+    require(['app/leftmenu/initLeftMenu'],function (leftmenu) {
+        leftmenu.initmenu();
+    })
 });
