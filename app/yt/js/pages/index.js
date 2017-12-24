@@ -361,22 +361,23 @@ var initEvent = function() {
 		}
 	});
 
-	//监测设备图文轮播事件
-	mui(".mui-media").on('tap', 'img', function(evt) {
-		var info = evt.target.title;
-		if(info) {
-			var typeT = info.split('_')[0];
-			var idT = info.split('_')[1];
-			mui.openWindow({
-				url: 'pages/jcsb/jcsb.html',
-				id: 'jcsb-detail-id',
-				extras: {
-					xqType: typeT,
-					xqID: idT
-				}
-			});
-		}
-	});
+//	//监测设备图文轮播事件
+//	mui(".mui-media").on('tap', 'img', function(evt) {
+//		debugger
+//		var info = evt.target.title;
+//		if(info) {
+//			var typeT = info.split('_')[0];
+//			var idT = info.split('_')[1];
+//			mui.openWindow({
+//				url: 'pages/jcsb/jcsb.html',
+//				id: 'jcsb-detail-id',
+//				extras: {
+//					xqType: typeT,
+//					xqID: idT
+//				}
+//			});
+//		}
+//	});
 
 	//首页底部栏上更多详细按钮的点击事件
 	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
@@ -846,6 +847,24 @@ function setFooterContentByInfo(Type, infoID) {
 		tempResults = dzQueryResults.quakes;
 		infoT = getCheckInfos(tempResults,Type, infoID);
 		initDzdContentHtml(infoT, Type);
+		
+		//监测设备图文轮播事件
+		mui('#mui-slider-jcsb').off('tap', 'li');
+		mui("#mui-slider-jcsb").on('tap', 'li', function(evt) {
+			var info = evt.target.id;
+			if(info) {
+				var typeT = info.split('_')[0];
+				var idT = info.split('_')[1];
+				mui.openWindow({
+					url: 'pages/jcsb/jcsb.html',
+					id: 'jcsb-detail-id',
+					extras: {
+						xqType: typeT,
+						xqID: idT
+					}
+				});
+			}
+		});
 	} else {
 		tempResults = dzQueryResults.devices;
 		infoT = getCheckInfos(tempResults,Type, infoID);
@@ -855,6 +874,7 @@ function setFooterContentByInfo(Type, infoID) {
 		mui('#jcsb-jczb-list').off('tap', 'li');
 		mui(".mui-slider").slider();
 		mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
+			debugger
 			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
 			var currentPid = this.getAttribute('title');
 			var type = this.getAttribute('tp');
@@ -866,13 +886,13 @@ function setFooterContentByInfo(Type, infoID) {
 					pageFeature: selectedFeature
 				}
 			};
-			if(type == "lfjc") {
+			if(type == "3") {
 				info.url += 'lfjc.html';
 				info.id = 'lfjc-analy-detail';
-			} else if(type == "bmwyjc") {
+			} else if(type == "1") {
 				info.url += 'bmwyjc.html';
 				info.id = 'bmwyjc-analy-detail';
-			} else if(type == "yljc") {
+			} else if(type == "2") {
 				info.url += 'yljc.html';
 				info.id = 'yljc-analy-detail';
 			}
