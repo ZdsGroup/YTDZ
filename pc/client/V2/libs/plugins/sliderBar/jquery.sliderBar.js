@@ -67,7 +67,7 @@
         height : 200,          // body内容高度
         theme : 'green',       // 主题颜色
         position : 'left',      // 显示位置，有left和right两种
-        zIndex :'9999'          //层叠位置
+        zIndex :'1500'          //层叠位置
     }
 
     var privateMethods = {
@@ -82,17 +82,28 @@
                 'font-family':'Microsoft Yahei',
                 'z-index': opts.zIndex
             }).find('.body').css({
-                'width': opts.width+'px',
+                'width': opts.width + 20 +'px',
                 'height' : opts.height+'px',
                 'position':'relative',
-                'padding':'10px',
+                'padding':'10px 10px 40px 10px',
                 'overflow-x':'hidden',
                 'overflow-y':'auto',
                 'font-family':'Microsoft Yahei',
-                'font-size' : '12px'
+                'font-size' : '12px',
+                'float': 'left'
             });
-            if(opts.height === '100%')
-                obj.css({'height' : '100%'}).find('.body').css({'height' : '100%'});
+            function resizehight() {
+                if(opts.height === '100%'){
+                    // 根据top值设置高度
+                    var clientHeight = $(window).height();
+                    obj.css({'height' : clientHeight - opts.top + 'px'})
+                        .find('.body').css({'height' : clientHeight - opts.top + 'px'});
+                }
+            }
+            resizehight();
+            $(window).bind("resize", function () {
+                resizehight();
+            });
 
             var titleCss = {
                 'width':'25px',
@@ -112,6 +123,59 @@
             obj.find('.title').css(titleCss).find('i').css({
                 'font-size': '15px'
             });
+
+            // 全屏操作
+            obj.data('maxSize',false);
+            obj.data('maxPreTop',opts.top);
+            if(opts.hasOwnProperty('maxminEl')){
+                setInterval(maxSizeWidthFunc , 250); // 监听map的div长度改变
+                var iframDiv = $('<div id="iframDiv" style="float: left;background-color: black;height: 100%"></div>');
+                obj.append(iframDiv);
+                iframDiv.hide();
+
+                var iframchildrendiv = $('<iframe src="../../../V2/app/dzdetail.html" style="height:100%;width:100%"/>');
+                iframDiv.append(iframchildrendiv);
+
+                $(opts.maxminEl).click(function () {
+                    if(obj.data('maxSize')){
+                        opts.top = obj.data('maxPreTop');
+                        var minSizeCss = {
+                            'width': opts.width+20+'px',
+                            'top': opts.top + 'px',
+                            'height': $(window).height() - opts.top + 'px'
+                        }
+                        obj.animate(minSizeCss,300,'linear',function () {
+                            obj.find('.title').show();
+                        });
+                        this.innerHTML = '更多';
+                        iframDiv.hide();
+                    }else{
+                        opts.top = 60;
+                        var maxSizeCss = {
+                            'width': $('#mapdiv').width() + 'px',
+                            'top': opts.top + 'px',
+                            'height': $(window).height() - opts.top + 'px'
+                        }
+                        obj.animate(maxSizeCss,1000);
+                        obj.find('.title').hide();
+                        this.innerHTML = '缩小';
+                        iframDiv.show();
+                        iframDiv.css({'width': $('#mapdiv').width() - opts.width - 22 + 'px'})
+                    }
+                    obj.data('maxSize',obj.data('maxSize') == true ? false : true);
+                })
+            }
+
+            var oldMapWidth = null;
+            function maxSizeWidthFunc() {
+                if(obj.data('maxSize') == false)return;
+                var mapwidth = $('#mapdiv').width();
+                if( oldMapWidth !== null && oldMapWidth !== mapwidth){
+                    obj.css({'width': mapwidth + 'px'});
+                    iframDiv.css({'width': mapwidth - opts.width - 22 + 'px'})
+                }
+                oldMapWidth = mapwidth;
+            }
         },
         showAtLeft : function(obj, opts){
             if(opts.open){
@@ -138,7 +202,7 @@
                 obj.css({right:'0px'});
                 obj.find('.title').css('right', opts.width+20+'px').find('i').attr('class','fa fa-chevron-circle-right');
             }else{
-                obj.css({right:'25px'});
+                obj.css({right:-opts.width-21+'px'});
                 obj.find('.title').css('right', opts.width+20+'px').find('i').attr('class','fa fa-chevron-circle-left');
             }
 

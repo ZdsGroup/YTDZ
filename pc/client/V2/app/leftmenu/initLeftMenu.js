@@ -1,8 +1,8 @@
 /**
  * Created by lyuwei on 2017/12/23.
  */
-define(["jquery","app/common/restfulRequest","sweetalert"],
-function ($,restfulRequest,swal) {
+define(["jquery","app/common/restfulRequest","sweetalert",'app/markLayer'],
+function ($,restfulRequest,swal,markLayer) {
     var quakeList = {};
 
     // 首先完成行政区划的获取
@@ -100,21 +100,22 @@ function ($,restfulRequest,swal) {
 
             // 根据每个地点的参数来设置mark
             {
-                var quakeLonLat = JSON.parse( eachQuake.centroid );
-                var tempicon = new L.marker([
-                    parseInt(quakeLonLat.lat,10), parseInt(quakeLonLat.lng,10)
-                ]).bindPopup(eachQuake.name)
-                    .addTo(YTmap);
-                tempicon.on('click',function () {
-                    require(['app/core/rightPanel'],function (rightpanel) {
-                        rightpanel.init();
+                var picker = JSON.parse( eachQuake.centroid );
+                var mX = picker.lat;
+                var mY = picker.lng;
+                markLayer.addMark(
+                    L.marker([
+                        mX, mY
+                    ],{id:eachQuake.quakeid}).bindPopup(eachQuake.name).on('click',function () {
+                            require(['app/rightPanel'],function (rightpanel) {
+                                rightpanel.init();
+                        })}).on('dblclick',function () {
+                            require(['app/rightPanel'],function (rightpanel) {
+                                rightpanel.destroy();
+                        })
                     })
-                })
-                tempicon.on('dblclick',function () {
-                    require(['app/core/rightPanel'],function (rightpanel) {
-                        rightpanel.destroy();
-                    })
-                })
+                )
+                markLayer.flyTO();
             }
         }
 
@@ -127,11 +128,16 @@ function ($,restfulRequest,swal) {
         }
     }
 
+    function returnQuakeDetail(quakeid) {
+        return quakeList[quakeid];
+    }
+
     function errorFunc() {
         swal("请联系管理员！", "行政区划设备树加载失败","error");
     }
 
     return {
-        initmenu: initmenu
+        initmenu: initmenu,
+        returnQuakeDetail: returnQuakeDetail
     }
 });
