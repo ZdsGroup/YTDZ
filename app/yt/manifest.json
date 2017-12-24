@@ -4,7 +4,7 @@
 		"iPhone",
 		"iPad"
 	],
-	"id": "H5683D136",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"id": "com.yt.app",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "鹰潭地灾",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.1",/*应用版本名称*/
@@ -99,16 +99,29 @@
 		},
 		"NativeObj": {
 			"description": "原生对象"
+		},
+		"Push": {
+			"description": "管理推送消息插件"
 		}
 	},
 	"plus": {
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
-			"waiting": true,"delay":"0"
+			"waiting": true,
+			"delay": "0"
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
+			"plugins": {
+				"push": {
+					"igexin": {
+						"appid": "nLIvF5CTGX9VnO0Ykngif2",
+						"appkey": "UH3sOrzZBfA05XgIpXJbn4",
+						"appsecret": "Mt4OgjiKUC7MCrnlFbnNPA"
+					}
+				}
+			},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -122,35 +135,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": [
-					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-					"<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-					"<uses-feature android:name=\"android.hardware.camera\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
-				]
+				"permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.WRITE_VOICEMAIL\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.USE_SIP\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_USER_DICTIONARY\"/>","<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_GSERVICES\"/>","<uses-permission android:name=\"android.permission.WRITE_SECURE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_CALENDAR\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"android.permission.WRITE_SOCIAL_STREAM\"/>","<uses-permission android:name=\"android.permission.USE_CREDENTIALS\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.UPDATE_DEVICE_STATS\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.WRITE_HISTORY_BOOKMARKS\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>","<uses-permission android:name=\"android.permission.WRITE_SYNC_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_APN_SETTINGS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.TRANSMIT_IR\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_PROFILE\"/>","<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_SMS\"/>","<uses-permission android:name=\"android.permission.WRITE_CALL_LOG\"/>"]
 			},
 			"orientation": [
 				"portrait-primary"
@@ -158,7 +143,7 @@
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
-					 /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					/*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
 					"iphone": {
 						"normal": "unpackage/res/icons/57x57.png",/*iPhone普通屏幕程序图标，分辨率：57x57*/
 						"retina": "unpackage/res/icons/114x114.png",/*iPhone高分屏程序图标，分辨率：114x114*/
@@ -167,22 +152,38 @@
 						"spotlight-retina": "unpackage/res/icons/58x58.png", /*iPhone高分屏Spotlight搜索程序图标，分辨率：58x58*/
 						/*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
 						"settings-normal": "unpackage/res/icons/29x29.png", /*iPhone设置页面程序图标，分辨率：29x29*/
-						
-						
-						"app@3x":"unpackage/res/icons/180x180.png","app@2x":"unpackage/res/icons/120x120.png","settings@2x":"unpackage/res/icons/58x58.png","settings@3x":"unpackage/res/icons/87x87.png","spotlight@2x":"unpackage/res/icons/80x80.png","spotlight@3x":"unpackage/res/icons/120x120.png","notification@2x":"unpackage/res/icons/40x40.png","notification@3x":"unpackage/res/icons/60x60.png"
+
+
+						"app@3x": "unpackage/res/icons/180x180.png",
+						"app@2x": "unpackage/res/icons/120x120.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"settings@3x": "unpackage/res/icons/87x87.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"spotlight@3x": "unpackage/res/icons/120x120.png",
+						"notification@2x": "unpackage/res/icons/40x40.png",
+						"notification@3x": "unpackage/res/icons/60x60.png"
 					},
 					"ipad": {
 						"normal": "unpackage/res/icons/72x72.png", /*iPad普通屏幕程序图标，分辨率：72x72*/
 						"retina": "unpackage/res/icons/144x144.png", /*iPad高分屏程序图标，分辨率：144x144*/
-						 /*iPad iOS7程序图标，分辨率：76x76*/
-						 /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						/*iPad iOS7程序图标，分辨率：76x76*/
+						/*iPad iOS7高分屏程序图标，分辨率：152x152*/
 						"spotlight-normal": "unpackage/res/icons/50x50.png", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
 						"spotlight-retina": "unpackage/res/icons/100x100.png", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
 						/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
 						/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
 						/*iPad设置页面程序图标，分辨率：29x29*/
-						"app":"unpackage/res/icons/76x76.png","app@2x":"unpackage/res/icons/152x152.png","settings":"unpackage/res/icons/29x29.png","spotlight":"unpackage/res/icons/40x40.png","proapp@2x":"unpackage/res/icons/167x167.png","settings@2x":"unpackage/res/icons/58x58.png","spotlight@2x":"unpackage/res/icons/80x80.png","notification":"unpackage/res/icons/20x20.png","notification@2x":"unpackage/res/icons/40x40.png"
-					},"appstore":"unpackage/res/icons/1024x1024.png"
+						"app": "unpackage/res/icons/76x76.png",
+						"app@2x": "unpackage/res/icons/152x152.png",
+						"settings": "unpackage/res/icons/29x29.png",
+						"spotlight": "unpackage/res/icons/40x40.png",
+						"proapp@2x": "unpackage/res/icons/167x167.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"notification": "unpackage/res/icons/20x20.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"appstore": "unpackage/res/icons/1024x1024.png"
 				},
 				"android": {
 					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
@@ -196,27 +197,16 @@
 			"splashscreen": {
 				"ios": {
 					"iphone": {
-						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","iphonex":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","retina55":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","retina47":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","iphonexl":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","retina55l":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"
+						"default": ""
 					},
-					"ipad": {
-						"portrait": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*iPad竖屏启动图片，分辨率：768x1004*/
-						"portrait-retina": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
-						"landscape": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*iPad横屏启动图片，分辨率：1024x748*/
-						"landscape-retina": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
-						"portrait7": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
-						"portrait-retina7": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
-						"landscape7": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
-						"landscape-retina7": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"
-					}
+					"ipad": {}
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"
+					"hdpi": "D:/Project/01C-ZDS/鹰潭地质灾害预警/app启动界面.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "D:/Project/01C-ZDS/鹰潭地质灾害预警/app启动界面.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "D:/Project/01C-ZDS/鹰潭地质灾害预警/app启动界面.png"
 				}
 			}
 		}

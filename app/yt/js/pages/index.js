@@ -46,6 +46,14 @@ var initAppPlus = function() {
 		hideFooterPanel();
 		return false;
 	}, false);
+	
+	 var info = plus.push.getClientInfo();
+    /*alert( "token: "+info.token );*/
+    alert( "clientid: "+info.clientid );
+    /*alert( "appid: "+info.appid );
+    alert( "appkey: "+info.appkey );*/
+    plus.push.addEventListener( "click", function(msg){alert( "You clicked: " + msg.content );}, false ); 
+    plus.push.addEventListener( "receive", function(msg){alert( "You clicked: " + msg.content );}, false ); 
 };
 
 mui.plusReady(initAppPlus);
