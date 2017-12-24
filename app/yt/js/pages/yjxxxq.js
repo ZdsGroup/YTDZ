@@ -6,6 +6,7 @@ function initView () {
 	var self = plus.webview.currentWebview();
 	var warnId = self.warnId;
 	var action = "alarms/";
+
 	mui.myMuiQuery(action + warnId, null, function(result) {
 		var html = template('ul-li-template', {
 			data: result.data

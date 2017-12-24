@@ -1,3 +1,9 @@
+//说明：预警信息中心，支持首页预警图标点击，展示预警信息，也支持通过地灾点、设备页面，点击预警新使用，通过传递参数不同，进行不同的查询
+//type:dzd--地灾点预警,数字--设备预警  , null--查询所有预警信息,
+//paramId:对应地灾点ID，或者设备ID
+var type = null;
+var paramId = null;
+var action = "alarms";
 (function($) {
 	$.init({
 		pullRefresh: {
@@ -56,8 +62,8 @@ function falult(message) {
 	//异常处理；
 }
 
-var action = "alarms";
 var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
+
 function pulldownRefresh() {
 	pageno = 1;
 	var queryParam = getQueryParam();
@@ -163,6 +169,15 @@ function getQueryParam() {
 	if(IsNum(value)) {
 		queryParam.rank = value;
 	}
+	//判读是否查询指定的地灾点或者监测设备的预警
+	//dzd ---地灾点
+	if(!(typeof(type) == "undefined")) {
+		if(type == "dzd") {
+			queryParam.quakeid = paramId;
+		} else {
+			queryParam.deviceid = paramId;
+		}
+	}
 	return queryParam;
 }
 
@@ -170,11 +185,13 @@ function IsNum(num) {
 	var reNum = /^\d*$/;
 	return(reNum.test(num));
 }
-var initApp = function() {
+
+function initApp() {
 	this.initEvent();
 };
 if(mui.os.plus) {
 	mui.plusReady(function() {
+		getParentPageParam();
 		setTimeout(function() {
 			mui('#pullrefresh').pullRefresh().pullupLoading();
 		}, 1000);
@@ -183,7 +200,15 @@ if(mui.os.plus) {
 	});
 } else {
 	mui.ready(function() {
+		getParentPageParam();
 		mui('#pullrefresh').pullRefresh().pullupLoading();
 		initApp();
 	});
+}
+
+//页面传值
+function getParentPageParam() {
+	var self = plus.webview.currentWebview();
+	type = self.type;
+	paramId = self.paramId;
 }

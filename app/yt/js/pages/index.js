@@ -382,20 +382,18 @@ var initEvent = function() {
 	//首页底部栏上更多详细按钮的点击事件
 	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
 		var action = evt.target.title;
-		var info = mui('#footer-table p')[0];
-		var typeT = info.id.split('_')[0];
-		var idT = info.id.split('_')[1];
+		var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
+		var typeT = selectedFeature.type;
+		var idT = selectedFeature.id;
 		var pageUrl = '';
 		var pageId = '';
-		var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
-		if(info) {
 			switch(action) {
 				case 'dzd-more-info':
 					pageUrl = 'pages/dzd/dzdgdxx.html';
 					pageId = 'dzd-more-info';
 					break;
 				case 'dzd-warn-info':
-					pageUrl = 'pages/dzd/dzdsbyjxx.html';
+					pageUrl = 'pages/common/gjxxzx.html';
 					pageId = 'dzd-warn-info';
 					break;
 				case 'dzd-jcsb-all':
@@ -407,7 +405,7 @@ var initEvent = function() {
 					pageId = 'jcsb-more-info';
 					break;
 				case 'jcsb-warn-info':
-					pageUrl = 'pages/jcsb/jcsbyjxx.html';
+					pageUrl = 'pages/common/gjxxzx.html';
 					pageId = 'jcsb-warn-info';
 					break;
 				case 'jcsb-analy-all':
@@ -439,12 +437,10 @@ var initEvent = function() {
 				url: pageUrl,
 				id: pageId,
 				extras: {
-					xqType: typeT,
-					xqID: idT,
-					xqFeature: selectedFeature
+					type: typeT,
+					paramId: idT,
 				}
 			});
-		}
 	});
 
 	//底部地灾点写评论按钮点击事件
@@ -474,14 +470,10 @@ var initEvent = function() {
 			case 'info':
 				/*已发生预警地灾点列表*/
 				{
-					//预加载
-					var flPage = mui.preload({
+					 mui.openWindow({
 						url: 'pages/common/gjxxzx.html',
 						id: 'gjxxzx',
-						styles: {}, //窗口参数
-						extras: {} //自定义扩展参数
 					});
-					flPage.show();
 					break;
 				}
 			case 'locate':
@@ -901,7 +893,7 @@ function setFooterContentByInfo(Type, infoID) {
 	}
 	initBriefContentHtml(infoT, Type);
 
-	localStorage.setItem("currentSelectedFeature", JSON.stringify(infoT,Type)); //记录当前选中的要素，用于指导要素详情细分页面跳转
+	localStorage.setItem("currentSelectedFeature", JSON.stringify({type:Type,id:infoID})); //记录当前选中的要素，用于指导要素详情细分页面跳转
 	this.showDetailPanel(infoT,Type);
 }
 function getCheckInfos(results,typeT, idT){
@@ -944,7 +936,7 @@ function initDzdContentHtml(infoT, typeT){
 	
 	var quakeId = infoT.quakeid;
 	var ownerDevices = new Array();
-	var tempResults = dzQueryResults.devices;
+	var tempResults = mui.myCloneObj(dzQueryResults.devices);
 	for (var i = 0; i < tempResults.length; i++) {
 		if (tempResults[i].quakeid == quakeId) {
 			var imgT = JSON.parse(tempResults[i].dimage);
