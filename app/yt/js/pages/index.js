@@ -853,7 +853,6 @@ function getJCMarkersLayerGroup(results) {
 }
 //设置底部栏的内容，根据点击的地灾点或者设备点
 function setFooterContentByInfo(Type, infoID) {
-//	debugger
 	var tempResults = null;
 	var infoT = null;
 	if(Type == 'dzd') {
@@ -935,6 +934,31 @@ function initDzdContentHtml(infoT, typeT){
 			type: typeT
 		});
 	document.getElementById("dzd-content-part2").innerHTML = contentPart2;
+	
+	var quakeId = infoT.quakeid;
+	var ownerDevices = new Array();
+	var tempResults = dzQueryResults.devices;
+	for (var i = 0; i < tempResults.length; i++) {
+		if (tempResults[i].quakeid == quakeId) {
+			var imgT = JSON.parse(tempResults[i].dimage);
+			tempResults[i].dimage = imgT[0];
+			ownerDevices.push(tempResults[i]);
+		}
+	}
+	var picsNum = ownerDevices.length;
+	var totalPage = parseInt(picsNum / picListPageSize);
+	var remNum = picsNum % picListPageSize;
+	if(remNum != 0) {
+		totalPage = totalPage + 1;
+	}
+	debugger
+	var contentPart3 = template('dzd-content-part3-template', {		
+			list: ownerDevices,
+			pageNum: totalPage,
+			pageSize: picListPageSize,
+			pageRem: remNum
+		});
+	document.getElementById("dzd-content-part3").innerHTML = contentPart3;
 }
 //初始化监测设备内容
 function initJcsbContentHtml(infoT, typeT){
