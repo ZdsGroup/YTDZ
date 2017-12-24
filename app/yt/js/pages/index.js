@@ -315,13 +315,10 @@ var initEvent = function() {
 		}
 
 		me.showFooterPanel(ytFooterHeight);
-
 		//地图大小变化
 		changeMapStatus();
 		//初始化评论列表
 		initComentList();
-		//初始化检测设备图片列表
-		initJcsbPictureList();
 	});
 
 	//监听滚动事件
@@ -627,24 +624,6 @@ function initComentList() {
 	}, 500);
 }
 
-function initJcsbPictureList() {
-	var picsNum = warnjcMarkersData.length;
-	var totalPage = parseInt(picsNum / picListPageSize);
-	var remNum = picsNum % picListPageSize;
-	if(remNum != 0) {
-		totalPage = totalPage + 1;
-	}
-
-	template.defaults.debug = true
-	var html = template('jcsb-pics-list-template', {
-		list: warnjcMarkersData,
-		pageNum: totalPage,
-		pageSize: picListPageSize,
-		pageRem: remNum
-	});
-	//TODO 需要从后台获取数据动态生成
-	//	document.getElementById("jcsb-pics-list").innerHTML = html;
-}
 //显示告警对象
 function showWarnDZMarksOnMap() {
 	//1所有地灾点，包括报警级别信息
