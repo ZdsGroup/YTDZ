@@ -959,7 +959,6 @@ function initDzdContentHtml(infoT, typeT){
 	if(remNum != 0) {
 		totalPage = totalPage + 1;
 	}
-	debugger
 	var contentPart3 = template('dzd-content-part3-template', {		
 			list: ownerDevices,
 			pageNum: totalPage,
