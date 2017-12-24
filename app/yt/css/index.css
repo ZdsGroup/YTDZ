@@ -303,14 +303,14 @@
 }
 
 #mui-slider-jcsb {
-	height: 170px;
+	height: 160px;
 }
 
 
 /*图片等比自动缩放*/
 #mui-slider-jcsb img {
 	width: auto !important;
-	height: 120px !important;
+	height: 110px !important;
 	max-width: 100% !important;
 	max-height: 100% !important;
 }

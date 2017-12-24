@@ -291,26 +291,20 @@
 						<div id="mui-slider-jcsb" class="mui-slider">
 							<div id="dzd-content-part3" class="mui-slider-group mui-slider-loop">
 								<script id="dzd-content-part3-template" type="text/template">
-									<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一个图文表格) -->
+								
+
 									<div class="mui-slider-item mui-slider-item-duplicate">
 										<ul class="mui-table-view mui-grid-view">
+											<% for(var i=(pageNum-1)*pageSize;i<list.length;i++){ %>
 											<li class="mui-table-view-cell mui-media mui-col-xs-4">
-												<a href="#"><img class="mui-media-object" src="photos/bmwy-2.jpg" title="bmwyjc_3">
-													<div class="mui-media-body">表面位移监测2</div>
+												<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].deviceid%>" tp="<%=list[i].type%>">
+													<div class="mui-media-body"><%=list[i].name%></div>
 												</a>
 											</li>
-											<li class="mui-table-view-cell mui-media mui-col-xs-4">
-												<a href="#"><img class="mui-media-object" src="photos/yljc-1.png" title="yljc_4">
-													<div class="mui-media-body">雨量监测1</div>
-												</a>
-											</li>
-											<li class="mui-table-view-cell mui-media mui-col-xs-4">
-												<a href="#"><img class="mui-media-object" src="photos/yljc-2.png" title="yljc_5">
-													<div class="mui-media-body">雨量监测2</div>
-												</a>
-											</li>
+											<%}%>
 										</ul>
 									</div>
+
 									<% for(var i=0;i<pageNum;i++){ %>
 										<div class="mui-slider-item">
 											<ul class="mui-table-view mui-grid-view">
@@ -322,7 +316,7 @@
 													for(var j=pageNum*i;j<tempSize;j++){ 
 												%>
 												<li class="mui-table-view-cell mui-media mui-col-xs-4">
-													<a href="#"><img class="mui-media-object" src="<%=list[j].dimage%>" title="<%=list[j].name%>">
+													<a href="#"><img class="mui-media-object" src="<%=list[j].dimage%>" title="<%=list[j].deviceid%>" tp="<%=list[j].type%>">
 														<div class="mui-media-body"><%=list[j].name%></div>
 													</a>
 												</li>
@@ -330,26 +324,26 @@
 											</ul>
 										</div>
 									<%}%>
-									<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一个图文表格) -->
+
+
 									<div class="mui-slider-item mui-slider-item-duplicate">
-									<ul class="mui-table-view mui-grid-view">
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object" src="photos/1.png" title="lfjc_1">
-												<div class="mui-media-body">裂缝监测1</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object" src="photos/yljc-1.png" title="yljc_4">
-												<div class="mui-media-body">雨量监测1</div>
-											</a>
-										</li>
-										<li class="mui-table-view-cell mui-media mui-col-xs-4">
-											<a href="#"><img class="mui-media-object" src="photos/bmwy-1.jpg" title="bmwyjc_2">
-												<div class="mui-media-body">表面位移监测1</div>
-											</a>
-										</li>
-									</ul>
-								</div>
+										<ul class="mui-table-view mui-grid-view">
+											<% 
+												var tempSize = pageSize
+												if(tempSize > list.length ) {
+													tempSize = list.length;
+												}
+												for(var i=0;i<tempSize;i++){ 
+											%>
+											<li class="mui-table-view-cell mui-media mui-col-xs-4">
+												<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].deviceid%>" tp="<%=list[i].type%>">
+													<div class="mui-media-body"><%=list[i].name%></div>
+												</a>
+											</li>
+											<%}%>
+										</ul>
+									</div>
+
 								</script>
 							</div>
 						</div>
