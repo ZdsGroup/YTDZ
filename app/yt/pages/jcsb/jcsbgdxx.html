@@ -6,9 +6,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-		<script type="text/javascript" src="../../js/template-native.js"></script>
-		<script type="text/javascript" src="../../js/testdata.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<style>
 			#slider-pictures {
 				height: 270px;
@@ -26,119 +24,98 @@
 	</head>
 
 	<body>
-		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">监测设备详细情况</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">监测设备详细情况</h1>
 		</header>
-		<div class="mui-content">
-			<div id="slider-pictures" class="mui-slider">
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/jcsb/3.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照3</p>
-						</a>
+		<div id="content" class="mui-content">
+			<script id="slider-item-template" type="text/html">
+				<div id="slider-pictures" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="<%=data.dimage[data.dimage.length-1]%>">
+								</a>
+							</div>
+						<% for (var i=0; i<data.dimage.length; i++) { %>
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="<%=data.dimage[i]%>">
+								</a>
+							</div>
+							<%}%>
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="<%=data.dimage[0]%>">
+								</a>
+							</div>
+						</div>
+						<div class="mui-slider-indicator">
+							<% for (var i=0; i<data.dimage.length; i++) { %>
+							<div class="mui-indicator mui-active"></div>
+							<%}%>
+						</div>
 					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/1.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照1</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/2.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照2</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/3.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照3</p>
-						</a>
-					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/jcsb/1.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照1</p>
-						</a>
-					</div>
-				</div>
-				<div class="mui-slider-indicator mui-text-right">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-				</div>
+					<ul id="jcsbxq-ul-list" class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.username%></span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.mobile%></span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.address%></span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.addtime%></span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.rate%></span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护时间:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.modtime%></span>
+							</div>
+						</li>
+					</ul>
+			</script>
 			</div>
-			<ul id="jcsbxq-ul-list" class="mui-table-view">
-				<script id="jcsbxq-ul-list-template" type="text/html">
-					<li class="mui-table-view-cell">
-						<div class="mui-table">
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
-							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].person%></span>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-table">
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
-							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].persontel%></span>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-table">
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
-							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].buildaddr%></span>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-table">
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
-							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].builddate%></span>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-table">
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
-							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].maintenancecycle%></span>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-table">
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护时间:</span>
-							<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[0].lastmaintenance%></span>
-						</div>
-					</li>
-				</script>
-			</ul>
-		</div>
-		<script type="text/javascript">
-			mui.init();
-			
-			var initEvent = function() {
-				//初始化监测设备更多详情信息
-				initJcsbTemplateContent();
-			};
-			
-			function initJcsbTemplateContent(){
-				var jcsbXqxx = template('jcsbxq-ul-list-template', {
-					list: jcsbGdxxData
-				});
-				document.getElementById("jcsbxq-ul-list").innerHTML = jcsbXqxx;
-			}
-			
-			var initApp = function() {
-				this.initEvent();
-			}
-			mui.ready(function() {
-				this.initApp();
-			});
-		</script>
+			<script src="../../js/mui.min.js"></script>
+			<script type="text/javascript" src="../../js/template-native.js" charset="utf-8"></script>
+			<script type="text/javascript" src="../../js/pages/common.js" charset="utf-8"></script>
+			<script type="text/javascript">
+				mui.init();
+				mui.plusReady(initView);
+
+				function initView() {
+					//页面传值
+					var self = plus.webview.currentWebview();
+					var attr = mui.myCloneObj(self.attr);
+					attr.dimage = JSON.parse(attr.dimage);
+					var html = template('slider-item-template', {
+						data: attr
+					});
+					document.getElementById("content").innerHTML = html;
+					mui(".mui-slider").slider();
+				}
+			</script>
 	</body>
 
 </html>

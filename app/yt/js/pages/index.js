@@ -366,9 +366,17 @@ var initEvent = function() {
 	//首页底部栏上更多详细按钮的点击事件
 	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
 		var action = evt.target.title;
-		var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
-		var typeT = selectedFeature.type;
-		var idT = selectedFeature.id;
+		//地灾点或设备ID
+		var idT = "";
+		var attr = null;
+		if (selectType == "dzd"){
+			idT = currentDzd.quakeid;
+			attr = currentDzd;
+		} else if (selectType == "jcsb") {
+			idT = currentDzd.deviceid;
+			attr = currentSb;
+		}
+		//地灾点或设备所有属性数据对象
 		var pageUrl = '';
 		var pageId = '';
 			switch(action) {
@@ -421,8 +429,9 @@ var initEvent = function() {
 				url: pageUrl,
 				id: pageId,
 				extras: {
-					type: typeT,
+					type: selectType,
 					paramId: idT,
+					attr:attr
 				}
 			});
 	});
@@ -633,6 +642,12 @@ function showWarnDZMarksOnMap() {
 	}
 }
 
+//当前选择的地图对象，地灾点or监测设备
+var selectType = null;
+//保存当前选择的地灾点
+var currentDzd = null;
+//保存当前选择的监测设备
+var currentSb = null;
 //生成markers并添加到地灾markerlayergroup
 function getDZMarkersLayerGroup(results, isWarn) {
 	var latLngsArr = new Array();
@@ -661,10 +676,13 @@ function getDZMarkersLayerGroup(results, isWarn) {
 			icon: iconObj,
 			title: mN,
 			type: mType,
-			id: mId
+			id: mId,
+			attr:results[i]
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
+			selectType = "dzd";
+			currentDzd = this.options.attr;
 			showJCMarkerByDZid(e.target.options.id);
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			showFooterPanel(footerHeight);
@@ -795,10 +813,13 @@ function getJCMarkersLayerGroup(results) {
 			icon: iconObj,
 			title: mN,
 			type: mType,
-			id: mId
+			id: mId,
+			attr:results[i]
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
+			selectType = "jcsb";
+			currentSb = this.options.attr;
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			myMap.flyTo(e.latlng);
 			showFooterPanel(footerHeight);

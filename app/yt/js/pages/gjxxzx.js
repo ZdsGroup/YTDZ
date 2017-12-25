@@ -169,7 +169,7 @@ function getQueryParam() {
 	if(IsNum(value)) {
 		queryParam.rank = value;
 	}
-	//判读是否查询指定的地灾点或者监测设备的预警
+	//判读是否查询指定的地灾点或者监测设备的预警,如果=null ,说明是从首页点击预警信息 ，进入到页面，显示所有预警信息，和单个地灾点、设备无关
 	//dzd ---地灾点
 	if(!(typeof(type) == "undefined")) {
 		if(type == "dzd") {
