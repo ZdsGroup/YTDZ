@@ -33,7 +33,8 @@
 //     }
 // })
 
-define(["jquery","jquery.sliderBar"],function ($) {
+define(["jquery","swiper",'text!app/panelsmall.html',"jquery.sliderBar"],
+function ($,Swiper,panelsmallStr) {
     var rightpanel = null;
     function init() {
         if(rightpanel!==null){
@@ -43,16 +44,34 @@ define(["jquery","jquery.sliderBar"],function ($) {
         rightpanel = $(
             "<div id=\"unitElementQuery\" class=\"sliderbar-container\">" +
                 "<div class=\"title\"><i></i>基本信息</div>" +
-                "<div class=\"body\">无消息</div>"+
+                "<div class=\"body\"></div>" +
             "</div>");
-        $(document.body).append(rightpanel);
+
+        $('#center_panel').append(rightpanel);
+        var REG_BODY = /<body[^>]*>([\s\S]*)<\/body>/;
+        var result = REG_BODY.exec(panelsmallStr);
+        if(result && result.length === 2)
+            rightpanel.find('.body').append(result[1])
+
         rightpanel.sliderBar({
-            open : true,
+            open : false,
             top : 200,
             width : 350,
             height : '100%',//240,
             theme : 'rgba(0,0,0,0.8)',
             position : 'right',
+
+            maxminEl : '#rightPanelDetail'
+        });
+        rightpanel.find('.title').trigger('click');
+
+        // 初始化图片轮播
+        new Swiper('.swiper-container', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true
         });
     }
 

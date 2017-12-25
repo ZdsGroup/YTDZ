@@ -41,4 +41,7 @@ function hiddenTitle() {
     } else {
         $('.header-title').removeClass('hide');
     }
+
+    $('.navnew').css({ 'height': $(this).height() - 60 + 'px' });
+    $('#center_panel').css({ 'height': $(this).height() - 60 + 'px' });
 }

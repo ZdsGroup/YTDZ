@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Title</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../font/css/font-awesome.css" rel="stylesheet">
+    <link href="../font/iconfont.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+
+
+    <style>
+        .tab-content .row {margin: 5px 0;  }
+
+        .tab-content .col-md-6 {padding: 0 5px;  }
+
+        .tab-content .panel-success {margin: 5px;  }
+
+        .tab-content .panel-success .col-md-2 {padding: 6px;  }
+
+        .tab-content .panel-success .col-md-10 {padding: 6px;  }
+
+        #monitordata .hear {  width: 100%;  height: 44px;  line-height: 45px;  border-bottom: 1px solid #cccccc;  background-color: white;  }
+
+        #monitordata .hear a {  font-weight: normal;  color: black;  font-size: 15px;  }
+
+        #monitordata .hear li {  text-align: center;  float: left;  height: 45px;  }
+
+        #monitordata .hear li:nth-of-type(1) {  width: 33%;  float: left;  }
+
+        #monitordata .hear li:nth-of-type(2) {  width: 33%;  float: left;  }
+
+        #monitordata .hear li:nth-of-type(3) {  width: 34%;  float: right;  }
+
+        #monitordata .contentop li {  width: 90%;  display: none;  margin: 0 auto;  }
+
+        #monitordata .contentop .action {  display: block;  }
+
+
+
+
+
+    </style>
+</head>
+<body class="md-skin" style="width: 100%;height: 100%;">
+<div>
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#detail" data-toggle="tab">详情</a>
+        </li>
+        <li>
+            <a href="#analytics" data-toggle="tab">智能分析</a>
+        </li>
+        <li>
+            <a href="#monitordata" data-toggle="tab">监测数据</a>
+        </li>
+        <li>
+            <a href="#alertinfo" data-toggle="tab">预警信息</a>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="detail">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            地灾详情
+                        </div>
+                        <div class="panel-body">
+                            <img style="width: 100%" src="http://yt.qinchenguang.com/img/1.png"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            运行状况
+                        </div>
+                        <div class="panel-body">
+                            <p>状况</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="padding: 0 5px;">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        维护信息
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                安装地点：
+                            </div>
+                            <div class="col-md-10">
+                                鹰潭市石膏厂
+                            </div>
+                            <div class="col-md-2">
+                                维护负责人：
+                            </div>
+                            <div class="col-md-10">
+                                秦晨光
+                            </div>
+                            <div class="col-md-2">
+                                联系方式：
+                            </div>
+                            <div class="col-md-10">
+                                18851376895
+                            </div>
+                            <div class="col-md-2">
+                                安装时间：
+                            </div>
+                            <div class="col-md-10">
+                                2017年11月08日
+                            </div>
+                            <div class="col-md-2">
+                                上次维护时间：
+                            </div>
+                            <div class="col-md-10">
+                                2017年11月22日
+                            </div>
+                            <div class="col-md-2">
+                                设备运行状态：
+                            </div>
+                            <div class="col-md-10">
+                                正常
+                            </div>
+                            <div class="col-md-2">
+                                简介：
+                            </div>
+                            <div class="col-md-10">
+                                采用。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="analytics">
+
+            <div class="row">
+                <div class="col-lg-12" style="padding: 0;">
+                    <div class="ibox-content">
+                        <form method="post" class="form-inline" style="padding: 5px">
+                            <div class="form-group">
+                                <label>查询时间：</label>
+                                <div class="input-group date col-md-6" id="date_analytics1"
+                                     data-date="2017-08-16" data-date-format="dd MM yyyy"
+                                     data-link-field="dtp_analytics1" style="padding: 0;width: 160px;">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input class="form-control" type="text" value="" size="16">
+                                </div>
+                                <input type="hidden" class="col-md-6" id="dtp_analytics1" value=""/><br/>
+                            </div>
+                            <div class="form-group">
+                                <label>至 </label>
+                                <div class="input-group input-append date col-md-6" id="date_analytics2"
+                                     data-date="2017-08-16" data-date-format="dd MM yyyy"
+                                     data-link-field="dtp_analytics2" style="padding: 0;width: 160px;">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input class="form-control" type="text" value="" size="16">
+                                </div>
+                                <input type="hidden" class="col-md-6" id="dtp_analytics2" value=""/><br/>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-primary" href="#">搜索</a>
+                                <a class="btn btn-primary" href="#">导出数据</a>
+                            </div>
+                        </form>
+
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                位移数据图
+                            </div>
+                            <div class="panel-body">
+                                (这里是位移数据图)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="monitordata">
+            <div class="row">
+                <div class="col-lg-12" style="padding: 0;">
+                    <div class="ibox-content" style="padding-top: 5px">
+                        <ul class="hear">
+                            <li class="action" style="border-bottom: 2px solid #01B38A;height: 43px;">
+                                <a href="#">同类设备对比</a>
+                            </li>
+                            <li>
+                                <a href="#">同时间段对比 </a>
+                            </li>
+                            <li>
+                                <a href="#">数据列表 </a>
+                            </li>
+                        </ul>
+
+                        <ul class="contentop">
+                            <li class="action" style="margin: 0; width: 100%;">
+                                <form method="get" class="form-inline">
+                                    <div class="ibox-title">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-md-2" style="padding: 0;">
+                                                    <label>查询时间：</label>
+                                                    <div class="input-group input-append date col-md-6" id="date_monitor"
+                                                         data-date="2017-08-16"
+                                                         data-date-format="dd MM yyyy"
+                                                         data-link-field="dtp_monitor" style="padding: 0;width: 160px;">
+                                                    <span class="input-group-addon"><i
+                                                            class="fa fa-calendar"></i></span>
+                                                        <input class="form-control" type="text" value="" size="16">
+                                                    </div>
+                                                    <input type="hidden" class="col-md-6" id="dtp_monitor"
+                                                           value=""/><br/>
+                                                </div>
+                                                <div class="col-md-10 pull-right">
+                                                    <a class="btn btn-primary" href="#">查询</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        位移同类型设备对比图
+                                    </div>
+                                    <div class="panel-body">
+                                        对比图
+                                    </div>
+                                </div>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        位移同类型设备对比列表
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>设备名称</th>
+                                                <th>设备ID</th>
+                                                <th>x</th>
+                                                <th>y</th>
+                                                <th>h</th>
+                                                <th>DX(MM)</th>
+                                                <th>DY(MM)</th>
+                                                <th>DH(MM)</th>
+                                                <th>2D(MM)</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row">
+                                            <div class="col-sm-5 m-b-xxs">
+
+                                            </div>
+                                            <div class="col-sm-2 m-b-xxs">
+
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-white">首页</button>
+                                                    <button type="button" class="btn btn-white">上一页</button>
+                                                    <button class="btn btn-white">1</button>
+                                                    <button class="btn btn-white  active">2</button>
+                                                    <button class="btn btn-white">3</button>
+                                                    <button class="btn btn-white">4</button>
+                                                    <button type="button" class="btn btn-white">下一页</button>
+                                                    <button type="button" class="btn btn-white">末页</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li style="margin: 0; width: 100%;">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        WAITING
+                                    </div>
+                                    <div class="panel-body">
+                                        (PIC)
+                                    </div>
+                                </div>
+                            </li>
+                            <li style="margin: 0; width: 100%;">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        NULL
+                                    </div>
+                                    <div class="panel-body">
+                                        (NULL)
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="alertinfo">
+            <div class="row">
+                <div class="col-lg-12" style="padding: 0;">
+                    <div class="ibox-content">
+                        <form method="post" class="form-inline" style="padding: 5px">
+                            <div class="form-group">
+                                <label>查询时间</label>
+                                <div class="input-group input-append date col-md-6" id="date_alertinfo1"
+                                     data-date="2017-08-16" data-date-format="dd MM yyyy"
+                                     data-link-field="dtp_alertinfo1" style="padding: 0;width: 160px;">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input class="form-control" type="text" value="" size="16">
+                                </div>
+                                <input type="hidden" class="col-md-6" id="dtp_alertinfo1" value=""/><br/>
+                            </div>
+                            <div class="form-group">
+                                <label>至 </label>
+                                <div class="input-group input-append date col-md-6" id="date_alertinfo2"
+                                     data-date="2017-08-16" data-date-format="dd MM yyyy"
+                                     data-link-field="dtp_alertinfo2" style="padding: 0;width: 160px;">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input class="form-control" type="text" value="" size="16">
+                                </div>
+                                <input type="hidden" class="col-md-6" id="dtp_alertinfo2" value=""/><br/>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-primary" href="#">搜索</a>
+
+                            </div>
+
+                            <div class="col-md-5 pull-right">
+                                <label>设备筛选：</label>
+                                <div class="btn-group">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            地灾点1
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">地灾点1</a></li>
+                                            <li><a href="#">地灾点2</a></li>
+                                            <li><a href="#">地灾点3</a></li>
+                                            <li><a href="#">地灾点4</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            监测设备1
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">位移设备</a></li>
+                                            <li><a href="#">监测设备</a></li>
+                                            <li><a href="#">雨量设备</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            监测设备2
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">位移设备</a></li>
+                                            <li><a href="#">监测设备</a></li>
+                                            <li><a href="#">雨量设备</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                预警信息
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>断面名称</th>
+                                        <th>设备名称</th>
+                                        <th>报警等级</th>
+                                        <th>报警内容</th>
+                                        <th>报警时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-sm-5 m-b-xxs">
+
+                                    </div>
+                                    <div class="col-sm-2 m-b-xxs">
+
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-white">首页</button>
+                                            <button type="button" class="btn btn-white">上一页</button>
+                                            <button class="btn btn-white">1</button>
+                                            <button class="btn btn-white  active">2</button>
+                                            <button class="btn btn-white">3</button>
+                                            <button class="btn btn-white">4</button>
+                                            <button type="button" class="btn btn-white">下一页</button>
+                                            <button type="button" class="btn btn-white">末页</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script type="text/javascript" src="./libs/require.js" data-main="app.js"></script>-->
+
+<script type="text/javascript" src="../libs/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../libs/bootstrap.min.js"></script>
+<script type="text/javascript" src="../libs/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="../libs/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"
+        charset="UTF-8"></script>
+
+
+</body>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#date_analytics1').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: "month",
+            forceParse: 0,
+            showMeridian: 0,
+            format: 'yyyy-mm-dd'
+        });
+        $('#date_analytics2').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: "month",
+            forceParse: 0,
+            showMeridian: 0,
+            format: 'yyyy-mm-dd'
+        });
+        $('#date_alertinfo1').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: "month",
+            forceParse: 0,
+            showMeridian: 0,
+            format: 'yyyy-mm-dd'
+        });
+        $('#date_alertinfo2').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: "month",
+            forceParse: 0,
+            showMeridian: 0,
+            format: 'yyyy-mm-dd'
+        });$('#date_monitor').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: "month",
+            forceParse: 0,
+            showMeridian: 0,
+            format: 'yyyy-mm-dd'
+        });
+    });
+
+    $(function () {
+        $(".hear li").click(function () {
+            $(this).css({
+                borderBottom: "2px solid #01B38A",
+                height: "43px"
+            }).siblings().css({
+                borderBottom: "none",
+                height: "45px"
+            });
+        });
+
+        $(".hear li").click(function () {
+            $(this).addClass("action").siblings().removeClass("action");
+            var index = $(this).index();
+            $(".contentop li").eq(index).css("display", "block").siblings().css("display", "none");
+        });
+    });
+
+</script>
+</html>

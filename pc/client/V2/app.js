@@ -6,6 +6,8 @@ requirejs.config({
         // 定义项目主目录入口
         app: 'app',
         data: 'data',
+        // require 额外插件
+        text: 'libs/requirePlugins/text',
         // 定义框架库相关路径
         "jquery": "libs/jquery-2.1.1",
         "jquery.nav": "libs/nav",
@@ -22,12 +24,14 @@ requirejs.config({
         "jquery.sliderBar": "libs/plugins/sliderBar/jquery.sliderBar",
         // 模态提示窗
         "sweetalert": "libs/plugins/sweetalert/sweetalert.min",
+        // 图片轮播
+        "swiper": "libs/plugins/swiper/swiper.min",
 
         "leaflet": "libs/leaflet/leaflet-src",
     },
     map: {
         '*': {
-            'css': 'libs/css'
+            'css': 'libs/requirePlugins/css'
         }
     },
     shim: {
@@ -41,6 +45,7 @@ requirejs.config({
         "jquery.mbExtruder": { deps: ["jquery","jquery.mb.flipText","css!libs/plugins/mbExtruder/mbExtruder.css"] },
 
         "sweetalert": { deps: ["css!libs/plugins/sweetalert/sweetalert.css"] },
+        "swiper": { deps: ["css!libs/plugins/swiper/swiper.min.css"] },
 
         "leaflet": { deps: ["css!libs/leaflet/leaflet.css"] },
     }
