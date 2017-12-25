@@ -49,7 +49,7 @@ var initAppPlus = function() {
 	
 	 var info = plus.push.getClientInfo();
     /*alert( "token: "+info.token );*/
-    alert( "clientid: "+info.clientid );
+//  alert( "clientid: "+info.clientid );
     /*alert( "appid: "+info.appid );
     alert( "appkey: "+info.appkey );*/
     plus.push.addEventListener( "click", function(msg){alert( "You clicked: " + msg.content );}, false ); 
@@ -161,14 +161,16 @@ function clearLayerByID(id) {
 //显示告警信息汇总提示栏，5秒后消失
 function showWarnInfoOnMap() {
 	var warnInfo = queryWarnInfo();
+	var showTime = 100;
 	if(warnInfo != '') {
 		var obj = mui('#warn-info')[0];
 		obj.innerHTML = warnInfo;
+		showTime = 10000;
 	}
 	setTimeout(function() {
 		var obj = mui('.warn-info-container')[0];
 		obj.style.display = 'none';
-	}, 10000);
+	}, showTime);
 }
 
 //查询后台服务器，获取警告信息汇总
@@ -825,7 +827,8 @@ function setFooterContentByInfo(Type, infoID) {
 		//监测设备图文轮播事件
 		mui('#mui-slider-jcsb').off('tap', 'li');
 		mui("#mui-slider-jcsb").on('tap', 'li', function(evt) {
-			var info = evt.target.id;
+			debugger
+			var info = this.getAttribute("id");
 			if(info) {
 				var typeT = info.split('_')[0];
 				var idT = info.split('_')[1];
