@@ -424,7 +424,6 @@ var initEvent = function() {
 				default:
 					break;
 			}
-
 			mui.openWindow({
 				url: pageUrl,
 				id: pageId,
@@ -871,7 +870,7 @@ function setFooterContentByInfo(Type, infoID) {
 		mui('#jcsb-jczb-list').off('tap', 'li');
 		mui(".mui-slider").slider();
 		mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
-			debugger
+//			debugger
 			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
 			var currentPid = this.getAttribute('title');
 			var type = this.getAttribute('tp');
@@ -985,7 +984,6 @@ function initJcsbContentHtml(infoT, typeT){
 
 //根据地灾点或监测设备类型显示详情信息，此处为三层分层信息面板
 function showDetailPanel(feature,type) {
-//	debugger
 	var dzdDetailList = mui('.dzd-footercardcontent');
 	var jcsbDetailList = mui('.jcsb-footercardcontent');
 	if(dzdDetailList && dzdDetailList.length > 0) {

@@ -36,22 +36,25 @@
 						<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
 									<img src="<%=data.dimage[data.dimage.length-1]%>">
+									<p class="mui-slider-title mui-text-center">安装图片1</p>
 								</a>
 							</div>
 						<% for (var i=0; i<data.dimage.length; i++) { %>
 							<div class="mui-slider-item">
 								<a href="#">
 									<img src="<%=data.dimage[i]%>">
+									<p class="mui-slider-title mui-text-center">安装图片1</p>
 								</a>
 							</div>
 							<%}%>
 							<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
 									<img src="<%=data.dimage[0]%>">
+									<p class="mui-slider-title mui-text-center">安装图片1</p>
 								</a>
 							</div>
 						</div>
-						<div class="mui-slider-indicator">
+						<div class="mui-slider-indicator mui-text-right">
 							<% for (var i=0; i<data.dimage.length; i++) { %>
 							<div class="mui-indicator mui-active"></div>
 							<%}%>
@@ -60,38 +63,38 @@
 					<ul id="jcsbxq-ul-list" class="mui-table-view">
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.username%></span>
+								<span class="mui-table-cell mui-col-xs-3 mui-text-left">负责人:</span>
+								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.username%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.mobile%></span>
+								<span class="mui-table-cell mui-col-xs-3 mui-text-left">联系电话:</span>
+								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.mobile%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.address%></span>
+								<span class="mui-table-cell mui-col-xs-3 mui-text-left">安装地点:</span>
+								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.address%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.addtime%></span>
+								<span class="mui-table-cell mui-col-xs-3 mui-text-left">安装时间:</span>
+								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.addtime%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.rate%></span>
+								<span class="mui-table-cell mui-col-xs-3 mui-text-left">维护周期:</span>
+								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.rate%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护时间:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.modtime%></span>
+								<span class="mui-table-cell mui-col-xs-3 mui-text-left">上次维护:</span>
+								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.modtime%></span>
 							</div>
 						</li>
 					</ul>

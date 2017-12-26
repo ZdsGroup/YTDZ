@@ -8,8 +8,9 @@
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/pages/common.js" ></script>
 		<script type="text/javascript" src="../../js/template-native.js"></script>
-		<script type="text/javascript" src="../../js/testdata.js"></script>
+		<!--<script type="text/javascript" src="../../js/testdata.js"></script>-->
 		<style>
 			#slider-pictures {
 				height: 270px;
@@ -32,153 +33,147 @@
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">地灾点项目详细情况</h1>
 		</header>
-		<div class="mui-content">
-			<div id="slider-pictures" class="mui-slider">
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/2.png">
-							<p class="mui-slider-title mui-text-center">监测设备2</p>
-						</a>
+		<div id="content" class="mui-content">
+			<script id="slider-item-template" type="text/html">
+				<div id="slider-pictures" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="<%=list.image[list.image.length-1]%>">
+								<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
+							</a>
+						</div>
+						<% for (var i=0; i<list.image.length; i++) { %>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="<%=list.image[i]%>">
+								<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
+							</a>
+						</div>
+						<%}%>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="<%=list.image[0]%>">
+								<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
+							</a>
+						</div>
 					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/dz1.png">
-							<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/1.png">
-							<p class="mui-slider-title mui-text-center">监测设备1</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/2.png">
-							<p class="mui-slider-title mui-text-center">监测设备2</p>
-						</a>
-					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/dz1.png">
-							<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
-						</a>
+					<div class="mui-slider-indicator mui-text-right">
+							<div class="mui-indicator mui-active"></div>
+						<% for (var i=1; i<list.image.length; i++) { %>
+							<div class="mui-indicator"></div>
+						<%}%>
 					</div>
 				</div>
-				<div class="mui-slider-indicator mui-text-right">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-				</div>
-			</div>
-			<ul id="dzdxq-ul-list" class="mui-table-view">
-				<script id="dzdxq-ul-list-template" type="text/html">
+				<ul id="dzdxq-ul-list" class="mui-table-view">
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">地灾点:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].name%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.name%></span>
 						</div>
 					</li>					
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">承担单位:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].company%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.company%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">灾害类型:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].dangertype%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.dtype%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">险情等级:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].dangerLev%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.dlevel%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">威胁人数:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].threatPersonNum%> (人)</span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.dnum%> (人)</span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">防治措施:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].measures%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.davoid%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">报警方式:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].warnmethod%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.dmethod%></span>
 						</div>   
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">避灾地点:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].avoidaddr%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.daddress%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">撤离路线:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].leaveline%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.droute%></span>
 						</div>
 					</li>					
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">负责人:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].person%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.username%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">联系电话:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].persontel%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.mobile%></span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">监测设备:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].jcsbbreif%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left">总计<%=list.typenum%>种类型，<%=list.devicenum%>个监测设备</span>
 						</div>
 					</li>
 					<li class="mui-table-view-cell">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-3 mui-text-left">简介:</span>
-							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list[0].probreif%></span>
+							<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=list.description%></span>
 						</div>
 					</li>
-				</script>
-			</ul>
+				</ul>
+			</script>
 		</div>
 		
 		<script type="text/javascript">
 			mui.init();
-			
+			mui.plusReady(function() {
+				this.initEvent();
+			});
 			var initEvent = function() {
 				//初始化地灾点项目详情信息
 				initDzdTemplateContent();
 			};
 			
 			function initDzdTemplateContent(){
-				var dzdXqxx = template('dzdxq-ul-list-template', {
-					list: dzGdxxData
+				var self = plus.webview.currentWebview();
+				var attr = mui.myCloneObj(self.attr);
+				attr.image = JSON.parse(attr.image);
+				var html = template('slider-item-template', {
+					list: attr
 				});
-				document.getElementById("dzdxq-ul-list").innerHTML = dzdXqxx;
+				document.getElementById("content").innerHTML = html;
+				mui(".mui-slider").slider();
 			}
-			
 			var initApp = function() {
 				this.initEvent();
 			}
-			mui.ready(function() {
-				this.initApp();
-			});
+			
 		</script>
 	</body>
 </html>
