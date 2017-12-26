@@ -85,7 +85,8 @@
                 'width': opts.width + 20 +'px',
                 'height' : opts.height+'px',
                 'position':'relative',
-                'padding':'10px 10px 40px 10px',
+                // 'padding':'10px 10px 40px 10px',
+                'padding':'0 0 40px 0',
                 'overflow-x':'hidden',
                 'overflow-y':'auto',
                 'font-family':'Microsoft Yahei',
@@ -129,7 +130,14 @@
             obj.data('maxPreTop',opts.top);
             if(opts.hasOwnProperty('maxminEl')){
                 setInterval(maxSizeWidthFunc , 250); // 监听map的div长度改变
-                var iframDiv = $('<div id="iframDiv" style="float: left;background-color: black;height: 100%"></div>');
+                var iframDiv = $(
+                    '<div id="iframDiv" class="panel-success" style="float: left;background-color: black;height: 100%;width: 100%">' +
+                        '<div class="panel-heading" style="font-size: 14px;">' +
+                            '<button class="btn-xs btn-w-m btn-info" id="iframMinSize">最小化</button>' +
+                            '<span>贵溪市石膏矿地面塌陷地灾点详情</span>' +
+                        '</div>' +
+                    '</div>'
+                );
                 obj.append(iframDiv);
                 iframDiv.hide();
 
@@ -137,6 +145,13 @@
                 iframDiv.append(iframchildrendiv);
 
                 $(opts.maxminEl).click(function () {
+                    _maxminCallBackFunction();
+                })
+                iframDiv.find('#iframMinSize').click(function () {
+                    _maxminCallBackFunction();
+                })
+
+                function _maxminCallBackFunction() {
                     if(obj.data('maxSize')){
                         opts.top = obj.data('maxPreTop');
                         var minSizeCss = {
@@ -147,8 +162,9 @@
                         obj.animate(minSizeCss,300,'linear',function () {
                             obj.find('.title').show();
                         });
-                        this.innerHTML = '更多';
+                        // this.innerHTML = '更多';
                         iframDiv.hide();
+                        obj.find('.body').show();
                     }else{
                         opts.top = 60;
                         var maxSizeCss = {
@@ -156,14 +172,16 @@
                             'top': opts.top + 'px',
                             'height': $(window).height() - opts.top + 'px'
                         }
-                        obj.animate(maxSizeCss,1000);
                         obj.find('.title').hide();
-                        this.innerHTML = '缩小';
-                        iframDiv.show();
-                        iframDiv.css({'width': $('#mapdiv').width() - opts.width - 22 + 'px'})
+                        obj.find('.body').hide();
+                        obj.animate(maxSizeCss,300,'linear',function () {
+                            iframDiv.show();
+                        });
+                        // this.innerHTML = '缩小';
+                        // iframDiv.css({'width': $('#mapdiv').width() - opts.width - 22 + 'px'})
                     }
                     obj.data('maxSize',obj.data('maxSize') == true ? false : true);
-                })
+                }
             }
 
             var oldMapWidth = null;
@@ -172,7 +190,7 @@
                 var mapwidth = $('#mapdiv').width();
                 if( oldMapWidth !== null && oldMapWidth !== mapwidth){
                     obj.css({'width': mapwidth + 'px'});
-                    iframDiv.css({'width': mapwidth - opts.width - 22 + 'px'})
+                    // iframDiv.css({'width': mapwidth - opts.width - 22 + 'px'})
                 }
                 oldMapWidth = mapwidth;
             }

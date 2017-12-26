@@ -33,7 +33,7 @@
 //     }
 // })
 
-define(["jquery","swiper",'text!app/panelsmall.html',"jquery.sliderBar"],
+define(["jquery","swiper",'text!app/panelsmall.html',"jquery.sliderBar",'jquery.iCheck'],
 function ($,Swiper,panelsmallStr) {
     var rightpanel = null;
     function init() {

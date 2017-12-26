@@ -76,14 +76,16 @@ function ($,restfulRequest,swal,markLayer) {
     }
 
     function getDetail(data) {
-        String.prototype.repeat = function(n) {
-            var _this = this;
-            var result = '';
-            for(var i=0;i<n;i++) {
-                result += _this;
-            }
+        // 格式化所有的设备列表，把对应的设备按照地灾点分组
+        var allDevices = {};
+        for (var i = 0;i < data.data.devices.length; i++){
+            var eachDevice = data.data.devices[i];
+            var deviceQuake = eachDevice.quakeid;
+            if(!allDevices.hasOwnProperty(deviceQuake))
+                allDevices[deviceQuake] = [];
+            allDevices[deviceQuake].push(eachDevice);
         }
-
+        console.log(allDevices);
         var quakeInfoStr =
             '<p>告警等级：{rankStart}</p>' +// ☆☆☆☆
             '<p>地址：{address}</p>';
@@ -93,31 +95,34 @@ function ($,restfulRequest,swal,markLayer) {
             if(tempdata !== undefined && tempdata !== null){
                 tempdata.detailInfo = eachQuake;
             }
+            // 把对应的设备放到对应地灾点下
+            tempdata.childrenDevices = formatDevices(eachQuake.quakeid);
+            // 初始化地灾点的详细信息
             var quakeInfoDom = $(quakeInfoStr.replace('{address}',eachQuake.address)
                 .replace( '{rankStart}',rankStartRepeat( parseInt(eachQuake.rank,10)) ));
-            $("ul#regionsItems").find('li#quake_' + eachQuake.quakeid)
-                .find('div').append(quakeInfoDom);
-
+            var eachquake = $("ul#regionsItems").find('li#quake_' + eachQuake.quakeid);
+            eachquake.find('div').append(quakeInfoDom);
+            // 每个地灾点的点击事件
+            eachquake.on('click',quakeClick);
             // 根据每个地点的参数来设置mark
             {
                 var picker = JSON.parse( eachQuake.centroid );
                 var mX = picker.lat;
                 var mY = picker.lng;
                 markLayer.addMark(
-                    L.marker([
-                        mX, mY
-                    ],{id:eachQuake.quakeid}).bindPopup(eachQuake.name).on('click',function () {
-                            require(['app/rightPanel'],function (rightpanel) {
-                                rightpanel.init();
-                        })}).on('dblclick',function () {
+                    L.marker(
+                        [mX, mY],{id:eachQuake.quakeid}
+                        ).bindPopup(eachQuake.name)
+                        .on('click',quakeClick)
+                        .on('dblclick',function () {
                             require(['app/rightPanel'],function (rightpanel) {
                                 rightpanel.destroy();
                         })
                     })
                 )
-                markLayer.flyTO();
             }
         }
+        console.log(quakeList);
 
         function rankStartRepeat(n) {
             var result = '';
@@ -126,6 +131,37 @@ function ($,restfulRequest,swal,markLayer) {
             }
             return result;
         }
+        // 地灾点的点击事件
+        function quakeClick() {
+            require(['app/rightPanel'],function (rightpanel) {
+                rightpanel.init();
+            })
+        }
+        function formatDevices(quakeid) {
+            var returnChildDevices = {};
+            if(!allDevices.hasOwnProperty(quakeid))
+                return returnChildDevices;
+            for (var deviceIndex = 0; deviceIndex < allDevices[quakeid].length; deviceIndex++){
+                var deviceTYpe = '';
+                switch (allDevices[quakeid][deviceIndex].type){
+                    case 1:
+                        deviceTYpe = '位移监测设备';
+                        break;
+                    case 2:
+                        deviceTYpe = '雨量监测设备';
+                        break;
+                    case 3:
+                        deviceTYpe = '裂缝监测设备';
+                        break;
+                }
+                if(!returnChildDevices.hasOwnProperty(deviceTYpe))
+                    returnChildDevices[deviceTYpe] = [];
+                returnChildDevices[deviceTYpe].push( allDevices[quakeid][deviceIndex] );
+            }
+
+            return returnChildDevices;
+        }
+
     }
 
     function returnQuakeDetail(quakeid) {

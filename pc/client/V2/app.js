@@ -27,6 +27,8 @@ requirejs.config({
         // 图片轮播
         "swiper": "libs/plugins/swiper/swiper.min",
 
+        "jquery.iCheck": "libs/plugins/iCheck/icheck.min",
+
         "leaflet": "libs/leaflet/leaflet-src",
     },
     map: {
@@ -46,6 +48,8 @@ requirejs.config({
 
         "sweetalert": { deps: ["css!libs/plugins/sweetalert/sweetalert.css"] },
         "swiper": { deps: ["css!libs/plugins/swiper/swiper.min.css"] },
+
+        "jquery.iCheck": { deps: ["jquery","css!libs/plugins/iCheck/square/_all.css"] },
 
         "leaflet": { deps: ["css!libs/leaflet/leaflet.css"] },
     }

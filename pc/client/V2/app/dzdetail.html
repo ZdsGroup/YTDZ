@@ -43,12 +43,11 @@
 
 
 
-
-
     </style>
 </head>
 <body class="md-skin" style="width: 100%;height: 100%;">
-<div>
+<div class="panel panel-success">
+    <div>
     <ul id="myTab" class="nav nav-tabs">
         <li class="active">
             <a href="#detail" data-toggle="tab">详情</a>
@@ -60,7 +59,9 @@
             <a href="#monitordata" data-toggle="tab">监测数据</a>
         </li>
         <li>
-            <a href="#alertinfo" data-toggle="tab">预警信息</a>
+            <a href="#alertinfo" class="count-info" data-toggle="tab">
+                预警信息<span class="label label-warning">3</span>
+            </a>
         </li>
     </ul>
     <div id="myTabContent" class="tab-content">
@@ -452,6 +453,7 @@
             </div>
         </div>
     </div>
+        </div>
 </div>
 
 <!--<script type="text/javascript" src="./libs/require.js" data-main="app.js"></script>-->

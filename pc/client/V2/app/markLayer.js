@@ -9,6 +9,7 @@ define(
 function ($,L) {
     var map = window.YTmap;
     var markLayerGroup = null;
+    var deviceMarkLayerGroup = null;
 
     function initMarkLayerGroup() {
         markLayerGroup = new L.layerGroup();
