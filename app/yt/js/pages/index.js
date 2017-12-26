@@ -847,8 +847,7 @@ function setFooterContentByInfo(Type, infoID) {
 		
 		//监测设备图文轮播事件
 		mui('#mui-slider-jcsb').off('tap', 'li');
-		mui("#mui-slider-jcsb").on('tap', 'li', function(evt) {
-			debugger
+		mui("#mui-slider-jcsb").on('tap', 'img', function(evt) {
 			var info = this.getAttribute("id");
 			if(info) {
 				var typeT = info.split('_')[0];
