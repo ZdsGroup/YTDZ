@@ -369,12 +369,15 @@ var initEvent = function() {
 		//地灾点或设备ID
 		var idT = "";
 		var attr = null;
+		var typeT = null;
 		if (selectType == "dzd"){
 			idT = currentDzd.quakeid;
 			attr = currentDzd;
+			typeT = selectType;
 		} else if (selectType == "jcsb") {
-			idT = currentDzd.deviceid;
+			idT = currentSb.deviceid;
 			attr = currentSb;
+			typeT = currentSb.type;
 		}
 		//地灾点或设备所有属性数据对象
 		var pageUrl = '';
@@ -401,18 +404,17 @@ var initEvent = function() {
 					pageId = 'jcsb-warn-info';
 					break;
 				case 'jcsb-analy-all':
-					if(selectedFeature) {
-						var jcsb_type = selectedFeature.type;
-						switch(jcsb_type) {
-							case 'bmwyjc':
+					if(typeT) {
+						switch(typeT) {
+							case 1:
 								pageUrl = 'pages/jcsb/bmwyjcanalylist.html';
 								pageId = 'jcsb-bmwyjc-analylist';
 								break;
-							case 'lfjc':
+							case 3:
 								pageUrl = 'pages/jcsb/lfjcanalylist.html';
 								pageId = 'jcsb-lfjc-analylist';
 								break;
-							case 'yljc':
+							case 2:
 								pageUrl = 'pages/jcsb/yljcanalylist.html';
 								pageId = 'jcsb-yljc-analylist';
 								break;
@@ -428,7 +430,7 @@ var initEvent = function() {
 				url: pageUrl,
 				id: pageId,
 				extras: {
-					type: selectType,
+					type: typeT,
 					paramId: idT,
 					attr:attr
 				}
@@ -870,7 +872,6 @@ function setFooterContentByInfo(Type, infoID) {
 		mui('#jcsb-jczb-list').off('tap', 'li');
 		mui(".mui-slider").slider();
 		mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
-//			debugger
 			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
 			var currentPid = this.getAttribute('title');
 			var type = this.getAttribute('tp');
