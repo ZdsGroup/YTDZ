@@ -259,6 +259,17 @@ var showFooterPanel = function(fh) {
 	}
 };
 
+function checkFtstar(starStatus){
+	var obj = mui('#ftstar')[0];
+	if(starStatus == 0) {
+		obj.classList.remove('ytfooter-star-color');
+		obj.classList.add('ytfooter-star');
+	} else {
+		obj.classList.remove('ytfooter-star');
+		obj.classList.add('ytfooter-star-color');
+	}
+}
+
 /*隐藏底部要素概要面板, fh=0*/
 var hideFooterPanel = function() {
 	var mapFooter = mui('#ytfooter')[0];
@@ -344,21 +355,33 @@ var initEvent = function() {
 
 	//底部对象概要信息收藏按钮点击事件
 	mui('#ftstar')[0].addEventListener('click', function(evt) {
-
 		var action = evt.target.value;
 		var starStatus = 0;
 		if(action == 'ftstar') {
-			var obj = mui('#ftstar')[0];
-			if(obj.classList.contains('ytfooter-star')) {
-				obj.classList.remove('ytfooter-star');
-				obj.classList.add('ytfooter-star-color');
-				starStatus = 1;
-			} else {
-				obj.classList.remove('ytfooter-star-color');
-				obj.classList.add('ytfooter-star');
-				starStatus = 0;
+			var action = "userfavos";
+			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
+			if(selectedFeature.type == 'dzd'){
+				mui.myMuiQueryPost(action, 
+					{
+						userid: 1,
+						quakeid: selectedFeature.id
+					},
+					function(results){
+						var obj = mui('#ftstar')[0];
+						if(results.data.status == 1){
+							obj.classList.remove('ytfooter-star');
+							obj.classList.add('ytfooter-star-color');
+						}else{
+							obj.classList.remove('ytfooter-star-color');
+							obj.classList.add('ytfooter-star');
+						}
+					},
+					function(){
+						mui.myMuiQueryErr('收藏(取消)失败，请稍后再试！');
+						dzQueryResults = null;
+					}
+				)
 			}
-			//TODO 调用后台把该对象进行收藏
 			return
 		}
 	});
@@ -565,7 +588,7 @@ function showStarMarksOnMap() {
 };
 //显示所有的地灾点、设备点
 function closeStarMarksOnMap() {
-
+	
 };
 
 function showAllDZMarksOnMap() {
@@ -687,6 +710,14 @@ function getDZMarkersLayerGroup(results, isWarn) {
 			showJCMarkerByDZid(e.target.options.id);
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			showFooterPanel(footerHeight);
+			
+			//TODO temp
+			if(currentDzd.quakeid == 100007){
+				currentDzd.favostatus = 1;
+			}
+			//
+			
+			checkFtstar(currentDzd.favostatus);
 		});
 		dzMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
@@ -758,8 +789,8 @@ function showJCMarkerByDZid(dzID) {
 //							color: 'red',
 //							weight: 2,
 //							opacity: 0.5,
-//							fillColor: 'gray',
-//							fillOpacity: 0.2,
+//							fillColor: '#cccccc',
+//							fillOpacity: 0.4,
 //							fill: true
 //						});
 //		jcMarkersLayerGroup.addLayer(areaLine);
@@ -824,6 +855,7 @@ function getJCMarkersLayerGroup(results) {
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			myMap.flyTo(e.latlng);
 			showFooterPanel(footerHeight);
+//			checkFtstar(currentSb.favostatus);
 		});
 		jcMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
