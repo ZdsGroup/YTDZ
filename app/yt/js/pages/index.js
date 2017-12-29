@@ -16,8 +16,8 @@ var warnInfoIsShow = false;
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
-		doubletap: true, //默认为false
-		longtap: true, //默认为false
+		doubletap: false, //默认为false
+		longtap: false, //默认为false
 		swipe: true, //默认为true
 		drag: true, //默认为true
 		hold: false, //默认为false，不监听
@@ -68,8 +68,13 @@ mui.back = function() {
 		}, 1000);
 	}
 	if(data == 2) {
-		plus.runtime.quit();
-
+		var btnArray = ['是', '否'];
+		mui.confirm('确认退出？', '鹰潭地灾应用', btnArray, function(e) {
+					if (e.index == 0) {
+						plus.runtime.quit();
+					} else {
+					}
+				});
 	}
 };
 
@@ -115,8 +120,9 @@ var initMap = function() {
 	myMap.on('locationfound', onLocationFound);
 	myMap.on('locationerror', onLocationError);
 
+//进入系统，只查询当前位置坐标，地图不进行定位。地图默认显示范围为地灾点查询的范围
 	myMap.locate({
-		setView: true,
+		setView: false,
 		timeout: 5000,
 		maxZoom: 13
 	});
@@ -691,8 +697,8 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		dzMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
 	}
-	if(latLngsArr.length > 0) {
-		warnBounds = L.latLngBounds(latLngsArr);
+	if(latLngsArr.length > 1) {
+		warnBounds = L.latLngBounds(latLngsArr).pad(0.2);
 		setTimeout(function() {
 			myMap.fitBounds(warnBounds, {
 				maxZoom: maxZoomShow
@@ -828,7 +834,7 @@ function getJCMarkersLayerGroup(results) {
 		jcMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
 	}
-	warnBounds = L.latLngBounds(latLngsArr);
+	warnBounds = L.latLngBounds(latLngsArr).pad(0.2);
 	if(latLngsArr.length > 0) {
 		setTimeout(function() {
 			myMap.flyToBounds(warnBounds, {
@@ -841,6 +847,7 @@ function getJCMarkersLayerGroup(results) {
 function setFooterContentByInfo(Type, infoID) {
 	var tempResults = null;
 	var infoT = null;
+	//底部面板是地灾点信息
 	if(Type == 'dzd') {
 		tempResults = dzQueryResults.quakes;
 		infoT = getCheckInfos(tempResults,Type, infoID);
@@ -864,6 +871,7 @@ function setFooterContentByInfo(Type, infoID) {
 			}
 		});
 	} else {
+		//底部面板是监测设备信息
 		tempResults = dzQueryResults.devices;
 		infoT = getCheckInfos(tempResults,Type, infoID);
 		initJcsbContentHtml(infoT, Type);
@@ -872,26 +880,30 @@ function setFooterContentByInfo(Type, infoID) {
 		mui('#jcsb-jczb-list').off('tap', 'li');
 		mui(".mui-slider").slider();
 		mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
-			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
-			var currentPid = this.getAttribute('title');
+			var currentPid = this.getAttribute('page');
 			var type = this.getAttribute('tp');
+			var label = this.getAttribute('label');
 			var preUrl = "pages/jcsb/";
 			var info = {
 				url: preUrl,
 				extras: {
-					pageId: currentPid,
-					pageFeature: selectedFeature
+					paramId: currentPid, //设备页面对应的子面板
+					feature: currentSb, //监测设备属性信息
+					label:label   //子页面显示标题
 				}
 			};
-			if(type == "3") {
-				info.url += 'lfjc.html';
-				info.id = 'lfjc-analy-detail';
-			} else if(type == "1") {
+			//裂缝监测设备
+			if(type == "1") {
+			//位移监测设备
 				info.url += 'bmwyjc.html';
 				info.id = 'bmwyjc-analy-detail';
 			} else if(type == "2") {
+			//雨量监测设备
 				info.url += 'yljc.html';
 				info.id = 'yljc-analy-detail';
+			} else if(type == "3") {
+				info.url += 'lfjc.html';
+				info.id = 'lfjc-analy-detail';
 			}
 			mui.openWindow(info);
 		});
