@@ -30,6 +30,17 @@
 			error: error
 		});
 	}
+	//查询入口post
+	$.myMuiQueryPost = function(url, params, success, error) {
+		mui.ajax(baseURL + url, {
+			data: params,
+			dataType: 'json',
+			type: 'post',
+			timeout: 10000,
+			success: success,
+			error: error
+		});
+	}
 	//查询出错公用显示
 	$.myMuiQueryErr = function(msg) {
 			mui.toast(msg, {
