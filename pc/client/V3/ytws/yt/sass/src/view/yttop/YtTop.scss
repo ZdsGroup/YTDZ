@@ -1,0 +1,36 @@
+//自定义样式
+.sys-title {
+  color: rgba(255, 255, 255,1.0);
+  font-size: 28px;
+  margin-left: 5px;
+}
+
+.sys-logo {
+  background-image: url("images/yt/logo.png");
+  background-size: contain;
+}
+
+@include extjs-panel-ui(
+        $ui: 'banner-panel-bgcolor',
+        $ui-body-background-color: rgba(69, 90, 100, 1.0)
+)
+
+//自定义变量
+$focus-text-color: #ffffff;
+$default-text-color: #9ee7d0;
+$custome-font-family: '微软雅黑';
+
+@include extjs-button-medium-ui(
+        $ui: 'top-menu-ui',
+        $border-width: 0px,
+        $inner-border-width: 0px,
+        $background-color: transparent,
+        $color: $default-text-color,
+        $color-over: $focus-text-color,
+        $color-pressed: $focus-text-color,
+        $text-padding: 5px,
+        $padding: 5px,
+        $icon-size: 24px,
+        $font-size: 14px,
+        $font-family: $custome-font-family
+);
