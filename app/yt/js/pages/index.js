@@ -583,11 +583,7 @@ var initEvent = function() {
 };
 
 //TODO 过滤显示被收藏的地灾点、设备点
-function showStarMarksOnMap() {
-
-};
-//显示所有的地灾点、设备点
-function closeStarMarksOnMap() {
+function showFilterStarMarksOnMap(isFilter) {
 	
 };
 
