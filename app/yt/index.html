@@ -17,293 +17,320 @@
 
 	<body>
 		<div id="ytmask" class="mui-content">
-		<div id="ytmap" class="mui-content">
-			<div id="toolFloatContainer" style="position: absolute; width: 100%; height: 100%;top: 0; left: 0;style=" z-index: 0; "">
-				<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
-				<form class="mui-input-group">
-					<div class="mui-input-row ">
-						<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、监测设备">
+			<div id="ytmap" class="mui-content">
+				<div id="toolFloatContainer" style="position: absolute; width: 100%; height: 100%;top: 0; left: 0;style=" z-index: 0; "">
+					<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
+					<form class="mui-input-group">
+						<div class="mui-input-row ">
+							<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、监测设备">
+						</div>
+					</form>
+					<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
+					<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
+					<button type="button" value="map" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
+					<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
+					<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
+					<button id="yt-map-zoomout" type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
+					<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
+					<div class="warn-info-container">
+						<label id="warn-info"></label>
 					</div>
-				</form>
-				<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
-				<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
-				<button type="button" value="map" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
-				<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
-				<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
-				<button id="yt-map-zoomout" type="button" value="zoomout" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomout map-tool-zoomout"></button>
-				<button type="button" value="star" class="mui-btn mui-btn-outlined maptoolfont4 yt-star map-tool-star"></button>
-				<div class="warn-info-container">
-					<label id="warn-info"></label>
 				</div>
 			</div>
-		</div>
-		<div id="ytfooter" style="background-color: #EEEEEE;position: relative;">
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div id="baseinfo" style="position: relative;">
-						<div id="footer-table" class="footercardcontent">
-							<script id="brief-ul-li-template" type="text/template">
-								<%if (type=='dzd') {%>
-								<p id='<%=type%>_<%=info.id%>' class="yt-normal-color">
-									<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%> </span>
-									<%if (info.rank=='0') {%>
-									<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='1'){%>
-									<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='2'){%>
-									<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='3'){%>
-									<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='4'){%>
-									<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}%>
-								</p>
-								<p>
-									<span class="">
+			<div id="ytfooter" style="background-color: #EEEEEE;position: relative;">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div id="baseinfo" style="position: relative;">
+							<div id="footer-table" class="footercardcontent">
+								<script id="brief-ul-li-template" type="text/template">
+									<%if (type=='dzd') {%>
+									<p id='<%=type%>_<%=info.id%>' class="yt-normal-color">
+										<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%> </span>
+										<%if (info.rank=='0') {%>
+										<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='1'){%>
+										<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='2'){%>
+										<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='3'){%>
+										<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='4'){%>
+										<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}%>
+									</p>
+									<p>
+										<span class="">
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.address%>
 									</span>
-								</p>
-								<%}else{%>
-								<p id='<%=type%>_<%=info.id%>'>
-									<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%></span>
-									<%if (info.rank=='0') {%>
-									<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='1'){%>
-									<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='2'){%>
-									<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='3'){%>
-									<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}else if (info.rank=='4'){%>
-									<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
-									<%}%>
-								</p>
-								<p>
-									<span>
+									</p>
+									<%}else{%>
+									<p id='<%=type%>_<%=info.id%>'>
+										<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%></span>
+										<%if (info.rank=='0') {%>
+										<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='1'){%>
+										<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='2'){%>
+										<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='3'){%>
+										<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}else if (info.rank=='4'){%>
+										<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+										<%}%>
+									</p>
+									<p>
+										<span>
 									<i class="fa fa-map-marker fa-fw"></i>
 									<%=info.address%>
 									</span>
-								</p>
-								<%}%>
-							</script>
+									</p>
+									<%}%>
+								</script>
+							</div>
+							<div style="position: absolute; top: 5px;right: 10px;">
+								<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+							</div>
 						</div>
-						<div style="position: absolute; top: 5px;right: 10px;">
-							<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
-						</div>
-					</div>
 
-					<!--
+						<!--
             	作者：winnerlbm@163.com
             	时间：2017-12-06
             	描述：监测设备详情分层信息，通过“jcsb-footercardcontent”选择，默认不显示
             -->
-					<div id="jcsb-content-part1" class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
-						<script id="jcsb-content-part1-template" type="text/template">
-							<a class="mui-navigate-right" href="#">
-								<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>
-								承担单位:<%=info.company%>
-							</a>
-							<p>负责人：<%=info.username%></p>
-							<%if (info.connectstatus==0) {%>
+						<div id="jcsb-content-part1" class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
+							<script id="jcsb-content-part1-template" type="text/template">
+								<a class="mui-navigate-right" href="#">
+									<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span> 承担单位:
+									<%=info.company%>
+								</a>
+								<p>负责人：
+									<%=info.username%>
+								</p>
+								<%if (info.connectstatus==0) {%>
 								<p>运行状态：正常</p>
-							<%}else{%>
+								<%}else{%>
 								<p>运行状态：异常</p>
-							<%}%>
-						</script>
-					</div>
-					<div id="jcsb-content-part2" class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
-						<script id="jcsb-content-part2-template" type="text/template">
-							<a class="mui-navigate-right" href="#">
-								<span title='jcsb-warn-info' class="mui-badge mui-badge-danger"><%=info.alarmnum%></span> 预警信息
-							</a>
-						</script>
-					</div>
-					<div class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
-						<a class="mui-navigate-right" href="#">
-							<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
-						</a>
-						<div id="jcsb-jczb-list">
-							<script id="jczb-ul-li-template" type="text/template">
-								<!-- 裂缝监测设备——监测分析 -->
-								<%if (type == 3) {%>
-								<div class="mui-slider">
-									<div class="mui-slider-group">
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="1" tp="3">
-													<a href="#"><img class="mui-media-object" src="images/device.png">
-														<div class="mui-media-body">设备状态</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="2" tp="3">
-													<a href="#"><img class="mui-media-object" src="images/compare.png">
-														<div class="mui-media-body">设备对比</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="3" tp="3">
-													<a href="#"><img class="mui-media-object" src="images/changeline.png">
-														<div class="mui-media-body">变化过程线</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="4" tp="3">
-													<a href="#"><img class="mui-media-object" src="images/reportlist.png">
-														<div class="mui-media-body">数据列表</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<%}%>
-								<!-- 位移设备——监测分析 -->
-								<%if (type == 1) {%>
-								<div class="mui-slider">
-									<div class="mui-slider-group">
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="1" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/device.png">
-														<div class="mui-media-body">设备状态</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="2" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/compare.png">
-														<div class="mui-media-body">设备对比</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="3" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/positionmove.png">
-														<div class="mui-media-body">位移变化图</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="4" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/section.png">
-														<div class="mui-media-body">断面曲线图</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="5" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/movespeed.png">
-														<div class="mui-media-body">速度图</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="6" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/speed.png">
-														<div class="mui-media-body">加速度图</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="7" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/scatter.png">
-														<div class="mui-media-body">散点图</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="8" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/vector.png">
-														<div class="mui-media-body">平面矢量图</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="9" tp="1">
-													<a href="#"><img class="mui-media-object" src="images/reportlist.png">
-														<div class="mui-media-body">数据列表</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<%}%>
-								<!-- 雨量设备——监测分析 -->
-								<%if (type == 2) {%>
-								<div class="mui-slider">
-									<div class="mui-slider-group">
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="1" tp="2">
-													<a href="#"><img class="mui-media-object" src="images/device.png">
-														<div class="mui-media-body">设备状态</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="2" tp="2">
-													<a href="#"><img class="mui-media-object" src="images/compare.png">
-														<div class="mui-media-body">设备对比</div>
-													</a>
-												</li>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="3" tp="2">
-													<a href="#"><img class="mui-media-object" src="images/linechart.png">
-														<div class="mui-media-body">雨量折线图</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-										<div class="mui-slider-item">
-											<ul class="mui-table-view mui-grid-view">
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" title="5" tp="2">
-													<a href="#"><img class="mui-media-object" src="images/reportlist.png">
-														<div class="mui-media-body">雨量报表</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
 								<%}%>
 							</script>
 						</div>
-					</div>
+						<div id="jcsb-content-part2" class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
+							<script id="jcsb-content-part2-template" type="text/template">
+								<a class="mui-navigate-right" href="#">
+									<span title='jcsb-warn-info' class="mui-badge mui-badge-danger"><%=info.alarmnum%></span> 预警信息
+								</a>
+							</script>
+						</div>
+						<div class="jcsb-footercardcontent mui-table-view-cell mui-hidden">
+							<a class="mui-navigate-right" href="#">
+								<span title='jcsb-analy-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部分析</span>监测分析
+							</a>
+							<div id="jcsb-jczb-list">
+								<script id="jczb-ul-li-template" type="text/template">
+									<!-- 裂缝监测设备——监测分析 -->
+									<%if (type == 3) {%>
+									<div class="mui-slider">
+										<div class="mui-slider-group">
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="3" label="设备状态">
+														<a href="#"><img class="mui-media-object" src="images/device.png">
+															<div class="mui-media-body">设备状态</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="3" label="多站对比">
+														<a href="#"><img class="mui-media-object" src="images/compare.png">
+															<div class="mui-media-body">多站对比</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="3" label="单站对比">
+														<a href="#"><img class="mui-media-object" src="images/compare.png">
+															<div class="mui-media-body">单站对比</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="3" label="变化过程">
+														<a href="#"><img class="mui-media-object" src="images/changeline.png">
+															<div class="mui-media-body">变化过程</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="3" label="数据列表">
+														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
+															<div class="mui-media-body">数据列表</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<%}%>
+									<!-- 位移设备——监测分析 -->
+									<%if (type == 1) {%>
+									<div class="mui-slider">
+										<div class="mui-slider-group">
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="1" label="设备状态">
+														<a href="#"><img class="mui-media-object" src="images/device.png">
+															<div class="mui-media-body">设备状态</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="1" label="多站对比">
+														<a href="#"><img class="mui-media-object" src="images/compare.png">
+															<div class="mui-media-body">多站对比</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="1" label="单站对比">
+														<a href="#"><img class="mui-media-object" src="images/compare.png">
+															<div class="mui-media-body">单站对比</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="1" label="位移变化">
+														<a href="#"><img class="mui-media-object" src="images/positionmove.png">
+															<div class="mui-media-body">位移变化</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="1" label="断面曲线">
+														<a href="#"><img class="mui-media-object" src="images/section.png">
+															<div class="mui-media-body">断面曲线</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="1" label="速度图">
+														<a href="#"><img class="mui-media-object" src="images/movespeed.png">
+															<div class="mui-media-body">速度图</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="6" tp="1" label="加速度图">
+														<a href="#"><img class="mui-media-object" src="images/speed.png">
+															<div class="mui-media-body">加速度图</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="7" tp="1" label="散点图">
+														<a href="#"><img class="mui-media-object" src="images/scatter.png">
+															<div class="mui-media-body">散点图</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="8" tp="1" label="平面矢量图">
+														<a href="#"><img class="mui-media-object" src="images/vector.png">
+															<div class="mui-media-body">平面矢量图</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="9" tp="1" label="数据列表">
+														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
+															<div class="mui-media-body">数据列表</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<%}%>
+									<!-- 雨量设备——监测分析 -->
+									<%if (type == 2) {%>
+									<div class="mui-slider">
+										<div class="mui-slider-group">
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="2" label="设备状态">
+														<a href="#"><img class="mui-media-object" src="images/device.png">
+															<div class="mui-media-body">设备状态</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="2" label="多站对比">
+														<a href="#"><img class="mui-media-object" src="images/compare.png">
+															<div class="mui-media-body">多站对比</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="2" label="单站对比">
+														<a href="#"><img class="mui-media-object" src="images/compare.png">
+															<div class="mui-media-body">单站对比</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="2" label="雨量过程">
+														<a href="#"><img class="mui-media-object" src="images/linechart.png">
+															<div class="mui-media-body">雨量过程</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="2" label="雨量报表">
+														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
+															<div class="mui-media-body">雨量报表</div>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<%}%>
+								</script>
+							</div>
+						</div>
 
-					<!--
+						<!--
             	作者：winnerlbm@163.com
             	时间：2017-12-06
             	描述：地灾点详情分层信息，通过“dzd-footercardcontent”选择，默认显示
             -->
-					<div id="dzd-content-part1" class="dzd-footercardcontent mui-table-view-cell">
-						<script id="dzd-content-part1-template" type="text/template">
+						<div id="dzd-content-part1" class="dzd-footercardcontent mui-table-view-cell">
+							<script id="dzd-content-part1-template" type="text/template">
+								<a class="mui-navigate-right" href="#">
+									<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
+								</a>
+								<p>负责人：
+									<%=info.username%>
+								</p>
+								<p>监测设备：
+									<%=info.typenum%> 种类型 | 共计
+									<%=info.devicenum%> 个</p>
+							</script>
+						</div>
+						<div id="dzd-content-part2" class="dzd-footercardcontent mui-table-view-cell">
+							<script id="dzd-content-part2-template" type="text/template">
+								<a class="mui-navigate-right" href="#">
+									<span title='dzd-warn-info' class="mui-badge mui-badge-danger"><%=info.alarmnum%></span> 预警信息
+								</a>
+							</script>
+						</div>
+						<div class="dzd-footercardcontent mui-table-view-cell">
 							<a class="mui-navigate-right" href="#">
-								<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
+								<span title='dzd-jcsb-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部设备</span>监测设备
 							</a>
-							<p>负责人：<%=info.username%></p>
-							<p>监测设备：<%=info.typenum%> 种类型 | 共计 <%=info.devicenum%> 个</p>
-						</script>
-					</div>
-					<div id="dzd-content-part2" class="dzd-footercardcontent mui-table-view-cell">
-						<script id="dzd-content-part2-template" type="text/template">
-							<a class="mui-navigate-right" href="#">
-								<span title='dzd-warn-info' class="mui-badge mui-badge-danger"><%=info.alarmnum%></span> 预警信息
-							</a>
-						</script>
-					</div>
-					<div class="dzd-footercardcontent mui-table-view-cell">
-						<a class="mui-navigate-right" href="#">
-							<span title='dzd-jcsb-all' class="mui-badge mui-badge-blue mui-badge-self">查看全部设备</span>监测设备
-						</a>
-						<div id="mui-slider-jcsb" class="mui-slider">
-							<div id="dzd-content-part3" class="mui-slider-group mui-slider-loop">
-								<script id="dzd-content-part3-template" type="text/template">
-									<div class="mui-slider-item mui-slider-item-duplicate">
-										<ul class="mui-table-view mui-grid-view">
-											<% for(var i=(pageNum-1)*pageSize;i<list.length;i++){ %>
-											<li class="mui-table-view-cell mui-media mui-col-xs-4" >
-												<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
-													<div class="mui-media-body"><%=list[i].name%></div>
-												</a>
-											</li>
-											<%}%>
-										</ul>
-									</div>
+							<div id="mui-slider-jcsb" class="mui-slider">
+								<div id="dzd-content-part3" class="mui-slider-group mui-slider-loop">
+									<script id="dzd-content-part3-template" type="text/template">
+										<div class="mui-slider-item mui-slider-item-duplicate">
+											<ul class="mui-table-view mui-grid-view">
+												<% for(var i=(pageNum-1)*pageSize;i<list.length;i++){ %>
+												<li class="mui-table-view-cell mui-media mui-col-xs-4">
+													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
+														<div class="mui-media-body">
+															<%=list[i].name%>
+														</div>
+													</a>
+												</li>
+												<%}%>
+											</ul>
+										</div>
 
-									<% for(var i=0;i<pageNum;i++){ %>
+										<% for(var i=0;i<pageNum;i++){ %>
 										<div class="mui-slider-item">
 											<ul class="mui-table-view mui-grid-view">
 												<% 
@@ -313,72 +340,76 @@
 													}
 													for(var j=pageNum*i;j<tempSize;j++){ 
 												%>
-												<li class="mui-table-view-cell mui-media mui-col-xs-4" >
+												<li class="mui-table-view-cell mui-media mui-col-xs-4">
 													<a href="#"><img class="mui-media-object" src="<%=list[j].dimage%>" title="<%=list[j].name%>" id="<%=list[j].type%>_<%=list[j].deviceid%>">
-														<div class="mui-media-body"><%=list[j].name%></div>
+														<div class="mui-media-body">
+															<%=list[j].name%>
+														</div>
 													</a>
 												</li>
 												<%}%>
 											</ul>
 										</div>
-									<%}%>
+										<%}%>
 
-									<div class="mui-slider-item mui-slider-item-duplicate">
-										<ul class="mui-table-view mui-grid-view">
-											<% 
+										<div class="mui-slider-item mui-slider-item-duplicate">
+											<ul class="mui-table-view mui-grid-view">
+												<% 
 												var tempSize = pageSize
 												if(tempSize > list.length ) {
 													tempSize = list.length;
 												}
 												for(var i=0;i<tempSize;i++){ 
 											%>
-											<li class="mui-table-view-cell mui-media mui-col-xs-4">
-												<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
-													<div class="mui-media-body"><%=list[i].name%></div>
-												</a>
-											</li>
-											<%}%>
-										</ul>
-									</div>
-								</script>
+												<li class="mui-table-view-cell mui-media mui-col-xs-4">
+													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
+														<div class="mui-media-body">
+															<%=list[i].name%>
+														</div>
+													</a>
+												</li>
+												<%}%>
+											</ul>
+										</div>
+									</script>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="dzd-footercardcontent mui-table-view-cell">
-						<a class="mui-navigate-right" href="#" style="line-height: 2em; ">
-							<button id="comment" title="comment-info" type="button" class="mui-btn mui-btn-primary mui-btn-self">
+						<div class="dzd-footercardcontent mui-table-view-cell">
+							<a class="mui-navigate-right" href="#" style="line-height: 2em; ">
+								<button id="comment" title="comment-info" type="button" class="mui-btn mui-btn-primary mui-btn-self">
 							写评论
 					</button> 累计评论
-						</a>
-						<ul id="commullist" class="mui-table-view" style="font-size: 1em;">
-							<script id="com-ul-li-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-								<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-									<div class="mui-slider-cell">
-										<style="font-size: 1em;">
-											<%=list[i].name%>
-											</p>
-											<p style="font-size: 0.8em;">评论信息:
-												<%=list[i].msg%>
-											</p>
-									</div>
-								</li>
-								<%}%>
-							</script>
-						</ul>
+							</a>
+							<ul id="commullist" class="mui-table-view" style="font-size: 1em;">
+								<script id="com-ul-li-template" type="text/html">
+									<% for(var i=0;i<list.length;i++){%>
+									<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+										<div class="mui-slider-cell">
+											<style="font-size: 1em;">
+												<%=list[i].name%>
+												</p>
+												<p style="font-size: 0.8em;">评论信息:
+													<%=list[i].msg%>
+												</p>
+										</div>
+									</li>
+									<%}%>
+								</script>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<script type="text/javascript" src="js/mui.min.js"></script>
-		<script src="js/leaflet-dev/leaflet-src.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
-		<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
-		<script type="text/javascript" src="js/template-native.js"></script>
-		<script type="text/javascript" src="js/testdata.js"></script>
-		<script type="text/javascript" src="js/pages/index.js"  charset="utf-8"></script>
-		<script type="text/javascript" src="js/pages/common.js"></script>
+			<script type="text/javascript" src="js/mui.min.js"></script>
+			<script src="js/leaflet-dev/leaflet-src.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
+			<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+			<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
+			<script type="text/javascript" src="js/template-native.js"></script>
+			<script type="text/javascript" src="js/testdata.js"></script>
+			<script type="text/javascript" src="js/pages/index.js" charset="utf-8"></script>
+			<script type="text/javascript" src="js/pages/common.js"></script>
 	</body>
 
 </html>

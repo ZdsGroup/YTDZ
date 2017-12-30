@@ -4,15 +4,36 @@ var currentPid = 0;
 var bmwy_charts = {};
 //侧滑容器父节点
 var offCanvasWrapper = null;
+
+//设备属性信息
+var pFeature = null;
+//页面标题
+var plabel = "";
+//子页面ID号
+var pId = "";
+
+mui.init({
+	swipeBack: false //启用右滑关闭功能
+});
+mui('.mui-scroll-wrapper').scroll();
+
+var initApp = function() {
+	this.initEvent();
+	this.initChart();
+};
+mui.ready(initApp);
+
+mui.plusReady(function() {
+	//页面传值
+	var self = plus.webview.currentWebview();
+	pId = self.paramId;
+	pFeature = self.feature;
+	plabel = self.label;
+	this.switchJcAnalyContent(pId, pFeature);
+});
+
 var initEvent = function() {
 	var me = this;
-
-	//初始化图片轮播
-	var sliderPics = mui("#bmwy-slider-pictures");
-	sliderPics.slider({
-		interval: 4000
-	});
-
 	//时间选择器
 	mui('.mui-input-group').on('tap', '.ytdatepick', function() {　
 		var dt = this;　　　　　　　
@@ -30,18 +51,26 @@ var initEvent = function() {
 var switchJcAnalyContent = function(pageId, pageFeature) {
 	//初始滚动化容器对象
 	/*offCanvasWrapper = mui('#offCanvasWrapper');*/
-	
+
 	var cs = mui('.mui-control-content');
 	cs[currentPid].classList.remove('mui-active');
 	currentPid = pageId;
 	cs[currentPid].classList.add('mui-active');
+	mui('#title')[0].innerHTML = plabel;
+	if(pageId == 0) {
+		var html = template('jcsb-state-template', {
+			feature: pFeature
+		});
+		document.getElementById("device-state").innerHTML = html;
+	} else if(pageId == 1) {
 
-	//关闭侧滑面板
-	/*offCanvasWrapper.offCanvas('close');*/
+	} else if(pageId == 2) {
 
-	//切花菜单项目内容自动置顶
-	mui('#muiscrollid').scroll().scrollTo(0, 0);
+	} else if(pageId == 3) {
 
+	} else if(pageId == 4) {
+
+	}
 	//刷新统计图
 	this.refreshChart(bmwy_charts['menu_' + currentPid]);
 }
