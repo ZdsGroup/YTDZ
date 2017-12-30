@@ -164,7 +164,8 @@
 	position: relative;
 	z-index: 1000;
 	top: 10px;
-	left: 0px;
+	margin-right: 10px;
+	margin-left: 50px;
 }
 
 .warn-info-container {
