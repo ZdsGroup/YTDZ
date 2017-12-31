@@ -340,7 +340,7 @@ var g = {
 
 Ext.define('yt.controller.Global', {
     extend: 'Ext.app.Controller',
-
+    requires: ['Ext.data.TreeStore'],
     config: {
         //Uncomment to add references to view components
         refs: [
@@ -373,9 +373,10 @@ Ext.define('yt.controller.Global', {
                     else {
                         if (!g.v.floatContainer.hidden) {
                             g.fn.initFloatContainer(g.v.currentFloatParams);
-                        }/*else if (g.v.floatContainer.hidden) {
-                            g.v.floatContainer.show();
-                        }*/
+                        }
+                        /*else if (g.v.floatContainer.hidden) {
+                                                    g.v.floatContainer.show();
+                                                }*/
                     }
                 }
             },
