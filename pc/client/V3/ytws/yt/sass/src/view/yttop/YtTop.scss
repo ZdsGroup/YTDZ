@@ -1,6 +1,6 @@
 //自定义样式
 .sys-title {
-  color: rgba(255, 255, 255,1.0);
+  color: rgba(255, 255, 255, 1.0);
   font-size: 28px;
   margin-left: 5px;
 }
@@ -33,4 +33,12 @@ $custome-font-family: '微软雅黑';
         $icon-size: 24px,
         $font-size: 14px,
         $font-family: $custome-font-family
+);
+
+@include extjs-menu-ui(
+        $ui: 'top-sub-menu-ui',
+        $ui-item-font-size: 14px,
+        $ui-item-height: 28px,
+        $ui-item-icon-vertical-offset: 0px 0px,
+        $ui-item-icon-size: 28px
 );

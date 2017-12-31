@@ -9,7 +9,10 @@ Ext.define('yt.view.yttop.YtTop', {
         'Ext.button.Segmented',
         'Ext.form.Label',
         'Ext.layout.container.HBox',
+        'Ext.layout.container.VBox',
+        'Ext.menu.Menu',
         'Ext.panel.Panel',
+        'Ext.toolbar.Separator',
         'yt.view.yttop.YtTopController',
         'yt.view.yttop.YtTopModel'
     ],
@@ -77,13 +80,29 @@ Ext.define('yt.view.yttop.YtTop', {
                     border: false,
                     iconCls: 'fa fa-user-circle',
                     text: '系统管理员',
-                    menu: [{
-                        text: 'Menu Item 1'
-                    }, {
-                        text: 'Menu Item 2'
-                    }, {
-                        text: 'Menu Item 3'
-                    }]
+                    menu: [
+                        {
+                            xtype: 'menu',
+                            ui: 'top-sub-menu-ui',
+                            border: false,
+                            /*plain: true,
+                            floating: false,*/
+                            layout: {
+                                type: 'vbox',
+                                align: 'stretch'
+                            },
+                            items: [{
+                                text: '用户中心',
+                                iconCls: 'fa fa-user fa-x'
+                            }, {
+                                text: '我的收藏',
+                                iconCls: 'fa fa-star fa-x'
+                            }, '-', {
+                                text: '注销',
+                                iconCls: 'fa fa-power-off fa-x'
+                            }]
+                        }
+                    ]
                 }
             ]
         },
