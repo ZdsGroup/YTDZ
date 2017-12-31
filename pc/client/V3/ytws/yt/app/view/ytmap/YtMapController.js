@@ -152,7 +152,7 @@ var mv = {
                                     action: 'vector',
                                     pressed: true,
                                     text: '矢量',
-                                    iconCls: 'fa fa-map-o'
+                                    iconCls: 'fa fa-map'
                                 }],
                                 listeners: {
                                     toggle: function (container, button, pressed) {
