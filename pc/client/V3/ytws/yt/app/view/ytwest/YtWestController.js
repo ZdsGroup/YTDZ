@@ -5,10 +5,6 @@ Ext.define('yt.view.ytwest.YtWestController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.ytwest',
 
-    requires: [
-        'Ext.data.TreeStore'
-    ],
-
     /**
      * Called when the view is created
      */

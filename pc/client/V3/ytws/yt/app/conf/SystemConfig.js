@@ -128,7 +128,7 @@ Ext.define('yt.conf.SystemConfig', {
         expanded: true,
         iconCls: 'fa fa-table',
         children: [{
-            text: '地灾点1',
+            text: '月湖地灾点1',
             lat: 28.815559,
             lng: 117.503952,
             type: 'disasterpoint',
@@ -174,7 +174,7 @@ Ext.define('yt.conf.SystemConfig', {
                 }
             ]
         }, {
-            text: '地灾点2',
+            text: '月湖地灾点2',
             lat: 29.215559,
             lng: 116.263952,
             type: 'disasterpoint',
@@ -229,7 +229,7 @@ Ext.define('yt.conf.SystemConfig', {
                 }
             ]
         }, {
-            text: '地灾点3',
+            text: '月湖地灾点3',
             lat: 29.215559,
             lng: 116.203952,
             type: 'disasterpoint',
@@ -284,9 +284,9 @@ Ext.define('yt.conf.SystemConfig', {
         expanded: true,
         iconCls: 'fa fa-table',
         children: [{
-            text: '地灾点1',
-            lat: 28.815559,
-            lng: 117.503952,
+            text: '余江地灾点1',
+            lat: 28.115559,
+            lng: 116.903952,
             type: 'disasterpoint',
             rank: 4,
             expanded: true,
@@ -294,7 +294,7 @@ Ext.define('yt.conf.SystemConfig', {
             children: [
                 {
                     text: '监测设备1',
-                    lat: 28.215559,
+                    lat: 28.545559,
                     lng: 117.203952,
                     iconCls: 'fa fa-circle red-cls',
                     leaf: true,
@@ -304,7 +304,7 @@ Ext.define('yt.conf.SystemConfig', {
                 {
                     text: '监测设备2',
                     lat: 28.515559,
-                    lng: 117.303952,
+                    lng: 117.673952,
                     iconCls: 'fa fa-circle yellow-cls',
                     leaf: true,
                     type: 'device',
@@ -312,8 +312,8 @@ Ext.define('yt.conf.SystemConfig', {
                 },
                 {
                     text: '监测设备3',
-                    lat: 28.295559,
-                    lng: 117.283952,
+                    lat: 28.895559,
+                    lng: 117.433952,
                     iconCls: 'fa fa-circle orange-cls',
                     leaf: true,
                     type: 'device',
@@ -321,8 +321,8 @@ Ext.define('yt.conf.SystemConfig', {
                 },
                 {
                     text: '监测设备4',
-                    lat: 29.285559,
-                    lng: 117.503952,
+                    lat: 29.125559,
+                    lng: 117.563952,
                     iconCls: 'fa fa-circle orange-cls',
                     leaf: true,
                     type: 'device',
