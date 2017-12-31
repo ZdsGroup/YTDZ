@@ -176,6 +176,7 @@ var g = {
                     floating: false,
                     closable: true,
                     closeAction: 'hide',
+                    hidden: true,
                     bodyStyle: 'opacity:0.9; filter: Alpha(Opacity=90);',
                     renderTo: Ext.getBody(),
                     listeners: {
@@ -229,7 +230,7 @@ var g = {
             }
 
             //默认隐藏
-            g.v.floatContainer.hide();
+            //g.v.floatContainer.hide();
         },
         fcCloseHandler: function () {
             if (conf.currentMenuItem) {
@@ -238,6 +239,8 @@ var g = {
                 if (meunItem) {
                     meunItem.setPressed(false);
                 }
+
+                conf.currentMenuItem = null;
             }
         },
         toggleHandler: function (container, button, pressed) {
@@ -368,10 +371,11 @@ Ext.define('yt.controller.Global', {
                         g.fn.initWidget();
                     }
                     else {
-                        g.fn.initFloatContainer(g.v.currentFloatParams);
-                        if (g.v.floatContainer.hidden) {
+                        if (!g.v.floatContainer.hidden) {
+                            g.fn.initFloatContainer(g.v.currentFloatParams);
+                        }/*else if (g.v.floatContainer.hidden) {
                             g.v.floatContainer.show();
-                        }
+                        }*/
                     }
                 }
             },
