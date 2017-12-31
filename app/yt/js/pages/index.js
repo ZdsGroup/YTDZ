@@ -531,6 +531,13 @@ var initEvent = function() {
 						obj.classList.add('map-tool-warn-color');
 						showWarnDZMarksOnMap();
 					}
+					var obj = mui('.yt-star-color')[0];
+					if(obj) {
+						obj.classList.remove('map-tool-star-color');
+						obj.classList.remove('yt-star-color');
+						obj.classList.add('map-tool-star');
+						obj.classList.add('yt-star');
+					}
 					break;
 				}
 			case 'star': //显示收藏的地灾点 、设备
@@ -541,11 +548,13 @@ var initEvent = function() {
 						obj.classList.remove('yt-star');
 						obj.classList.add('map-tool-star-color');
 						obj.classList.add('yt-star-color');
+						showFilterStarMarksOnMap(true);
 					} else {
 						obj.classList.remove('map-tool-star-color');
 						obj.classList.remove('yt-star-color');
 						obj.classList.add('map-tool-star');
 						obj.classList.add('yt-star');
+						showFilterStarMarksOnMap(false);
 					}
 					break;
 				}
@@ -588,9 +597,40 @@ var initEvent = function() {
 	});
 };
 
-//TODO 过滤显示被收藏的地灾点、设备点
+//过滤显示被收藏的地灾点、设备点
 function showFilterStarMarksOnMap(isFilter) {
-	
+	if(isFilter==true){
+		if(dzMarkersLayerGroup){
+			var layers =new Array();
+			dzMarkersLayerGroup.eachLayer(function (layer){
+				var attr = layer.options.attr;
+//				if(attr.favostatus == 1){
+//					layers.push(layer);
+//				}
+				//TODO temp
+				if(attr.quakeid != 100007){
+					layers.push(layer);
+				};
+				//
+			});
+			for (var i = 0; i < layers.length; i++) {
+				if(dzMarkersLayerGroup.hasLayer(layers[i])){
+					dzMarkersLayerGroup.removeLayer(layers[i]);
+				}
+			}
+		}
+	} else {
+		var obj = mui('.yt-warn')[0];
+		if(obj.classList.contains('map-tool-warn-color')) {
+			showWarnDZMarksOnMap();
+		} else {
+			showAllDZMarksOnMap();
+		}
+	}
+	if(jcMarkersLayerGroup){
+		myMap.removeLayer(jcMarkersLayerGroup);
+	}
+	hideFooterPanel();
 };
 
 function showAllDZMarksOnMap() {
