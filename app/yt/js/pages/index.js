@@ -597,7 +597,7 @@ var initEvent = function() {
 	});
 };
 
-//TODO 过滤显示被收藏的地灾点、设备点
+//过滤显示被收藏的地灾点、设备点
 function showFilterStarMarksOnMap(isFilter) {
 	if(isFilter==true){
 		if(dzMarkersLayerGroup){
