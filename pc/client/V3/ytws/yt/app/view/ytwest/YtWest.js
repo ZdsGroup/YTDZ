@@ -24,12 +24,9 @@ Ext.define('yt.view.ytwest.YtWest', {
     },
 
     controller: 'ytwest',
-    listeners: {
-        afterrender: 'arHandler'
-    },
 
     ui: 'west-panel-ui',
-    title: '鹰潭市地灾点',
+    title: '地灾点列表',
     width: 250,
     layout: {
         type: 'vbox',

@@ -8,7 +8,8 @@ var mv = {
             mapDivId: null,
             map: null,
             gaodeVecLayer: null,
-            mapToolPanel: null
+            mapToolPanel: null,
+            markerGroup: null
         },
         fn: {
             initMap: function (mapid) {
@@ -29,9 +30,59 @@ var mv = {
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mapid);
             },
+            //创建地灾点或设备点
+            createMarker: function (dataList) {
+                //地灾点
+                if (dataList && dataList instanceof Array && dataList.length > 0) {
+                    var markers = [];
+                    Ext.each(dataList, function (data) {
+                        if (data != null && data['children'] && data['children'].length > 0) {
+                            var dzList = data['children'];
+                            if (dzList && dzList.length > 0) {
+                                Ext.each(dzList, function (dzData) {
+                                    var dzName = dzData['text'];
+                                    var dzRank = dzData['rank'];
+                                    var dzPot = [dzData['lat'], dzData['lng']];
+                                    var dzMarker = new L.marker(dzPot, {
+                                        icon: L.AwesomeMarkers.icon({
+                                            icon: 'spinner',
+                                            prefix: 'fa',
+                                            markerColor: function () {
+                                                if (dzRank == 4) {
+                                                    return 'red';
+                                                } else if (dzRank == 3) {
+                                                    return 'orange';
+                                                } else if (dzRank == 2) {
+                                                    return 'yellow';
+                                                }
+                                                else if (dzRank == 1) {
+                                                    return 'blue';
+                                                } else {
+                                                    return 'green';
+                                                }
+                                            },
+                                            spin: true
+                                        }),
+                                        draggable: false,
+                                        title: dzName
+                                    });
+
+                                    markers.push(dzMarker);
+                                });
+                            }
+                        }
+                    });
+
+                    //创建标签分组
+                    if (markers.length > 0) {
+                        mv.v.markerGroup = L.layerGroup(markers);
+                        mv.v.map.addLayer(mv.v.markerGroup);
+                    }
+                }
+            },
             mapFullExtent: function () {
                 //显示配置文件配置的显示范围
-                var fullMapExtent= L.latLngBounds(L.latLng(24.487606414383,115.572696970468),L.latLng(32.0790331326058,119.482260921593));
+                var fullMapExtent = L.latLngBounds(L.latLng(24.487606414383, 115.572696970468), L.latLng(32.0790331326058, 119.482260921593));
                 mv.v.map.fitBounds(fullMapExtent);
             },
             createMapToolPanel: function (parentId) {
@@ -75,6 +126,11 @@ var mv = {
                                     //地图全幅显示
                                     mv.fn.mapFullExtent();
                                 }
+                            }, {
+                                xtype: 'component',
+                                width: 1,
+                                height: 30,
+                                style: 'background-color:rgba(250, 250, 250,1.0);'
                             },
                             {
                                 xtype: 'segmentedbutton',
