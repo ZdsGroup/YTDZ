@@ -175,7 +175,7 @@ Ext.define('yt.conf.SystemConfig', {
             ]
         }, {
             text: '月湖地灾点2',
-            lat: 29.215559,
+            lat: 30.215559,
             lng: 116.263952,
             type: 'disasterpoint',
             rank: 4,
@@ -231,7 +231,7 @@ Ext.define('yt.conf.SystemConfig', {
         }, {
             text: '月湖地灾点3',
             lat: 29.215559,
-            lng: 116.203952,
+            lng: 117.203952,
             type: 'disasterpoint',
             rank: 0,
             expanded: true,
@@ -288,7 +288,7 @@ Ext.define('yt.conf.SystemConfig', {
             lat: 28.115559,
             lng: 116.903952,
             type: 'disasterpoint',
-            rank: 4,
+            rank: 3,
             expanded: true,
             iconCls: 'fa fa-plus-square red-cls',
             children: [

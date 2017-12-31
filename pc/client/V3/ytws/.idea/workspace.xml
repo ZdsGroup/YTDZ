@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43007bc3-0d5f-4127-9af9-99e869b61864" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/yt/resources/images/yt/dz/blue.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/yt/resources/images/yt/dz/green.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/yt/resources/images/yt/dz/orange.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/yt/resources/images/yt/dz/red.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/yt/resources/images/yt/dz/yellow.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/yt/app/conf/SystemConfig.js" afterPath="$PROJECT_DIR$/yt/app/conf/SystemConfig.js" />
-      <change beforePath="$PROJECT_DIR$/yt/app/view/ytwest/YtWestController.js" afterPath="$PROJECT_DIR$/yt/app/view/ytwest/YtWestController.js" />
+      <change beforePath="$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js" afterPath="$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js" />
       <change beforePath="$PROJECT_DIR$/yt/bootstrap.jsonp" afterPath="$PROJECT_DIR$/yt/bootstrap.jsonp" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,48 +23,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Global.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yt/app/controller/Global.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="323" column="32" lean-forward="false" selection-start-line="323" selection-start-column="32" selection-end-line="323" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YtMapController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1195">
-              <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YtWestController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yt/app/view/ytwest/YtWestController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -101,7 +64,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/jz/app/view/vtypes/IPAddress.js" />
         <option value="$PROJECT_DIR$/jz/app/view/top/Top.js" />
         <option value="$PROJECT_DIR$/jz/app.json" />
         <option value="$PROJECT_DIR$/jz/app/utils/CommonUtils.js" />
@@ -145,13 +107,14 @@
         <option value="$PROJECT_DIR$/yt/sass/src/view/yttop/YtTop.scss" />
         <option value="$PROJECT_DIR$/yt/app/view/yttop/YtTop.js" />
         <option value="$PROJECT_DIR$/yt/sass/src/view/ytmap/YtMap.scss" />
-        <option value="$PROJECT_DIR$/yt/app.json" />
-        <option value="$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js" />
         <option value="$PROJECT_DIR$/yt/app/controller/Global.js" />
         <option value="$PROJECT_DIR$/yt/app/view/ytwest/YtWest.js" />
-        <option value="$PROJECT_DIR$/yt/app/conf/SystemConfig.js" />
         <option value="$PROJECT_DIR$/yt/app/view/ytwest/YtWestController.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/yt/app/conf/SystemConfig.js" />
+        <option value="$PROJECT_DIR$/workspace.json" />
+        <option value="$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js" />
+        <option value="$PROJECT_DIR$/yt/app.json" />
       </list>
     </option>
   </component>
@@ -161,7 +124,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="175" />
     <option name="y" value="64" />
     <option name="width" value="814" />
@@ -206,6 +169,13 @@
               <item name="ytws" type="462c0819:PsiDirectoryNode" />
               <item name="yt" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ytws" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ytws" type="462c0819:PsiDirectoryNode" />
+              <item name="yt" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -241,11 +211,11 @@
       <recent name="D:\acws\jz\resources" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Project\GitHub\YTDZ\pc\client\V3\ytws\yt\resources\images\yt\dz" />
       <recent name="D:\Project\GitHub\YTDZ\pc\client\V3\ytws\yt\resources\libs\leaflet\plugins\marker" />
       <recent name="D:\Project\GitHub\YTDZ\pc\client\V3\ytws\ext\packages\font-awesome\sass\etc" />
       <recent name="D:\Project\GitHub\YTDZ\pc\client\V3\ytws\ext\packages\font-awesome\resources\fonts" />
       <recent name="D:\acws\yt\app\view\ytmain" />
-      <recent name="D:\acws\yt\app" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -260,7 +230,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Sencha App Watch.yt-watch">
+  <component name="RunManager" selected="JavaScript Debug.yt-app">
     <configuration name="yt-app" type="JavascriptDebugType" factoryName="JavaScript Debug" uri="http://localhost:63342/ytws/yt/index.html" />
     <configuration name="yt-watch" type="sencha.configuration" factoryName="Sencha App Watch">
       <settings cmdDir="C:\Users\LBM\bin\Sencha\Cmd" class="class com.sencha.idea.run.AppWatchConfiguration$Settings" appDir="D:\Project\GitHub\YTDZ\pc\client\V3\ytws\yt" />
@@ -314,25 +284,24 @@
       <workItem from="1514509166772" duration="1727000" />
       <workItem from="1514620284757" duration="18581000" />
       <workItem from="1514689898592" duration="8419000" />
-      <workItem from="1514720703871" duration="7989000" />
+      <workItem from="1514720703871" duration="10222000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231845000" />
+    <option name="totallyTimeSpent" value="234078000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="886" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20532319" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24207859" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40987983" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="0" width="1596" height="870" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27369827" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27369827" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23898531" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -352,7 +321,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="75" />
+      <option name="time" value="78" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
@@ -419,15 +388,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/jz/app/WebConfig.js" />
-    <entry file="file://$PROJECT_DIR$/jz/app/Application.js" />
-    <entry file="file://$PROJECT_DIR$/jz/app/view/dbmanager/DBManager.js" />
-    <entry file="file://$PROJECT_DIR$/jz/app/view/projectmanager/ProjectManagerModel.js" />
-    <entry file="file://$PROJECT_DIR$/jz/app/view/dbmanager/DBManagerController.js" />
-    <entry file="file://$PROJECT_DIR$/jz/app/view/projectmanager/ProjectManager.js" />
-    <entry file="file://$PROJECT_DIR$/jz/sass/src/view/projectmanager/ProjectManager.scss" />
-    <entry file="file://$PROJECT_DIR$/jz/sass/src/view/entitymanager/EntityManager.scss" />
-    <entry file="file://$PROJECT_DIR$/jz/app/store/DBTypes.js" />
     <entry file="file://$PROJECT_DIR$/jz/app.json" />
     <entry file="file://$PROJECT_DIR$/jz/index.html" />
     <entry file="file://$PROJECT_DIR$/jz/sass/src/view/main/Main.scss" />
@@ -576,26 +536,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yt/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="204" column="20" lean-forward="false" selection-start-line="204" selection-start-column="20" selection-end-line="204" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yt/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yt/app/conf/SystemConfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="290" column="20" lean-forward="false" selection-start-line="290" selection-start-column="20" selection-end-line="290" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -626,18 +570,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yt/app/controller/Global.js">
+    <entry file="file://$PROJECT_DIR$/yt/app/conf/SystemConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="323" column="32" lean-forward="false" selection-start-line="323" selection-start-column="32" selection-end-line="323" selection-end-column="32" />
+        <state relative-caret-position="461">
+          <caret line="233" column="20" lean-forward="false" selection-start-line="233" selection-start-column="20" selection-end-line="233" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js">
+    <entry file="file://$PROJECT_DIR$/build/development/yt/resources/libs/leaflet/plugins/marker/leaflet.awesome-markers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1195">
-          <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+        <state relative-caret-position="442">
+          <caret line="32" column="12" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/.sencha/workspace/sencha.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/.sencha/workspace/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/.sencha/package/build-impl.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3264">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/.sencha/package/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-152">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/.sencha/package/init-impl.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1938">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workspace.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -645,7 +637,47 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/ext-bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yt/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="264" column="5" lean-forward="false" selection-start-line="264" selection-start-column="5" selection-end-line="264" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yt/app/controller/Global.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="324" column="17" lean-forward="false" selection-start-line="324" selection-start-column="17" selection-end-line="324" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yt/app/view/ytmap/YtMapController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="41" column="61" lean-forward="false" selection-start-line="41" selection-start-column="61" selection-end-line="41" selection-end-column="61" />
           <folding />
         </state>
       </provider>
