@@ -25,7 +25,7 @@ Ext.define('yt.view.ytwest.YtWestController', {
         var dzDataTreeCon = me.lookupReference('dzDataTreeContainerRef');
         var mask = ajax.fn.showMask(dzDataTreeCon, '数据加载中...');
 
-        ajax.v.method = 'Get';
+        ajax.v.method = 'GET';
         ajax.v.url = conf.serviceUrl + 'devices/sides';
         ajax.v.successCallBack = function (response, opts) {
             //查询结果转json对象

@@ -1,0 +1,15 @@
+//自定义变量
+$map-focus-text-color: rgba(255, 109, 0,1.0);
+$map-default-text-color: #ffffff;
+
+@include extjs-button-medium-ui(
+        $ui: 'map-tool-ui',
+        $border-width: 0px,
+        $inner-border-width: 0px,
+        $color: $map-default-text-color,
+        $color-over: $map-focus-text-color,
+        $color-pressed: $map-focus-text-color,
+        $text-padding: 5px,
+        $padding: 3px,
+        $font-size: 12px
+);

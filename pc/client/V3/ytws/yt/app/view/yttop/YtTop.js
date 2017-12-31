@@ -85,8 +85,8 @@ Ext.define('yt.view.yttop.YtTop', {
                             xtype: 'menu',
                             ui: 'top-sub-menu-ui',
                             border: false,
-                            /*plain: true,
-                            floating: false,*/
+                            plain: true,
+                            floating: false,
                             layout: {
                                 type: 'vbox',
                                 align: 'stretch'
