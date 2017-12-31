@@ -1,42 +1,42 @@
-
 @include extjs-panel-ui(
         $ui: 'float-panel',
-        $ui-header-color: #fff,
-        $ui-header-glyph-color: #fff,
+        $ui-header-color: #ffffff,
+        $ui-header-glyph-color: #ffffff,
         $ui-header-glyph-opacity: 1,
         $ui-header-font-size: 14px,
         $ui-header-line-height: 28px,
         $ui-header-font-weight: normal,
-        $ui-header-icon-height: 24px,
-        $ui-header-icon-width: 24px,
+        $ui-header-icon-height: 18px,
+        $ui-header-icon-width: 18px,
         $ui-header-icon-spacing: 15px,
         $ui-header-background-color: $my-panel-header-color,
         $ui-header-padding: 0,
         $ui-header-text-margin: 2px,
-        $ui-header-noborder-adjust: false
+        $ui-header-noborder-adjust: false,
+        $ui-body-background-color: rgba(250, 250, 250, 1.0)
 );
 
 .x-title-icon-navigation {
-    font-family: FontAwesome;
-    color: #fff;
-    font-size: 24px;
-    line-height: 24px;
+  font-family: FontAwesome;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 24px;
 }
 
 .x-tab-icon-el-navigation {
-    font-family: FontAwesome;
-    color: #acacac;
+  font-family: FontAwesome;
+  color: #acacac;
 
-    .x-tab-over & {
-        color: #c4c4c4;
-    }
+  .x-tab-over & {
+    color: #c4c4c4;
+  }
 
-    .x-tab-active & {
-        color: #fff;
-    }
+  .x-tab-active & {
+    color: #ffffff;
+  }
 }
 
 .x-panel-header-title-navigation > .x-title-text-navigation:after {
-    top: 30px;
-    right: -24px;
+  top: 30px;
+  right: -24px;
 }

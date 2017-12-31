@@ -9,7 +9,6 @@ Ext.define('yt.view.yttop.YtTop', {
         'Ext.button.Segmented',
         'Ext.form.Label',
         'Ext.layout.container.HBox',
-        'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'yt.view.yttop.YtTopController',
         'yt.view.yttop.YtTopModel'
@@ -64,13 +63,14 @@ Ext.define('yt.view.yttop.YtTop', {
             items: [
                 {
                     xtype: 'segmentedbutton',
+                    reference: 'sysMenuRef',
                     allowMultiple: false,
                     defaults: {
                         scale: 'medium',
                         border: false
                     },
                     items: []
-                },{
+                }, {
                     xtype: 'button',
                     ui: 'top-menu-ui',
                     scale: 'medium',

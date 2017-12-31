@@ -10,6 +10,8 @@ Ext.define('yt.conf.SystemConfig', {
     bodyContainerID: 'bodyContainerID',
     //浮动容器ID
     floatContainerID: 'floatContainerID',
+    //当前选择的菜单项目
+    currentMenuItem: null,
     systemMenu: [
         {
             name: "监测地图",
@@ -103,7 +105,7 @@ Ext.define('yt.conf.SystemConfig', {
             url: "yt-setting",
             parent: 'floatContainerID',
             ui: "top-menu-ui",
-            icon: "fa fa-cog fa-spin fa-fw",
+            icon: "fa fa-cog",
             mode: "normal",
             hide: false,
 
@@ -121,6 +123,8 @@ Ext.define('yt.conf.SystemConfig', {
         text: '月湖区',
         type: 'region',
         num: 3,
+        leftTop: '29.815559,116.503952',
+        rightBottom: '26.815559,120.503952',
         expanded: true,
         iconCls: 'fa fa-table',
         children: [{
@@ -268,6 +272,61 @@ Ext.define('yt.conf.SystemConfig', {
                     leaf: true,
                     type: 'device',
                     rank: 0
+                }
+            ]
+        }]
+    }, {
+        text: '余江县',
+        type: 'region',
+        num: 1,
+        leftTop: '30.815559,115.503952',
+        rightBottom: '28.815559,119.503952',
+        expanded: true,
+        iconCls: 'fa fa-table',
+        children: [{
+            text: '地灾点1',
+            lat: 28.815559,
+            lng: 117.503952,
+            type: 'disasterpoint',
+            rank: 4,
+            expanded: true,
+            iconCls: 'fa fa-plus-square red-cls',
+            children: [
+                {
+                    text: '监测设备1',
+                    lat: 28.215559,
+                    lng: 117.203952,
+                    iconCls: 'fa fa-circle red-cls',
+                    leaf: true,
+                    type: 'device',
+                    rank: 4
+                },
+                {
+                    text: '监测设备2',
+                    lat: 28.515559,
+                    lng: 117.303952,
+                    iconCls: 'fa fa-circle yellow-cls',
+                    leaf: true,
+                    type: 'device',
+                    rank: 2
+                },
+                {
+                    text: '监测设备3',
+                    lat: 28.295559,
+                    lng: 117.283952,
+                    iconCls: 'fa fa-circle orange-cls',
+                    leaf: true,
+                    type: 'device',
+                    rank: 3
+                },
+                {
+                    text: '监测设备4',
+                    lat: 29.285559,
+                    lng: 117.503952,
+                    iconCls: 'fa fa-circle orange-cls',
+                    leaf: true,
+                    type: 'device',
+                    rank: 3
                 }
             ]
         }]

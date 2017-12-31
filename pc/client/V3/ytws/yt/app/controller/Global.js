@@ -151,6 +151,7 @@ var g = {
                         //如果有多个菜单init设置为true，默认全部加载，容器显示最后初始化的模块
                         if (rec['init']) {
                             g.fn.loadWidget(widget);
+                            conf.currentMenuItem = widget;
                             //return false;//退出当前循环
                         }
                     }
@@ -166,16 +167,20 @@ var g = {
                     y: 65,
                     ui: 'float-panel',
                     layout: 'fit',
-                    draggable: true,
+                    draggable: false,
                     collapsible: true,
                     collapseToolText: '隐藏',
                     expandToolText: "展开",
+                    closeToolText: '关闭',
                     plain: true,
                     floating: false,
-                    closable: false,
+                    closable: true,
                     closeAction: 'hide',
                     bodyStyle: 'opacity:0.9; filter: Alpha(Opacity=90);',
-                    renderTo: Ext.getBody()
+                    renderTo: Ext.getBody(),
+                    listeners: {
+                        close: g.fn.fcCloseHandler
+                    }
                 })
             }
 
@@ -226,10 +231,21 @@ var g = {
             //默认隐藏
             g.v.floatContainer.hide();
         },
+        fcCloseHandler: function () {
+            if (conf.currentMenuItem) {
+                var menuId = conf.currentMenuItem['id'];
+                var meunItem = Ext.getCmp(menuId);
+                if (meunItem) {
+                    meunItem.setPressed(false);
+                }
+            }
+        },
         toggleHandler: function (container, button, pressed) {
             if (pressed) {
                 g.v.isInit = true;
                 g.fn.loadWidget(button);
+
+                conf.currentMenuItem = button;
             }
         },
         changeDisplayMode: function (button, e, eOpts) {
