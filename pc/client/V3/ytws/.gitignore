@@ -3,3 +3,5 @@ bootstrap.*
 classic.json*
 modern.json*
 .sencha
+.idea
+build
