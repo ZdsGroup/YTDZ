@@ -5,8 +5,10 @@ Ext.define('yt.view.monpot.MonPot', {
     extend: 'Ext.Container',
 
     requires: [
+        'Ext.layout.container.VBox',
+        'yt.view.monpot.MonPotController',
         'yt.view.monpot.MonPotModel',
-		'yt.view.monpot.MonPotController'
+        'yt.view.monpot.timeline.TimeLine'
     ],
 
     /*
@@ -20,7 +22,19 @@ Ext.define('yt.view.monpot.MonPot', {
 
     controller: 'monpot',
 
+    layout: {
+        type: 'vbox',
+        align: 'stretch'
+    },
+    border: false,
+    scrollable: 'y',
+    bodyPadding: 2,
+
     items: [
         /* include child components here */
+        {
+            xtype: 'timeline',
+            // fit: 1
+        }
     ]
 });

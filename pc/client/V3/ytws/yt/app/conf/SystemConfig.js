@@ -14,7 +14,7 @@ Ext.define('yt.conf.SystemConfig', {
     currentMenuItem: null,
     systemMenu: [
         {
-            name: "监测地图",
+            name: "地图展示",
             selected: true,
             init: true,
             type: "widget",
@@ -45,7 +45,7 @@ Ext.define('yt.conf.SystemConfig', {
             floatContainerParams: {
                 gapX: 5,
                 gapY: 5,
-                w: 500,//数值或百分比，如：100%
+                w: 360,//数值或百分比，如：100%
                 h: '100%',//数值或百分比，如：100%
                 align: 'tr' //左上
             }
@@ -119,7 +119,8 @@ Ext.define('yt.conf.SystemConfig', {
             }
         }
     ],
-    dataList: [{
+    dataList: [
+        {
         text: '月湖区',
         type: 'region',
         num: 3,
