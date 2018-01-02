@@ -28,22 +28,25 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">监测设备详细情况</h1>
 		</header>
-		<div id="content" class="mui-content">
-			<script id="slider-item-template" type="text/html">
-				<div id="slider-pictures" class="mui-slider">
-					<div class="mui-slider-group mui-slider-loop">
-						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-						<div class="mui-slider-item mui-slider-item-duplicate">
+		<div  class="mui-content">
+			<div id="content">
+				<script id="slider-item-template" type="text/html">
+					<div id="slider-pictures" class="mui-slider">
+						<div class="mui-slider-group mui-slider-loop">
+							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
 									<img src="<%=data.dimage[data.dimage.length-1]%>">
 									<p class="mui-slider-title mui-text-center">安装图片1</p>
 								</a>
 							</div>
-						<% for (var i=0; i<data.dimage.length; i++) { %>
+							<% for (var i=0; i<data.dimage.length; i++) { %>
 							<div class="mui-slider-item">
 								<a href="#">
 									<img src="<%=data.dimage[i]%>">
-									<p class="mui-slider-title mui-text-center">安装图片1</p>
+									<p class="mui-slider-title mui-text-center">
+										安装图片1
+									</p>
 								</a>
 							</div>
 							<%}%>
@@ -98,27 +101,37 @@
 							</div>
 						</li>
 					</ul>
-			</script>
+				</script>
 			</div>
-			<script src="../../js/mui.min.js"></script>
-			<script type="text/javascript" src="../../js/template-native.js" charset="utf-8"></script>
-			<script type="text/javascript" src="../../js/pages/common.js" charset="utf-8"></script>
-			<script type="text/javascript">
-				mui.init();
-				mui.plusReady(initView);
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/template-native.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/pages/common.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(initView);
+			var self;
 
-				function initView() {
-					//页面传值
-					var self = plus.webview.currentWebview();
-					var attr = mui.myCloneObj(self.attr);
-					attr.dimage = JSON.parse(attr.dimage);
-					var html = template('slider-item-template', {
-						data: attr
-					});
-					document.getElementById("content").innerHTML = html;
-					mui(".mui-slider").slider();
-				}
-			</script>
+			function initView() {
+				//页面传值
+				self = plus.webview.currentWebview();
+				var feature = mui.myCloneObj(self.feature);
+				feature.dimage = JSON.parse(feature.dimage);
+				console.log(feature.dimage);
+				var html = template('slider-item-template', {
+					data: feature
+				});
+				document.getElementById("content").innerHTML = html;
+				mui(".mui-slider").slider();
+			}
+
+			function click() {
+				console.log(features.dimage);
+				var html = template('slider-item-template', {
+					data: feature
+				});
+			}
+		</script>
 	</body>
 
 </html>

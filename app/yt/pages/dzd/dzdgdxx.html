@@ -162,10 +162,10 @@
 			
 			function initDzdTemplateContent(){
 				var self = plus.webview.currentWebview();
-				var attr = mui.myCloneObj(self.attr);
-				attr.image = JSON.parse(attr.image);
+				var feature = mui.myCloneObj(self.feature);
+				feature.image = JSON.parse(feature.image);
 				var html = template('slider-item-template', {
-					list: attr
+					list: feature
 				});
 				document.getElementById("content").innerHTML = html;
 				mui(".mui-slider").slider();

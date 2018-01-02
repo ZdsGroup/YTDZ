@@ -43,25 +43,25 @@
 	}
 	//查询出错公用显示
 	$.myMuiQueryErr = function(msg) {
-			mui.toast(msg, {
-				duration: 'short',
-				type: 'div'
-			})
-		},
-		//查询无结果公用显示
-		$.myMuiQueryNoResult = function(msg) {
-			mui.toast(msg, {
-				duration: 'short',
-				type: 'div'
-			})
-		},
-		//通用提示信息显示
-		$.showMsg = function(mst) {
-			mui.toast(mst, {
-				icon: '/images/info.png',
-				duration: 'short',
-				align: 'center',
-				verticalAlign: 'center'
-			});
-		}
+		mui.toast(msg, {
+			duration: 'short',
+			type: 'div'
+		})
+	};
+	//查询无结果公用显示
+	$.myMuiQueryNoResult = function(msg) {
+		mui.toast(msg, {
+			duration: 'short',
+			type: 'div'
+		})
+	};
+	//通用提示信息显示
+	$.showMsg = function(mst) {
+		mui.toast(mst, {
+			icon: '/images/info.png',
+			duration: 'short',
+			align: 'center',
+			verticalAlign: 'center'
+		});
+	}
 })(mui, window);

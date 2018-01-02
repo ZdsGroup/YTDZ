@@ -19,65 +19,65 @@
 			<h1 class="mui-title">表面位移监测设备分析列表</h1>
 		</header>
 		<ul class="mui-table-view">
-			<!--<li class="mui-table-view-cell">
-				<a class="mui-navigate-right" title="0">设备项目详情</a>
-			</li>-->
-			<li class="mui-table-view-cell" title="1">
-				<a class="mui-navigate-right" >设备状态</a>
+			<li class="mui-table-view-cell" page="0" label="设备状态">
+				<a class="mui-navigate-right">设备状态</a>
 			</li>
-			<li class="mui-table-view-cell" title="2">
-				<a class="mui-navigate-right" >设备对比</a>
+			<li class="mui-table-view-cell" page="1" label="多站对比">
+				<a class="mui-navigate-right">多站对比</a>
 			</li>
-			<li class="mui-table-view-cell" title="3">
-				<a class="mui-navigate-right" >位移变化图</a>
+			<li class="mui-table-view-cell" page="2" label="单站对比">
+				<a class="mui-navigate-right">单站对比</a>
 			</li>
-			<li class="mui-table-view-cell" title="4">
-				<a class="mui-navigate-right" >断面曲线图</a>
+			<li class="mui-table-view-cell" page="3" label="位移变化">
+				<a class="mui-navigate-right">位移变化</a>
 			</li>
-			<li class="mui-table-view-cell" title="5">
-				<a class="mui-navigate-right" >速度图</a>
+			<li class="mui-table-view-cell" page="4" label="断面曲线">
+				<a class="mui-navigate-right">断面曲线</a>
 			</li>
-			<li class="mui-table-view-cell" title="6">
-				<a class="mui-navigate-right" >加速度图</a>
+			<li class="mui-table-view-cell" page="5" label="速度图">
+				<a class="mui-navigate-right">速度图</a>
 			</li>
-			<li class="mui-table-view-cell"  title="7">
+			<li class="mui-table-view-cell" page="6" label="加速度图">
+				<a class="mui-navigate-right">加速度图</a>
+			</li>
+			<li class="mui-table-view-cell" page="7" label="散点图">
 				<a class="mui-navigate-right">散点图</a>
 			</li>
-			<li class="mui-table-view-cell"  title="8">
+			<li class="mui-table-view-cell" page="8" label="平面矢量图">
 				<a class="mui-navigate-right">平面矢量图</a>
 			</li>
-			<li class="mui-table-view-cell" title="9">
-				<a class="mui-navigate-right" >数据列表</a>
+			<li class="mui-table-view-cell" page="9" label="数据列表">
+				<a class="mui-navigate-right">数据列表</a>
 			</li>
-			<!--<li class="mui-table-view-cell" title="10">
-				<a class="mui-navigate-right" >报警查询</a>
-			</li>-->
 		</ul>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
+			//设备属性信息
+			var pFeature = null;
+			mui.plusReady(function() {
+				//页面传值
+				var self = plus.webview.currentWebview();
+				pFeature = self.feature;
+				initEvent();
+			});
 			//初始化事件
-			var initEvent = function() {
+			function initEvent() {
 				//列表事件
 				mui('.mui-table-view').on('tap', 'li', function(evt) {
-					var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature')); //获取当前选中要素
-					var currentPid = this.getAttribute('title');
+					var page = this.getAttribute('page');
+					var label = this.getAttribute('label');
 					mui.openWindow({
 						url: 'bmwyjc.html',
 						id: 'bmwyjc-analy-detail',
 						extras: {
-							pageId: currentPid,
-							pageFeature: selectedFeature
+							paramId: page,
+							feature: pFeature,
+							label: label
 						}
 					});
 				});
 			};
-			//初始化应用
-			var initApp = function() {
-				this.initEvent();
-			};
-
-			mui.ready(initApp);
 		</script>
 	</body>
 

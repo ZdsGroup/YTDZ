@@ -46,14 +46,18 @@ var initAppPlus = function() {
 		hideFooterPanel();
 		return false;
 	}, false);
-	
-	 var info = plus.push.getClientInfo();
-    /*alert( "token: "+info.token );*/
-//  alert( "clientid: "+info.clientid );
-    /*alert( "appid: "+info.appid );
-    alert( "appkey: "+info.appkey );*/
-    plus.push.addEventListener( "click", function(msg){alert( "You clicked: " + msg.content );}, false ); 
-    plus.push.addEventListener( "receive", function(msg){alert( "You clicked: " + msg.content );}, false ); 
+
+	var info = plus.push.getClientInfo();
+	/*alert( "token: "+info.token );*/
+	//  alert( "clientid: "+info.clientid );
+	/*alert( "appid: "+info.appid );
+	alert( "appkey: "+info.appkey );*/
+	plus.push.addEventListener("click", function(msg) {
+		alert("You clicked: " + msg.content);
+	}, false);
+	plus.push.addEventListener("receive", function(msg) {
+		alert("You clicked: " + msg.content);
+	}, false);
 };
 
 mui.plusReady(initAppPlus);
@@ -70,11 +74,10 @@ mui.back = function() {
 	if(data == 2) {
 		var btnArray = ['是', '否'];
 		mui.confirm('确认退出？', '鹰潭地灾应用', btnArray, function(e) {
-					if (e.index == 0) {
-						plus.runtime.quit();
-					} else {
-					}
-				});
+			if(e.index == 0) {
+				plus.runtime.quit();
+			} else {}
+		});
 	}
 };
 
@@ -114,13 +117,13 @@ var initMap = function() {
 			duration: 'short',
 			type: 'div'
 		})
-		myMap.setView(L.latLng(36.55, 102.71), 4);
+		//myMap.setView(L.latLng(36.55, 102.71), 4);
 	}
 
 	myMap.on('locationfound', onLocationFound);
 	myMap.on('locationerror', onLocationError);
 
-//进入系统，只查询当前位置坐标，地图不进行定位。地图默认显示范围为地灾点查询的范围
+	//进入系统，只查询当前位置坐标，地图不进行定位。地图默认显示范围为地灾点查询的范围
 	myMap.locate({
 		setView: false,
 		timeout: 5000,
@@ -137,7 +140,7 @@ var initMap = function() {
 	});
 
 	showWarnDZMarksOnMap();
-	
+
 	//监测设备根据不同的地图级别进行显示隐藏
 	myMap.on('zoomend zoomlevelschange', function(e) {
 		var curLel = myMap.getZoom();
@@ -150,7 +153,6 @@ var initMap = function() {
 		}
 	});
 };
-
 
 function clearLayerByID(id) {
 	if(myMap != null) {
@@ -183,23 +185,23 @@ function showWarnInfoOnMap() {
 function queryWarnInfo() {
 	var dzNum = 0;
 	var jcsbNum = 0;
-	if(dzQueryResults){
+	if(dzQueryResults) {
 		var quakerArr = dzQueryResults.quakes;
 		var devicesArr = dzQueryResults.devices;
-		for (var i = 0; i < quakerArr.length; i++) {
-			if(quakerArr[i].rank > 0 ){
+		for(var i = 0; i < quakerArr.length; i++) {
+			if(quakerArr[i].rank > 0) {
 				dzNum++;
 			}
 		}
-		for (var i = 0; i < devicesArr.length; i++) {
-			if(devicesArr[i].rank > 0 ){
+		for(var i = 0; i < devicesArr.length; i++) {
+			if(devicesArr[i].rank > 0) {
 				jcsbNum++;
 			}
 		}
 	}
-	var info = '今日报警：地灾点' + dzNum + '个，监测设备'+jcsbNum+'个';
-	if(dzNum == 0 && jcsbNum == 0){
-		info = '今日报警：无'	
+	var info = '今日报警：地灾点' + dzNum + '个，监测设备' + jcsbNum + '个';
+	if(dzNum == 0 && jcsbNum == 0) {
+		info = '今日报警：无'
 	}
 	return info;
 }
@@ -265,7 +267,7 @@ var showFooterPanel = function(fh) {
 	}
 };
 
-function checkFtstar(starStatus){
+function checkFtstar(starStatus) {
 	var obj = mui('#ftstar')[0];
 	if(starStatus == 0) {
 		obj.classList.remove('ytfooter-star-color');
@@ -365,24 +367,22 @@ var initEvent = function() {
 		var starStatus = 0;
 		if(action == 'ftstar') {
 			var action = "userfavos";
-			var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
-			if(selectedFeature.type == 'dzd'){
-				mui.myMuiQueryPost(action, 
-					{
+			if(selectType == 'dzd') {
+				mui.myMuiQueryPost(action, {
 						userid: 1,
-						quakeid: selectedFeature.id
+						quakeid: currentDzd.quakeid
 					},
-					function(results){
+					function(results) {
 						var obj = mui('#ftstar')[0];
-						if(results.data.status == 1){
+						if(results.data.status == 1) {
 							obj.classList.remove('ytfooter-star');
 							obj.classList.add('ytfooter-star-color');
-						}else{
+						} else {
 							obj.classList.remove('ytfooter-star-color');
 							obj.classList.add('ytfooter-star');
 						}
 					},
-					function(){
+					function() {
 						mui.myMuiQueryErr('收藏(取消)失败，请稍后再试！');
 						dzQueryResults = null;
 					}
@@ -397,73 +397,73 @@ var initEvent = function() {
 		var action = evt.target.title;
 		//地灾点或设备ID
 		var idT = "";
-		var attr = null;
+		var feature = null;
 		var typeT = null;
-		if (selectType == "dzd"){
+		if(selectType == "dzd") {
 			idT = currentDzd.quakeid;
-			attr = currentDzd;
+			feature = currentDzd;
 			typeT = selectType;
-		} else if (selectType == "jcsb") {
+		} else if(selectType == "jcsb") {
 			idT = currentSb.deviceid;
-			attr = currentSb;
+			feature = currentSb;
 			typeT = currentSb.type;
 		}
 		//地灾点或设备所有属性数据对象
 		var pageUrl = '';
 		var pageId = '';
-			switch(action) {
-				case 'dzd-more-info':
-					pageUrl = 'pages/dzd/dzdgdxx.html';
-					pageId = 'dzd-more-info';
-					break;
-				case 'dzd-warn-info':
-					pageUrl = 'pages/common/gjxxzx.html';
-					pageId = 'dzd-warn-info';
-					break;
-				case 'dzd-jcsb-all':
-					pageUrl = 'pages/dzd/dzdjcsblist.html';
-					pageId = 'dzd-jcsb-all';
-					break;
-				case 'jcsb-more-info':
-					pageUrl = 'pages/jcsb/jcsbgdxx.html';
-					pageId = 'jcsb-more-info';
-					break;
-				case 'jcsb-warn-info':
-					pageUrl = 'pages/common/gjxxzx.html';
-					pageId = 'jcsb-warn-info';
-					break;
-				case 'jcsb-analy-all':
-					if(typeT) {
-						switch(typeT) {
-							case 1:
-								pageUrl = 'pages/jcsb/bmwyjcanalylist.html';
-								pageId = 'jcsb-bmwyjc-analylist';
-								break;
-							case 3:
-								pageUrl = 'pages/jcsb/lfjcanalylist.html';
-								pageId = 'jcsb-lfjc-analylist';
-								break;
-							case 2:
-								pageUrl = 'pages/jcsb/yljcanalylist.html';
-								pageId = 'jcsb-yljc-analylist';
-								break;
-							default:
-								break;
-						}
+		switch(action) {
+			case 'dzd-more-info':
+				pageUrl = 'pages/dzd/dzdgdxx.html';
+				pageId = 'dzd-more-info';
+				break;
+			case 'dzd-warn-info':
+				pageUrl = 'pages/common/gjxxzx.html';
+				pageId = 'dzd-warn-info';
+				break;
+			case 'dzd-jcsb-all':
+				pageUrl = 'pages/dzd/dzdjcsblist.html';
+				pageId = 'dzd-jcsb-all';
+				break;
+			case 'jcsb-more-info':
+				pageUrl = 'pages/jcsb/jcsbgdxx.html';
+				pageId = 'jcsb-more-info';
+				break;
+			case 'jcsb-warn-info':
+				pageUrl = 'pages/common/gjxxzx.html';
+				pageId = 'jcsb-warn-info';
+				break;
+			case 'jcsb-analy-all':
+				if(typeT) {
+					switch(typeT) {
+						case 1:
+							pageUrl = 'pages/jcsb/bmwyjcanalylist.html';
+							pageId = 'jcsb-bmwyjc-analylist';
+							break;
+						case 2:
+							pageUrl = 'pages/jcsb/yljcanalylist.html';
+							pageId = 'jcsb-yljc-analylist';
+							break;
+						case 3:
+							pageUrl = 'pages/jcsb/lfjcanalylist.html';
+							pageId = 'jcsb-lfjc-analylist';
+							break;
+						default:
+							break;
 					}
-					break;
-				default:
-					break;
-			}
-			mui.openWindow({
-				url: pageUrl,
-				id: pageId,
-				extras: {
-					type: typeT,
-					paramId: idT,
-					attr:attr
 				}
-			});
+				break;
+			default:
+				break;
+		}
+		mui.openWindow({
+			url: pageUrl,
+			id: pageId,
+			extras: {
+				type: typeT,
+				paramId: idT,
+				feature: feature
+			}
+		});
 	});
 
 	//底部地灾点写评论按钮点击事件
@@ -493,7 +493,7 @@ var initEvent = function() {
 			case 'info':
 				/*已发生预警地灾点列表*/
 				{
-					 mui.openWindow({
+					mui.openWindow({
 						url: 'pages/common/gjxxzx.html',
 						id: 'gjxxzx',
 					});
@@ -599,22 +599,22 @@ var initEvent = function() {
 
 //过滤显示被收藏的地灾点、设备点
 function showFilterStarMarksOnMap(isFilter) {
-	if(isFilter==true){
-		if(dzMarkersLayerGroup){
-			var layers =new Array();
-			dzMarkersLayerGroup.eachLayer(function (layer){
+	if(isFilter == true) {
+		if(dzMarkersLayerGroup) {
+			var layers = new Array();
+			dzMarkersLayerGroup.eachLayer(function(layer) {
 				var attr = layer.options.attr;
-//				if(attr.favostatus == 1){
-//					layers.push(layer);
-//				}
+				//				if(attr.favostatus == 1){
+				//					layers.push(layer);
+				//				}
 				//TODO temp
-				if(attr.quakeid != 100007){
+				if(attr.quakeid != 100007) {
 					layers.push(layer);
 				};
 				//
 			});
-			for (var i = 0; i < layers.length; i++) {
-				if(dzMarkersLayerGroup.hasLayer(layers[i])){
+			for(var i = 0; i < layers.length; i++) {
+				if(dzMarkersLayerGroup.hasLayer(layers[i])) {
 					dzMarkersLayerGroup.removeLayer(layers[i]);
 				}
 			}
@@ -627,7 +627,7 @@ function showFilterStarMarksOnMap(isFilter) {
 			showAllDZMarksOnMap();
 		}
 	}
-	if(jcMarkersLayerGroup){
+	if(jcMarkersLayerGroup) {
 		myMap.removeLayer(jcMarkersLayerGroup);
 	}
 	hideFooterPanel();
@@ -635,13 +635,13 @@ function showFilterStarMarksOnMap(isFilter) {
 
 function showAllDZMarksOnMap() {
 	dzMarkersLayerGroup.clearLayers();
-	if(dzQueryResults){
+	if(dzQueryResults) {
 		getDZMarkersLayerGroup(dzQueryResults.quakes, false);
 		myMap.addLayer(dzMarkersLayerGroup);
-	}else{
+	} else {
 		var action = "quakes/all";
 		mui.myMuiQuery(action, '',
-			function(results){
+			function(results) {
 				if(results != null && results.data.quakes.length > 0) {
 					dzQueryResults = results.data;
 					getDZMarkersLayerGroup(dzQueryResults.quakes, false);
@@ -651,7 +651,7 @@ function showAllDZMarksOnMap() {
 					dzQueryResults = null;
 				}
 			},
-			function(){
+			function() {
 				mui.myMuiQueryErr('查询失败，请稍后再试！');
 				dzQueryResults = null;
 			}
@@ -680,18 +680,18 @@ function initComentList() {
 function showWarnDZMarksOnMap() {
 	//1所有地灾点，包括报警级别信息
 	dzMarkersLayerGroup.clearLayers();
-	if(dzQueryResults){
+	if(dzQueryResults) {
 		getDZMarkersLayerGroup(dzQueryResults.quakes, true);
 		myMap.addLayer(dzMarkersLayerGroup);
-	}else{
+	} else {
 		var action = "quakes/all";
 		mui.myMuiQuery(action, '',
-			function(results){
+			function(results) {
 				if(results != null && results.data.quakes.length > 0) {
 					dzQueryResults = results.data;
 					getDZMarkersLayerGroup(dzQueryResults.quakes, true);
 					myMap.addLayer(dzMarkersLayerGroup);
-					if(!warnInfoIsShow){
+					if(!warnInfoIsShow) {
 						showWarnInfoOnMap();
 						warnInfoIsShow = true;
 					}
@@ -700,7 +700,7 @@ function showWarnDZMarksOnMap() {
 					dzQueryResults = null;
 				}
 			},
-			function(){
+			function() {
 				mui.myMuiQueryErr('查询失败，请稍后再试！');
 				dzQueryResults = null;
 			}
@@ -722,7 +722,7 @@ function getDZMarkersLayerGroup(results, isWarn) {
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
 		level = results[i].rank;
-		if(isWarn == false){
+		if(isWarn == false) {
 			level = -1;
 		}
 		markColor = getMarkerColorByWarnLevel(level);
@@ -743,7 +743,7 @@ function getDZMarkersLayerGroup(results, isWarn) {
 			title: mN,
 			type: mType,
 			id: mId,
-			attr:results[i]
+			attr: results[i]
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
@@ -752,13 +752,13 @@ function getDZMarkersLayerGroup(results, isWarn) {
 			showJCMarkerByDZid(e.target.options.id);
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			showFooterPanel(footerHeight);
-			
+
 			//TODO temp
-			if(currentDzd.quakeid == 100007){
+			if(currentDzd.quakeid == 100007) {
 				currentDzd.favostatus = 1;
 			}
 			//
-			
+
 			checkFtstar(currentDzd.favostatus);
 		});
 		dzMarkersLayerGroup.addLayer(markerObj);
@@ -813,34 +813,34 @@ function getMarkerColorByWarnLevel(level) {
 
 //地灾点的点击事件，显示该地灾点的监测设备
 function showJCMarkerByDZid(dzID) {
-	if(dzID !=null &&dzQueryResults !=null){
+	if(dzID != null && dzQueryResults != null) {
 		jcMarkersLayerGroup.clearLayers();
 		var quakesArr = dzQueryResults.quakes;
 		var areaT = null;
 		var latlngs = new Array();
-		for (var i = 0; i < quakesArr.length; i++) {
-			if(quakesArr[i].quakeid == dzID){
+		for(var i = 0; i < quakesArr.length; i++) {
+			if(quakesArr[i].quakeid == dzID) {
 				areaT = mui.parseJSON(quakesArr[i].attr);
 				break;
 			}
 		}
-//		for (var i = 0; i < areaT.length; i++) {
-//			latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
-//		}
-//		var areaLine = L.polygon(latlngs, {
-//							color: 'red',
-//							weight: 2,
-//							opacity: 0.5,
-//							fillColor: '#cccccc',
-//							fillOpacity: 0.4,
-//							fill: true
-//						});
-//		jcMarkersLayerGroup.addLayer(areaLine);
-		
+		//		for (var i = 0; i < areaT.length; i++) {
+		//			latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
+		//		}
+		//		var areaLine = L.polygon(latlngs, {
+		//							color: 'red',
+		//							weight: 2,
+		//							opacity: 0.5,
+		//							fillColor: '#cccccc',
+		//							fillOpacity: 0.4,
+		//							fill: true
+		//						});
+		//		jcMarkersLayerGroup.addLayer(areaLine);
+
 		var devicesArr = dzQueryResults.devices;
-		var tempArr =new Array();
-		for (var i = 0; i < devicesArr.length; i++) {
-			if(devicesArr[i].quakeid == dzID){
+		var tempArr = new Array();
+		for(var i = 0; i < devicesArr.length; i++) {
+			if(devicesArr[i].quakeid == dzID) {
 				tempArr.push(devicesArr[i]);
 				//TODO temp
 				latlngs.push(new L.latLng(devicesArr[i].lat, devicesArr[i].lng));
@@ -849,13 +849,13 @@ function showJCMarkerByDZid(dzID) {
 		}
 		//TODO temp
 		var areaLine = L.polygon(latlngs, {
-							color: 'red',
-							weight: 2,
-							opacity: 0.5,
-							fillColor: '#cccccc',
-							fillOpacity: 0.4,
-							fill: true
-						});
+			color: 'red',
+			weight: 2,
+			opacity: 0.5,
+			fillColor: '#cccccc',
+			fillOpacity: 0.4,
+			fill: true
+		});
 		jcMarkersLayerGroup.addLayer(areaLine);
 		//
 
@@ -873,7 +873,7 @@ function getJCMarkersLayerGroup(results) {
 		level = results[i].rank;
 		markColor = getMarkerColorByWarnLevel(level);
 		var mId = results[i].deviceid;
-		var mType = results[i].type;		
+		var mType = results[i].type;
 		var mX = results[i].lat;
 		var mY = results[i].lng;
 		var mN = results[i].name;
@@ -888,7 +888,7 @@ function getJCMarkersLayerGroup(results) {
 			title: mN,
 			type: mType,
 			id: mId,
-			attr:results[i]
+			attr: results[i]
 		}).bindPopup(mN, {
 			closeButton: false
 		}).on('click', function(e) {
@@ -897,7 +897,7 @@ function getJCMarkersLayerGroup(results) {
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			myMap.flyTo(e.latlng);
 			showFooterPanel(footerHeight);
-//			checkFtstar(currentSb.favostatus);
+			//			checkFtstar(currentSb.favostatus);
 		});
 		jcMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
@@ -918,9 +918,9 @@ function setFooterContentByInfo(Type, infoID) {
 	//底部面板是地灾点信息
 	if(Type == 'dzd') {
 		tempResults = dzQueryResults.quakes;
-		infoT = getCheckInfos(tempResults,Type, infoID);
+		infoT = getCheckInfos(tempResults, Type, infoID);
 		initDzdContentHtml(infoT, Type);
-		
+
 		//监测设备图文轮播事件
 		mui('#mui-slider-jcsb').off('tap', 'li');
 		mui("#mui-slider-jcsb").on('tap', 'img', function(evt) {
@@ -941,9 +941,9 @@ function setFooterContentByInfo(Type, infoID) {
 	} else {
 		//底部面板是监测设备信息
 		tempResults = dzQueryResults.devices;
-		infoT = getCheckInfos(tempResults,Type, infoID);
+		infoT = getCheckInfos(tempResults, Type, infoID);
 		initJcsbContentHtml(infoT, Type);
-		
+
 		//释放事件监听
 		mui('#jcsb-jczb-list').off('tap', 'li');
 		mui(".mui-slider").slider();
@@ -957,16 +957,16 @@ function setFooterContentByInfo(Type, infoID) {
 				extras: {
 					paramId: currentPid, //设备页面对应的子面板
 					feature: currentSb, //监测设备属性信息
-					label:label   //子页面显示标题
+					label: label //子页面显示标题
 				}
 			};
 			//裂缝监测设备
 			if(type == "1") {
-			//位移监测设备
+				//位移监测设备
 				info.url += 'bmwyjc.html';
 				info.id = 'bmwyjc-analy-detail';
 			} else if(type == "2") {
-			//雨量监测设备
+				//雨量监测设备
 				info.url += 'yljc.html';
 				info.id = 'yljc-analy-detail';
 			} else if(type == "3") {
@@ -977,17 +977,16 @@ function setFooterContentByInfo(Type, infoID) {
 		});
 	}
 	initBriefContentHtml(infoT, Type);
-
-	localStorage.setItem("currentSelectedFeature", JSON.stringify({type:Type,id:infoID})); //记录当前选中的要素，用于指导要素详情细分页面跳转
-	this.showDetailPanel(infoT,Type);
+	this.showDetailPanel(infoT, Type);
 }
-function getCheckInfos(results,typeT, idT){
+
+function getCheckInfos(results, typeT, idT) {
 	var infoT = null;
 	for(var i = 0; i < results.length; i++) {
 		var checkId = null;
 		if(typeT == 'dzd') {
 			checkId = results[i].quakeid;
-		}else{
+		} else {
 			checkId = results[i].deviceid;
 		}
 		if(checkId == idT) {
@@ -998,7 +997,7 @@ function getCheckInfos(results,typeT, idT){
 	return infoT;
 }
 //初始化概要信息内容
-function initBriefContentHtml(infoT, typeT){
+function initBriefContentHtml(infoT, typeT) {
 	var html = template('brief-ul-li-template', {
 		info: infoT,
 		type: typeT
@@ -1006,24 +1005,24 @@ function initBriefContentHtml(infoT, typeT){
 	document.getElementById("footer-table").innerHTML = html;
 }
 //初始化地灾点内容
-function initDzdContentHtml(infoT, typeT){
+function initDzdContentHtml(infoT, typeT) {
 	var contentPart1 = template('dzd-content-part1-template', {
-			info: infoT,
-			type: typeT
-		});
+		info: infoT,
+		type: typeT
+	});
 	document.getElementById("dzd-content-part1").innerHTML = contentPart1;
-	
+
 	var contentPart2 = template('dzd-content-part2-template', {
-			info: infoT,
-			type: typeT
-		});
+		info: infoT,
+		type: typeT
+	});
 	document.getElementById("dzd-content-part2").innerHTML = contentPart2;
-	
+
 	var quakeId = infoT.quakeid;
 	var ownerDevices = new Array();
 	var tempResults = mui.myCloneObj(dzQueryResults.devices);
-	for (var i = 0; i < tempResults.length; i++) {
-		if (tempResults[i].quakeid == quakeId) {
+	for(var i = 0; i < tempResults.length; i++) {
+		if(tempResults[i].quakeid == quakeId) {
 			var imgT = JSON.parse(tempResults[i].dimage);
 			tempResults[i].dimage = imgT[0];
 			ownerDevices.push(tempResults[i]);
@@ -1035,28 +1034,28 @@ function initDzdContentHtml(infoT, typeT){
 	if(remNum != 0) {
 		totalPage = totalPage + 1;
 	}
-	var contentPart3 = template('dzd-content-part3-template', {		
-			list: ownerDevices,
-			pageNum: totalPage,
-			pageSize: picListPageSize,
-			pageRem: remNum
-		});
+	var contentPart3 = template('dzd-content-part3-template', {
+		list: ownerDevices,
+		pageNum: totalPage,
+		pageSize: picListPageSize,
+		pageRem: remNum
+	});
 	document.getElementById("dzd-content-part3").innerHTML = contentPart3;
 }
 //初始化监测设备内容
-function initJcsbContentHtml(infoT, typeT){
+function initJcsbContentHtml(infoT, typeT) {
 	var contentPart1 = template('jcsb-content-part1-template', {
-			info: infoT,
-			type: typeT
-		});
+		info: infoT,
+		type: typeT
+	});
 	document.getElementById("jcsb-content-part1").innerHTML = contentPart1;
-	
+
 	var contentPart2 = template('jcsb-content-part2-template', {
-			info: infoT,
-			type: typeT
-		});
+		info: infoT,
+		type: typeT
+	});
 	document.getElementById("jcsb-content-part2").innerHTML = contentPart2;
-	
+
 	var jcsbhtml = template('jczb-ul-li-template', {
 		type: typeT
 	});
@@ -1064,7 +1063,7 @@ function initJcsbContentHtml(infoT, typeT){
 }
 
 //根据地灾点或监测设备类型显示详情信息，此处为三层分层信息面板
-function showDetailPanel(feature,type) {
+function showDetailPanel(feature, type) {
 	var dzdDetailList = mui('.dzd-footercardcontent');
 	var jcsbDetailList = mui('.jcsb-footercardcontent');
 	if(dzdDetailList && dzdDetailList.length > 0) {
