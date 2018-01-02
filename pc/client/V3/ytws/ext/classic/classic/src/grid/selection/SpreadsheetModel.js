@@ -673,10 +673,10 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
      *
      * @param rangeStart {Ext.grid.CellContext/Number[]} Range starting position. Can be either Cell context or a `[rowIndex, columnIndex]` numeric array.
      *
-     * Note that when a numeric array is used in a locking grid, the column indices are relative to the outermost grid, encompassing locked *and* main sides.
+     * Note that when a numeric array is used in a locking grid, the column indices are relative to the outermost grid, encompassing locked *and* normal sides.
      * @param rangeEnd {Ext.grid.CellContext/Number[]} Range end position. Can be either Cell context or a `[rowIndex, columnIndex]` numeric array.
      *
-     * Note that when a numeric array is used in a locking grid, the column indices are relative to the outermost grid, encompassing locked *and* main sides.
+     * Note that when a numeric array is used in a locking grid, the column indices are relative to the outermost grid, encompassing locked *and* normal sides.
      * @param {Boolean} [suppressEvent] Pass `true` to prevent firing the
      * `{@link #selectionchange}` event.
      */

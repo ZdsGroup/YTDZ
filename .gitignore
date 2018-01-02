@@ -26,3 +26,4 @@ app/yt/manifest.json
 *.xml
 /pc/client/V3/ytws/.idea
 /pc/client/V3/ytws/.idea
+/pc/client/V3/.idea

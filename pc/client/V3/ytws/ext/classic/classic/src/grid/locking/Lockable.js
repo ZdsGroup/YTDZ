@@ -981,10 +981,10 @@ Ext.define('Ext.grid.locking.Lockable', {
      * whole of the locking view. And it must also allow scrolling.
      *
      * If columns are shared between the two sides, the *locked* grid shrinkwraps the
-     * width of the visible locked columns while the main grid flexes in what space remains.
+     * width of the visible locked columns while the normal grid flexes in what space remains.
      *
      * @return {Object} A pair of flags indicating which views need to be cleared then refreshed.
-     * this contains two properties, `locked` and `main` which are `true` if the view needs to be cleared
+     * this contains two properties, `locked` and `normal` which are `true` if the view needs to be cleared
      * and refreshed.
      */
     syncLockedWidth: function() {
@@ -1008,7 +1008,7 @@ Ext.define('Ext.grid.locking.Lockable', {
 
         Ext.suspendLayouts();
 
-        // If there are still visible main columns, then the main grid will flex
+        // If there are still visible normal columns, then the normal grid will flex
         // while we effectively shrinkwrap the width of the locked columns
         if (normalColCount) {
             normal.show();

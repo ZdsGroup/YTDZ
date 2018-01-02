@@ -85,21 +85,23 @@ Ext.define('yt.view.yttop.YtTop', {
                             xtype: 'menu',
                             ui: 'top-sub-menu-ui',
                             border: false,
-                            plain: true,
+                            plain: false,
+                            frame: false,
                             floating: false,
+                            shadow: false,
                             layout: {
                                 type: 'vbox',
                                 align: 'stretch'
                             },
                             items: [{
                                 text: '用户中心',
-                                iconCls: 'fa fa-user fa-x'
+                                iconCls: 'fa fa-user sub-menu-style'
                             }, {
                                 text: '我的收藏',
-                                iconCls: 'fa fa-star fa-x'
+                                iconCls: 'fa fa-star sub-menu-style'
                             }, '-', {
                                 text: '注销',
-                                iconCls: 'fa fa-power-off fa-x'
+                                iconCls: 'fa fa-power-off sub-menu-style'
                             }]
                         }
                     ]

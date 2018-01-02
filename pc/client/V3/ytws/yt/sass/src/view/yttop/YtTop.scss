@@ -38,7 +38,13 @@ $custome-font-family: '微软雅黑';
 @include extjs-menu-ui(
         $ui: 'top-sub-menu-ui',
         $ui-item-font-size: 14px,
+        $ui-padding: 0px 0px 0px 0px,
+        $ui-border-width: 0px,
+        $ui-item-border-width: 0px,
         $ui-item-height: 28px,
-        $ui-item-icon-vertical-offset: 0px 0px,
         $ui-item-icon-size: 28px
 );
+
+.sub-menu-style {
+  line-height: 28px !important;
+}

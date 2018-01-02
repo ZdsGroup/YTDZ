@@ -1432,9 +1432,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Translate
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">1</td>
-     *         <td style="font-weight: main;">0</td>
-     *         <td style="font-weight: main;">tx</td>
+     *         <td style="font-weight: normal;">1</td>
+     *         <td style="font-weight: normal;">0</td>
+     *         <td style="font-weight: normal;">tx</td>
      *     </tr>
      *     <tr>
      *         <td>0</td>
@@ -1451,9 +1451,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Rotate (θ is the angle of rotation)
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">cos(θ)</td>
-     *         <td style="font-weight: main;">-sin(θ)</td>
-     *         <td style="font-weight: main;">0</td>
+     *         <td style="font-weight: normal;">cos(θ)</td>
+     *         <td style="font-weight: normal;">-sin(θ)</td>
+     *         <td style="font-weight: normal;">0</td>
      *     </tr>
      *     <tr>
      *         <td>0</td>
@@ -1470,9 +1470,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Scale
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">sx</td>
-     *         <td style="font-weight: main;">0</td>
-     *         <td style="font-weight: main;">0</td>
+     *         <td style="font-weight: normal;">sx</td>
+     *         <td style="font-weight: normal;">0</td>
+     *         <td style="font-weight: normal;">0</td>
      *     </tr>
      *     <tr>
      *         <td>0</td>
@@ -1489,9 +1489,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Shear X _(λ is the distance on the x axis to shear by)_
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">1</td>
-     *         <td style="font-weight: main;">λx</td>
-     *         <td style="font-weight: main;">0</td>
+     *         <td style="font-weight: normal;">1</td>
+     *         <td style="font-weight: normal;">λx</td>
+     *         <td style="font-weight: normal;">0</td>
      *     </tr>
      *     <tr>
      *         <td>0</td>
@@ -1508,9 +1508,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Shear Y (λ is the distance on the y axis to shear by)
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">1</td>
-     *         <td style="font-weight: main;">0</td>
-     *         <td style="font-weight: main;">0</td>
+     *         <td style="font-weight: normal;">1</td>
+     *         <td style="font-weight: normal;">0</td>
+     *         <td style="font-weight: normal;">0</td>
      *     </tr>
      *     <tr>
      *         <td>λy</td>
@@ -1527,9 +1527,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Skew X (θ is the angle to skew by)
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">1</td>
-     *         <td style="font-weight: main;">tan(θ)</td>
-     *         <td style="font-weight: main;">0</td>
+     *         <td style="font-weight: normal;">1</td>
+     *         <td style="font-weight: normal;">tan(θ)</td>
+     *         <td style="font-weight: normal;">0</td>
      *     </tr>
      *     <tr>
      *         <td>0</td>
@@ -1546,9 +1546,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * ### Skew Y (θ is the angle to skew by)
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">1</td>
-     *         <td style="font-weight: main;">0</td>
-     *         <td style="font-weight: main;">0</td>
+     *         <td style="font-weight: normal;">1</td>
+     *         <td style="font-weight: normal;">0</td>
+     *         <td style="font-weight: normal;">0</td>
      *     </tr>
      *     <tr>
      *         <td>tan(θ)</td>
@@ -1574,9 +1574,9 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * 
      * <table style="text-align: center;">
      *     <tr>
-     *         <td style="font-weight: main;">a</td>
-     *         <td style="font-weight: main;">c</td>
-     *         <td style="font-weight: main;">e</td>
+     *         <td style="font-weight: normal;">a</td>
+     *         <td style="font-weight: normal;">c</td>
+     *         <td style="font-weight: normal;">e</td>
      *     </tr>
      *     <tr>
      *         <td>b</td>

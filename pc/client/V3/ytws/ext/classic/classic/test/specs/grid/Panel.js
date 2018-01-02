@@ -2064,7 +2064,7 @@ describe('Ext.grid.Panel', function(){
             runs(function() {
                 statesaved = false;
 
-                // Check that the first 2 columns in the main grid have been swapped from configured order
+                // Check that the first 2 columns in the normal grid have been swapped from configured order
                 expect(headerCt.items.items[0].text).toEqual("Sprog?");
                 expect(headerCt.items.items[1].text).toEqual("Email");
 
@@ -2138,7 +2138,7 @@ describe('Ext.grid.Panel', function(){
             runs(function() {
                 headerCt = grid.normalGrid.headerCt;
 
-                // Check that the first 2 columns in the main grid have been swapped from configured order
+                // Check that the first 2 columns in the normal grid have been swapped from configured order
                 expect(headerCt.items.items[0].text).toEqual("Sprog?");
                 expect(headerCt.items.items[1].text).toEqual("Email");
 

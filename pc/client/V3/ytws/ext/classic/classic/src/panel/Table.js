@@ -336,7 +336,7 @@ Ext.define('Ext.panel.Table', {
      * enabled if any of the columns in the {@link #columns columns} configuration contain a {@link Ext.grid.column.Column#locked locked} config option.
      * 
      * A locking grid is processed in a special way. The configuration options are cloned and *two* grids are created to be the locked (left) side
-     * and the main (right) side. This Panel becomes merely a {@link Ext.container.Container container} which arranges both in an {@link Ext.layout.container.HBox HBox} layout.
+     * and the normal (right) side. This Panel becomes merely a {@link Ext.container.Container container} which arranges both in an {@link Ext.layout.container.HBox HBox} layout.
      * 
      * {@link #plugins Plugins} may be targeted at either locked, or unlocked grid, or, both, in which case the plugin is cloned and used on both sides.
      * 
@@ -347,12 +347,12 @@ Ext.define('Ext.panel.Table', {
      *  * `"both"` (the default) - The plugin is added to both grids
      *  * `"top"` - The plugin is added to the containing Panel
      *  * `"locked"` - The plugin is added to the locked (left) grid
-     *  * `"main"` - The plugin is added to the main (right) grid
+     *  * `"normal"` - The plugin is added to the normal (right) grid
      *
      * If `both` is specified, then each copy of the plugin gains a property `lockingPartner` which references its sibling on the other side so that they
      * can synchronize operations is necessary.
      * 
-     * {@link #features Features} may also be configured with `lockableScope` and may target the locked grid, the main grid or both grids. Features
+     * {@link #features Features} may also be configured with `lockableScope` and may target the locked grid, the normal grid or both grids. Features
      * also get a `lockingPartner` reference injected.
      */
     enableLocking: false,
