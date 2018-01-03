@@ -1,17 +1,17 @@
 /*
-Error: Undefined mixin 'treelist-ui'.
-        on line 1 of YtWest.scss, in `treelist-ui'
+Error: Undefined mixin 'extjs-panel-ui'.
+        on line 1 of YtWest.scss, in `extjs-panel-ui'
         from line 1 of YtWest.scss
 
-1: @include treelist-ui(
-2:         $ui: 'sys-data-list',
-3:           // Extra padding left/right
-4:         $padding: 0 10px,
-5:           // Black-ish background color
-6:         $background-color: #32404e,
+1: @include extjs-panel-ui(
+2:         $ui: 'west-panel-ui',
+3:         $ui-header-color: #ffffff,
+4:         $ui-header-glyph-color: #ffffff,
+5:         $ui-header-glyph-opacity: 1,
+6:         $ui-header-font-size: 16px,
 
 Backtrace:
-YtWest.scss:1:in `treelist-ui'
+YtWest.scss:1:in `extjs-panel-ui'
 YtWest.scss:1
 E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
 E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:98:in `block in with_mixin'
@@ -55,4 +55,4 @@ E:/Ruby24-x64/bin/scss:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'treelist-ui'.\A         on line 1 of YtWest.scss, in `treelist-ui'\A         from line 1 of YtWest.scss\A \A 1: @include treelist-ui(\A 2:         $ui: 'sys-data-list',\A 3:           // Extra padding left/right\A 4:         $padding: 0 10px,\A 5:           // Black-ish background color\A 6:         $background-color: #32404e,"; }
+  content: "Error: Undefined mixin 'extjs-panel-ui'.\A         on line 1 of YtWest.scss, in `extjs-panel-ui'\A         from line 1 of YtWest.scss\A \A 1: @include extjs-panel-ui(\A 2:         $ui: 'west-panel-ui',\A 3:         $ui-header-color: #ffffff,\A 4:         $ui-header-glyph-color: #ffffff,\A 5:         $ui-header-glyph-opacity: 1,\A 6:         $ui-header-font-size: 16px,"; }

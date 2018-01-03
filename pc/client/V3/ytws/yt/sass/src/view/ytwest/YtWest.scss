@@ -34,3 +34,11 @@
 .green-cls {
   color: green;
 }
+
+/*修改panel收缩按钮位置*/
+.x-layout-split-left, .x-layout-split-right {
+  top: 0px !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 48px;
+}
