@@ -60,9 +60,9 @@
 									</p>
 									<p>
 										<span class="">
-									<i class="fa fa-map-marker fa-fw"></i>
-									<%=info.address%>
-									</span>
+										<i class="fa fa-map-marker fa-fw"></i>
+										<%=info.address%>
+										</span>
 									</p>
 									<%}else{%>
 									<p id='<%=type%>_<%=info.id%>'>
@@ -81,9 +81,9 @@
 									</p>
 									<p>
 										<span>
-									<i class="fa fa-map-marker fa-fw"></i>
-									<%=info.address%>
-									</span>
+										<i class="fa fa-map-marker fa-fw"></i>
+										<%=info.address%>
+										</span>
 									</p>
 									<%}%>
 								</script>
@@ -292,7 +292,7 @@
 						<div id="dzd-content-part1" class="dzd-footercardcontent mui-table-view-cell">
 							<script id="dzd-content-part1-template" type="text/template">
 								<a class="mui-navigate-right" href="#">
-									<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
+									<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：<%=info.company%>
 								</a>
 								<p>负责人：
 									<%=info.username%>
@@ -320,7 +320,7 @@
 											<ul class="mui-table-view mui-grid-view">
 												<% for(var i=(pageNum-1)*pageSize;i<list.length;i++){ %>
 												<li class="mui-table-view-cell mui-media mui-col-xs-4">
-													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
+													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].id%>">
 														<div class="mui-media-body">
 															<%=list[i].name%>
 														</div>
@@ -341,7 +341,7 @@
 													for(var j=pageNum*i;j<tempSize;j++){ 
 												%>
 												<li class="mui-table-view-cell mui-media mui-col-xs-4">
-													<a href="#"><img class="mui-media-object" src="<%=list[j].dimage%>" title="<%=list[j].name%>" id="<%=list[j].type%>_<%=list[j].deviceid%>">
+													<a href="#"><img class="mui-media-object" src="<%=list[j].dimage%>" title="<%=list[j].name%>" id="<%=list[j].type%>_<%=list[j].id%>">
 														<div class="mui-media-body">
 															<%=list[j].name%>
 														</div>
@@ -362,7 +362,7 @@
 												for(var i=0;i<tempSize;i++){ 
 											%>
 												<li class="mui-table-view-cell mui-media mui-col-xs-4">
-													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
+													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage%>" title="<%=list[i].name%>" id="<%=list[i].type%>_<%=list[i].id%>">
 														<div class="mui-media-body">
 															<%=list[i].name%>
 														</div>

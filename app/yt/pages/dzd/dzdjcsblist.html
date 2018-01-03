@@ -8,7 +8,6 @@
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<script type="text/javascript" src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/template-native.js"></script>
-		<script type="text/javascript" src="../../js/testdata.js"></script>
 		<script type="text/javascript" src="../../js/pages/common.js" ></script>
 		<style type="text/css">
 			.mui-table-view-cell {
@@ -34,7 +33,7 @@
 						<script id="lfjc-ul-list-template" type="text/html">
 							<% for(var i=0;i<list.length;i++){%>
 							<%if (list[i].type==3) {%>
-							<li id='<%=list[i].type%>_<%=list[i].deviceid%>' class="mui-table-view-cell">
+							<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
 								<a class="mui-navigate-right mui-navigate-right-self" href="#">
 									<%=list[i].name%>
 								</a>
@@ -49,7 +48,7 @@
 						<script id="bmwyjc-ul-list-template" type="text/html">
 							<% for(var i=0;i<list.length;i++){%>
 							<%if (list[i].type==1) {%>
-							<li id='<%=list[i].type%>_<%=list[i].deviceid%>' class="mui-table-view-cell">
+							<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
 								<a class="mui-navigate-right mui-navigate-right-self" href="#">
 									<%=list[i].name%>
 								</a>
@@ -64,7 +63,7 @@
 						<script id="yljc-ul-list-template" type="text/html">
 							<% for(var i=0;i<list.length;i++){%>
 							<%if (list[i].type==2) {%>
-							<li id='<%=list[i].type%>_<%=list[i].deviceid%>' class="mui-table-view-cell">
+							<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
 								<a class="mui-navigate-right mui-navigate-right-self" href="#">
 									<%=list[i].name%>
 								</a>
@@ -78,17 +77,22 @@
 
 		<script type="text/javascript">
 			mui.init();
+			mui.plusReady(function() {
+				this.initEvent();
+			});
 
 			var initEvent = function() {
 				//初始化各个监测类型下面的监测设备
-				var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
-				if(selectedFeature.type =='dzd' && selectedFeature.id!=null){
+				var selectedFeature = plus.webview.currentWebview();
+				if(selectedFeature.type =='dzd' && selectedFeature.paramId!=null){
 					var action = "devices";
 					mui.myMuiQuery(action, 
-							{quakeid: selectedFeature.id},
+							{quakeid: selectedFeature.paramId},
 							function(results){
 								//初始化页面
-								initTemplateContent(results);
+								if(results.message == 'success'){
+									initTemplateContent(results);
+								}
 							},
 							function(err){
 								mui.myMuiQueryErr('查询失败，请稍后再试！');
@@ -134,12 +138,7 @@
 				});
 				document.getElementById("yljc-ul-list").innerHTML = yljcH;
 			}
-			var initApp = function() {
-				this.initEvent();
-			}
-			mui.ready(function() {
-				this.initApp();
-			});
+			
 		</script>
 	</body>
 

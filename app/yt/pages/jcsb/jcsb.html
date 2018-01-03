@@ -43,73 +43,94 @@
 		</header>
 		<div class="mui-content">
 			<div id="slider-pictures" class="mui-slider">
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/jcsb/3.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照3</p>
-						</a>
+				<script id="slider-item-template" type="text/html">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="<%=info.dimage[info.dimage.length-1]%>">
+								<p class="mui-slider-title mui-text-center">安装图片1</p>
+							</a>
+						</div>
+						<% for (var i=0; i<info.dimage.length; i++) { %>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="<%=info.dimage[i]%>">
+								<p class="mui-slider-title mui-text-center">
+									安装图片1
+								</p>
+							</a>
+						</div>
+						<%}%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="<%=info.dimage[0]%>">
+								<p class="mui-slider-title mui-text-center">安装图片1</p>
+							</a>
+						</div>
 					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/1.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照1</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/2.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照2</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/3.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照3</p>
-						</a>
-					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/jcsb/1.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照1</p>
-						</a>
+					<div class="mui-slider-indicator mui-text-right">
+						<% for (var i=0; i<info.dimage.length; i++) { %>
+						<div class="mui-indicator mui-active"></div>
+						<%}%>
 					</div>
 				</div>
 				<div class="mui-slider-indicator mui-text-right">
+					<% for (var i=0; i<info.dimage.length; i++) { %>
 					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+					<%}%>
 				</div>
+				</script>
 			</div>
 			<div style="position: relative;">
 				<div class="jcsb-detail-cardcontent">
 					<script id="jcsb-brief-ul-li-template" type="text/templete">
-						<p id='<%=type%>_<%=info.id%>'>
-							<span style="color: #000000;"><%=info.name%></span>
-							<span style="color: #FFA500;padding-left: 0.1em;">(<%=info.typeNM%>)</span>
-							<span style="padding-left: 1em;font-size: 0.9em;"> 预警等级：<%=info.le%> 级</span>
+						<p id='<%=info.type%>_<%=info.id%>'>
+							<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%></span>
+							<%if (info.rank=='0') {%>
+							<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+							<%}else if (info.rank=='1'){%>
+							<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+							<%}else if (info.rank=='2'){%>
+							<span style="color: #FFD800;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+							<%}else if (info.rank=='3'){%>
+							<span style="color: orange;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+							<%}else if (info.rank=='4'){%>
+							<span style="color: red;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
+							<%}%>
 						</p>
 						<p>
-							<span style="font-size: 1.1em;">南山大道与火炬大道交叉口西北100米</span>
+							<span>
+							<i class="fa fa-map-marker fa-fw"></i>
+							<%=info.address%>
+							</span>
 						</p>
 					</script>
 				</div>
-				<div style="position: absolute; top: 5px;right: 10px;">
+				<!--<div style="position: absolute; top: 5px;right: 10px;">
 					<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
-				</div>
+				</div>-->
 			</div>
-			<div class="jcsb-footercardcontent mui-table-view-cell">
-				<a class="mui-navigate-right" href="#">
-					<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：鹰潭市国土资源局
-				</a>
-				<p>负责人：张志辉</p>
+			<div id="jcsb-content-part1" class="jcsb-footercardcontent mui-table-view-cell">
+				<script id="jcsb-content-part1-template" type="text/template">
+					<a class="mui-navigate-right" href="#">
+						<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：
+						<%=info.company%>
+					</a>
+					<p>负责人：<%=info.username%></p>
+					<%if (info.connectstatus==0) {%>
+					<p>运行状态：正常</p>
+					<%}else{%>
+					<p>运行状态：异常</p>
+					<%}%>
+				</script>
 			</div>
-			<div class="jcsb-footercardcontent mui-table-view-cell" style="margin-top: 5px;">
-				<a class="mui-navigate-right" href="#">
-					<span title='jcsb-warn-info' class="mui-badge mui-badge-danger">15</span> 预警信息
-				</a>
+			<div id="jcsb-content-part2" class="jcsb-footercardcontent mui-table-view-cell" style="margin-top: 5px;">
+				<script id="jcsb-content-part2-template" type="text/template">
+					<a class="mui-navigate-right" href="#">
+						<span title='jcsb-warn-info' class="mui-badge mui-badge-danger"><%=info.alarmnum%></span> 预警信息
+					</a>
+				</script>
 			</div>
 			<div class="jcsb-footercardcontent mui-table-view-cell">
 				<a class="mui-navigate-right" href="#">
@@ -118,7 +139,7 @@
 				<div id="jcsb-jczb-list">
 					<script id="jczb-ul-li-template" type="text/template">
 						<!-- 裂缝监测设备——监测分析 -->
-						<%if (type =='lfjc') {%>
+						<%if (type == 3) {%>
 						<div class="mui-slider">
 							<div class="mui-slider-group">
 								<div class="mui-slider-item">
@@ -158,7 +179,7 @@
 						</div>
 						<%}%>
 						<!-- 位移设备——监测分析 -->
-						<%if (type =='bmwyjc') {%>
+						<%if (type == 1) {%>
 						<div class="mui-slider">
 							<div class="mui-slider-group">
 								<div class="mui-slider-item">
@@ -231,7 +252,7 @@
 						</div>
 						<%}%>
 						<!-- 雨量设备——监测分析 -->
-						<%if (type =='yljc') {%>
+						<%if (type == 2) {%>
 						<div class="mui-slider">
 							<div class="mui-slider-group">
 								<div class="mui-slider-item">
@@ -276,16 +297,16 @@
 		</div>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.min.js"></script>
-		<script src="../../js/testdata.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/pages/common.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			var jcsb_type = null; //监测设备类型
 			var jcsb_id = null; //监测设备ID，仅用于测试数据
 			var jcsb_feature = null;
 			var initEvent = function() {
-				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
+				mui(".jcsb-footercardcontent").on('tap', '.mui-badge', function(evt) {
+					debugger
 					var action = evt.target.title;
-					var selectedFeature = JSON.parse(localStorage.getItem('currentSelectedFeature'));
 					var info = '';
 					var typeT = '';
 					var idT = '';
@@ -298,26 +319,21 @@
 							break;
 						case 'jcsb-warn-info':
 							pageUrl = 'jcsbyjxx.html';
-							pageId = 'dzd-more-info';
+							pageId = 'jcsb-more-info';
 							break;
 						case 'jcsb-analy-all':
-							if(selectedFeature) {
+							if(jcsb_feature) {
 								//判断地图入口点要素类型：地灾点或监测设备，此处只需要监测设备数据
-								if(selectedFeature.type != 'dzd') {
-									jcsb_type = selectedFeature.type;
-									jcsb_id = selectedFeature.id;
-									jcsb_feature = selectedFeature;
-								}
 								switch(jcsb_type) {
-									case 'bmwyjc':
+									case '1':
 										pageUrl = 'bmwyjcanalylist.html';
 										pageId = 'jcsb-bmwyjc-analylist';
 										break;
-									case 'lfjc':
+									case '3':
 										pageUrl = 'lfjcanalylist.html';
 										pageId = 'jcsb-lfjc-analylist';
 										break;
-									case 'yljc':
+									case '2':
 										pageUrl = 'yljcanalylist.html';
 										pageId = 'jcsb-yljc-analylist';
 										break;
@@ -343,54 +359,33 @@
 				})
 			};
 
-			var initApp = function() {
-				this.initEvent();
-			};
-
-			mui.ready(initApp);
-
-			//根据类型及ID查询监测设备数据
-			var getJcsbData = function(type, id) {
-				var cf = null; //当前监测
-				var isExist = false;
-				if(warnjcMarkersData) {
-					var len = warnjcMarkersData.length;
-					if(len > 0) {
-						for(var i = 0; i < len; i++) {
-							if(!isExist) {
-								var f = warnjcMarkersData[i];
-								if(f && f['type'] == type && f['id'] == parseInt(id)) {
-									cf = f;
-									isExist = true;
-								}
-							}
-						}
-					}
-				}
-				return cf;
-			}
-
-			mui.plusReady(function() {
-				//页面传值
-				var self = plus.webview.currentWebview();
-				var jcsbType = self.xqType;
-				var jcsbId = self.xqID;
-				this.jcsb_type = jcsbType;
-				this.jcsb_id = jcsbId;
-				//根据地灾点对应的预警监测数据查找，测试数据为：warnjcMarkersData
-				var jcData = this.getJcsbData(jcsbType, jcsbId);
-				if(jcData) {
-					var html = template('jcsb-brief-ul-li-template', {
-						info: jcData
+			function initTemplateContent(jcsbData){
+				if(jcsbData) {
+					var jcsbPicturesHtml = template('slider-item-template', {
+						info: jcsbData
 					});
-					mui(".jcsb-detail-cardcontent")[0].innerHTML = html;
+					mui("#slider-pictures")[0].innerHTML = jcsbPicturesHtml;
+					
+					var jcsbHtml = template('jcsb-brief-ul-li-template', {
+						info: jcsbData
+					});
+					mui(".jcsb-detail-cardcontent")[0].innerHTML = jcsbHtml;
+					var contentPart1 = template('jcsb-content-part1-template', {
+						info: jcsbData
+					});
+					document.getElementById("jcsb-content-part1").innerHTML = contentPart1;
+				
+					var contentPart2 = template('jcsb-content-part2-template', {
+						info: jcsbData
+					});
+					document.getElementById("jcsb-content-part2").innerHTML = contentPart2;
 				}
-				var jcsbhtml = template('jczb-ul-li-template', {
-					type: jcsbType
+				var jcsbhtml2 = template('jczb-ul-li-template', {
+					type: jcsb_type
 				});
 				//释放事件监听
 				mui('#jcsb-jczb-list').off('tap', 'li');
-				document.getElementById("jcsb-jczb-list").innerHTML = jcsbhtml;
+				document.getElementById("jcsb-jczb-list").innerHTML = jcsbhtml2;
 				mui(".mui-slider").slider();
 				mui('#jcsb-jczb-list').on('tap', 'li', function(evt) {
 					var currentPid = this.getAttribute('title');
@@ -415,6 +410,33 @@
 					}
 					mui.openWindow(info);
 				});
+			}
+			
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var jcsbType = self.xqType;
+				var jcsbId = self.xqID;
+				this.jcsb_type = jcsbType;
+				this.jcsb_id = jcsbId;
+				//根据地灾点对应的预警监测数据查找
+				if(jcsbType != 'dzd'){
+					var action = "devices/" + jcsbId;
+					mui.myMuiQuery(action, '',
+						function(results){
+							//初始化页面
+							if(results.message == 'success'){
+								debugger
+								this.jcsb_feature =mui.myCloneObj(results.data);
+								this.jcsb_feature.dimage = JSON.parse(results.data.dimage);
+								initTemplateContent(this.jcsb_feature);
+							}
+						},
+						function(err){
+							mui.myMuiQueryErr('查询失败，请稍后再试！');
+						}
+					)
+				}	
+				this.initEvent();
 			});
 		</script>
 	</body>

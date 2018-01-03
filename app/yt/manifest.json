@@ -370,7 +370,8 @@
 					"pages/jcsb/yljc.html",
 					"pages/jcsb/lfjc.html",
 					"pages/jcsb/lfjcanalylist.html",
-					"pages/jcsb/yljcanalylist.html"
+					"pages/jcsb/yljcanalylist.html",
+					"pages/jcsb/jcsbgdxx.html"
 				],
 				"priority": 0
 			},
