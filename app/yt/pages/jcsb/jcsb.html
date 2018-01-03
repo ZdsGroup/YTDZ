@@ -43,45 +43,44 @@
 		</header>
 		<div class="mui-content">
 			<div id="slider-pictures" class="mui-slider">
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/jcsb/3.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照3</p>
-						</a>
+				<script id="slider-item-template" type="text/html">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="<%=info.dimage[info.dimage.length-1]%>">
+								<p class="mui-slider-title mui-text-center">安装图片1</p>
+							</a>
+						</div>
+						<% for (var i=0; i<info.dimage.length; i++) { %>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="<%=info.dimage[i]%>">
+								<p class="mui-slider-title mui-text-center">
+									安装图片1
+								</p>
+							</a>
+						</div>
+						<%}%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="<%=info.dimage[0]%>">
+								<p class="mui-slider-title mui-text-center">安装图片1</p>
+							</a>
+						</div>
 					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/1.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照1</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/2.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照2</p>
-						</a>
-					</div>
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../../photos/jcsb/3.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照3</p>
-						</a>
-					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../../photos/jcsb/1.jpg">
-							<p class="mui-slider-title mui-text-center">安装拍照1</p>
-						</a>
+					<div class="mui-slider-indicator mui-text-right">
+						<% for (var i=0; i<info.dimage.length; i++) { %>
+						<div class="mui-indicator mui-active"></div>
+						<%}%>
 					</div>
 				</div>
 				<div class="mui-slider-indicator mui-text-right">
+					<% for (var i=0; i<info.dimage.length; i++) { %>
 					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+					<%}%>
 				</div>
+				</script>
 			</div>
 			<div style="position: relative;">
 				<div class="jcsb-detail-cardcontent">
@@ -362,6 +361,11 @@
 
 			function initTemplateContent(jcsbData){
 				if(jcsbData) {
+					var jcsbPicturesHtml = template('slider-item-template', {
+						info: jcsbData
+					});
+					mui("#slider-pictures")[0].innerHTML = jcsbPicturesHtml;
+					
 					var jcsbHtml = template('jcsb-brief-ul-li-template', {
 						info: jcsbData
 					});
@@ -421,8 +425,10 @@
 						function(results){
 							//初始化页面
 							if(results.message == 'success'){
-								initTemplateContent(results.data);
-								this.jcsb_feature = results.data;
+								debugger
+								this.jcsb_feature =mui.myCloneObj(results.data);
+								this.jcsb_feature.dimage = JSON.parse(results.data.dimage);
+								initTemplateContent(this.jcsb_feature);
 							}
 						},
 						function(err){
