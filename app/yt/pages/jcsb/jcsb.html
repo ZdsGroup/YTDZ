@@ -305,9 +305,9 @@
 			var jcsb_id = null; //监测设备ID，仅用于测试数据
 			var jcsb_feature = null;
 			var initEvent = function() {
-				mui(".mui-navigate-right").on('tap', '.mui-badge', function(evt) {
+				mui(".jcsb-footercardcontent").on('tap', '.mui-badge', function(evt) {
+					debugger
 					var action = evt.target.title;
-					var self = plus.webview.currentWebview();
 					var info = '';
 					var typeT = '';
 					var idT = '';
@@ -320,26 +320,21 @@
 							break;
 						case 'jcsb-warn-info':
 							pageUrl = 'jcsbyjxx.html';
-							pageId = 'dzd-more-info';
+							pageId = 'jcsb-more-info';
 							break;
 						case 'jcsb-analy-all':
-							if(selectedFeature) {
+							if(jcsb_feature) {
 								//判断地图入口点要素类型：地灾点或监测设备，此处只需要监测设备数据
-								if(selectedFeature.type != 'dzd') {
-									jcsb_type = selectedFeature.xqType;
-									jcsb_id = selectedFeature.xqID;
-									jcsb_feature = selectedFeature;
-								}
 								switch(jcsb_type) {
-									case 'bmwyjc':
+									case '1':
 										pageUrl = 'bmwyjcanalylist.html';
 										pageId = 'jcsb-bmwyjc-analylist';
 										break;
-									case 'lfjc':
+									case '3':
 										pageUrl = 'lfjcanalylist.html';
 										pageId = 'jcsb-lfjc-analylist';
 										break;
-									case 'yljc':
+									case '2':
 										pageUrl = 'yljcanalylist.html';
 										pageId = 'jcsb-yljc-analylist';
 										break;
@@ -427,6 +422,7 @@
 							//初始化页面
 							if(results.message == 'success'){
 								initTemplateContent(results.data);
+								this.jcsb_feature = results.data;
 							}
 						},
 						function(err){
