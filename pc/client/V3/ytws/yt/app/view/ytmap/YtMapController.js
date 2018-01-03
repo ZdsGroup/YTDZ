@@ -348,8 +348,7 @@ var mv = {
                                     border: false,
                                     ui: 'map-tool-ui',
                                     scale: 'medium'
-                                }
-                                ,
+                                },
                                 items: [{
                                     xtype: 'button',
                                     action: 'image',
@@ -366,7 +365,7 @@ var mv = {
                                     toggle: function (container, button, pressed) {
                                         if (pressed) {
                                             var action = button['action'];
-
+                                            alert(action);
                                         }
                                     }
                                 }
