@@ -12,7 +12,9 @@ Ext.define('yt.view.monpot.timeline.TimeLineController', {
 
     },
 
-    testfunc: function () {
-        console.log('测试1')
+    warmButtonCountClick: function (buttonExt, evt, eOpts) {
+        buttonExt.toggleCls('normal');
+        console.log(buttonExt);
+        // 遍历所有 warmbutton 得到当前选中的所有rank值，过滤对应的store
     }
 });

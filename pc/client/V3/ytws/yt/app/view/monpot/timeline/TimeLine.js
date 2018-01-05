@@ -5,6 +5,10 @@ Ext.define('yt.view.monpot.timeline.TimeLine', {
     extend: 'Ext.DataView',
     xtype: 'timeline',
 
+    maxHeight: 550,
+    minHeight: 200,
+    scrollable: 'y',
+
     cls: 'timeline-items-wrap',
 
     requires: [
@@ -43,12 +47,12 @@ Ext.define('yt.view.monpot.timeline.TimeLine', {
                 var ret = '';
                 if( value >= 4 )
                     ret = 'background-color: red';
-                else if( value >= 2 )
+                else if( value >= 3 )
                     ret = 'background-color: yellow';
-                else if( value >= 1 )
+                else if( value >= 2 )
                     ret = 'background-color: orange';
                 else
-                    ret = 'background-color: green';
+                    ret = 'background-color: #0093ff';
                 return ret;
             },
 

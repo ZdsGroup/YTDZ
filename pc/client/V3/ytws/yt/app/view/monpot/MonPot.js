@@ -8,6 +8,7 @@ Ext.define('yt.view.monpot.MonPot', {
         'Ext.layout.container.VBox',
         'yt.view.monpot.MonPotController',
         'yt.view.monpot.MonPotModel',
+        'yt.view.monpot.timeline.InfoDescription',
         'yt.view.monpot.timeline.TimeLine'
     ],
 
@@ -33,7 +34,7 @@ Ext.define('yt.view.monpot.MonPot', {
     items: [
         /* include child components here */
         {
-            xtype: 'timeline',
+            xtype: 'yt-InfoDescription',
             // fit: 1
         }
     ]

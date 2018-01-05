@@ -5,6 +5,39 @@ Ext.define('yt.view.monpot.timeline.TimeLineModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.timeline',
 
+    data: {
+        quakeInfo: {
+            "id": 1,
+            "quakeid": 100007,
+            "regionid": 500000000,
+            "name": "贵溪市煤矿",
+            "company": "鹰潭市国土资源局",
+            "favostatus": 1,
+            "status": 0,
+            "username": "秦晨光",
+            "mobile": "18826376263",
+            "description": "该地灾点的险情等级很高，威胁人数很多，需要重点监测。",
+            "note": "鹰潭市为地质灾害防治制定发布了《鹰潭市地质灾害防治方案》和《突发性地质灾害应急预案》并将此预案列入了鹰潭市突发公共事件总体应急预案。由于人工测量并不能对采空区进行全天候监测，要求实现自动化监测。该项目通过对贵溪市石膏矿采空塌陷区安装监测设备，对主要技术数据的实时监测监控，巡线员数据的实时查询，监测数据的智能分析等。实时了解该采空区安全状态并做出预测预警，为科学决策提供依据。",
+            "attr": "[{\"lng\":\"117.202892\",\"lat\":\"28.220454\"},{\"lng\":\"117.202889\",\"lat\":\"28.220454\"},{\"lng\":\"117.202889\",\"lat\":\"28.220454\"},{\"lng\":\"117.202889\",\"lat\":\"28.220321\"}]",
+            "centroid": "{\"lat\":\"28.220454\",\"lng\":\"117.202892\"}",
+            "image": "[\"http://yt.qinchenguang.com/img/1.png\",\"http://yt.qinchenguang.com/img/2.png\"]",
+            "createtime": "2017-11-30 17:36:26",
+            "modifytime": "2017-11-30 17:36:26",
+            "rank": 0,
+            "typenum": 2,
+            "devicenum": 3,
+            "alarmnum": 0,
+            "dtype": "地面塌陷",
+            "address": "南山大道与火炬大道交叉口东50米",
+            "dlevel": "大型",
+            "dnum": 11,
+            "davoid": "监测、避让、巡查",
+            "dmethod": "口哨、铜锣",
+            "daddress": "村委会、投亲戚家、邻居",
+            "droute": "村前公路"
+        }
+    },
+
     stores: {
         /*
         A declaration of Ext.data.Store configurations that are first processed as binds to produce an effective
@@ -24,7 +57,7 @@ Ext.define('yt.view.monpot.timeline.TimeLineModel', {
                 { name: 'alarmtype' },
                 { name: 'settingv' },
                 { name: 'alarmv' },
-                { name: 'rank' },
+                { name: 'rank', type: 'number' },
                 { name: 'deleteflag' },
                 { name: 'status' },
                 { name: 'content' },
@@ -295,8 +328,4 @@ Ext.define('yt.view.monpot.timeline.TimeLineModel', {
             ]
         }
     },
-
-    data:{
-
-    }
 });
