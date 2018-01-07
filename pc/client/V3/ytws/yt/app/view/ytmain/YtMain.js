@@ -51,7 +51,12 @@ Ext.define('yt.view.ytmain.YtMain', {
             collapseToolText: '关闭',
             expandToolText: '展开',
             titleCollapse: false,
-            floatable: false
+            floatable: false,
+            listeners: {
+                collapse: function (p, eOpts) {
+                    p.collapseMode = 'none';
+                }
+            }
         }
     ]
 });

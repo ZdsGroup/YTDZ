@@ -327,5 +327,5 @@ Ext.define('yt.view.monpot.timeline.TimeLineModel', {
                 }
             ]
         }
-    },
+    }
 });

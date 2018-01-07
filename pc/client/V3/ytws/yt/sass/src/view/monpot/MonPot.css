@@ -1,0 +1,41 @@
+/*
+Error: Invalid CSS after ")": expected selector or at-rule, was "@include extjs-..."
+        on line 23 of MonPot.scss
+
+18:         $icon-size: 24px,
+19:         $font-size: 18px,
+20:         $inner-border-width: 0px
+21: )
+22: 
+23: @include extjs-button-small-ui(
+24:         $ui: 'mon-image-button',
+25:         $background-color: rgba(0, 105, 92, 0.0),
+26:         $background-color-over: rgba(0, 105, 92, 0.0),
+27:         $background-color-focus: rgba(0, 105, 92, 0.0),
+28:         $background-color-pressed: rgba(0, 105, 92, 0.0),
+
+Backtrace:
+MonPot.scss:23
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/scss/parser.rb:1278:in `expected'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/scss/parser.rb:1208:in `expected'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/scss/parser.rb:42:in `parse'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/engine.rb:414:in `_to_tree'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/engine.rb:307:in `render_with_sourcemap'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:209:in `each'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/plugin.rb:82:in `update_stylesheets'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/exec/sass_scss.rb:51:in `process_result'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/exec/base.rb:52:in `parse'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/exec/base.rb:19:in `parse!'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/bin/scss:13:in `<top (required)>'
+E:/Ruby24-x64/bin/scss:22:in `load'
+E:/Ruby24-x64/bin/scss:22:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \")\": expected selector or at-rule, was \"@include extjs-...\"\A         on line 23 of MonPot.scss\A \A 18:         $icon-size: 24px,\A 19:         $font-size: 18px,\A 20:         $inner-border-width: 0px\A 21: )\A 22: \A 23: @include extjs-button-small-ui(\A 24:         $ui: 'mon-image-button',\A 25:         $background-color: rgba(0, 105, 92, 0.0),\A 26:         $background-color-over: rgba(0, 105, 92, 0.0),\A 27:         $background-color-focus: rgba(0, 105, 92, 0.0),\A 28:         $background-color-pressed: rgba(0, 105, 92, 0.0),"; }

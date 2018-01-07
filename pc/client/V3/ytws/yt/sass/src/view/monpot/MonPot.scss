@@ -1,0 +1,33 @@
+@include extjs-panel-ui(
+        $ui: 'monpot-info-panel',
+        $ui-body-background-color: rgba(55, 71, 79,1.0),
+        $ui-body-color: rgba(255, 255, 255, 1)
+);
+
+.mon-info-title {
+  font-size: 18px !important;
+}
+
+@include extjs-button-small-ui(
+        $ui: 'mon-tool-button',
+        $background-color: rgba(0, 105, 92, 0.0),
+        $background-color-over: rgba(255, 109, 0, 0.8),
+        $background-color-focus: rgba(0, 105, 92, 0.0),
+        $background-color-pressed: rgba(255, 109, 0, 0.8),
+        $padding: 2px,
+        $icon-size: 24px,
+        $font-size: 18px,
+        $inner-border-width: 0px
+)
+
+@include extjs-button-small-ui(
+        $ui: 'mon-image-button',
+        $background-color: rgba(0, 105, 92, 0.0),
+        $background-color-over: rgba(0, 105, 92, 0.0),
+        $background-color-focus: rgba(0, 105, 92, 0.0),
+        $background-color-pressed: rgba(0, 105, 92, 0.0),
+        $padding: 0px,
+        $icon-size: 18px,
+        $font-size: 14px,
+        $inner-border-width: 0px
+)

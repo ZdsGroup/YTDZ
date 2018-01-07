@@ -168,7 +168,7 @@ var g = {
                     ui: 'float-panel',
                     layout: 'fit',
                     draggable: false,
-                    collapsible: true,
+                    collapsible: false,
                     collapseToolText: '隐藏',
                     expandToolText: "展开",
                     closeToolText: '关闭',

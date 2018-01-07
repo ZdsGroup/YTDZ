@@ -16,8 +16,8 @@
 )
 
 //自定义变量
-$focus-text-color: #ffffff;
-$default-text-color: #9ee7d0;
+$focus-text-color: rgba(255, 109, 0,1.0);
+$default-text-color: rgba(255,255,255,1);
 $custome-font-family: '微软雅黑';
 
 @include extjs-button-medium-ui(

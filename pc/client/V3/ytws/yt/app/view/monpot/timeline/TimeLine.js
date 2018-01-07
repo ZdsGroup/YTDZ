@@ -30,7 +30,7 @@ Ext.define('yt.view.monpot.timeline.TimeLine', {
         '<div class="timeline-item{deviceid:this.cls(values,parent[xindex-2],xindex-1,xcount)}">' +
             '{alarmtime:this.epoch(values,parent[xindex-2],xindex-1,xcount)}' +
             '<div class="profile-pic-wrap">' +
-                '<img src="resources/images/TimeLine/1.png" alt="Smiley face" style="{rank:this.setImgBackgroudColor}">' +
+                '<img src="resources/images/yt/timeline/1.png" alt="Smiley face" style="{rank:this.setImgBackgroudColor}">' +
                 '<div>{alarmtime:this.elapsed}</div>' +
             '</div>' +
             '<tpl>' +
