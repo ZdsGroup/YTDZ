@@ -13,6 +13,7 @@ var picListPageSize = 3;
 var scroller = null;
 var jcsbMaxZoomShow = 14;
 var warnInfoIsShow = false;
+var userId = 1;
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -369,10 +370,11 @@ var initEvent = function() {
 			var action = "userfavos";
 			if(selectType == 'dzd') {
 				mui.myMuiQueryPost(action, {
-						userid: 1,
+						userid: userId,
 						quakeid: currentDzd.quakeid
 					},
 					function(results) {
+//						debugger
 						var obj = mui('#ftstar')[0];
 						if(results.data.status == 1) {
 							obj.classList.remove('ytfooter-star');
@@ -381,6 +383,7 @@ var initEvent = function() {
 							obj.classList.remove('ytfooter-star-color');
 							obj.classList.add('ytfooter-star');
 						}
+						//TODO 修改layer中的attr收藏属性
 					},
 					function() {
 						mui.myMuiQueryErr('收藏(取消)失败，请稍后再试！');
@@ -604,14 +607,9 @@ function showFilterStarMarksOnMap(isFilter) {
 			var layers = new Array();
 			dzMarkersLayerGroup.eachLayer(function(layer) {
 				var attr = layer.options.attr;
-				//				if(attr.favostatus == 1){
-				//					layers.push(layer);
-				//				}
-				//TODO temp
-				if(attr.quakeid != 100007) {
+				if(attr.favostatus == 1){
 					layers.push(layer);
-				};
-				//
+				}
 			});
 			for(var i = 0; i < layers.length; i++) {
 				if(dzMarkersLayerGroup.hasLayer(layers[i])) {
@@ -639,7 +637,8 @@ function showAllDZMarksOnMap() {
 		getDZMarkersLayerGroup(dzQueryResults.quakes, false);
 		myMap.addLayer(dzMarkersLayerGroup);
 	} else {
-		var action = "quakes/all";
+		var action = "quakes/all/" + userId;
+		debugger
 		mui.myMuiQuery(action, '',
 			function(results) {
 				if(results != null && results.data.quakes.length > 0) {
@@ -684,7 +683,7 @@ function showWarnDZMarksOnMap() {
 		getDZMarkersLayerGroup(dzQueryResults.quakes, true);
 		myMap.addLayer(dzMarkersLayerGroup);
 	} else {
-		var action = "quakes/all";
+		var action = "quakes/all/" + userId;
 		mui.myMuiQuery(action, '',
 			function(results) {
 				if(results != null && results.data.quakes.length > 0) {
@@ -749,17 +748,10 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		}).on('click', function(e) {
 			selectType = "dzd";
 			currentDzd = this.options.attr;
+			checkFtstar(currentDzd.favostatus);
 			showJCMarkerByDZid(e.target.options.id);
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			showFooterPanel(footerHeight);
-
-			//TODO temp
-			if(currentDzd.quakeid == 100007) {
-				currentDzd.favostatus = 1;
-			}
-			//
-
-			checkFtstar(currentDzd.favostatus);
 		});
 		dzMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
@@ -824,40 +816,26 @@ function showJCMarkerByDZid(dzID) {
 				break;
 			}
 		}
-		//		for (var i = 0; i < areaT.length; i++) {
-		//			latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
-		//		}
-		//		var areaLine = L.polygon(latlngs, {
-		//							color: 'red',
-		//							weight: 2,
-		//							opacity: 0.5,
-		//							fillColor: '#cccccc',
-		//							fillOpacity: 0.4,
-		//							fill: true
-		//						});
-		//		jcMarkersLayerGroup.addLayer(areaLine);
+		for (var i = 0; i < areaT.length; i++) {
+			latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
+		}
+		var areaLine = L.polygon(latlngs, {
+							color: 'red',
+							weight: 2,
+							opacity: 0.5,
+							fillColor: '#cccccc',
+							fillOpacity: 0.4,
+							fill: true
+						});
+		jcMarkersLayerGroup.addLayer(areaLine);
 
 		var devicesArr = dzQueryResults.devices;
 		var tempArr = new Array();
 		for(var i = 0; i < devicesArr.length; i++) {
 			if(devicesArr[i].quakeid == dzID) {
 				tempArr.push(devicesArr[i]);
-				//TODO temp
-				latlngs.push(new L.latLng(devicesArr[i].lat, devicesArr[i].lng));
-				//
 			}
 		}
-		//TODO temp
-		var areaLine = L.polygon(latlngs, {
-			color: 'red',
-			weight: 2,
-			opacity: 0.5,
-			fillColor: '#cccccc',
-			fillOpacity: 0.4,
-			fill: true
-		});
-		jcMarkersLayerGroup.addLayer(areaLine);
-		//
 
 		getJCMarkersLayerGroup(tempArr);
 		myMap.addLayer(jcMarkersLayerGroup);
@@ -902,8 +880,8 @@ function getJCMarkersLayerGroup(results) {
 		jcMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());
 	}
-	warnBounds = L.latLngBounds(latLngsArr).pad(0.2);
 	if(latLngsArr.length > 0) {
+		warnBounds = L.latLngBounds(latLngsArr).pad(0.2);
 		setTimeout(function() {
 			myMap.flyToBounds(warnBounds, {
 				maxZoom: maxZoomShow

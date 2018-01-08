@@ -14,7 +14,7 @@
 		return newObj;
 	}
 	//显示加载框
-	var baseURL = 'http://quake.anruence.com/oracle/';
+	var baseURL = 'http://182.92.2.91:8080/oracle/';
 	$.myMuiQueryBaseInfo = {
 		pageStartIndex: 1,
 		pageSize: 20
