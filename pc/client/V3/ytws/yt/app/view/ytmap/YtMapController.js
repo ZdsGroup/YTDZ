@@ -68,6 +68,10 @@ var mv = {
                                         title: dzName
                                     });
 
+                                    dzMarker.on('click',function(){
+                                        alert('clicked!!!');
+                                    });
+
                                     markers.push(dzMarker);
                                 });
                             }

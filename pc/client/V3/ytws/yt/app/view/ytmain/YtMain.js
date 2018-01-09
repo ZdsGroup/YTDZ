@@ -46,7 +46,7 @@ Ext.define('yt.view.ytmain.YtMain', {
             xtype: 'yt-west',
             titleAlign: 'center',
             collapseFirst: true,
-            collapsible: true,
+            collapsible: false,
             collapseMode: 'mini',
             collapseToolText: '关闭',
             expandToolText: '展开',

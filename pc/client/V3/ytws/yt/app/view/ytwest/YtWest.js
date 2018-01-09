@@ -26,7 +26,7 @@ Ext.define('yt.view.ytwest.YtWest', {
     controller: 'ytwest',
 
     ui: 'west-panel-ui',
-    title: '地灾点列表',
+    //title: '地灾点列表',
     width: 250,
     layout: {
         type: 'vbox',

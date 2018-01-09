@@ -25,7 +25,7 @@ Ext.define('yt.conf.SystemConfig', {
             ui: "top-menu-ui",
             icon: "fa fa-map-marker",
             mode: "cover",
-            hide: true
+            hide: false
         },
         {
             name: "监测点",
@@ -38,7 +38,7 @@ Ext.define('yt.conf.SystemConfig', {
             parent: 'floatContainerID',
             ui: "top-menu-ui",
             icon: "fa fa-circle",
-            mode: "normal",
+            mode: "cover",
             hide: false,
 
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
@@ -61,7 +61,7 @@ Ext.define('yt.conf.SystemConfig', {
             parent: 'floatContainerID',
             ui: "top-menu-ui",
             icon: "fa fa-cubes",
-            mode: "normal",
+            mode: "cover",
             hide: false,
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
             floatContainerParams: {
@@ -83,7 +83,7 @@ Ext.define('yt.conf.SystemConfig', {
             parent: 'floatContainerID',
             ui: "top-menu-ui",
             icon: "fa fa-exclamation-triangle",
-            mode: "normal",
+            mode: "cover",
             hide: false,
 
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
@@ -106,7 +106,7 @@ Ext.define('yt.conf.SystemConfig', {
             parent: 'floatContainerID',
             ui: "top-menu-ui",
             icon: "fa fa-cog",
-            mode: "normal",
+            mode: "cover",
             hide: false,
 
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
