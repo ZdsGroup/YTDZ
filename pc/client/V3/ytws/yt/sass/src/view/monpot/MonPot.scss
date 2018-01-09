@@ -31,3 +31,69 @@
         $font-size: 14px,
         $inner-border-width: 0px
 )
+
+@include extjs-tab-panel-ui(
+        $ui: 'mon-tab-panel',
+        $ui-padding: 10px 20px 30px 40px
+)
+
+.big-100 {
+        @include responsivecolumn-item(100%);
+}
+
+.big-60 {
+        @include responsivecolumn-item(60%);
+}
+
+.big-50 {
+        @include responsivecolumn-item(50%);
+}
+
+.big-40 {
+        @include responsivecolumn-item(40%);
+}
+
+.big-33 {
+        @include responsivecolumn-item(33.33%);
+}
+
+.big-20 {
+        @include responsivecolumn-item(20%);
+}
+
+@include extjs-tab-panel-ui(
+        $ui: 'navigation',
+        $ui-tab-background-color: transparent,
+        $ui-tab-background-color-over: transparent,
+        $ui-tab-background-color-active: #404040,
+        $ui-tab-background-gradient: 'none',
+        $ui-tab-background-gradient-over: 'none',
+        $ui-tab-background-gradient-active: 'none',
+        $ui-tab-color: #acacac,
+        $ui-tab-color-over: #404040,
+        $ui-tab-color-active: #fff,
+        $ui-tab-glyph-color: #acacac,
+        $ui-tab-glyph-color-over: #c4c4c4,
+        $ui-tab-glyph-color-active: #fff,
+        $ui-tab-glyph-opacity: 1,
+        $ui-tab-border-radius: 0,
+        $ui-tab-border-color: transparent,
+        $ui-tab-border-color-over: transparent,
+        $ui-tab-border-width: 1px,
+        $ui-tab-inner-border-width: 0,
+        $ui-tab-padding: 6px 40px 6px 40px,
+        $ui-tab-margin: 0,
+        $ui-tab-font-size: 15px,
+        $ui-tab-font-size-over: 15px,
+        $ui-tab-font-size-active: 15px,
+        $ui-tab-line-height: 19px,
+        $ui-tab-font-weight: bold,
+        $ui-tab-font-weight-over: bold,
+        $ui-tab-font-weight-active: bold,
+        $ui-tab-icon-width: 24px,
+        $ui-tab-icon-height: 24px,
+        $ui-bar-background-color: transparent,
+        $ui-bar-background-gradient: 'none',
+        $ui-bar-padding: 5px 0px 0px 0px,
+        $ui-strip-height: 0
+);
