@@ -45,7 +45,7 @@ Ext.define('yt.conf.SystemConfig', {
             floatContainerParams: {
                 gapX: 5,
                 gapY: 5,
-                w: 360,//数值或百分比，如：100%
+                w: '100%',//w: 360,//数值或百分比，如：100%
                 h: '100%',//数值或百分比，如：100%
                 align: 'tr' //左上
             }
