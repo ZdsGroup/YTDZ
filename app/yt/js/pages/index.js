@@ -374,16 +374,23 @@ var initEvent = function() {
 						quakeid: currentDzd.quakeid
 					},
 					function(results) {
-//						debugger
 						var obj = mui('#ftstar')[0];
+						var statusT = 1;
 						if(results.data.status == 1) {
 							obj.classList.remove('ytfooter-star');
 							obj.classList.add('ytfooter-star-color');
+							statusT = 1;
 						} else {
 							obj.classList.remove('ytfooter-star-color');
 							obj.classList.add('ytfooter-star');
+							statusT = 0;
 						}
-						//TODO 修改layer中的attr收藏属性
+						dzMarkersLayerGroup.eachLayer(function(layer) {
+							var attr = layer.options.attr;
+							if(attr.quakeid == results.data.quakeid){
+								attr.favostatus = statusT;
+							}
+						});
 					},
 					function() {
 						mui.myMuiQueryErr('收藏(取消)失败，请稍后再试！');
@@ -607,7 +614,7 @@ function showFilterStarMarksOnMap(isFilter) {
 			var layers = new Array();
 			dzMarkersLayerGroup.eachLayer(function(layer) {
 				var attr = layer.options.attr;
-				if(attr.favostatus == 1){
+				if(attr.favostatus != 1){
 					layers.push(layer);
 				}
 			});
@@ -638,7 +645,6 @@ function showAllDZMarksOnMap() {
 		myMap.addLayer(dzMarkersLayerGroup);
 	} else {
 		var action = "quakes/all/" + userId;
-		debugger
 		mui.myMuiQuery(action, '',
 			function(results) {
 				if(results != null && results.data.quakes.length > 0) {
