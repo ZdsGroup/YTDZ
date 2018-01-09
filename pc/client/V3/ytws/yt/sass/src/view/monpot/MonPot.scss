@@ -32,13 +32,12 @@
         $inner-border-width: 0px
 )
 
-@include extjs-tab-panel-ui(
-        $ui: 'mon-tab-panel',
-        $ui-padding: 10px 20px 30px 40px
-)
-
 .big-100 {
         @include responsivecolumn-item(100%);
+}
+
+.big-70 {
+        @include responsivecolumn-item(70%);
 }
 
 .big-60 {
@@ -55,6 +54,10 @@
 
 .big-33 {
         @include responsivecolumn-item(33.33%);
+}
+
+.big-30 {
+        @include responsivecolumn-item(30%);
 }
 
 .big-20 {

@@ -170,7 +170,7 @@ Ext.define('yt.view.monpot.MonPot', {
                 border: false
             },
             tabPosition: 'left',
-            tabRotation: '0',
+            tabRotation: 0,
             items: [{
                 title: '详    情',
                 icon: null,

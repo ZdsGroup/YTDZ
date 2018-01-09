@@ -13,6 +13,7 @@ Ext.define('yt.view.monpot.monpotDetail', {
     cls: 'monpot-detail',
 
     requires: [
+        'Ext.layout.container.Fit',
         'Ext.panel.Panel',
         'Ext.ux.layout.ResponsiveColumn'
     ],
@@ -22,15 +23,16 @@ Ext.define('yt.view.monpot.monpotDetail', {
     items: [
         /* include child components here */
         {
+            title: '设备图片',
             xtype: 'imagecomponent',
             src: 'http://yt.qinchenguang.com/img/1.png',
-            userCls: 'big-50'
+            userCls: 'big-30',
         },
 
         {
             xtype: 'panel',
             title: '设备运行情况',
-            userCls: 'big-50'
+            userCls: 'big-70'
         },
 
         {
