@@ -48,24 +48,24 @@
 						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 						<div class="mui-slider-item mui-slider-item-duplicate">
 							<a href="#">
-								<img src="<%=info.dimage[info.dimage.length-1]%>">
-								<p class="mui-slider-title mui-text-center">安装图片1</p>
+								<img src="<%=info.dimage[info.dimage.length-1].url%>">
+								<p class="mui-slider-title mui-text-center"><%=info.dimage[info.dimage.length-1].title%></p>
 							</a>
 						</div>
 						<% for (var i=0; i<info.dimage.length; i++) { %>
 						<div class="mui-slider-item">
 							<a href="#">
-								<img src="<%=info.dimage[i]%>">
+								<img src="<%=info.dimage[i].url%>">
 								<p class="mui-slider-title mui-text-center">
-									安装图片1
+									<%=info.dimage[i].title%>
 								</p>
 							</a>
 						</div>
 						<%}%>
 						<div class="mui-slider-item mui-slider-item-duplicate">
 							<a href="#">
-								<img src="<%=info.dimage[0]%>">
-								<p class="mui-slider-title mui-text-center">安装图片1</p>
+								<img src="<%=info.dimage[0].url%>">
+								<p class="mui-slider-title mui-text-center"><%=info.dimage[0].title%></p>
 							</a>
 						</div>
 					</div>
@@ -305,7 +305,6 @@
 			var jcsb_feature = null;
 			var initEvent = function() {
 				mui(".jcsb-footercardcontent").on('tap', '.mui-badge', function(evt) {
-					debugger
 					var action = evt.target.title;
 					var info = '';
 					var typeT = '';
@@ -425,7 +424,6 @@
 						function(results){
 							//初始化页面
 							if(results.message == 'success'){
-								debugger
 								this.jcsb_feature =mui.myCloneObj(results.data);
 								this.jcsb_feature.dimage = JSON.parse(results.data.dimage);
 								initTemplateContent(this.jcsb_feature);
