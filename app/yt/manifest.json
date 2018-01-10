@@ -383,6 +383,13 @@
 					"pages/common/yjxxxq.html"
 				],
 				"priority": 0
+			},
+			"pages/common/search.html": {
+				"resources": [],
+				"refer": [
+					"index.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

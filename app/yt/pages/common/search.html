@@ -18,14 +18,19 @@
 				left: 50px;
 			}
 			
-			.mui-input-row .mui-input-clear~.mui-icon-clear,
-			.mui-input-row .mui-input-password~.mui-icon-eye,
-			.mui-input-row .mui-input-speech~.mui-icon-speech {
-				/*font-size: 20px;*/
+			.mui-input-row .mui-input-clear~.mui-icon-clear {
 				position: absolute;
 				z-index: 1;
-				/*top: 10px;
-				right: 0;*/
+				width: 38px;
+				height: 36px;
+				text-align: center;
+				color: #999;
+				padding-top: 10px;
+			}
+			.mui-input-row .mui-input-password~.mui-icon-eye,
+			.mui-input-row .mui-input-speech~.mui-icon-speech {
+				position: absolute;
+				z-index: 1;
 				width: 38px;
 				height: 36px;
 				text-align: center;
@@ -34,63 +39,79 @@
 			}
 			.searchlist-addr,.ytfooter-user, .ytfooter-tel{
 				width: 20px;	
-				color: lightgreen;
+				color: blue;
 			}
 			.searchlist-local{
 				width: 20px;	
-				color: lightblue;
+				color: lightgray;
 			}
-			#searchlist .mui-table-view-cell{
+			#search-list .mui-table-view-cell{
 			    padding-bottom: 5px;
 			    padding-top: 5px;
+		
+			.mui-table-cell h4{
+				font-family: arial;
+				font-weight: 200 !important;
 			}
-			#searchlist h5{
+			.mui-table-cell .list-type{
+				color: cornflowerblue;
+			}
+			/*#search-list h5{
 				color: black;
-			}
-
-
+			}*/
 		</style>
 	</head>
-
 	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: rgba(236, 240, 241,1.0);">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+			<form class="mui-input-group">
+				<div class="mui-input-row ">
+					<input id="search-input-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、设备">
+				</div>
+			</form>
+			<button id="searchBt" type="button" class="mui-btn mui-btn-blue mui-pull-right">搜索</button>
+		</header>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul id="search-list" class="mui-table-view">
+					<script id="search-list-template" type="text/html">
+						<% for(var i=0;i<list.length;i++){%>
+						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+							<div id="list-table" class="mui-table">
+								<div class="mui-table-cell mui-col-xs-12">
+									<h4 style="font-weight: 200;">
+										<%=list[i].name%>
+										<%if (list[i].type=='dzd') {%>
+											<span style="color: cornflowerblue;">(地灾点 )</span>
+										<%}else if (list[i].type=='1'){%>
+											<span style="color: cornflowerblue;">(位移)</span>
+										<%}else if (list[i].type=='2'){%>
+											<span style="color: cornflowerblue;">(裂缝)</span>
+										<%}else if (list[i].type=='3'){%>
+											<span style="color: cornflowerblue;">(裂缝)</span>
+										<%}%>
+									</h4>
+									<h5><span class="mapfooterfont4 searchlist-local"></span> <span> <%=list[i].addr%> </span></h5>
+								</div>
+							</div>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
+		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/template-native.js" ></script>
-		<script type="text/javascript" src="../../js/testdata.js" ></script>
+		<script type="text/javascript" src="../../js/pages/common.js" ></script>
 		<script type="text/javascript">
+			var userId = 1;
+			var queryResults = null;
 			mui.init({
-				//初始化下拉加载
-				pullRefresh: {
-					container: '#pullrefresh',
-					down: {
-						callback: pulldownRefresh //下拉，获取更多数据
-					},
-					up: {
-						contentrefresh: '正在加载...',
-						callback: pullupRefresh //上拉， 刷新最新数据
-					}
-				}
+
 			});
-			//下拉刷新具体业务实现
-			function pulldownRefresh() {
-				setTimeout(function() {
-					var html = template('ul-li-template', {
-						list: searchListData
-					});
-					document.getElementById("searchlist").innerHTML = html;
-					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-				}, 500);
-			}
-			var count = 0;
-			//上拉加载具体业务实现
-			function pullupRefresh() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-					var html = template('ul-li-template', {
-						list: searchListData
-					});
-					document.getElementById("searchlist").innerHTML = document.getElementById("searchlist").innerHTML + html;
-				}, 500);
-			}
+
 			var nativeWebview, imm, InputMethodManager;
 			var initNativeObjects = function() {
 				if(mui.os.android) {
@@ -124,110 +145,102 @@
 			var initApp = function() {
 				initNativeObjects();
 				showSoftInput();
-				this.initEvent();
+				setTimeout(function(){
+					this.initEvent();
+				},1000);
 			};
 			
 			if(mui.os.plus) {
 				mui.plusReady(function() {
-					setTimeout(function() {
-						mui('#pullrefresh').pullRefresh().pullupLoading();
-					}, 300);
 					initApp();
 				});
 			} else {
 				mui.ready(function() {
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-					initApp();
+					initEvent();
 				});
 			}
 			
 			//添加列表项的点击事件
 			var initEvent = function() {
-				
-				mui(".mui-table-view").on('tap', '.mui-table-view-cell', function(e) {
-					var info = e.target.parentElement.parentElement;
-					//把选中的info.id(type_id)传到详情页面
-					var typeT = info.id.split('_')[0];
-					var idT = info.id.split('_')[1];
-					//定位到具体的告警tab
-					var tabT = 'warn'
-					openInfoPage(typeT,idT,tabT);
-				});
-				
-				//根据类型和id打开对应的设备详情页面
-				function openInfoPage(typeT,idT,tabT){
-					var pageUrl = '';
-					var pageId = '';
-					switch(typeT) {
-						case 'bmwyjc':
-							{
-								pageUrl = '../../pages/jcsb/bmwyjc.html';
-								pageId = 'bmwyjc';
-								break;
+				mui(document.body).on('tap','.mui-btn',function(e){
+					var keyName = document.querySelector('#search-input-id').value.trim();
+					var action = "quakes/all/" + userId;
+					if(keyName!=''){
+						mui.myMuiQuery(action, {name: keyName},
+							function(results) {
+								if(results != null && results.data !=null) {
+									queryResults = results;
+									var listT = new Array();
+									var devicesT = results.data.devices;
+									var quakesT = results.data.quakes;
+									for (var i = 0; i < quakesT.length; i++) {
+										var objT2 = {id: quakesT[i].quakeid,
+													name: quakesT[i].name,
+													addr: quakesT[i].address,
+													type: 'dzd'
+										}
+										listT.push(objT2);
+									}
+									for (var i = 0; i < devicesT.length; i++) {
+										var objT1 = {id: devicesT[i].id,
+													name: devicesT[i].name,
+													addr: devicesT[i].address,
+													type: devicesT[i].type
+										}
+										listT.push(objT1);
+									}
+									var html = template('search-list-template', {
+										list: listT
+									});
+									document.getElementById("search-list").innerHTML = html;
+									
+									mui(".mui-table-view").on('tap', 'li', function(evt) {
+										var info = this.getAttribute("id");
+										//把选中的info.id(type_id)传到下个页面
+										var typeT = info.split('_')[0];
+										var idT = info.split('_')[1];
+										openInfoPage(typeT,idT);
+									});
+								} else {
+									mui.myMuiQueryNoResult('查询无结果！');
+								}
+							},
+							function() {
+								mui.myMuiQueryErr('查询失败，请稍后再试！');
 							}
-						case 'lfjc':
-							{
-								pageUrl = '../../pages/jcsb/lfjc.html';
-								pageId = 'lfjc';
-								break;
-							}
-						case 'yljc':
-							{
-								pageUrl = '../../pages/jcsb/yljc.html';
-								pageId = 'yljc';
-								break;
-							}
-						default:
-							break;
+						)
 					}
-					mui.openWindow({
-						url: pageUrl,
-						id: pageId,
-						extras:{
-							xqType: typeT,
-							xqID: idT,
-							xqTab: tabT 
-						}
-					});
+				})
+			}
+			
+			//根据类型和id打开对应的设备详情页面
+			function openInfoPage(typeT,idT){
+				var pageUrl = '../../index.html';
+				var pageId = 'indexMap';
+				var selObj = null;
+				var objArr = null;
+				debugger
+				if(typeT!='dzd'){
+					objArr = queryResults.data.devices;
+				}else{
+					objArr = queryResults.data.quakes;
 				}
+				for (var i = 0; i < objArr.length; i++) {
+					if(objArr[i].id == idT){
+						selObj = objArr[i];
+						break;
+					}
+				}
+				mui.openWindow({
+					url: pageUrl,
+					id: pageId,
+					extras:{
+						xqType: typeT,
+						xqID: idT,
+						attr: selObj
+					}
+				});
 			}
 		</script>
-		<header class="mui-bar mui-bar-nav" style="background-color: rgba(236, 240, 241,1.0);">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
-			<form class="mui-input-group">
-				<div class="mui-input-row ">
-					<input id="search-input-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、设备">
-				</div>
-			</form>
-			<button type="button" class="mui-btn mui-btn-blue mui-pull-right">搜索</button>
-		</header>
-		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<!--数据列表-->
-				<ul id="searchlist" class="mui-table-view">
-					<script id="ul-li-template" type="text/html">
-						<% for(var i=0;i<list.length;i++){%>
-						<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
-							<div id="list-table" class="mui-table">
-								<div class="mui-table-cell mui-col-xs-1 mui-text-left">
-									<span class="mui-h5 mapfooterfont4 searchlist-local"></span>
-								</div>
-								<div class="mui-table-cell mui-col-xs-11">
-									<h5 ><%=list[i].name%></h5>
-									<h6><span class="mapfooterfont4 searchlist-addr"></span> <span> 鹰潭市xxx村 </span>
-										<span class="mapfooterfont4 ytfooter-user"></span><span> 王克 </span>
-					                    	<span class="mapfooterfont4 ytfooter-tel"></span> 18901023458 
-									</h6>
-								</div>
-								
-							</div>
-						</li>
-						<%}%>
-					</script>
-				</ul>
-			</div>
-		</div>
 	</body>
-
 </html>

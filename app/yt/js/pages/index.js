@@ -1002,7 +1002,6 @@ function initDzdContentHtml(infoT, typeT) {
 	});
 	document.getElementById("dzd-content-part2").innerHTML = contentPart2;
 
-debugger
 	var quakeId = infoT.quakeid;
 	var ownerDevices = new Array();
 	var tempResults = mui.myCloneObj(dzQueryResults.devices);
