@@ -28,6 +28,7 @@ var mv = {
 
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mapid);
+                mv.fn.createWarnTip(mapid);
             },
             calcRank: function (dzRank) {
                 if (dzRank == 4) {
@@ -215,6 +216,14 @@ var mv = {
                     // mv.v.mapToolPanel.el.alignTo(parentContainer, "tl?", [parentContainer.clientWidth - 5 - toolDom.clientWidth, 5], true);
                     mv.v.mapToolPanel.el.alignTo(parentContainer, "tl?", [5, 5], true);
                 }
+            },
+            createWarnTip:function(parentId){
+                var parentContainer = Ext.getDom(parentId);
+                var warnTip = new Ext.create('yt.view.warntip.Warntip',{
+                    renderTo:parentContainer,
+                    floating: true
+                });
+                warnTip.el.alignTo(parentContainer, "tr?", [-0, 5], true);
             }
         }
     }

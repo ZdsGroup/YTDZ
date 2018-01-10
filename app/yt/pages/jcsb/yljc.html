@@ -65,7 +65,7 @@
 			
 			.chart-container {
 				width: 100vw;
-				height: 75vh;
+				height: 70vh;
 				overflow: hidden;
 				margin: 0;
 				position: relative;
@@ -123,16 +123,20 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>起始时间：</label>
-									<div class="ytdatepick" data-options='{"type":"hour","beginYear":2000,"endYear":2017}'>2017-04-12 08</div>
+									<div id="deviceTypeStartDt" class="ytdatepick" data-options='{"type":"hour"}'></div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
-									<div class="ytdatepick" data-options='{"type":"hour","beginYear":2000,"endYear":2017}'>2017-04-20 08</div>
+									<div id="deviceTypeEndDt" class="ytdatepick" data-options='{"type":"hour"}'></div>
 								</a>
 							</div>
+							<div style="text-align: center;">
+								<button id="deviceTypeBt" type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">查询</button>
+							</div>
 						</form>
+
 					</div>
 					<div class="mui-control-content">
 						<div id="device-date-compare" class="chart-container">
@@ -142,14 +146,17 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>起始年份：</label>
-									<div class="ytdatepick" data-options='{"type":"year","beginYear":2000,"endYear":2017}'>2014</div>
+									<div id="deviceDateStartDt" class="ytdatepick" data-options='{"type":"year"}'></div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束年份：</label>
-									<div class="ytdatepick" data-options='{"type":"year","beginYear":2000,"endYear":2017}'>2017</div>
+									<div id="deviceDateEndDt" class="ytdatepick" data-options='{"type":"year"}'></div>
 								</a>
+							</div>
+							<div style="text-align: center;">
+								<button id="deviceTypeBt" type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">查询</button>
 							</div>
 						</form>
 					</div>
@@ -161,18 +168,21 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>开始时间：</label>
-									<div class="ytdatepick" data-options='{"type":"hour","beginYear":2000,"endYear":2017}'>2017-04-12 08</div>
+									<div id="deviceRainStartDt" class="ytdatepick" data-options='{"type":"hour"}'></div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
-									<div class="ytdatepick" data-options='{"type":"hour","beginYear":2000,"endYear":2017}'>2017-04-20 08</div>
+									<div id="deviceRainEndDt" class="ytdatepick" data-options='{"type":"hour"}'></div>
 								</a>
+							</div>
+							<div style="text-align: center;">
+								<button id="deviceTypeBt" type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">查询</button>
 							</div>
 						</form>
 					</div>
-					<div class="mui-control-content mui-active">
+					<div class="mui-control-content">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-8 mui-text-left" style="position: relative; left: 15px;">时间</span>
 							<span class="mui-table-cell mui-col-xs-4 mui-text-left">雨量[mm]</span>
@@ -200,18 +210,7 @@
 									</li>
 									<li class="mui-table-view-cell">
 										<div class="mui-table">
-										<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
-											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<div class="mui-table">
 											<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
-											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
-										</div>
-									</li><li class="mui-table-view-cell">
-										<div class="mui-table">
-										<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
 											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
 										</div>
 									</li>
@@ -223,7 +222,7 @@
 									</li>
 									<li class="mui-table-view-cell">
 										<div class="mui-table">
-										<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
+											<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
 											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
 										</div>
 									</li>
@@ -235,7 +234,7 @@
 									</li>
 									<li class="mui-table-view-cell">
 										<div class="mui-table">
-										<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
+											<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
 											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
 										</div>
 									</li>
@@ -247,7 +246,19 @@
 									</li>
 									<li class="mui-table-view-cell">
 										<div class="mui-table">
-										<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
+											<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
+											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
+										</div>
+									</li>
+									<li class="mui-table-view-cell">
+										<div class="mui-table">
+											<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
+											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
+										</div>
+									</li>
+									<li class="mui-table-view-cell">
+										<div class="mui-table">
+											<span class="mui-table-cell mui-col-xs-8 mui-text-left">2017/05/06 01:00</span>
 											<span class="mui-table-cell mui-col-xs-4 mui-text-left">12.1</span>
 										</div>
 									</li>
@@ -264,14 +275,17 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>开始时间：</label>
-									<div class="ytdatepick" data-options='{"type":"hour","beginYear":2000,"endYear":2017}'>2017-04-12 08</div>
+									<div id="deviceListStartDt" class="ytdatepick" data-options='{"type":"hour"}'></div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
-									<div class="ytdatepick" data-options='{"type":"hour","beginYear":2000,"endYear":2017}'>2017-04-20 08</div>
+									<div id="deviceListEndDt" class="ytdatepick" data-options='{"type":"hour"}'></div>
 								</a>
+							</div>
+							<div style="text-align: center;">
+								<button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">查询</button>
 							</div>
 						</form>
 					</div>
@@ -283,6 +297,7 @@
 		<script src="../../js/mui.picker.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/pages/yljc.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/utils/DateUtil.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/pages/common.js"></script>
 	</body>
 

@@ -10,6 +10,7 @@ mui('.mui-scroll-wrapper').scroll();
 
 var initApp = function() {
 	this.initEvent();
+	initDatePickParam();
 	//this.initChart();
 };
 mui.ready(initApp);
@@ -18,7 +19,7 @@ var pFeature = null;
 //页面标题
 var plabel = "";
 //子页面ID号
-var pId = "";
+var pId = 0;
 mui.plusReady(function() {
 	//页面传值
 	var self = plus.webview.currentWebview();
@@ -36,46 +37,149 @@ var initEvent = function() {
 		var options = JSON.parse(optionsJson);
 		var picker = new mui.DtPicker(options);
 		picker.show(function(rs) {
-			dt.innerText = rs.text;
+			dt.innerHTML = rs.text;
+			options.value = rs.text;
+			dt.setAttribute('data-options', JSON.stringify(options));
 			picker.dispose();
 		});
 	}, false);
+	mui('.mui-input-group').on('tap', '.mui-btn ', function() {
+		queryAnalysisData();
+	})
 };
 
+var initDatePickParam = function() {
+	var dt = null;
+	var options = '';
+	var startDt = '';
+	var endDt = '';
+	//同一地灾点,同类设备对比
+	//获取今天8点日期
+	startDt = GetEightDateStr(-1);
+	//获取昨天8点日期
+	endDt = GetEightDateStr(0);
+	initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
+	//当前设备最新数据,图和列表
+	initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
+	initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
+
+	//当前设备,不同年份时间
+	startDt = GetYearStr(-1);
+	endDt = GetYearStr(0);
+	initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
+}
+
+var initDatePick = function(startId, startDt, endId, endDt) {
+	dt = mui(startId)[0];
+	dt.innerHTML = startDt;
+	options = JSON.parse(dt.getAttribute('data-options') || '{}');
+	options.value = startDt;
+	dt.setAttribute('data-options', JSON.stringify(options));
+
+	dt = mui(endId)[0];
+	dt.innerHTML = endDt;
+	options = JSON.parse(dt.getAttribute('data-options') || '{}');
+	options.value = endDt;
+	dt.setAttribute('data-options', JSON.stringify(options));
+}
+
 //切换面板内容,其中pageId-内容ID, pageFeature-地图选中的监测设备对象,用于动态获取数据
-var switchJcAnalyContent = function(pageId, pageFeature) {
+function switchJcAnalyContent() {
 	var cs = mui('.mui-control-content');
 	cs[currentPid].classList.remove('mui-active');
-	currentPid = pageId;
+	currentPid = pId;
 	cs[currentPid].classList.add('mui-active');
 	mui('#title')[0].innerHTML = plabel;
+	queryAnalysisData();
+}
+
+function queryAnalysisData() {
 	var action = "";
 	var param = {};
-	if(pageId == 0) {
+	if(pId == 0) {
 		var html = template('jcsb-state-template', {
 			feature: pFeature
 		});
 		document.getElementById("device-state").innerHTML = html;
-	}else if(pageId == 1) {
-		action = "echarts/rains/date";
-		param.deviceid = pFeature.deviceid;
-		mui.myMuiQuery(action,param,deviceTypeCompareSuccess,mui.myMuiQueryErr)
-	}else if(pageId == 2) {
-		
-	}else if(pageId == 3) {
-		
-	}else if(pageId == 4) {
-		
+	} else if(pId == 1) {
+		action = "rains/echarts/device";
+		param.quakeid = pFeature.quakeid;
+		param.begin = mui("#deviceTypeStartDt")[0].innerHTML + ":00:00";
+		param.end = mui("#deviceTypeEndDt")[0].innerHTML+ ":00:00";
+		mui.myMuiQuery(action, param, deviceTypeCompareSuccess, mui.myMuiQueryErr)
+	} else if(pId == 2) {
+
+	} else if(pId == 3) {
+
+	} else if(pId == 4) {
+
 	}
-	//刷新统计图
-//	this.refreshChart(yljc_charts['menu_' + currentPid]);
 }
 //同类型多设备对比图
-var deviceTypeCompareSuccess = function(result){
+var deviceTypeCompareSuccess = function(result) {
 	var dtc = echarts.init(mui('#device-type-compare')[0]);
-	result.data.series[0].data = [10,12,13,5,1,3,0,10,0,0,0,0];
-	dtc.setOption(result.data);
 
+	var devicetypecompareOption = {
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		grid: {
+			top: 50,
+			bottom: 10,
+			left: 10,
+			right: 10,
+			containLabel: true
+		},
+		legend: {
+			data: []
+		},
+		calculable: false,
+		xAxis: [{
+			type: 'category',
+			data: []
+		}],
+		yAxis: [{
+			type: 'value',
+			splitArea: {
+				show: true
+			},
+			name: '雨量(mm)',
+			min: function(value) {
+				return value.min - value.min * 0.01;
+			},
+			max: function(value) {
+				return value.max + value.max * 0.01;
+			}
+		}],
+		series: []
+	};
+
+	var series = [];
+	var legend = [];
+	mui.each(result.data.dataList, function(index, item) {
+		legend.push(item.devicename);
+		var devItem = {
+			name: item.devicename,
+			type: 'line',
+			data: item.rainVal,
+			smooth: true,
+			itemStyle: {
+				normal: {
+					label: {
+						show: true
+					}
+				}
+			}
+		};
+		series.push(devItem);
+	});
+	devicetypecompareOption.series = series;
+	devicetypecompareOption.legend.data = legend;
+	devicetypecompareOption.xAxis[0].data = result.data.hourVal;
+	dtc.setOption(devicetypecompareOption);
 }
 //刷新统计图
 var refreshChart = function(charts) {
@@ -121,17 +225,17 @@ var getOption = function(chartID) {
 				},
 				name: '雨量(mm)',
 				min: function(value) {
-					return value.min - value.min*0.01;
+					return value.min - value.min * 0.01;
 				},
-				max:function(value) {
-					return value.max + value.max*0.01;
+				max: function(value) {
+					return value.max + value.max * 0.01;
 				}
 			}],
 			series: [{
 				name: '设备1',
 				type: chartType,
 				data: [10, 10, 12, 14, 20, 25, 26, 27],
-				smooth:true,
+				smooth: true,
 				itemStyle: {
 					normal: {
 						label: {
@@ -143,7 +247,7 @@ var getOption = function(chartID) {
 				name: '设备2',
 				type: chartType,
 				data: [7, 10, 13, 17, 20, 23, 23, 25],
-				 smooth:true,
+				smooth: true,
 				itemStyle: {
 					normal: {
 						label: {
@@ -155,7 +259,7 @@ var getOption = function(chartID) {
 				name: '设备3',
 				type: chartType,
 				data: [3, 5, 10, 12, 14, 15, 20, 21],
-				smooth:true,
+				smooth: true,
 				itemStyle: {
 					normal: {
 						label: {
@@ -196,17 +300,17 @@ var getOption = function(chartID) {
 				},
 				name: '雨量(mm)',
 				min: function(value) {
-					return value.min - value.min*0.01;
+					return value.min - value.min * 0.01;
 				},
-				max:function(value) {
-					return value.max + value.max*0.01;
+				max: function(value) {
+					return value.max + value.max * 0.01;
 				}
 			}],
 			series: [{
 				name: '2014',
 				type: chartType,
 				data: [10, 15, 25, 30, 45, 50, 55, 60, 65, 72, 81, 96],
-				smooth:true,
+				smooth: true,
 				itemStyle: {
 					normal: {
 						label: {
@@ -218,7 +322,7 @@ var getOption = function(chartID) {
 				name: '2015',
 				type: chartType,
 				data: [12, 15, 35, 40, 45, 50, 55, 63, 65, 72, 81, 86],
-				smooth:true,
+				smooth: true,
 				itemStyle: {
 					normal: {
 						label: {
@@ -230,7 +334,7 @@ var getOption = function(chartID) {
 				name: '2016',
 				type: chartType,
 				data: [20, 25, 35, 40, 45, 46, 50, 60, 75, 82, 91, 96],
-				smooth:true,
+				smooth: true,
 				itemStyle: {
 					normal: {
 						label: {

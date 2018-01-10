@@ -667,9 +667,11 @@ function showAllDZMarksOnMap() {
 //检查地图size变化
 function changeMapStatus() {
 	myMap.invalidateSize();
-	myMap.fitBounds(warnBounds, {
+	if (warnBounds != null) {
+		myMap.fitBounds(warnBounds, {
 		maxZoom: maxZoomShow
 	});
+	}
 }
 
 function initComentList() {
@@ -692,7 +694,7 @@ function showWarnDZMarksOnMap() {
 		var action = "quakes/all/" + userId;
 		mui.myMuiQuery(action, '',
 			function(results) {
-				if(results != null && results.data.quakes.length > 0) {
+				if(results != null && results.data && results.data.quakes.length > 0) {
 					dzQueryResults = results.data;
 					getDZMarkersLayerGroup(dzQueryResults.quakes, true);
 					myMap.addLayer(dzMarkersLayerGroup);
