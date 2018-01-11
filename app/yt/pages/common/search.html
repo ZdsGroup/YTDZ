@@ -231,13 +231,13 @@
 						break;
 					}
 				}
+				localStorage.setItem('searchObj',JSON.stringify(selObj));
 				mui.openWindow({
 					url: pageUrl,
 					id: pageId,
 					extras:{
 						xqType: typeT,
-						xqID: idT,
-						attr: selObj
+						xqID: idT
 					}
 				});
 			}
