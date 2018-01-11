@@ -128,7 +128,7 @@ function queryAnalysisData() {
 		param.end = mui("#deviceRainEndDt")[0].innerHTML + ":00:00";
 		mui.myMuiQuery(action, param, deviceRainCompareSuccess, mui.myMuiQueryErr);
 	} else if(pId == 4) {
-		mui('#pullrefresh').pullRefresh().pullupLoading();
+		pulldownRefresh();
 	}
 }
 //同类型多设备对比图
@@ -424,8 +424,9 @@ function pullUpSuccess(result) {
 function pullDownSuccess(result) {
 	if(result.code == 0) {
 		var data = result.data;
+		var rows = data.rows;
 		var html = template('ul-li-template', {
-			list: data
+			list: rows
 		});
 		document.getElementById("ullist").innerHTML = html;
 		if((data.page + 1) * data.size >= data.total) {

@@ -189,16 +189,17 @@
 						</div>
 						<div id="pullrefresh" class="mui-scroll-wrapper yt-relative" style="height: calc(100vh - 220px);top: 5px;">
 							<div class="mui-scroll">
-								<ul class="mui-table-view">
+								<ul id="ullist" class="mui-table-view">
 									<script id="ul-li-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-									<li class="mui-table-view-cell">
-										<div class="mui-table">
-											<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[i].key%></span>
-											<span class="mui-table-cell mui-col-xs-4 mui-text-left"><%=list[i].vl%></span>
-										</div>
-									</li>
-									<%}%>
+										<% for(var i=0;i<list.length;i++){%>
+										<li class="mui-table-view-cell">
+											<div class="mui-table">
+												<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[i].datekey%></span>
+												<span class="mui-table-cell mui-col-xs-4 mui-text-left"><%=list[i].v1%></span>
+											</div>
+										</li>
+										<%}%>
+									</script>
 								</ul>
 							</div>
 						</div>
@@ -224,12 +225,12 @@
 			</div>
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/pages/common.js"></script>
 		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.picker.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/pages/yljc.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/utils/DateUtil.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="../../js/pages/common.js"></script>
 	</body>
 
 </html>

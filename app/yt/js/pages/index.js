@@ -986,7 +986,7 @@ function setFooterContentByInfo(Type, infoID) {
 				info.url += 'yljc.html';
 				info.id = 'yljc-analy-detail';
 			} else if(type == "3") {
-				info.url += 'lfjc2.html';
+				info.url += 'lfjc.html';
 				info.id = 'lfjc-analy-detail';
 			}
 			mui.openWindow(info);

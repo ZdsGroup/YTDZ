@@ -388,7 +388,8 @@
 			"pages/common/search.html": {
 				"resources": [],
 				"refer": [
-					"index.html"
+					"index.html",
+					"pages/common/search.html"
 				],
 				"priority": 0
 			}
