@@ -110,19 +110,19 @@ function queryAnalysisData() {
 		});
 		document.getElementById("device-state").innerHTML = html;
 	} else if(pId == 1) {
-		action = "rains/echarts/device";
+		action = "crevices/echarts/device";
 		param.quakeid = pFeature.quakeid;
 		param.begin = mui("#deviceTypeStartDt")[0].innerHTML + ":00:00";
 		param.end = mui("#deviceTypeEndDt")[0].innerHTML + ":00:00";
 		mui.myMuiQuery(action, param, deviceTypeCompareSuccess, mui.myMuiQueryErr);
 	} else if(pId == 2) {
-		action = "rains/echarts/year";
+		action = "crevices/echarts/year";
 		param.deviceid = pFeature.deviceid;
 		param.begin = mui("#deviceDateStartDt")[0].innerHTML;
 		param.end = mui("#deviceDateEndDt")[0].innerHTML;
 		mui.myMuiQuery(action, param, deviceDateCompareSuccess, mui.myMuiQueryErr);
 	} else if(pId == 3) {
-		action = "rains/echarts/hour";
+		action = "crevices/echarts/hour";
 		param.deviceid = pFeature.deviceid;
 		param.begin = mui("#deviceRainStartDt")[0].innerHTML + ":00:00";
 		param.end = mui("#deviceRainEndDt")[0].innerHTML + ":00:00";
@@ -161,7 +161,7 @@ var deviceTypeCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '累计雨量(mm)',
+			name: '裂缝(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - value.min * 0.01);
 			},
@@ -227,7 +227,7 @@ var deviceDateCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '雨量(mm)',
+			name: '长度(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - value.min * 0.01);
 			},
@@ -283,7 +283,7 @@ var deviceRainCompareSuccess = function(result) {
 			containLabel: true
 		},
 		legend: {
-			data: ['小时雨量']
+			data: ['裂缝监测']
 		},
 		calculable: false,
 		xAxis: [{
@@ -295,11 +295,11 @@ var deviceRainCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '雨量(mm)',
+			name: '长度(mm)',
 		}],
 		series: [{
-				name: '小时雨量',
-				type: 'bar',
+				name: '裂缝监测',
+				type: 'line',
 				data: [],
 				itemStyle: {
 					normal: {
@@ -359,7 +359,7 @@ var deviceRainCompareSuccess = function(result) {
 	}
 	var xAxisData = [];
 	var datas = [];
-	mui.each(result.data.rainList, function(index, item) {
+	mui.each(result.data.creviceList, function(index, item) {
 		xAxisData.push(item.datekey);
 		datas.push(item.v1);
 	});
@@ -368,7 +368,7 @@ var deviceRainCompareSuccess = function(result) {
 	dtc.setOption(devicetypecompareOption);
 }
 
-//雨量列表刷新展示
+//列表刷新展示
 var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 
 function getDeviceListQueryParam() {
@@ -383,7 +383,7 @@ function pulldownRefresh() {
 	pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 	var queryParam = getDeviceListQueryParam();
 	queryParam.pageno = pageno;
-	var action = "rains";
+	var action = "crevices";
 	mui.myMuiQuery(action, queryParam,
 		pullDownSuccess,
 		falult
@@ -395,7 +395,7 @@ function pulldownRefresh() {
 function pullupRefresh() {
 	var queryParam = getDeviceListQueryParam();
 	queryParam.pageno = pageno;
-	var action = "rains";
+	var action = "crevices";
 	mui.myMuiQuery(action, queryParam,
 		pullUpSuccess,
 		falult

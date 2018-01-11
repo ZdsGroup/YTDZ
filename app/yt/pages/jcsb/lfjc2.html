@@ -123,13 +123,13 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>起始时间：</label>
-									<div id="deviceTypeStartDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-09-08 08</div>
+									<div id="deviceTypeStartDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-3-11 8</div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
-									<div id="deviceTypeEndDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-09-09 08</div>
+									<div id="deviceTypeEndDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-3-12 8</div>
 								</a>
 							</div>
 							<div style="text-align: center;">
@@ -168,13 +168,13 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>开始时间：</label>
-									<div id="deviceRainStartDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-09-08 08</div>
+									<div id="deviceRainStartDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-3-11 8</div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
-									<div id="deviceRainEndDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-09-09 08</div>
+									<div id="deviceRainEndDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-3-12 8</div>
 								</a>
 							</div>
 							<div style="text-align: center;">
@@ -185,20 +185,21 @@
 					<div class="mui-control-content">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-8 mui-text-left" style="position: relative; left: 15px;">时间</span>
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">雨量[mm]</span>
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">裂缝[mm]</span>
 						</div>
 						<div id="pullrefresh" class="mui-scroll-wrapper yt-relative" style="height: calc(100vh - 220px);top: 5px;">
 							<div class="mui-scroll">
-								<ul class="mui-table-view">
+								<ul id="ullist" class="mui-table-view">
 									<script id="ul-li-template" type="text/html">
-								<% for(var i=0;i<list.length;i++){%>
-									<li class="mui-table-view-cell">
-										<div class="mui-table">
-											<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[i].key%></span>
-											<span class="mui-table-cell mui-col-xs-4 mui-text-left"><%=list[i].vl%></span>
-										</div>
-									</li>
-									<%}%>
+										<% for(var i=0;i<list.length;i++){%>
+										<li class="mui-table-view-cell">
+											<div class="mui-table">
+												<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=list[i].datekey%></span>
+												<span class="mui-table-cell mui-col-xs-4 mui-text-left"><%=list[i].v1%></span>
+											</div>
+										</li>
+										<%}%>
+									</script>
 								</ul>
 							</div>
 						</div>
@@ -206,13 +207,13 @@
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>开始时间：</label>
-									<div id="deviceListStartDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-09-08 08</div>
+									<div id="deviceListStartDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-3-11 8</div>
 								</a>
 							</div>
 							<div class="mui-input-row">
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
-									<div id="deviceListEndDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-09-09 08</div>
+									<div id="deviceListEndDt" class="ytdatepick" data-options='{"type":"hour"}'>2017-3-12 8</div>
 								</a>
 							</div>
 							<div style="text-align: center;">
@@ -223,13 +224,13 @@
 				</div>
 			</div>
 		</div>
-		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.picker.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/pages/yljc.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/template-native.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/utils/DateUtil.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/pages/common.js"></script>
+		<script src="../../js/pages/lfjc2.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

@@ -3245,7 +3245,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			this.push(encodeURIComponent(k) + '=' + encodeURIComponent(v));
 		};
 		serialize(params, obj, traditional);
-		return params.join('&').replace(/%20/g, '+');
+		return params.join('&');//params.join('&').replace(/%20/g, '+');
 	};
 	$.get = function( /* url, data, success, dataType */ ) {
 		return $.ajax(parseArguments.apply(null, arguments));
