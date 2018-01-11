@@ -14,6 +14,7 @@ var scroller = null;
 var jcsbMaxZoomShow = 14;
 var warnInfoIsShow = false;
 var userId = 1;
+var searchObj = null;
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -140,8 +141,11 @@ var initMap = function() {
 		}
 	});
 
-	showWarnDZMarksOnMap();
-
+	//查询本地存储是否有从检索界面跳传过来的选择对象
+//	showWarnDZMarksOnMap();
+	searchObj = JSON.parse(localStorage.getItem('searchObj'));
+	setTimeout(checkIsSearchPost(),100);
+	
 	//监测设备根据不同的地图级别进行显示隐藏
 	myMap.on('zoomend zoomlevelschange', function(e) {
 		var curLel = myMap.getZoom();
@@ -154,6 +158,31 @@ var initMap = function() {
 		}
 	});
 };
+
+function checkIsSearchPost(){
+	
+	if(searchObj){
+//		warnInfoIsShow = true;
+		var obj = mui('.warn-info-container')[0];
+		obj.style.display = 'none';
+		var objArr = new Array();
+		objArr.push(searchObj);
+		if(searchObj.type != 'dzd'){
+			dzQueryResults = {devices: objArr};
+			jcMarkersLayerGroup.clearLayers();
+			getJCMarkersLayerGroup(objArr, true);
+			myMap.addLayer(jcMarkersLayerGroup);
+		}else{
+			dzQueryResults = {quakes: objArr};
+			dzMarkersLayerGroup.clearLayers();
+			getDZMarkersLayerGroup(objArr, true);
+			myMap.addLayer(dzMarkersLayerGroup);
+		}
+		localStorage.clear();
+	}else{
+		showWarnDZMarksOnMap();
+	};	
+}
 
 function clearLayerByID(id) {
 	if(myMap != null) {
@@ -358,7 +387,8 @@ var initEvent = function() {
 	mui('#search-input-text-id')[0].addEventListener('focus', function() {
 		mui.openWindow({
 			url: 'pages/common/search.html',
-			id: 'search-page-1'
+			id: 'search-page-1',
+			createNew:true
 		});
 	});
 
@@ -1004,7 +1034,6 @@ function initDzdContentHtml(infoT, typeT) {
 	});
 	document.getElementById("dzd-content-part2").innerHTML = contentPart2;
 
-debugger
 	var quakeId = infoT.quakeid;
 	var ownerDevices = new Array();
 	var tempResults = mui.myCloneObj(dzQueryResults.devices);
