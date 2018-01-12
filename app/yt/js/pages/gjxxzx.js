@@ -65,7 +65,7 @@ function falult(message) {
 var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 
 function pulldownRefresh() {
-	pageno = 1;
+	pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 	var queryParam = getQueryParam();
 	queryParam.pageno = pageno;
 	mui.myMuiQuery(action, queryParam,

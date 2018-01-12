@@ -315,16 +315,18 @@ var g = {
             ajax.v.successCallBack = function (response, opts) {
                 //查询结果转json对象
                 var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                var dataList = result['data']['tree'];
-                if (dataList && dataList.length > 0) {
-                    var treeStore = new Ext.create('Ext.data.TreeStore', {
-                        data: conf.dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
-                    });
-                    dzDataTree.setStore(treeStore);
-                    //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
+                if (result['data'] != null) {
+                    var dataList = result['data']['tree'];
+                    if (dataList && dataList.length > 0) {
+                        var treeStore = new Ext.create('Ext.data.TreeStore', {
+                            data: conf.dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
+                        });
+                        dzDataTree.setStore(treeStore);
+                        //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
 
-                    //解析数据，并绘制到当前地图
-                    mv.fn.createMarker(conf.dataList);
+                        //解析数据，并绘制到当前地图
+                        mv.fn.createMarker(conf.dataList);
+                    }
                 }
 
                 ajax.fn.hideMask(mask);
@@ -375,8 +377,8 @@ Ext.define('yt.controller.Global', {
                             g.fn.initFloatContainer(g.v.currentFloatParams);
                         }
                         /*else if (g.v.floatContainer.hidden) {
-                                                    g.v.floatContainer.show();
-                                                }*/
+                         g.v.floatContainer.show();
+                         }*/
                     }
                 }
             },

@@ -36,24 +36,24 @@
 							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 							<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
-									<img src="<%=data.dimage[data.dimage.length-1]%>">
-									<p class="mui-slider-title mui-text-center">安装图片1</p>
+									<img src="<%=data.dimage[data.dimage.length-1].url%>">
+									<p class="mui-slider-title mui-text-center"><%=data.dimage[data.dimage.length-1].title%></p>
 								</a>
 							</div>
 							<% for (var i=0; i<data.dimage.length; i++) { %>
 							<div class="mui-slider-item">
 								<a href="#">
-									<img src="<%=data.dimage[i]%>">
+									<img src="<%=data.dimage[i].url%>">
 									<p class="mui-slider-title mui-text-center">
-										安装图片1
+										<%=data.dimage[data.dimage.length-1].title%>
 									</p>
 								</a>
 							</div>
 							<%}%>
 							<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
-									<img src="<%=data.dimage[0]%>">
-									<p class="mui-slider-title mui-text-center">安装图片1</p>
+									<img src="<%=data.dimage[0].url%>">
+									<p class="mui-slider-title mui-text-center"><%=data.dimage[data.dimage.length-1].title%></p>
 								</a>
 							</div>
 						</div>
