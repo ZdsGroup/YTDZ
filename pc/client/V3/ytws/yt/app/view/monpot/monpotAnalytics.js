@@ -51,19 +51,19 @@ Ext.define('yt.view.monpot.monpotAnalytics', {
                 ]
             }
         },
-        // {
-        //     xtype: 'combo',
-        //     displayField: 'label',
-        //     queryMode: 'local',
-        //     selectOnTab: true,
-        //     store: {
-        //         data: [
-        //             {label: '设备1'},
-        //             {label: '设备2'},
-        //             {label: '设备3'}
-        //         ]
-        //     }
-        // },
+        {
+            xtype: 'combo',
+            displayField: 'label',
+            queryMode: 'local',
+            selectOnTab: true,
+            store: {
+                data: [
+                    {label: '设备1'},
+                    {label: '设备2'},
+                    {label: '设备3'}
+                ]
+            }
+        },
         // '-',
         // { xtype: 'datefield', fieldLabel: '查询时间',labelAlign: 'right', labelWidth: 65},
         // { xtype: 'datefield', fieldLabel: '至', labelAlign: 'right', labelWidth: 20},

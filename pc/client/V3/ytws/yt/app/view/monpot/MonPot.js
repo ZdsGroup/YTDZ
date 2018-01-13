@@ -178,11 +178,13 @@ Ext.define('yt.view.monpot.MonPot', {
                 title: '智能分析',
                 icon: null,
                 xtype: 'monpot-analytics'
-            }, {
-                title: '监测数据',
-                icon: null,
-                xtype: 'monpot-monitordata'
-            }, {
+            },
+            //     {
+            //     title: '监测数据',
+            //     icon: null,
+            //     xtype: 'monpot-monitordata'
+            // },
+                {
                 title: '预警信息',
                 icon: null,
                 xtype: 'monpot-alertinfo'
