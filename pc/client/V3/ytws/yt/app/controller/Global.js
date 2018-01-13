@@ -266,6 +266,18 @@ var g = {
                 g.fn.exitFullScreen();
             }
         },
+        switchLeftPanel: function (button, e, eOpts) {
+            var wv = this.getWestView();
+            if(wv.hidden){
+                wv.show(true);
+                button.setIconCls('fa fa-caret-left');
+                button.setTooltip('关闭左侧面板');
+            }else{
+                wv.hide(true);
+                button.setIconCls('fa fa-caret-right');
+                button.setTooltip('显示左侧面板');
+            }
+        },
         fullScreen: function () {
             var docElm = document.documentElement;
             //W3C
@@ -399,6 +411,9 @@ Ext.define('yt.controller.Global', {
             },
             'button[action=fullScreen]': {
                 click: g.fn.changeDisplayMode
+            },
+            'button[action=controllleftpanel]': {
+                click: g.fn.switchLeftPanel
             }
         }
     },

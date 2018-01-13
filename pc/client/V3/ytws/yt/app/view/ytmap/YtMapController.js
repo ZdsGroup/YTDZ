@@ -149,6 +149,13 @@ var mv = {
                         items: [
                             {
                                 xtype: 'button',
+                                tooltip: '关闭左侧面板',
+                                text: '',
+                                action: 'controllleftpanel',
+                                iconCls: 'fa fa-caret-left'
+                            },
+                            {
+                                xtype: 'button',
                                 tooltip: '全屏显示',
                                 text: '全屏',
                                 action: 'fullScreen',
