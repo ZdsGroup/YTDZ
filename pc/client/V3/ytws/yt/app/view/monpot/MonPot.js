@@ -162,7 +162,6 @@ Ext.define('yt.view.monpot.MonPot', {
             xtype: 'tabpanel',
             border: false,
             flex: 1,
-            // ui: 'mon-tab-panel',
             defaults: {
                 bodyPadding: 10,
                 scrollable: true,
