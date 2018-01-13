@@ -263,14 +263,6 @@ var mv = {
                     var offsetY = 5;
                     mv.v.mapWarnPanel.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
                 }
-            },
-            createWarnTip: function (parentId) {
-                var parentContainer = Ext.getDom(parentId);
-                var warnTip = new Ext.create('yt.view.warntip.Warntip', {
-                    renderTo: parentContainer,
-                    floating: true
-                });
-                warnTip.el.alignTo(parentContainer, "tr?", [-0, 5], true);
             }
         }
     }
