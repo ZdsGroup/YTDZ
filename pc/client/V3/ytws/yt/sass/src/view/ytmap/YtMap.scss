@@ -1,5 +1,5 @@
 //自定义变量
-$map-focus-text-color: rgba(255, 109, 0,1.0);
+$map-focus-text-color: rgba(255, 109, 0, 1.0);
 $map-default-text-color: #ffffff;
 
 @include extjs-button-medium-ui(
@@ -12,4 +12,18 @@ $map-default-text-color: #ffffff;
         $text-padding: 5px,
         $padding: 3px,
         $font-size: 12px
+);
+
+@include extjs-panel-ui(
+        $ui: 'map-warn-panel-ui',
+        $ui-body-background-color: rgba(239, 108, 0, 0.8),
+        $ui-body-color: rgba(255, 255, 255, 1.0),
+        $ui-body-border-color: rgba(255, 255, 255, 0.0),
+        $ui-body-font-size: 14px,
+        $ui-border-radius: 0px,
+        $ui-border-width: 0px,
+        $ui-header-inner-border-color: rgba(255, 255, 255, 0.0),
+        $ui-header-inner-border-width: 0px,
+        $ui-padding: 0px,
+        $ui-header-line-height: 0px
 );

@@ -4,15 +4,15 @@ Error: Undefined mixin 'extjs-button-medium-ui'.
         from line 5 of YtMap.scss
 
 1: //自定义变量
-2: $map-focus-text-color: #ffff00;
+2: $map-focus-text-color: rgba(255, 109, 0, 1.0);
 3: $map-default-text-color: #ffffff;
 4: 
 5: @include extjs-button-medium-ui(
 6:         $ui: 'map-tool-ui',
 7:         $border-width: 0px,
 8:         $inner-border-width: 0px,
-9:         /*$background-color: $MyThemeFocusColor,
-10:         $color: $map-default-text-color,
+9:         $color: $map-default-text-color,
+10:         $color-over: $map-focus-text-color,
 
 Backtrace:
 YtMap.scss:5:in `extjs-button-medium-ui'
@@ -59,4 +59,4 @@ E:/Ruby24-x64/bin/scss:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'extjs-button-medium-ui'.\A         on line 5 of YtMap.scss, in `extjs-button-medium-ui'\A         from line 5 of YtMap.scss\A \A 1: //自定义变量\A 2: $map-focus-text-color: #ffff00;\A 3: $map-default-text-color: #ffffff;\A 4: \A 5: @include extjs-button-medium-ui(\A 6:         $ui: 'map-tool-ui',\A 7:         $border-width: 0px,\A 8:         $inner-border-width: 0px,\A 9:         /*$background-color: $MyThemeFocusColor,\A 10:         $color: $map-default-text-color,"; }
+  content: "Error: Undefined mixin 'extjs-button-medium-ui'.\A         on line 5 of YtMap.scss, in `extjs-button-medium-ui'\A         from line 5 of YtMap.scss\A \A 1: //自定义变量\A 2: $map-focus-text-color: rgba(255, 109, 0, 1.0);\A 3: $map-default-text-color: #ffffff;\A 4: \A 5: @include extjs-button-medium-ui(\A 6:         $ui: 'map-tool-ui',\A 7:         $border-width: 0px,\A 8:         $inner-border-width: 0px,\A 9:         $color: $map-default-text-color,\A 10:         $color-over: $map-focus-text-color,"; }
