@@ -6,6 +6,7 @@ Ext.define('yt.view.ytmap.YtMap', {
 
     requires: [
         'Ext.container.Container',
+        'Ext.form.Label',
         'Ext.layout.container.Fit',
         'yt.view.ytmap.YtMapController',
         'yt.view.ytmap.YtMapModel'
@@ -19,14 +20,17 @@ Ext.define('yt.view.ytmap.YtMap', {
 
     controller: 'map',
     layout: 'fit',
-    listeners:{
-        afterlayout:'afterlayout'
+    listeners: {
+        afterlayout: 'afterlayout'
     },
     items: [
         {
             xtype: 'container',
             html: '<div id="mapContainerId" style="width: 100%;height: 100%;overflow: hidden;margin:0;position: relative;border: hidden;"></div>',
             margin: '0 0 0 0'
+        }, {
+            xtype: 'label'
         }
+
     ]
 });

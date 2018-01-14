@@ -125,3 +125,26 @@ function getQuarterEndDate() {
 	var quarterStartDate = new Date(nowYear, quarterEndMonth, getMonthDays(quarterEndMonth));
 	return formatDate(quarterStartDate);
 }
+
+//获取8点时刻,今天,昨天
+function GetEightDateStr(AddDayCount) {
+	var dd = new Date();
+	dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期 
+	var y = dd.getFullYear();
+	var m = dd.getMonth() + 1; //获取当前月份的日期 
+	var d = dd.getDate();
+	if (m < 10) {
+		m = "0"+m;
+	}
+	if (d < 10) {
+		d = "0" + d;
+	}
+	return y + "-" + m + "-" + d + " 08";
+}
+
+function GetYearStr(AddYearCount) {
+	var dd = new Date();
+	dd.setFullYear(dd.getFullYear() + AddYearCount); //获取AddDayCount天后的日期 
+	var y = dd.getFullYear();
+	return y.toString();
+}

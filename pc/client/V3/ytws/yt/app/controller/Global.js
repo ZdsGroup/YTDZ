@@ -266,6 +266,18 @@ var g = {
                 g.fn.exitFullScreen();
             }
         },
+        switchLeftPanel: function (button, e, eOpts) {
+            var wv = this.getWestView();
+            if(wv.hidden){
+                wv.show(true);
+                button.setIconCls('fa fa-caret-left');
+                button.setTooltip('关闭左侧面板');
+            }else{
+                wv.hide(true);
+                button.setIconCls('fa fa-caret-right');
+                button.setTooltip('显示左侧面板');
+            }
+        },
         fullScreen: function () {
             var docElm = document.documentElement;
             //W3C
@@ -315,16 +327,18 @@ var g = {
             ajax.v.successCallBack = function (response, opts) {
                 //查询结果转json对象
                 var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                var dataList = result['data']['tree'];
-                if (dataList && dataList.length > 0) {
-                    var treeStore = new Ext.create('Ext.data.TreeStore', {
-                        data: conf.dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
-                    });
-                    dzDataTree.setStore(treeStore);
-                    //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
+                if (result['data'] != null) {
+                    var dataList = result['data']['tree'];
+                    if (dataList && dataList.length > 0) {
+                        var treeStore = new Ext.create('Ext.data.TreeStore', {
+                            data: conf.dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
+                        });
+                        dzDataTree.setStore(treeStore);
+                        //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
 
-                    //解析数据，并绘制到当前地图
-                    mv.fn.createMarker(conf.dataList);
+                        //解析数据，并绘制到当前地图
+                        mv.fn.createMarker(conf.dataList);
+                    }
                 }
 
                 ajax.fn.hideMask(mask);
@@ -375,8 +389,8 @@ Ext.define('yt.controller.Global', {
                             g.fn.initFloatContainer(g.v.currentFloatParams);
                         }
                         /*else if (g.v.floatContainer.hidden) {
-                                                    g.v.floatContainer.show();
-                                                }*/
+                         g.v.floatContainer.show();
+                         }*/
                     }
                 }
             },
@@ -397,6 +411,9 @@ Ext.define('yt.controller.Global', {
             },
             'button[action=fullScreen]': {
                 click: g.fn.changeDisplayMode
+            },
+            'button[action=controllleftpanel]': {
+                click: g.fn.switchLeftPanel
             }
         }
     },

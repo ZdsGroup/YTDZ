@@ -10,12 +10,18 @@ Ext.define('yt.view.monpot.monpotDetail', {
     */
     xtype: 'monpot-detail',
 
+    viewModel: {
+        type: 'monpot'
+    },
+
     cls: 'monpot-detail',
 
     requires: [
+        'Ext.grid.Panel',
         'Ext.layout.container.Fit',
         'Ext.panel.Panel',
-        'Ext.ux.layout.ResponsiveColumn'
+        'Ext.ux.layout.ResponsiveColumn',
+        'yt.view.monpot.MonPotModel'
     ],
 
     layout: 'responsivecolumn',
@@ -26,13 +32,44 @@ Ext.define('yt.view.monpot.monpotDetail', {
             title: '设备图片',
             xtype: 'imagecomponent',
             src: 'http://yt.qinchenguang.com/img/1.png',
-            userCls: 'big-30',
+            userCls: 'big-30'
         },
 
         {
-            xtype: 'panel',
+            xtype: 'gridpanel',
             title: '设备运行情况',
-            userCls: 'big-70'
+            userCls: 'big-70',
+            scrollable: 'y',
+            bind: '{deviceList}',
+            columns: [{
+                dataIndex: 'name',
+                text: '设备名称',
+                flex: 1
+            }, {
+                dataIndex: 'connectstatus',
+                text: '通讯状态',
+                flex: 1
+            }, {
+                dataIndex: 'batterystatus',
+                text: '电池状态',
+                flex: 1
+            }, {
+                dataIndex: 'runstatus',
+                text: '运行状态',
+                flex: 1
+            }, {
+                dataIndex: '5',
+                text: '设备频率',
+                flex: 1
+            }, {
+                dataIndex: 'username',
+                text: '联系人',
+                flex: 1
+            }, {
+                dataIndex: 'mobile',
+                text: '联系电话',
+                flex: 1
+            }]
         },
 
         {

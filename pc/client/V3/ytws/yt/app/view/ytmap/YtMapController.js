@@ -10,7 +10,8 @@ var mv = {
             gaodeVecLayer: null,
             gaodeImageLayer: null,
             gaodeAnnoLayer: null,
-            mapToolPanel: null,
+            mapToolPanel: null,//地图工具面板
+            mapWarnPanel: null,//地灾点预警信息面板
             markerGroup: null,
             LayerGroup: null
         },
@@ -28,6 +29,8 @@ var mv = {
 
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mapid);
+                //mv.fn.createWarnTip(mapid);
+                mv.fn.createWarnPanel(mapid);
             },
             calcRank: function (dzRank) {
                 if (dzRank == 4) {
@@ -68,7 +71,7 @@ var mv = {
                                         title: dzName
                                     });
 
-                                    dzMarker.on('click',function(){
+                                    dzMarker.on('click', function () {
                                         alert('clicked!!!');
                                     });
 
@@ -123,6 +126,43 @@ var mv = {
                 var fullMapExtent = L.latLngBounds(L.latLng(24.487606414383, 115.572696970468), L.latLng(32.0790331326058, 119.482260921593));
                 mv.v.map.fitBounds(fullMapExtent);
             },
+            createWarnPanel: function (parentId) {
+                var parentContainer = Ext.getDom(parentId);
+                if (mv.v.mapWarnPanel != null) {
+                    return;
+                } else {
+                    mv.v.mapWarnPanel = new Ext.create('Ext.panel.Panel', {
+                        renderTo: parentContainer,
+                        x: -0,
+                        y: 5,
+                        ui: 'map-warn-panel-ui',
+                        floating: true,
+                        height: 30,
+                        width: 310,
+                        layout: {
+                            type: 'hbox',
+                            align: 'middle',
+                            pack: 'center'
+                        },
+                        items: [
+                            {
+                                xtype: 'container',
+                                id: 'warnInfoText',
+                                html: ''
+                            }
+                        ]
+                    })
+                }
+                var offsetX = parentContainer.clientWidth - mv.v.mapWarnPanel.el.dom.clientWidth - 5;
+                var offsetY = 5;
+                mv.v.mapWarnPanel.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
+                mv.v.mapWarnPanel.updateLayout();
+
+                var warnInfoTextCom = Ext.getCmp('warnInfoText');
+                if(warnInfoTextCom){
+                    warnInfoTextCom.setHtml('今日预警信息：地灾点5个，监测设备26个。');
+                }
+            },
             createMapToolPanel: function (parentId) {
                 if (mv.v.mapToolPanel != null) {
                     return;
@@ -146,6 +186,13 @@ var mv = {
                             scale: 'medium'
                         },
                         items: [
+                            {
+                                xtype: 'button',
+                                tooltip: '关闭左侧面板',
+                                text: '',
+                                action: 'controllleftpanel',
+                                iconCls: 'fa fa-caret-left'
+                            },
                             {
                                 xtype: 'button',
                                 tooltip: '全屏显示',
@@ -201,19 +248,20 @@ var mv = {
                             }
                         ]
                     })
-                    ;
                 }
-                //var toolDom = mv.v.mapToolPanel.el.dom;
-                //mv.v.mapToolPanel.el.alignTo(parentContainer, "tl?", [parentContainer.clientWidth - 5 - toolDom.clientWidth, 5], true);
                 mv.v.mapToolPanel.el.alignTo(parentContainer, "tl?", [5, 5], true);
                 mv.v.mapToolPanel.updateLayout();
             },
             refreshLayout: function (id) {
                 var parentContainer = Ext.getDom(id);
                 if (mv.v.mapToolPanel) {
-                    //var toolDom = mv.v.mapToolPanel.el.dom;
-                    // mv.v.mapToolPanel.el.alignTo(parentContainer, "tl?", [parentContainer.clientWidth - 5 - toolDom.clientWidth, 5], true);
                     mv.v.mapToolPanel.el.alignTo(parentContainer, "tl?", [5, 5], true);
+                }
+
+                if (mv.v.mapWarnPanel) {
+                    var offsetX = parentContainer.clientWidth - mv.v.mapWarnPanel.el.dom.clientWidth - 5;
+                    var offsetY = 5;
+                    mv.v.mapWarnPanel.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
                 }
             }
         }

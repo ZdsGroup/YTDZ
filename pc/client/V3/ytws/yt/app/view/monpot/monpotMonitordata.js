@@ -11,8 +11,11 @@ Ext.define('yt.view.monpot.monpotMonitordata', {
     xtype: 'monpot-monitordata',
 
     requires: [
+        'Ext.button.Button',
         'Ext.grid.Panel',
-        'Ext.toolbar.Paging'
+        'Ext.toolbar.Fill',
+        'Ext.toolbar.Paging',
+        'Ext.toolbar.Separator'
     ],
 
     ui: 'navigation',
@@ -55,7 +58,12 @@ Ext.define('yt.view.monpot.monpotMonitordata', {
             xtype: 'pagingtoolbar',
             displayInfo: true,
             displayMsg: '当前展示 {0} - {1} 共 {2}',
-            emptyMsg: "当前列表为空"
+            emptyMsg: "当前列表为空",
+            items: [
+                '-',
+                { xtype: 'button', text: '导出表格' }
+            ]
+
         }
 
     }, {

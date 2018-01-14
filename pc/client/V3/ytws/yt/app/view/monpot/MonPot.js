@@ -162,7 +162,6 @@ Ext.define('yt.view.monpot.MonPot', {
             xtype: 'tabpanel',
             border: false,
             flex: 1,
-            // ui: 'mon-tab-panel',
             defaults: {
                 bodyPadding: 10,
                 scrollable: true,
@@ -179,11 +178,13 @@ Ext.define('yt.view.monpot.MonPot', {
                 title: '智能分析',
                 icon: null,
                 xtype: 'monpot-analytics'
-            }, {
-                title: '监测数据',
-                icon: null,
-                xtype: 'monpot-monitordata'
-            }, {
+            },
+            //     {
+            //     title: '监测数据',
+            //     icon: null,
+            //     xtype: 'monpot-monitordata'
+            // },
+                {
                 title: '预警信息',
                 icon: null,
                 xtype: 'monpot-alertinfo'

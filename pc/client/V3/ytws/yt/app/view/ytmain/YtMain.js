@@ -12,7 +12,7 @@ Ext.define('yt.view.ytmain.YtMain', {
         'yt.view.ytmain.YtMainModel',
         'yt.view.yttop.YtTop',
         'yt.view.ytwest.YtWest',
-        'yt.view.aiwarm.AiWarm',
+        'yt.view.aiwarn.AiWarn',
         'yt.view.mondata.MonData',
         'yt.view.monpot.MonPot',
         'yt.view.setting.Setting'
