@@ -108,6 +108,7 @@
 		<script type="text/javascript">
 			var userId = 1;
 			var queryResults = null;
+			var indexMap = null;
 			mui.init({
 
 			});
@@ -150,15 +151,9 @@
 				},1000);
 			};
 			
-			if(mui.os.plus) {
-				mui.plusReady(function() {
-					initApp();
-				});
-			} else {
-				mui.ready(function() {
-					initEvent();
-				});
-			}
+			mui.plusReady(function() {
+				initApp();
+			});
 			
 			//添加列表项的点击事件
 			var initEvent = function() {
@@ -196,7 +191,6 @@
 									
 									mui(".mui-table-view").on('tap', 'li', function(evt) {
 										var info = this.getAttribute("id");
-										//把选中的info.id(type_id)传到下个页面
 										var typeT = info.split('_')[0];
 										var idT = info.split('_')[1];
 										openInfoPage(typeT,idT);
@@ -216,7 +210,7 @@
 			//根据类型和id打开对应的设备详情页面
 			function openInfoPage(typeT,idT){
 				var pageUrl = '../../index.html';
-				var pageId = 'indexMap';
+				var pageId = 'index.html';
 				var selObj = null;
 				var objArr = null;
 				debugger
@@ -226,12 +220,18 @@
 					objArr = queryResults.data.quakes;
 				}
 				for (var i = 0; i < objArr.length; i++) {
-					if(objArr[i].id == idT){
+					if(objArr[i].id == idT || objArr[i].quakeid == idT){
 						selObj = objArr[i];
 						break;
 					}
 				}
+				if(typeT=='dzd'){
+					selObj['type'] = 'dzd';
+				}
 				localStorage.setItem('searchObj',JSON.stringify(selObj));
+				indexMap = plus.webview.getWebviewById(pageId);
+				mui.fire(indexMap,'searchObj');
+				
 				mui.openWindow({
 					url: pageUrl,
 					id: pageId,

@@ -15,6 +15,13 @@ var jcsbMaxZoomShow = 14;
 var warnInfoIsShow = false;
 var userId = 1;
 var searchObj = null;
+//自定义事件监听
+window.addEventListener('searchObj',function(event){
+	searchObj = JSON.parse(localStorage.getItem('searchObj'));
+	checkIsSearchPost();
+	localStorage.clear();
+});
+
 mui.init({
 	gestureConfig: {
 		tap: true, //默认为true
@@ -50,10 +57,10 @@ var initAppPlus = function() {
 	}, false);
 
 	var info = plus.push.getClientInfo();
-	/*alert( "token: "+info.token );*/
-	//  alert( "clientid: "+info.clientid );
-	/*alert( "appid: "+info.appid );
-	alert( "appkey: "+info.appkey );*/
+//	alert( "token: "+info.token );
+//	alert( "clientid: "+info.clientid );
+//	alert( "appid: "+info.appid );
+//	alert( "appkey: "+info.appkey );
 	plus.push.addEventListener("click", function(msg) {
 		alert("You clicked: " + msg.content);
 	}, false);
@@ -142,9 +149,13 @@ var initMap = function() {
 	});
 
 	//查询本地存储是否有从检索界面跳传过来的选择对象
-//	showWarnDZMarksOnMap();
 	searchObj = JSON.parse(localStorage.getItem('searchObj'));
-	setTimeout(checkIsSearchPost(),100);
+	if(searchObj){
+		checkIsSearchPost();
+		localStorage.clear();
+	}else{
+		showWarnDZMarksOnMap();
+	}	
 	
 	//监测设备根据不同的地图级别进行显示隐藏
 	myMap.on('zoomend zoomlevelschange', function(e) {
@@ -158,30 +169,52 @@ var initMap = function() {
 		}
 	});
 };
-
+//检查是否是搜索页面返回的
 function checkIsSearchPost(){
+	var obj = mui('.warn-info-container')[0];
+	obj.style.display = 'none';
+	if(scroller){
+		setTimeout(function(){
+		var mapFooter = mui('#ytfooter')[0];
+		var mapContent = mui('#ytmap')[0];
+		mapFooter.style.height = '0px';
+		mapFooter.style.display = 'none';
+		},100);
+	}
 	
-	if(searchObj){
-//		warnInfoIsShow = true;
-		var obj = mui('.warn-info-container')[0];
-		obj.style.display = 'none';
-		var objArr = new Array();
-		objArr.push(searchObj);
-		if(searchObj.type != 'dzd'){
-			dzQueryResults = {devices: objArr};
-			jcMarkersLayerGroup.clearLayers();
-			getJCMarkersLayerGroup(objArr, true);
-			myMap.addLayer(jcMarkersLayerGroup);
-		}else{
-			dzQueryResults = {quakes: objArr};
-			dzMarkersLayerGroup.clearLayers();
-			getDZMarkersLayerGroup(objArr, true);
-			myMap.addLayer(dzMarkersLayerGroup);
+	dzMarkersLayerGroup.clearLayers();
+	jcMarkersLayerGroup.clearLayers();
+	var objArr = new Array();
+	objArr.push(searchObj);
+	var action = "quakes/all/" + userId;
+	mui.myMuiQuery(action, '',
+		function(results) {
+			if(results != null && results.data.quakes.length > 0) {
+				dzQueryResults = results.data;
+				var tempId = null;
+				if(searchObj.type != 'dzd'){
+					selectType = searchObj.type;
+					currentSb = searchObj;
+					tempId = currentSb.id;
+					getJCMarkersLayerGroup(objArr, true);
+					myMap.addLayer(jcMarkersLayerGroup);
+				}else{
+					selectType = 'dzd';
+					currentDzd = searchObj;
+					tempId = currentDzd.quakeid;
+					getDZMarkersLayerGroup(objArr, true);
+					myMap.addLayer(dzMarkersLayerGroup);
+				}				
+			} else {
+				mui.myMuiQueryNoResult('查询无结果！');
+				dzQueryResults = null;
+			}
+		},
+		function() {
+			mui.myMuiQueryErr('查询失败，请稍后再试！');
+			dzQueryResults = null;
 		}
-		localStorage.clear();
-	}else{
-		showWarnDZMarksOnMap();
-	};	
+	)
 }
 
 function clearLayerByID(id) {
@@ -697,9 +730,11 @@ function showAllDZMarksOnMap() {
 //检查地图size变化
 function changeMapStatus() {
 	myMap.invalidateSize();
-	myMap.fitBounds(warnBounds, {
-		maxZoom: maxZoomShow
-	});
+	if(warnBounds){
+		myMap.fitBounds(warnBounds, {
+			maxZoom: maxZoomShow
+		});
+	}
 }
 
 function initComentList() {
