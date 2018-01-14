@@ -1,46 +1,25 @@
 /*
-Error: Undefined mixin 'extjs-button-medium-ui'.
-        on line 5 of YtMap.scss, in `extjs-button-medium-ui'
-        from line 5 of YtMap.scss
+Error: Invalid CSS after ")": expected selector or at-rule, was "@include extjs-..."
+        on line 70 of YtMap.scss
 
-1: //自定义变量
-2: $map-focus-text-color: rgba(255, 109, 0, 1.0);
-3: $map-default-text-color: #ffffff;
-4: 
-5: @include extjs-button-medium-ui(
-6:         $ui: 'map-tool-ui',
-7:         $border-width: 0px,
-8:         $inner-border-width: 0px,
-9:         $color: $map-default-text-color,
-10:         $color-over: $map-focus-text-color,
+65:         $icon-size: 20px,
+66:         $font-size: 18px,
+67:         $inner-border-width: 0px
+68: )
+69: 
+70: @include extjs-button-small-ui(
+71:         $ui: 'mondata-detail-image-button',
+72:         $background-color: rgba(0, 105, 92, 0.0),
+73:         $background-color-over: rgba(0, 105, 92, 0.0),
+74:         $background-color-focus: rgba(0, 105, 92, 0.0),
+75:         $background-color-pressed: rgba(0, 105, 92, 0.0),
 
 Backtrace:
-YtMap.scss:5:in `extjs-button-medium-ui'
-YtMap.scss:5
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:98:in `block in with_mixin'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:135:in `with_frame'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:98:in `with_mixin'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:350:in `visit_mixin'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/base.rb:36:in `visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:79:in `block in with_base'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:135:in `with_frame'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/stack.rb:79:in `with_base'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:162:in `visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/base.rb:52:in `map'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/base.rb:36:in `visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:161:in `visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:10:in `visit'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/root_node.rb:36:in `css_tree'
-E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+YtMap.scss:70
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/scss/parser.rb:1278:in `expected'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/scss/parser.rb:1208:in `expected'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/scss/parser.rb:42:in `parse'
+E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/engine.rb:414:in `_to_tree'
 E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/engine.rb:389:in `_render_with_sourcemap'
 E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/engine.rb:307:in `render_with_sourcemap'
 E:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
@@ -59,4 +38,4 @@ E:/Ruby24-x64/bin/scss:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'extjs-button-medium-ui'.\A         on line 5 of YtMap.scss, in `extjs-button-medium-ui'\A         from line 5 of YtMap.scss\A \A 1: //自定义变量\A 2: $map-focus-text-color: rgba(255, 109, 0, 1.0);\A 3: $map-default-text-color: #ffffff;\A 4: \A 5: @include extjs-button-medium-ui(\A 6:         $ui: 'map-tool-ui',\A 7:         $border-width: 0px,\A 8:         $inner-border-width: 0px,\A 9:         $color: $map-default-text-color,\A 10:         $color-over: $map-focus-text-color,"; }
+  content: "Error: Invalid CSS after \")\": expected selector or at-rule, was \"@include extjs-...\"\A         on line 70 of YtMap.scss\A \A 65:         $icon-size: 20px,\A 66:         $font-size: 18px,\A 67:         $inner-border-width: 0px\A 68: )\A 69: \A 70: @include extjs-button-small-ui(\A 71:         $ui: 'mondata-detail-image-button',\A 72:         $background-color: rgba(0, 105, 92, 0.0),\A 73:         $background-color-over: rgba(0, 105, 92, 0.0),\A 74:         $background-color-focus: rgba(0, 105, 92, 0.0),\A 75:         $background-color-pressed: rgba(0, 105, 92, 0.0),"; }

@@ -27,3 +27,54 @@ $map-default-text-color: #ffffff;
         $ui-padding: 0px,
         $ui-header-line-height: 0px
 );
+
+@include extjs-panel-ui(
+        $ui: 'map-detail-warnning-panel-ui',
+        $ui-header-background-color: rgba(120, 144, 156,1.0),
+        $ui-header-color: #ffffff,
+        $ui-header-glyph-color: #ffffff,
+        $ui-header-glyph-opacity: 1,
+        $ui-header-font-size: 12px,
+        $ui-header-line-height: 20px,
+        $ui-header-font-weight: normal,
+        $ui-header-icon-height: 16px,
+        $ui-header-icon-width: 16px,
+        $ui-header-icon-spacing: 2px,
+        $ui-header-padding: 2px,
+        $ui-header-text-margin: 2px,
+        $ui-header-noborder-adjust: false
+);
+
+@include extjs-panel-ui(
+        $ui: 'mondata-detail-info-panel',
+        $ui-body-background-color: rgba(55, 71, 79, 1.0),
+        $ui-body-color: rgba(255, 255, 255, 1)
+);
+
+.mondata-detail-info-title {
+        font-size: 18px !important;
+}
+
+@include extjs-button-small-ui(
+        $ui: 'mondata-detail-tool-button',
+        $background-color: rgba(0, 105, 92, 0.0),
+        $background-color-over: rgba(255, 109, 0, 0.8),
+        $background-color-focus: rgba(0, 105, 92, 0.0),
+        $background-color-pressed: rgba(255, 109, 0, 0.8),
+        $padding: 0px,
+        $icon-size: 20px,
+        $font-size: 18px,
+        $inner-border-width: 0px
+)
+
+@include extjs-button-small-ui(
+        $ui: 'mondata-detail-image-button',
+        $background-color: rgba(0, 105, 92, 0.0),
+        $background-color-over: rgba(0, 105, 92, 0.0),
+        $background-color-focus: rgba(0, 105, 92, 0.0),
+        $background-color-pressed: rgba(0, 105, 92, 0.0),
+        $padding: 0px,
+        $icon-size: 18px,
+        $font-size: 14px,
+        $inner-border-width: 0px
+)

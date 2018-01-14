@@ -12,6 +12,7 @@ var mv = {
             gaodeAnnoLayer: null,
             mapToolPanel: null,//地图工具面板
             mapWarnPanel: null,//地灾点预警信息面板
+            mapDetailPanel: null,//地灾点或设备详情面板
             markerGroup: null,
             LayerGroup: null
         },
@@ -68,11 +69,25 @@ var mv = {
                                     var dzMarker = new L.marker(dzPot, {
                                         icon: markerIcon,
                                         draggable: false,
-                                        title: dzName
+                                        title: dzName,
+                                        attribution: dzData//绑定数据
                                     });
 
                                     dzMarker.on('click', function () {
-                                        alert('clicked!!!');
+                                        //显示属性面板
+                                        mv.fn.createDetailPanel(mv.v.mapDivId, {
+                                            gapX: 5,
+                                            gapY: 40,
+                                            bottomY: 5,//底部间隔
+                                            w: 300,//数值或百分比，如：100%
+                                            h: '100%',//数值或百分比，如：100%
+                                            align: 'br' //右下
+                                        })
+
+                                        if (mv.v.mapDetailPanel) {
+                                            //更新属性
+
+                                        }
                                     });
 
                                     markers.push(dzMarker);
@@ -126,6 +141,227 @@ var mv = {
                 var fullMapExtent = L.latLngBounds(L.latLng(24.487606414383, 115.572696970468), L.latLng(32.0790331326058, 119.482260921593));
                 mv.v.map.fitBounds(fullMapExtent);
             },
+            createDetailPanel: function (parentId, floatParams) {
+                var parentContainer = Ext.getDom(parentId);
+                if (mv.v.mapDetailPanel == null) {
+                    mv.v.mapDetailPanel = new Ext.create('Ext.panel.Panel', {
+                        renderTo: parentContainer,
+                        x: 2000,
+                        y: 1000,
+                        floating: true,
+                        height: 10,
+                        width: 10,
+                        layout: {
+                            type: 'vbox',
+                            pack: 'start',
+                            align: 'stretch'
+                        },
+                        items: [
+                            /* include child components here */
+                            {
+                                xtype: 'panel',
+                                layout: {
+                                    type: 'vbox',
+                                    align: 'stretch'
+                                },
+                                ui: 'mondata-detail-info-panel',
+                                items: [
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'component',
+                                                flex: 1,
+                                                id: 'mondataTitleId',
+                                                html: '贵溪市煤矿',
+                                                cls: 'mondata-detail-info-title'
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                ui: 'mondata-detail-tool-button',
+                                                id: 'mondataLocateId',
+                                                border: false,
+                                                iconCls: 'fa fa-map-marker',
+                                                tooltip: '快速定位'
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                ui: 'mondata-detail-tool-button',
+                                                id: 'mondataCollectId',
+                                                border: false,
+                                                iconCls: 'fa fa-star',
+                                                tooltip: '快速收藏'
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                ui: 'mondata-detail-tool-button',
+                                                id: 'mondataMoreId',
+                                                border: false,
+                                                iconCls: 'fa fa-plus',
+                                                tooltip: '更多信息'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'button',
+                                                ui: 'mon-detail-image-button',
+                                                border: false,
+                                                iconCls: 'fa fa-dot-circle-o'
+                                            },
+                                            {
+                                                xtype: 'component',
+                                                id: 'mondataAddressId',
+                                                flex: 1,
+                                                html: '南山大道与火炬大道交叉口东50米'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'component',
+                                                html: '类型：'
+                                            },
+                                            {
+                                                xtype: 'component',
+                                                id: 'mondataTypeId',
+                                                flex: 1,
+                                                html: '地面塌陷'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'component',
+                                                html: '等级：'
+                                            },
+                                            {
+                                                xtype: 'rating',
+                                                id: 'mondataRankId',
+                                                flex: 1,
+                                                height: 16,
+                                                minimum: 4,
+                                                value: 4,
+                                                limit: 4,
+                                                overStyle: 'color:red;',
+                                                selectedStyle: 'color:red;'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                xtype: 'panel',
+                                title: '预警信息',
+                                ui: 'map-detail-warnning-panel-ui',
+                                iconCls: 'fa fa-exclamation-triangle',
+                                layout: {
+                                    type: 'vbox',
+                                    pack: 'start',
+                                    align: 'stretch'
+                                },
+                                items: [
+                                    {
+                                        xtype: 'timeline',
+                                        cls: 'timline-infoDescription'
+                                    }
+                                ]
+                            },
+                            {
+                                xtype: 'panel',
+                                title: '监测设备',
+                                ui: 'map-detail-warnning-panel-ui',
+                                iconCls: 'fa fa-cube',
+                                flex: 1
+                            }
+                        ]
+                    });
+
+                    //定位面板
+                    mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, floatParams);
+                }
+            },
+            relayoutPanel: function (parentContainer, childContainer, floatParams) {
+                var w = floatParams['w'];
+                var h = floatParams['h'];
+
+                var align = floatParams['align'];
+                var offsetX = floatParams['gapX'];
+                var offsetY = floatParams['gapY'];
+                var bottomOffsetY = floatParams['bottomY'];
+
+                if (typeof (w) == 'string' && w.indexOf('%') > -1) {
+                    w = parentContainer.clientWidth * parseFloat(w.substr(0, w.indexOf('%'))) / 100 - 2 * offsetX;
+                }
+
+                if (typeof (h) == 'string' && h.indexOf('%') > -1) {
+                    if (bottomOffsetY == null) {
+                        h = parentContainer.clientHeight * parseFloat(h.substr(0, h.indexOf('%'))) / 100 - 2 * offsetY;
+                    } else {
+                        h = parentContainer.clientHeight * parseFloat(h.substr(0, h.indexOf('%'))) / 100 - offsetY - bottomOffsetY;
+                    }
+                }
+
+                childContainer.setWidth(w);
+                childContainer.setHeight(h);
+
+                switch (align) {
+                    case 'tl': {
+                        childContainer.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
+                        break;
+                    }
+                    case 'bl': {
+                        offsetY = parentContainer.clientHeight - offsetY - h;
+                        childContainer.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
+                        break;
+                    }
+                    case 'tr': {
+                        offsetX = parentContainer.clientWidth - offsetX - w;
+                        childContainer.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
+                        break;
+                    }
+                    case 'br': {
+                        offsetX = parentContainer.clientWidth - offsetX - w;
+                        if (bottomOffsetY == null) {
+                            offsetY = parentContainer.clientHeight - offsetY - h;
+                        } else {
+                            offsetY = parentContainer.clientHeight - h - bottomOffsetY;
+                        }
+                        childContainer.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
+                        break;
+                    }
+                }
+            },
             createWarnPanel: function (parentId) {
                 var parentContainer = Ext.getDom(parentId);
                 if (mv.v.mapWarnPanel != null) {
@@ -138,7 +374,7 @@ var mv = {
                         ui: 'map-warn-panel-ui',
                         floating: true,
                         height: 30,
-                        width: 310,
+                        width: 300,
                         layout: {
                             type: 'hbox',
                             align: 'middle',
@@ -159,8 +395,8 @@ var mv = {
                 mv.v.mapWarnPanel.updateLayout();
 
                 var warnInfoTextCom = Ext.getCmp('warnInfoText');
-                if(warnInfoTextCom){
-                    warnInfoTextCom.setHtml('今日预警信息：地灾点5个，监测设备26个。');
+                if (warnInfoTextCom) {
+                    warnInfoTextCom.setHtml('今日预警：地灾点5个，监测设备26个。');
                 }
             },
             createMapToolPanel: function (parentId) {

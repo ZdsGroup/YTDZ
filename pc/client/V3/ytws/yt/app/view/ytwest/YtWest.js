@@ -7,7 +7,6 @@ Ext.define('yt.view.ytwest.YtWest', {
     requires: [
         'Ext.container.Container',
         'Ext.layout.container.Fit',
-        'Ext.layout.container.VBox',
         'Ext.list.Tree',
         'yt.plugin.SearchField',
         'yt.view.ytwest.YtWestController',
@@ -26,40 +25,46 @@ Ext.define('yt.view.ytwest.YtWest', {
     controller: 'ytwest',
 
     ui: 'west-panel-ui',
+    id: 'dzDataTreeContainerId',
     //title: '地灾点列表',
     width: 250,
-    layout: {
+    /*layout: {
         type: 'vbox',
         align: 'stretch'
-    },
+    },*/
     border: false,
     scrollable: 'y',
     bodyPadding: 2,
     items: [
         {
-            xtype: 'searchField',
-            floating: false,
-            hideLabel: true,
-            height: 30,
-            emptyText: "地灾点或监测设备名称",
-            listeners: {
-                specialkey: function (text, field, event, eOpts) {
-                    if (field.getKeyName() == "ENTER") {
-                        alert(text.getValue());
-                    }
-                },
-                change: function (text, newValue, oldValue, eOpts) {
-                    if (newValue != '') {
-                        text.getTrigger('clear').show();
-                    } else if (newValue == '') {
-                        text.getTrigger('clear').hide();
+            xtype: 'container',
+            height: 32,
+            layout: 'fit',
+            items: [
+                {
+                    xtype: 'searchField',
+                    floating: false,
+                    hideLabel: true,
+                    emptyText: "地灾点或监测设备名称",
+                    listeners: {
+                        specialkey: function (text, field, event, eOpts) {
+                            if (field.getKeyName() == "ENTER") {
+                                alert(text.getValue());
+                            }
+                        },
+                        change: function (text, newValue, oldValue, eOpts) {
+                            if (newValue != '') {
+                                text.getTrigger('clear').show();
+                            } else if (newValue == '') {
+                                text.getTrigger('clear').hide();
+                            }
+                        }
                     }
                 }
-            }
+            ]
         }, {
             xtype: "container",
             flex: 1,
-            reference: 'dzDataTreeContainerRef',
             layout: 'fit',
             items: [{
                 xtype: 'treelist',

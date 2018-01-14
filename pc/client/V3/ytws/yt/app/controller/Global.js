@@ -319,7 +319,7 @@ var g = {
         getDzDataTree: function (view) {
             var me = view;
             var dzDataTree = me.lookupReference('dzDataTreeRef');
-            var dzDataTreeCon = me.lookupReference('dzDataTreeContainerRef');
+            var dzDataTreeCon = Ext.getCmp('dzDataTreeContainerId');
             var mask = ajax.fn.showMask(dzDataTreeCon, '数据加载中...');
 
             ajax.v.method = 'GET';

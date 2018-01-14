@@ -1,9 +1,8 @@
-
-$timline-base-color: rgb(44, 138, 238);
-$base-title-color: rgba(0,0,0,1);
+$timline-base-color: rgba(38, 50, 56,1.0);
+$base-title-color: rgba(0, 0, 0, 1);
 
 .timeline-items-wrap {
-  padding:15px;
+  padding: 5px;
 }
 
 .timeline-item {
@@ -13,16 +12,16 @@ $base-title-color: rgba(0,0,0,1);
     &:before {
       content: "";
       position: absolute;
-      width: 50px;
-      height: 70%;
+      width: 20px;
+      height: 100%;
       border-right: solid 2px $timline-base-color;
       left: 0;
-      top: 62px;
+      top: 0px;
     }
   }
 
   .profile-pic-wrap {
-    width: 100px;
+    width: 40px;
     float: left;
     font-size: 10px;
     text-align: center;
@@ -31,17 +30,17 @@ $base-title-color: rgba(0,0,0,1);
     padding: 5px 0;
 
     img {
-      height:20px;
-      width:20px;
+      height: 20px;
+      width: 20px;
       @include border-radius(50%);
     }
   }
 
   .contents-wrap {
-    margin: 0 0px 15px 100px;
-    border:1px solid #ddd;
+    margin: 0 0px 5px 40px;
+    border: 1px solid #dddddd;
     position: relative;
-    padding: 10px 10px 10px 10px;
+    padding: 3px 3px 3px 3px;
     white-space: normal;
 
     &:before, &:after {
@@ -57,33 +56,34 @@ $base-title-color: rgba(0,0,0,1);
     &:before {
       border-top: 9px solid transparent;
       border-bottom: 9px solid transparent;
-      border-right: 9px solid #ddd;
+      border-right: 9px solid #dddddd;
       margin: 8px 0 0 -9px;
     }
 
     &:after {
       border-top: 9px solid transparent;
       border-bottom: 9px solid transparent;
-      border-right: 9px solid #fff;
+      border-right: 9px solid #ffffff;
       margin: 8px 0 0 -8px;
     }
 
     .shared-by {
-      font-size:12px;
-      line-height:16px;
-      margin-bottom:0px;
+
+      line-height: 18px;
+      margin-bottom: 3px;
 
       a {
+        font-size: 14px;
         color: $timline-base-color;
-        text-decoration:none;
-        font-weight:bold;
+        text-decoration: none;
+        font-weight: normal;
       }
     }
   }
 
   .timeline-epoch {
     width: 100px;
-    background: #fff;
+    background: #ffffff;
     text-align: center;
     padding: 7px 5px;
     position: relative;
@@ -92,7 +92,7 @@ $base-title-color: rgba(0,0,0,1);
     font-size: 14px;
     border: solid 3px $timline-base-color;
     @include border-radius(3px);
-    font-weight:bold;
+    font-weight: bold;
   }
 }
 
@@ -100,31 +100,31 @@ $base-title-color: rgba(0,0,0,1);
   .icon-padding {
     height: 20px;
     padding: 0 0px 0 0px;
-    &.red{
+    &.red {
       background-color: red;
       border-color: red;
     }
-    &.orange{
+    &.orange {
       background-color: orange;
       border-color: orange;
     }
-    &.yellow{
+    &.yellow {
       background-color: yellow;
       border-color: yellow;
     }
-    &.blue{
+    &.blue {
       background-color: #0093ff;
       border-color: #0093ff;
     }
-    &.normal{
+    &.normal {
       background-color: #7f7f7f !important;
       border-color: #7f7f7f !important;
     }
   }
 
   .warmInfo-value {
-    font-size:14px;
-    line-height:14px;
+    font-size: 14px;
+    line-height: 14px;
     font-weight: normal;
     padding-right: 10px;
     padding-top: 3px;
@@ -134,14 +134,13 @@ $base-title-color: rgba(0,0,0,1);
     text-align: right;
   }
 
+  .base-container {
 
-  .base-container{
-
-    .x-header{
-      &.x-panel-header-light{
+    .x-header {
+      &.x-panel-header-light {
         border-bottom: 1px solid $base-title-color !important;
-        padding:4px 16px;
-        .x-panel-header-title-light{
+        padding: 4px 16px;
+        .x-panel-header-title-light {
           color: $base-title-color;
           font-size: 14px;
           font-family: "Open Sans";
@@ -154,10 +153,10 @@ $base-title-color: rgba(0,0,0,1);
 }
 
 @include extjs-button-small-ui(
-        $ui: 'warmButton',
+        $ui: 'warnButton',
         $background-color: #7f7f7f,
         $border-color: darken(#7f7f7f, 5%),
         $border-radius: 20px,
         $font-size: 18px,
-        $color: #000
+        $color: #000000
 )

@@ -17,8 +17,7 @@ Ext.define('yt.view.monpot.MonPot', {
         'yt.view.monpot.monpotAlertInfo',
         'yt.view.monpot.monpotAnalytics',
         'yt.view.monpot.monpotDetail',
-        'yt.view.monpot.monpotMonitordata',
-        'yt.view.monpot.timeline.TimeLine'
+        'yt.view.monpot.monpotMonitordata'
     ],
 
     /*
