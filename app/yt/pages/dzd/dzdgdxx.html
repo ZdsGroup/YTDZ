@@ -40,23 +40,23 @@
 						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 						<div class="mui-slider-item mui-slider-item-duplicate">
 							<a href="#">
-								<img src="<%=list.image[list.image.length-1]%>">
-								<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
+								<img src="<%=list.image[list.image.length-1].url%>">
+								<p class="mui-slider-title mui-text-center"><%=list.image[list.image.length-1].title%></p>
 							</a>
 						</div>
 						<% for (var i=0; i<list.image.length; i++) { %>
 						<div class="mui-slider-item">
 							<a href="#">
-								<img src="<%=list.image[i]%>">
-								<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
+								<img src="<%=list.image[i].url%>">
+								<p class="mui-slider-title mui-text-center"><%=list.image[i].title%></p>
 							</a>
 						</div>
 						<%}%>
 						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 						<div class="mui-slider-item mui-slider-item-duplicate">
 							<a href="#">
-								<img src="<%=list.image[0]%>">
-								<p class="mui-slider-title mui-text-center">地灾点公示牌</p>
+								<img src="<%=list.image[0].url%>">
+								<p class="mui-slider-title mui-text-center"><%=list.image[0].title</p>
 							</a>
 						</div>
 					</div>
