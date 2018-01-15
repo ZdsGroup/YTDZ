@@ -13,6 +13,8 @@ var mv = {
             mapToolPanel: null,//地图工具面板
             mapWarnPanel: null,//地灾点预警信息面板
             mapDetailPanel: null,//地灾点或设备详情面板
+            mapDetailPanelParam: null,//详情面板浮动参数
+            isMapDetaiMaximize: false,//属性面板是否最大化
             markerGroup: null,
             LayerGroup: null
         },
@@ -74,18 +76,20 @@ var mv = {
                                     });
 
                                     dzMarker.on('click', function () {
-                                        //显示属性面板
-                                        mv.fn.createDetailPanel(mv.v.mapDivId, {
+                                        mv.v.isMapDetaiMaximize = false;
+                                        mv.v.mapDetailPanelParam = {
                                             gapX: 5,
                                             gapY: 40,
                                             bottomY: 5,//底部间隔
                                             w: 300,//数值或百分比，如：100%
                                             h: '100%',//数值或百分比，如：100%
                                             align: 'br' //右下
-                                        })
+                                        };
+                                        //显示属性面板
+                                        mv.fn.createDetailPanel(mv.v.mapDivId, mv.v.mapDetailPanelParam)
 
                                         if (mv.v.mapDetailPanel) {
-                                            //更新属性
+                                            //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
 
                                         }
                                     });
@@ -194,6 +198,7 @@ var mv = {
                                                 xtype: 'button',
                                                 ui: 'mondata-detail-tool-button',
                                                 id: 'mondataCollectId',
+                                                margin: '0 0 0 5',
                                                 border: false,
                                                 iconCls: 'fa fa-star',
                                                 tooltip: '快速收藏'
@@ -202,14 +207,62 @@ var mv = {
                                                 xtype: 'button',
                                                 ui: 'mondata-detail-tool-button',
                                                 id: 'mondataMoreId',
+                                                margin: '0 0 0 5',
                                                 border: false,
                                                 iconCls: 'fa fa-plus',
-                                                tooltip: '更多信息'
+                                                tooltip: '更多信息',
+                                                handler: function (btn) {
+                                                    //最大化
+                                                    if (!mv.v.isMapDetaiMaximize) {
+                                                        btn.setIconCls('fa fa-minus');
+                                                        btn.setTooltip('基本信息');
+                                                        mv.v.mapDetailPanelParam = {
+                                                            gapX: 5,
+                                                            gapY: 5,//40,
+                                                            //bottomY: 5,//底部间隔
+                                                            w: '100%',//数值或百分比，如：100%
+                                                            h: '100%',//数值或百分比，如：100%
+                                                            align: 'br' //右下
+                                                        };
+                                                        mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
+                                                        mv.v.isMapDetaiMaximize = true;
+                                                        mv.fn.showMoreInfo();
+                                                    } else {
+                                                        //最小化
+                                                        btn.setIconCls('fa fa-plus');
+                                                        btn.setTooltip('更多信息');
+                                                        mv.v.mapDetailPanelParam = {
+                                                            gapX: 5,
+                                                            gapY: 40,
+                                                            bottomY: 5,//底部间隔
+                                                            w: 300,//数值或百分比，如：100%
+                                                            h: '100%',//数值或百分比，如：100%
+                                                            align: 'br' //右下
+                                                        };
+                                                        mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
+                                                        mv.v.isMapDetaiMaximize = false;
+                                                        mv.fn.showBasicInfo();
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                ui: 'mondata-detail-tool-button',
+                                                id: 'mondataCloseId',
+                                                margin: '0 0 0 5',
+                                                border: false,
+                                                iconCls: 'fa fa-times',
+                                                tooltip: '关闭',
+                                                handler: function () {
+                                                    mv.v.mapDetailPanel.hide();
+                                                    mv.v.isMapDetaiMaximize = false;
+                                                }
                                             }
                                         ]
                                     },
                                     {
                                         xtype: 'container',
+                                        id: 'monAddressPanelId',
                                         layout: {
                                             type: 'hbox',
                                             align: 'middle',
@@ -233,6 +286,7 @@ var mv = {
                                     },
                                     {
                                         xtype: 'container',
+                                        id: 'monTypePanelId',
                                         layout: {
                                             type: 'hbox',
                                             align: 'middle',
@@ -254,6 +308,7 @@ var mv = {
                                     },
                                     {
                                         xtype: 'container',
+                                        id: 'monRankPanelId',
                                         layout: {
                                             type: 'hbox',
                                             align: 'middle',
@@ -282,6 +337,7 @@ var mv = {
                             },
                             {
                                 xtype: 'panel',
+                                id: 'monWarnPanelId',
                                 title: '预警信息',
                                 ui: 'map-detail-warnning-panel-ui',
                                 iconCls: 'fa fa-exclamation-triangle',
@@ -299,18 +355,55 @@ var mv = {
                             },
                             {
                                 xtype: 'panel',
+                                id: 'monInfoPanelId',
                                 title: '监测设备',
                                 ui: 'map-detail-warnning-panel-ui',
                                 iconCls: 'fa fa-cube',
                                 flex: 1
+                            },
+                            {
+                                xtype: 'panel',
+                                id: 'monMoreInfoPanelId',
+                                ui: 'map-detail-warnning-panel-ui',
+                                html: '这里显示更多信息的内容，将子模块内容添加进来，默认隐藏',//@TODO 这里显示更多信息
+                                hidden: true,
+                                iconCls: '',
+                                flex: 1
                             }
                         ]
                     });
-
-                    //定位面板
-                    mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, floatParams);
                 }
+
+                //定位面板
+                mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, floatParams);
+                mv.v.mapDetailPanel.show();
             },
+            showBasicInfo: function () {
+                //隐藏更多信息面板
+                Ext.getCmp('monMoreInfoPanelId').hide();
+
+                //显示其他基本信息面板
+                Ext.getCmp('monAddressPanelId').show();
+                Ext.getCmp('monTypePanelId').show();
+                Ext.getCmp('monRankPanelId').show();
+                Ext.getCmp('monWarnPanelId').show();
+                Ext.getCmp('monInfoPanelId').show();
+            },
+            showMoreInfo: function () {
+                //显示更多信息面板
+                Ext.getCmp('monMoreInfoPanelId').show();
+
+                //隐藏其他基本信息面板
+                Ext.getCmp('monAddressPanelId').hide();
+                Ext.getCmp('monTypePanelId').hide();
+                Ext.getCmp('monRankPanelId').hide();
+                Ext.getCmp('monWarnPanelId').hide();
+                Ext.getCmp('monInfoPanelId').hide();
+
+                //@TODO 根据当前选中对象（地灾点或监测设备动态加载详情内容,若显示基本信息面板时，这里的内容没有事先加载，这里需要加载）
+
+            },
+            //属性面板布局重绘
             relayoutPanel: function (parentContainer, childContainer, floatParams) {
                 var w = floatParams['w'];
                 var h = floatParams['h'];
@@ -498,6 +591,10 @@ var mv = {
                     var offsetX = parentContainer.clientWidth - mv.v.mapWarnPanel.el.dom.clientWidth - 5;
                     var offsetY = 5;
                     mv.v.mapWarnPanel.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
+                }
+
+                if (mv.v.mapDetailPanel && mv.v.mapDetailPanelParam) {
+                    mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
                 }
             }
         }

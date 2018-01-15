@@ -323,21 +323,21 @@ var g = {
             var mask = ajax.fn.showMask(dzDataTreeCon, '数据加载中...');
 
             ajax.v.method = 'GET';
-            ajax.v.url = conf.serviceUrl + 'devices/sides';
+            ajax.v.url = conf.serviceUrl + 'menu/tree';
             ajax.v.successCallBack = function (response, opts) {
                 //查询结果转json对象
                 var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
                 if (result['data'] != null) {
-                    var dataList = result['data']['tree'];
+                    var dataList = result['data'];
                     if (dataList && dataList.length > 0) {
                         var treeStore = new Ext.create('Ext.data.TreeStore', {
-                            data: conf.dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
+                            data: dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
                         });
                         dzDataTree.setStore(treeStore);
                         //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
 
                         //解析数据，并绘制到当前地图
-                        mv.fn.createMarker(conf.dataList);
+                        mv.fn.createMarker(conf.dataList);//@TODO 鉴于服务不完善，地灾点数据暂时用假数据
                     }
                 }
 

@@ -4,7 +4,7 @@
  */
 Ext.define('yt.conf.SystemConfig', {
     //singleton: true,
-    serviceUrl: 'http://quake.anruence.com/oracle/',
+    serviceUrl: 'http://182.92.2.91:8080/oracle/',
     title: "鹰潭市智能监测预警系统",
     //主容器ID
     bodyContainerID: 'bodyContainerID',
