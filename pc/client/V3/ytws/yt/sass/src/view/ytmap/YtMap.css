@@ -2,7 +2,7 @@
 Error: Invalid CSS after ")": expected selector or at-rule, was "@include extjs-..."
         on line 70 of YtMap.scss
 
-65:         $icon-size: 16px,
+65:         $icon-size: 18px,
 66:         $font-size: 8px,
 67:         $inner-border-width: 0px
 68: )
@@ -38,4 +38,4 @@ E:/Ruby24-x64/bin/scss:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Invalid CSS after \")\": expected selector or at-rule, was \"@include extjs-...\"\A         on line 70 of YtMap.scss\A \A 65:         $icon-size: 16px,\A 66:         $font-size: 8px,\A 67:         $inner-border-width: 0px\A 68: )\A 69: \A 70: @include extjs-button-small-ui(\A 71:         $ui: 'mondata-detail-image-button',\A 72:         $background-color: rgba(0, 105, 92, 0.0),\A 73:         $background-color-over: rgba(0, 105, 92, 0.0),\A 74:         $background-color-focus: rgba(0, 105, 92, 0.0),\A 75:         $background-color-pressed: rgba(0, 105, 92, 0.0),"; }
+  content: "Error: Invalid CSS after \")\": expected selector or at-rule, was \"@include extjs-...\"\A         on line 70 of YtMap.scss\A \A 65:         $icon-size: 18px,\A 66:         $font-size: 8px,\A 67:         $inner-border-width: 0px\A 68: )\A 69: \A 70: @include extjs-button-small-ui(\A 71:         $ui: 'mondata-detail-image-button',\A 72:         $background-color: rgba(0, 105, 92, 0.0),\A 73:         $background-color-over: rgba(0, 105, 92, 0.0),\A 74:         $background-color-focus: rgba(0, 105, 92, 0.0),\A 75:         $background-color-pressed: rgba(0, 105, 92, 0.0),"; }

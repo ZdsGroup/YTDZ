@@ -26,6 +26,7 @@ Ext.define('yt.view.ytmap.YtMap', {
     items: [
         {
             xtype: 'container',
+            id: 'mapParentContainerId',
             html: '<div id="mapContainerId" style="width: 100%;height: 100%;overflow: hidden;margin:0;position: relative;border: hidden;"></div>',
             margin: '0 0 0 0'
         }, {

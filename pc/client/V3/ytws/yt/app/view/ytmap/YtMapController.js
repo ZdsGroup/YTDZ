@@ -5,7 +5,8 @@ var mv = {
         v: {
             //地图控件是否已经初始化
             isMapAdded: false,
-            mapDivId: null,
+            //mapDivId: null,
+            mapParentId: null,
             map: null,
             gaodeVecLayer: null,
             gaodeImageLayer: null,
@@ -31,9 +32,9 @@ var mv = {
                 mv.v.map.setView(L.latLng(28.23, 117.02), 10);//定位到鹰潭市
 
                 //创建地图工具栏
-                mv.fn.createMapToolPanel(mapid);
+                mv.fn.createMapToolPanel(mv.v.mapParentId);
                 //mv.fn.createWarnTip(mapid);
-                mv.fn.createWarnPanel(mapid);
+                mv.fn.createWarnPanel(mv.v.mapParentId);
             },
             calcRank: function (dzRank) {
                 if (dzRank == 4) {
@@ -86,11 +87,11 @@ var mv = {
                                             align: 'br' //右下
                                         };
                                         //显示属性面板
-                                        mv.fn.createDetailPanel(mv.v.mapDivId, mv.v.mapDetailPanelParam)
+                                        mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam)
 
                                         if (mv.v.mapDetailPanel) {
                                             //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
-
+                                            mv.fn.showBasicInfo();
                                         }
                                     });
 
@@ -614,6 +615,7 @@ Ext.define('yt.view.ytmap.YtMapController', {
         if (!mv.v.isMapAdded) {
             mv.v.isMapAdded = true;
             mv.v.mapDivId = 'mapContainerId';
+            mv.v.mapParentId = 'mapParentContainerId';//地图父容器ID
             mv.fn.initMap(mv.v.mapDivId);
         }
 
@@ -621,6 +623,6 @@ Ext.define('yt.view.ytmap.YtMapController', {
             mv.v.map.invalidateSize();
         }
 
-        mv.fn.refreshLayout(mv.v.mapDivId);
+        mv.fn.refreshLayout(mv.v.mapParentId);
     }
 });
