@@ -63,17 +63,17 @@ var initDatePickParam = function() {
 	var endDt = '';
 	//同一地灾点,同类设备对比
 	//获取今天8点日期
-	startDt = GetEightDateStr(-1);
+	startDt = getEightDateStr(-1);
 	//获取昨天8点日期
-	endDt = GetEightDateStr(0);
+	endDt = getEightDateStr(0);
 	//当前设备最新数据,图和列表
 	//initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
 	//initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
 	//initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
 
 	//当前设备,不同年份时间
-	startDt = GetYearStr(-1);
-	endDt = GetYearStr(0);
+	startDt = getYearStr(-1);
+	endDt = getYearStr(0);
 	//initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
 }
 
@@ -114,19 +114,32 @@ function queryAnalysisData() {
 		param.quakeid = pFeature.quakeid;
 		param.begin = mui("#deviceTypeStartDt")[0].innerHTML + ":00:00";
 		param.end = mui("#deviceTypeEndDt")[0].innerHTML + ":00:00";
-		mui.myMuiQuery(action, param, deviceTypeCompareSuccess, mui.myMuiQueryErr);
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceTypeCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+
 	} else if(pId == 2) {
 		action = "rains/echarts/year";
 		param.deviceid = pFeature.deviceid;
 		param.begin = mui("#deviceDateStartDt")[0].innerHTML;
 		param.end = mui("#deviceDateEndDt")[0].innerHTML;
-		mui.myMuiQuery(action, param, deviceDateCompareSuccess, mui.myMuiQueryErr);
+		if(parseInt(param.begin) < parseInt(param.end)) {
+			mui.myMuiQuery(action, param, deviceDateCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
 	} else if(pId == 3) {
 		action = "rains/echarts/hour";
 		param.deviceid = pFeature.deviceid;
 		param.begin = mui("#deviceRainStartDt")[0].innerHTML + ":00:00";
 		param.end = mui("#deviceRainEndDt")[0].innerHTML + ":00:00";
-		mui.myMuiQuery(action, param, deviceRainCompareSuccess, mui.myMuiQueryErr);
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceRainCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
 	} else if(pId == 4) {
 		pulldownRefresh();
 	}
@@ -384,10 +397,14 @@ function pulldownRefresh() {
 	var queryParam = getDeviceListQueryParam();
 	queryParam.pageno = pageno;
 	var action = "rains";
-	mui.myMuiQuery(action, queryParam,
-		pullDownSuccess,
-		falult
-	)
+	if(!compareDate(queryParam.begin, queryParam.end)) {
+		mui.myMuiQuery(action, queryParam,
+			pullDownSuccess,
+			falult
+		)
+	} else {
+		mui.myMuiQueryErr('时间选择错误');
+	}
 }
 /**
  * 上拉加载具体业务实现
@@ -396,10 +413,14 @@ function pullupRefresh() {
 	var queryParam = getDeviceListQueryParam();
 	queryParam.pageno = pageno;
 	var action = "rains";
-	mui.myMuiQuery(action, queryParam,
-		pullUpSuccess,
-		falult
-	)
+	if(!compareDate(queryParam.begin, queryParam.end)) {
+		mui.myMuiQuery(action, queryParam,
+			pullUpSuccess,
+			falult
+		)
+	} else {
+		mui.myMuiQueryErr('时间选择错误');
+	}
 }
 
 function pullUpSuccess(result) {
@@ -410,11 +431,11 @@ function pullUpSuccess(result) {
 			list: rows
 		});
 		document.getElementById("ullist").innerHTML = document.getElementById("ullist").innerHTML + html;
+		pageno = data.page + 1;
 		if((data.page + 1) * data.size >= data.total) {
 			//没有更多数据
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 		} else {
-			pageno = data.page + 1;
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 		}
 
@@ -429,11 +450,11 @@ function pullDownSuccess(result) {
 			list: rows
 		});
 		document.getElementById("ullist").innerHTML = html;
+		pageno = data.page + 1;
 		if((data.page + 1) * data.size >= data.total) {
 			//没有更多数据
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
 		} else {
-			pageno = data.page + 1;
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 		}
 	}

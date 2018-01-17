@@ -143,8 +143,8 @@ var initMap = function() {
 		var isMarker = false;
 		var target = e.originalEvent.target;
 		if(target.type != 'button') {
-			me.hideFooterPanel(0);
-			changeMapStatus();
+			//me.hideFooterPanel(0);
+			//changeMapStatus();
 		}
 	});
 
