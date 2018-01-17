@@ -208,6 +208,14 @@
     {
       "path": "resources/libs/leaflet/leaflet.ChineseTmsProviders.js",
       "bundle": true
+    },
+    {
+      "path": "resources/libs/leaflet-awesome/leaflet.awesome-markers.js",
+      "bundle": true
+    },
+    {
+      "path": "resources/libs/leaflet-awesome/L.Icon.Pulse.js",
+      "bundle": true
     }
   ],
   /**
@@ -262,6 +270,14 @@
     },
     {
       "path": "resources/libs/leaflet/leaflet.css",
+      "bundle": true
+    },
+    {
+      "path": "resources/libs/leaflet-awesome/leaflet.awesome-markers.css",
+      "bundle": true
+    },
+    {
+      "path": "resources/libs/leaflet-awesome/L.Icon.Pulse.css",
       "bundle": true
     }
   ],
