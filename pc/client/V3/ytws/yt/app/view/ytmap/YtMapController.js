@@ -37,18 +37,39 @@ var mv = {
                 mv.fn.createWarnPanel(mv.v.mapParentId);
             },
             calcRank: function (dzRank) {
-                if (dzRank == 4) {
-                    return 'resources/images/yt/dz/red.png';
-                } else if (dzRank == 3) {
-                    return 'resources/images/yt/dz/orange.png';
-                } else if (dzRank == 2) {
-                    return 'resources/images/yt/dz/yellow.png';
+                switch(String(dzRank)) {
+                    case '4':
+                    {
+                        markColor = 'red';
+                        break;
+                    }
+                    case '3':
+                    {
+                        markColor = 'orange';
+                        break;
+                    }
+                    case '2':
+                    {
+                        markColor = 'purple'; //就是yellow颜色
+                        break;
+                    }
+                    case '1':
+                    {
+                        markColor = 'blue';
+                        break;
+                    }
+                    case '0':
+                    {
+                        markColor = 'green';
+                        break;
+                    }
+                    default:
+                    {
+                        markColor = 'cadetblue';
+                        break;
+                    }
                 }
-                else if (dzRank == 1) {
-                    return 'resources/images/yt/dz/blue.png';
-                } else {
-                    return 'resources/images/yt/dz/green.png';
-                }
+                return markColor;
             },
             //创建地灾点或设备点
             createMarker: function (dataList) {
@@ -62,11 +83,14 @@ var mv = {
                                 Ext.each(dzList, function (dzData) {
                                     var dzName = dzData['text'];
                                     var dzRank = dzData['rank'];
-                                    var dzImageUrl = mv.fn.calcRank(dzRank);
-                                    var markerIcon = L.icon({
-                                        iconUrl: dzImageUrl,
-                                        iconSize: [24, 24],
-                                        iconAnchor: [12, 24]
+                                    var iconName = 'bullseye';
+                                    var markColor = 'green';
+                                    var markColor = mv.fn.calcRank(dzRank);
+                                    var markerIcon = L.AwesomeMarkers.icon({
+                                        icon: iconName,
+                                        markerColor: markColor,
+                                        prefix: 'fa',
+                                        spin: false
                                     });
                                     var dzPot = [dzData['lat'], dzData['lng']];
                                     var dzMarker = new L.marker(dzPot, {

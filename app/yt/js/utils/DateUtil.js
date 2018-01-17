@@ -127,7 +127,7 @@ function getQuarterEndDate() {
 }
 
 //获取8点时刻,今天,昨天
-function GetEightDateStr(AddDayCount) {
+function getEightDateStr(AddDayCount) {
 	var dd = new Date();
 	dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期 
 	var y = dd.getFullYear();
@@ -142,9 +142,15 @@ function GetEightDateStr(AddDayCount) {
 	return y + "-" + m + "-" + d + " 08";
 }
 
-function GetYearStr(AddYearCount) {
+function getYearStr(AddYearCount) {
 	var dd = new Date();
 	dd.setFullYear(dd.getFullYear() + AddYearCount); //获取AddDayCount天后的日期 
 	var y = dd.getFullYear();
 	return y.toString();
 }
+
+function compareDate(d1,d2)
+{
+  return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
+}
+

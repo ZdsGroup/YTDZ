@@ -28,7 +28,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">监测设备详细情况</h1>
 		</header>
-		<div  class="mui-content">
+		<div class="mui-content">
 			<div id="content">
 				<script id="slider-item-template" type="text/html">
 					<div id="slider-pictures" class="mui-slider">
@@ -37,7 +37,9 @@
 							<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
 									<img src="<%=data.dimage[data.dimage.length-1].url%>">
-									<p class="mui-slider-title mui-text-center"><%=data.dimage[data.dimage.length-1].title%></p>
+									<p class="mui-slider-title mui-text-center">
+										<%=data.dimage[data.dimage.length-1].title%>
+									</p>
 								</a>
 							</div>
 							<% for (var i=0; i<data.dimage.length; i++) { %>
@@ -53,7 +55,9 @@
 							<div class="mui-slider-item mui-slider-item-duplicate">
 								<a href="#">
 									<img src="<%=data.dimage[0].url%>">
-									<p class="mui-slider-title mui-text-center"><%=data.dimage[data.dimage.length-1].title%></p>
+									<p class="mui-slider-title mui-text-center">
+										<%=data.dimage[data.dimage.length-1].title%>
+									</p>
 								</a>
 							</div>
 						</div>
@@ -122,12 +126,18 @@
 				//页面传值
 				self = plus.webview.currentWebview();
 				var feature = mui.myCloneObj(self.feature);
-				feature.dimage = JSON.parse(feature.dimage);
+				if(typeof feature.dimage == 'string') {
+					feature.dimage = JSON.parse(feature.dimage);
+				}
 				var html = template('slider-item-template', {
 					data: feature
 				});
 				document.getElementById("content").innerHTML = html;
 				mui(".mui-slider").slider();
+			}
+
+			function isArray(o) {
+				return Object.prototype.toString.call(o) == '[object Array]';
 			}
 
 			function click() {

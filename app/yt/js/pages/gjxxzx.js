@@ -27,11 +27,11 @@ function pullUpSuccess(result) {
 			list: rows
 		});
 		document.getElementById("ullist").innerHTML = document.getElementById("ullist").innerHTML + html;
+		pageno = data.page + 1;
 		if((data.page + 1) * data.size >= data.total) {
 			//没有更多数据
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 		} else {
-			pageno = data.page + 1;
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 		}
 
@@ -46,11 +46,11 @@ function pullDownSuccess(result) {
 			list: rows
 		});
 		document.getElementById("ullist").innerHTML = html;
+		pageno = data.page + 1;
 		if((data.page + 1) * data.size >= data.total) {
 			//没有更多数据
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
 		} else {
-			pageno = data.page + 1;
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 		}
 	}
