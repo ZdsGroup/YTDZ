@@ -202,6 +202,10 @@
       "bundle": true
     },
     {
+      "path": "resources/libs/echart/echarts.js",
+      "bundle": false
+    },
+    {
       "path": "resources/libs/leaflet/leaflet-src.js",
       "bundle": true
     },
