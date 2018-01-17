@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/9.
  */
-Ext.define('yt.view.monpot.monpotMonitordata', {
+Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
     extend: 'Ext.tab.Panel',
 
     /*

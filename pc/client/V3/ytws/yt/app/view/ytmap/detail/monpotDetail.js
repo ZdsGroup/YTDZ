@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/9.
  */
-Ext.define('yt.view.monpot.monpotDetail', {
+Ext.define('yt.view.ytmap.detail.monpotDetail', {
     extend: 'Ext.Container',
 
     /*
@@ -11,17 +11,16 @@ Ext.define('yt.view.monpot.monpotDetail', {
     xtype: 'monpot-detail',
 
     viewModel: {
-        type: 'monpot'
+        type: 'detailViewModel'
     },
 
     cls: 'monpot-detail',
 
     requires: [
         'Ext.grid.Panel',
-        'Ext.layout.container.Fit',
         'Ext.panel.Panel',
         'Ext.ux.layout.ResponsiveColumn',
-        'yt.view.monpot.MonPotModel'
+        'yt.view.ytmap.detail.DetailViewModel'
     ],
 
     layout: 'responsivecolumn',
@@ -37,6 +36,7 @@ Ext.define('yt.view.monpot.monpotDetail', {
 
         {
             xtype: 'gridpanel',
+            iconCls: 'fa fa-info-circle',
             title: '设备运行情况',
             userCls: 'big-70',
             scrollable: 'y',

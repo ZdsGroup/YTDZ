@@ -363,10 +363,9 @@ var mv = {
                                 flex: 1
                             },
                             {
-                                xtype: 'panel',
+                                xtype: 'detailView',
                                 id: 'monMoreInfoPanelId',
                                 ui: 'map-detail-warnning-panel-ui',
-                                html: '这里显示更多信息的内容，将子模块内容添加进来，默认隐藏',//@TODO 这里显示更多信息
                                 hidden: true,
                                 iconCls: '',
                                 flex: 1

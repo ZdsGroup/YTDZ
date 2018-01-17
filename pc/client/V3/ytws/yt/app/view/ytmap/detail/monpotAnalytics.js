@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/9.
  */
-Ext.define('yt.view.monpot.monpotAnalytics', {
+Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
     extend: 'Ext.panel.Panel',
 
     /*
@@ -12,26 +12,28 @@ Ext.define('yt.view.monpot.monpotAnalytics', {
 
     requires: [
         'Ext.button.Button',
-        'Ext.button.Segmented',
         'Ext.chart.CartesianChart',
         'Ext.chart.axis.Category',
         'Ext.chart.axis.Numeric',
         'Ext.chart.series.Line',
         'Ext.container.Container',
+        'Ext.form.field.Checkbox',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Date',
         'Ext.layout.container.Fit',
+        'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'Ext.tab.Panel',
         'Ext.toolbar.Fill',
-        'yt.view.monpot.MonPotModel'
+        'Ext.toolbar.Separator',
+        'yt.view.ytmap.detail.DetailViewModel'
     ],
 
     layout: 'fit',
 
     viewModel: {
-        type: 'monpot'
+        type: 'detailViewModel'
     },
 
     tbar: [
@@ -97,11 +99,18 @@ Ext.define('yt.view.monpot.monpotAnalytics', {
                             xtype: 'panel',
                             title: '同类型设备对比',
                             height: '50%',
-                            layout: 'fit',
+                            layout: {
+                                type: 'hbox',
+                                align: 'stretch'
+                            },
                             tbar: [
                                 { xtype: 'datefield', fieldLabel: '查询时间',labelAlign: 'right', labelWidth: 65},
                                 { xtype: 'datefield', fieldLabel: '至', labelAlign: 'right', labelWidth: 20},
                                 { xtype: 'button', text: '搜索'},
+                                '-',
+                                { xtype: 'checkbox', boxLabel: '对比设备1',inputValue: '对比设备1'},
+                                { xtype: 'checkbox', boxLabel: '对比设备2',inputValue: '对比设备2'},
+                                { xtype: 'checkbox', boxLabel: '对比设备3',inputValue: '对比设备3'},
                                 '->',
                                 { xtype: 'button', text: '导出表格' }
                             ],
@@ -112,20 +121,19 @@ Ext.define('yt.view.monpot.monpotAnalytics', {
                                         type: 'sprite',
                                         docked: 'right'
                                     },
+                                    flex: 1,
                                     bind: '{linechartData}',
                                     // insetPadding: '40 10 0 0',
                                     axes: [{
                                         type: 'numeric',
                                         fields: ['data1', 'data2', 'data3', 'data4' ],
                                         position: 'left',
-                                        grid: true,
                                         minimum: 0
                                         // renderer: 'onAxisLabelRender'
                                     }, {
                                         type: 'category',
                                         fields: 'month',
                                         position: 'bottom',
-                                        grid: true,
                                         label: {
                                             rotate: {
                                                 degrees: -45
@@ -137,16 +145,6 @@ Ext.define('yt.view.monpot.monpotAnalytics', {
                                         title: '设备1',
                                         xField: 'month',
                                         yField: 'data1',
-                                        marker: {
-                                            type: 'square',
-                                            fx: {
-                                                duration: 200,
-                                                easing: 'backOut'
-                                            }
-                                        },
-                                        highlightCfg: {
-                                            scaling: 2
-                                        },
                                         tooltip: {
                                             trackMouse: true
                                             // ,renderer: 'onSeriesTooltipRender'
