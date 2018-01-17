@@ -34,7 +34,7 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
                     "type": 3,
                     "connectstatus": 0,
                     "batterystatus": 0,
-                    "runstatus": 0,
+                    "runstatus": 1,
                     "rate": 0,
                     "reason": "",
                     "modtime": "2017-11-24 11:12:35",
@@ -57,7 +57,7 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
                     "address": "南山大道与火炬大道交叉口东50米",
                     "type": 3,
                     "connectstatus": 0,
-                    "batterystatus": 0,
+                    "batterystatus": 1,
                     "runstatus": 0,
                     "rate": 0,
                     "reason": "",
@@ -80,7 +80,7 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
                     "lng": "117.205647",
                     "address": "南山大道与火炬大道交叉口东50米",
                     "type": 1,
-                    "connectstatus": 0,
+                    "connectstatus": 1,
                     "batterystatus": 0,
                     "runstatus": 0,
                     "rate": 0,
@@ -104,9 +104,9 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
                     "lng": "117.200626",
                     "address": "南山大道与火炬大道交叉口东50米",
                     "type": 1,
-                    "connectstatus": 0,
-                    "batterystatus": 0,
-                    "runstatus": 0,
+                    "connectstatus": 1,
+                    "batterystatus": 1,
+                    "runstatus": 1,
                     "rate": 0,
                     "reason": "",
                     "modtime": "2017-11-27 01:40:20",
@@ -117,6 +117,7 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
             ]
         },
 
+        // 智能分析 中所有图表数据
         linechartData: {
             data:[
                 { month: '1月', data1: 20, data2: 37, data3: 35, data4: 4, other: 4 },
