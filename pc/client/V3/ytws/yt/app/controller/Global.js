@@ -337,7 +337,7 @@ var g = {
                         //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
 
                         //解析数据，并绘制到当前地图
-                        mv.fn.createMarker(dataList);//@TODO 鉴于服务不完善，地灾点数据暂时用假数据
+                        mv.fn.createMarker(dataList);//@TODO 已对接服务
                     }
                 }
 
