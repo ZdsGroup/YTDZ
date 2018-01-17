@@ -7,7 +7,8 @@ mui.init({
 	pullRefresh: {
 		container: '#pullrefresh',
 		down: {
-			callback: pulldownRefresh //下拉，获取更多数据
+			callback: pulldownRefresh, //下拉，获取更多数据
+			auto: true
 		},
 		up: {
 			contentrefresh: '正在加载...',
@@ -28,6 +29,22 @@ var pFeature = null;
 var plabel = "";
 //子页面ID号
 var pId = 0;
+var wacthTypes = [{
+	value: 'dx',
+	text: 'X轴位移'
+}, {
+	value: 'dy',
+	text: 'Y轴位移'
+}, {
+	value: 'dh',
+	text: 'H轴位移'
+}, {
+	value: 'd2',
+	text: '二维位移长度'
+}, {
+	value: 'd3',
+	text: '三维位移长度'
+}]
 mui.plusReady(function() {
 	//页面传值
 	var self = plus.webview.currentWebview();
@@ -51,9 +68,19 @@ var initEvent = function() {
 			picker.dispose();
 		});
 	}, false);
+	mui('.mui-input-group').on('tap', '.yttypepick ', function() {
+		var dt = this;
+		var picker = new mui.PopPicker();
+		picker.setData(wacthTypes);
+		picker.show(function(rs) {
+			dt.innerHTML = rs[0].text;
+			picker.dispose();
+		});
+	}, false);
 	mui('.mui-input-group').on('tap', '.mui-btn ', function() {
 		queryAnalysisData();
-	})
+	});
+
 };
 
 var initDatePickParam = function() {
@@ -63,17 +90,23 @@ var initDatePickParam = function() {
 	var endDt = '';
 	//同一地灾点,同类设备对比
 	//获取今天8点日期
-	startDt = GetEightDateStr(-1);
+	startDt = getEightDateStr(-1);
 	//获取昨天8点日期
-	endDt = GetEightDateStr(0);
+	endDt = getEightDateStr(0);
 	//当前设备最新数据,图和列表
-	//initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
-	//initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
-	//initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
+	//initDatePick('#deviceTypeStartDt', endDt, '#deviceTypeStartDt', endDt);
+	//initDatePick('#ytmcstartdt', startDt, '#ytmcenddt', endDt);
+	//initDatePick('#ytdmstartdt', startDt, '#ytdmenddt', endDt);
+
+	//initDatePick('#ytspstartdt', startDt, '#ytspenddt', endDt);
+	//initDatePick('#ytacspeedstartdt', startDt, '#ytacspeedenddt', endDt);
+	//initDatePick('#ytscastartdt', startDt, '#ytscaenddt', endDt);
+	//initDatePick('#ytvecstartdt', startDt, '#ytvecenddt', endDt);
+	//initDatePick('#deviceliststartdt', startDt, '#devicelistenddt', endDt);
 
 	//当前设备,不同年份时间
-	startDt = GetYearStr(-1);
-	endDt = GetYearStr(0);
+	startDt = getYearStr(-1);
+	endDt = getYearStr(0);
 	//initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
 }
 
@@ -104,32 +137,91 @@ function switchJcAnalyContent() {
 function queryAnalysisData() {
 	var action = "";
 	var param = {};
-	if(pId == 0) {
+	if(pId == 0) { //设备状态
 		var html = template('jcsb-state-template', {
 			feature: pFeature
 		});
 		document.getElementById("device-state").innerHTML = html;
-	} else if(pId == 1) {
-		action = "crevices/echarts/device";
+	} else if(pId == 1) { //多站对比
+		action = "tbmwys/echarts/device";
 		param.quakeid = pFeature.quakeid;
 		param.begin = mui("#deviceTypeStartDt")[0].innerHTML + ":00:00";
-		param.end = mui("#deviceTypeEndDt")[0].innerHTML + ":00:00";
 		mui.myMuiQuery(action, param, deviceTypeCompareSuccess, mui.myMuiQueryErr);
-	} else if(pId == 2) {
-		action = "crevices/echarts/year";
+	} else if(pId == 2) { //单站对比
+		action = "tbmwys/echarts/year";
 		param.deviceid = pFeature.deviceid;
 		param.begin = mui("#deviceDateStartDt")[0].innerHTML;
 		param.end = mui("#deviceDateEndDt")[0].innerHTML;
-		mui.myMuiQuery(action, param, deviceDateCompareSuccess, mui.myMuiQueryErr);
-	} else if(pId == 3) {
-		action = "crevices/echarts/hour";
+		if(parseInt(param.begin) < parseInt(param.end)) {
+			mui.myMuiQuery(action, param, deviceDateCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 3) { //位移变化
+		action = "tbmwys/echarts/hour";
 		param.deviceid = pFeature.deviceid;
-		param.begin = mui("#deviceRainStartDt")[0].innerHTML + ":00:00";
-		param.end = mui("#deviceRainEndDt")[0].innerHTML + ":00:00";
-		mui.myMuiQuery(action, param, deviceRainCompareSuccess, mui.myMuiQueryErr);
-	} else if(pId == 4) {
+		param.begin = mui("#ytmcstartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytmcenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceMoveChangeCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 4) { //断面曲线
+		action = "tbmwys/echarts/dmqx";
+		param.quakeid = pFeature.quakeid;
+		param.begin = mui("#ytdmstartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytdmenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceDMCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 5) { //速度图
+		action = "tbmwys/echarts/hour";
+		param.deviceid = pFeature.deviceid;
+		param.begin = mui("#ytspstartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytspenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceSpeedCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 6) { //加速度
+		action = "tbmwys/echarts/hour";
+		param.deviceid = pFeature.deviceid;
+		param.begin = mui("#ytacspeedstartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytacspeedenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceAcceleSpeedCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 7) { //散点图
+		action = "tbmwys/echarts/hour";
+		param.deviceid = pFeature.deviceid;
+		param.begin = mui("#ytscastartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytscaenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, devicePointCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 8) { //平面矢量图
+		action = "tbmwys/echarts/hour";
+		param.deviceid = pFeature.deviceid;
+		param.begin = mui("#ytvecstartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytvecenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, devicePlaneCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 9) { //数据列表
 		pulldownRefresh();
+
 	}
+
 }
 //同类型多设备对比图
 var deviceTypeCompareSuccess = function(result) {
@@ -154,14 +246,14 @@ var deviceTypeCompareSuccess = function(result) {
 		calculable: false,
 		xAxis: [{
 			type: 'category',
-			data: []
+			data: ['X轴', 'Y轴', 'H轴', '二维', '三维']
 		}],
 		yAxis: [{
 			type: 'value',
 			splitArea: {
 				show: true
 			},
-			name: '裂缝(mm)',
+			name: '位移(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - value.min * 0.01);
 			},
@@ -174,12 +266,13 @@ var deviceTypeCompareSuccess = function(result) {
 
 	var series = [];
 	var legend = [];
-	mui.each(result.data.dataList, function(index, item) {
+	mui.each(result.data, function(index, item) {
 		legend.push(item.devicename);
+
 		var devItem = {
 			name: item.devicename,
 			type: 'line',
-			data: item.rainVal,
+			data: [item.dx, item.dy, item.dh, item.d2, item.d3],
 			smooth: true,
 			itemStyle: {
 				normal: {
@@ -193,12 +286,13 @@ var deviceTypeCompareSuccess = function(result) {
 	});
 	devicetypecompareOption.series = series;
 	devicetypecompareOption.legend.data = legend;
-	devicetypecompareOption.xAxis[0].data = result.data.hourVal;
 	dtc.setOption(devicetypecompareOption);
 }
 
 //单设备多年对比图
 var deviceDateCompareSuccess = function(result) {
+	var type = mui('#yeartype')[0].innerHTML;
+	type = selectWachType(type);
 	var dtc = echarts.init(mui('#device-date-compare')[0]);
 	var devicetypecompareOption = {
 		legend: {
@@ -227,7 +321,7 @@ var deviceDateCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '长度(mm)',
+			name: '位移(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - value.min * 0.01);
 			},
@@ -245,7 +339,7 @@ var deviceDateCompareSuccess = function(result) {
 		var devItem = {
 			name: item.year,
 			type: 'line',
-			data: item.rainVal,
+			data: item[type],
 			smooth: true,
 			itemStyle: {
 				normal: {
@@ -262,13 +356,10 @@ var deviceDateCompareSuccess = function(result) {
 	dtc.setOption(devicetypecompareOption);
 }
 
-//单设备多年对比图
-var deviceRainCompareSuccess = function(result) {
-	var dtc = echarts.init(mui('#device-rain-monitor')[0]);
+//单设多指标对比图
+var deviceMoveChangeCompareSuccess = function(result) {
+	var dtc = echarts.init(mui('#device-mc-monitor')[0]);
 	var devicetypecompareOption = {
-		color: [
-			'#387FFF'
-		],
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -283,7 +374,7 @@ var deviceRainCompareSuccess = function(result) {
 			containLabel: true
 		},
 		legend: {
-			data: ['裂缝监测']
+			data: ['X轴位移', 'Y轴位移', 'H轴位移', '二维位移长度', '三维位移长度']
 		},
 		calculable: false,
 		xAxis: [{
@@ -297,74 +388,508 @@ var deviceRainCompareSuccess = function(result) {
 			},
 			name: '长度(mm)',
 		}],
-		series: [{
-				name: '裂缝监测',
-				type: 'line',
-				data: [],
-				itemStyle: {
-					normal: {
-						label: {
-							show: true
-						}
-					}
-				},
-				markLine: {
-					silent: true,
-					symbol: 'circle',
-					data: [{
-						lineStyle: {
-							normal: {
-								color: '#FF0000'
-							}
-						},
-						label: {
-							normal: {
-								position: 'middle',
-								formatter: '红色警戒'
-							}
-						},
-						yAxis: result.data.redvalue
-					}, {
-						lineStyle: {
-							normal: {
-								color: '#0000FF'
-							}
-						},
-						label: {
-							normal: {
-
-								position: 'middle',
-								formatter: '蓝色预警'
-							}
-						},
-						yAxis: result.data.bluevalue
-					}, {
-						lineStyle: {
-							normal: {
-								color: '#FFFF00'
-							}
-						},
-						label: {
-							normal: {
-								position: 'middle',
-								formatter: '黄色预警'
-							}
-						},
-						yAxis: result.data.yellowvalue
-					}]
-				}
-			}
-
-		]
+		series: []
 	}
 	var xAxisData = [];
 	var datas = [];
-	mui.each(result.data.creviceList, function(index, item) {
+	var dxs = [];
+	var dys = [];
+	var dhs = [];
+	var d2s = [];
+	var d3s = [];
+	var legend = [];
+	var dxseries = {
+		name: 'X轴位移',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var dyseries = {
+		name: 'Y轴位移',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var dhseries = {
+		name: 'H轴位移',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var d2series = {
+		name: '二维位移长度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var d3series = {
+		name: '三维位移长度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var series = [];
+	series.push(dxseries);
+	series.push(dyseries);
+	series.push(dhseries);
+	series.push(d2series);
+	series.push(d3series);
+	mui.each(result.data.tbmwyList, function(index, item) {
+		dxs.push(item.dx);
+		dys.push(item.dy);
+		dhs.push(item.dh);
+		d2s.push(item.d2);
+		d3s.push(item.d3);
 		xAxisData.push(item.datekey);
-		datas.push(item.v1);
 	});
-	devicetypecompareOption.series[0].data = datas;
+	dxseries.data = dxs;
+	dyseries.data = dys;
+	dhseries.data = dhs;
+	d2series.data = d2s;
+	d3series.data = d3s;
+	devicetypecompareOption.series = series;
 	devicetypecompareOption.xAxis[0].data = xAxisData;
+	dtc.setOption(devicetypecompareOption);
+}
+
+//断面曲线
+var deviceDMCompareSuccess = function(result) {
+	var type = mui("#dmtype")[0].innerHTML;
+	type = selectWachType(type);
+	var dtc = echarts.init(mui('#device-dm-curve')[0]);
+	var devicetypecompareOption = {
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		grid: {
+			top: 50,
+			bottom: 10,
+			left: 10,
+			right: 10,
+			containLabel: true
+		},
+		legend: {
+			data: []
+		},
+		calculable: false,
+		xAxis: [{
+			type: 'category',
+		}],
+		yAxis: [{
+			type: 'value',
+			splitArea: {
+				show: true
+			},
+			name: '位移(mm)',
+			min: function(value) {
+				return Math.ceil(value.min - value.min * 0.01);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + value.max * 0.01);
+			}
+		}],
+		series: []
+	};
+
+	var series = [];
+	var legend = [];
+	mui.each(result.data.dataList, function(index, item) {
+		legend.push(item.devicename);
+		var devItem = {
+			name: item.devicename,
+			type: 'line',
+			data: item[type],
+			smooth: true,
+			itemStyle: {
+				normal: {
+					label: {
+						show: true
+					}
+				}
+			}
+		};
+		series.push(devItem);
+	});
+	devicetypecompareOption.series = series;
+	devicetypecompareOption.legend.data = legend;
+	devicetypecompareOption.xAxis[0].data = result.data.hourVal;
+	dtc.setOption(devicetypecompareOption);
+}
+
+//速度图
+var deviceSpeedCompareSuccess = function(result) {
+	var dtc = echarts.init(mui('#device-speed-chart')[0]);
+	var devicetypecompareOption = {
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		grid: {
+			top: 50,
+			bottom: 10,
+			left: 20,
+			right: 20,
+			containLabel: true
+		},
+		legend: {
+			data: ['X轴速度', 'Y轴速度', 'H轴速度']
+		},
+		calculable: false,
+		xAxis: [{
+			type: 'category',
+			data: []
+		}],
+		yAxis: [{
+			type: 'value',
+			splitArea: {
+				show: true
+			},
+			name: '长度(mm)',
+		}],
+		series: []
+	}
+	var xAxisData = [];
+	var datas = [];
+	var dxs = [];
+	var dys = [];
+	var dhs = [];
+	var legend = [];
+	var dxseries = {
+		name: 'X轴速度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var dyseries = {
+		name: 'Y轴速度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var dhseries = {
+		name: 'H轴速度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+
+	var series = [];
+	series.push(dxseries);
+	series.push(dyseries);
+	series.push(dhseries);
+	mui.each(result.data.tbmwyList, function(index, item) {
+		dxs.push(item.xs);
+		dys.push(item.ys);
+		dhs.push(item.hs);
+		xAxisData.push(item.datekey);
+	});
+	dxseries.data = dxs;
+	dyseries.data = dys;
+	dhseries.data = dhs;
+	devicetypecompareOption.series = series;
+	devicetypecompareOption.xAxis[0].data = xAxisData;
+	dtc.setOption(devicetypecompareOption);
+}
+
+//加速度图
+var deviceAcceleSpeedCompareSuccess = function(result) {
+	var dtc = echarts.init(mui('#device-velocity-chart')[0]);
+	var devicetypecompareOption = {
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		grid: {
+			top: 50,
+			bottom: 10,
+			left: 20,
+			right: 20,
+			containLabel: true
+		},
+		legend: {
+			data: ['X轴加速度', 'Y轴加速度', 'H轴加速度']
+		},
+		calculable: false,
+		xAxis: [{
+			type: 'category',
+			data: []
+		}],
+		yAxis: [{
+			type: 'value',
+			splitArea: {
+				show: true
+			},
+			name: '位移(mm)',
+		}],
+		series: []
+	}
+	var xAxisData = [];
+	var datas = [];
+	var dxs = [];
+	var dys = [];
+	var dhs = [];
+	var legend = [];
+	var dxseries = {
+		name: 'X轴加速度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var dyseries = {
+		name: 'Y轴加速度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+	var dhseries = {
+		name: 'H轴加速度',
+		type: 'line',
+		smooth: true,
+		itemStyle: {
+			normal: {
+				label: {
+					show: true
+				}
+			}
+		}
+	}
+
+	var series = [];
+	series.push(dxseries);
+	series.push(dyseries);
+	series.push(dhseries);
+	mui.each(result.data.tbmwyList, function(index, item) {
+		dxs.push(item.xxs);
+		dys.push(item.yys);
+		dhs.push(item.hhs);
+		xAxisData.push(item.datekey);
+	});
+	dxseries.data = dxs;
+	dyseries.data = dys;
+	dhseries.data = dhs;
+	devicetypecompareOption.series = series;
+	devicetypecompareOption.xAxis[0].data = xAxisData;
+	dtc.setOption(devicetypecompareOption);
+}
+
+//散点图
+var devicePointCompareSuccess = function(result) {
+	var dtc = echarts.init(mui('#device-scatter-chart')[0]);
+	var vectors = result.data.vectors;
+	var startPoint = vectors[0];
+	var endPoint = vectors[vectors.length - 1];
+	var historyPoint = vectors;
+	historyPoint.shift().pop();
+	var devicetypecompareOption = {
+		color: [
+			'#6DC576', '#8DA8C9', '#E37072'
+		],
+		legend: {
+			y: 'top',
+			data: ['起始点', '历史点', '结束点']
+		},
+		tooltip: {
+			trigger: 'none',
+			axisPointer: {
+				type: 'cross'
+			}
+		},
+		grid: {
+			top: 60,
+			bottom: 10,
+			left: 20,
+			right: 40,
+			containLabel: true
+		},
+		xAxis: {
+			type: 'value',
+			name: 'Y(mm)',
+			nameRotate: 270,
+			splitLine: {
+				show: false
+			}
+		},
+		yAxis: {
+			type: 'value',
+			name: 'X(mm)',
+			splitLine: {
+				show: false
+			}
+		},
+		series: [{
+				name: '起始点',
+				type: 'scatter',
+				data: startPoint
+			},
+			{
+				name: '历史点',
+				type: 'scatter',
+				data: historyPoint
+			},
+			{
+				name: '结束点',
+				type: 'scatter',
+				data: endPoint
+			}
+		]
+	}
+	dtc.setOption(devicetypecompareOption);
+}
+
+//平面矢量图
+var devicePlaneCompareSuccess = function(result) {
+	var dtc = echarts.init(mui('#device-vector-chart')[0]);
+	var vectors = result.data.points;
+	var startPoint = vectors[0];
+	var endPoint = vectors[vectors.length - 1];
+	var historyPoint = vectors;
+	var links = historyPoint.map(function(item, i) {
+		return {
+			source: i,
+			target: i + 1
+		};
+	});
+	links.pop();
+	var devicetypecompareOption = {
+		color: [
+			'#8DA8C9', '#8DA8C9', '#6DC576', '#E37072'
+		],
+		legend: {
+			y: 'top',
+			data: ['起始点', '历史点', '结束点']
+		},
+		tooltip: {
+			trigger: 'none',
+			axisPointer: {
+				type: 'cross'
+			}
+		},
+		grid: {
+			top: 60,
+			bottom: 10,
+			left: 20,
+			right: 40,
+			containLabel: true
+		},
+		xAxis: {
+			type: 'value',
+			name: '坐标Y(mm)',
+			nameRotate: 270,
+			splitLine: {
+				show: false
+			}
+		},
+		yAxis: {
+			type: 'value',
+			name: '坐标X(mm)',
+			splitLine: {
+				show: false
+			}
+		},
+		series: [{
+				name: '历史点',
+				type: 'scatter',
+				data: historyPoint
+			},
+			{
+				type: 'graph',
+				layout: 'none',
+				coordinateSystem: 'cartesian2d',
+				symbolSize: 0,
+				label: {
+					normal: {
+						show: true
+					}
+				},
+				edgeSymbol: ['circle', 'arrow'],
+				edgeSymbolSize: [2, 8],
+				data: historyPoint,
+				links: links,
+				lineStyle: {
+					normal: {
+						color: '#8DA8C9'
+					}
+				}
+			},
+			{
+				name: '起始点',
+				type: 'scatter',
+				data: startPoint
+			},
+			{
+				name: '结束点',
+				type: 'scatter',
+				data: endPoint
+			}
+		]
+	}
 	dtc.setOption(devicetypecompareOption);
 }
 
@@ -374,8 +899,8 @@ var pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 function getDeviceListQueryParam() {
 	var listParam = {};
 	listParam.deviceid = pFeature.deviceid;
-	listParam.begin = mui("#deviceListStartDt")[0].innerHTML + ":00:00";
-	listParam.end = mui("#deviceListEndDt")[0].innerHTML + ":00:00";
+	listParam.begin = mui("#deviceliststartdt")[0].innerHTML + ":00:00";
+	listParam.end = mui("#devicelistenddt")[0].innerHTML + ":00:00";
 	return listParam;
 }
 
@@ -383,11 +908,15 @@ function pulldownRefresh() {
 	pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 	var queryParam = getDeviceListQueryParam();
 	queryParam.pageno = pageno;
-	var action = "crevices";
-	mui.myMuiQuery(action, queryParam,
-		pullDownSuccess,
-		falult
-	)
+	var action = "tbmwys";
+	if(!compareDate(queryParam.begin, queryParam.end)) {
+		mui.myMuiQuery(action, queryParam,
+			pullDownSuccess,
+			falult
+		)
+	} else {
+		mui.myMuiQueryErr('时间选择错误');
+	}
 }
 /**
  * 上拉加载具体业务实现
@@ -395,11 +924,15 @@ function pulldownRefresh() {
 function pullupRefresh() {
 	var queryParam = getDeviceListQueryParam();
 	queryParam.pageno = pageno;
-	var action = "crevices";
+	var action = "tbmwys";
+	if(!compareDate(queryParam.begin, queryParam.end)) {
 	mui.myMuiQuery(action, queryParam,
 		pullUpSuccess,
 		falult
-	)
+	)	
+	} else {
+		mui.myMuiQueryErr('时间选择错误');
+	}
 }
 
 function pullUpSuccess(result) {
@@ -410,11 +943,11 @@ function pullUpSuccess(result) {
 			list: rows
 		});
 		document.getElementById("ullist").innerHTML = document.getElementById("ullist").innerHTML + html;
+		pageno = data.page + 1;
 		if((data.page + 1) * data.size >= data.total) {
 			//没有更多数据
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 		} else {
-			pageno = data.page + 1;
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 		}
 
@@ -429,11 +962,11 @@ function pullDownSuccess(result) {
 			list: rows
 		});
 		document.getElementById("ullist").innerHTML = html;
+		pageno = data.page + 1;
 		if((data.page + 1) * data.size >= data.total) {
 			//没有更多数据
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
 		} else {
-			pageno = data.page + 1;
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 		}
 	}
@@ -443,4 +976,15 @@ function falult(message) {
 	document.getElementById("ullist").innerHTML = '';
 	mui.showMsg('查询失败');
 	//异常处理；
+}
+
+function selectWachType(type) {
+	var value = 'dx';
+	mui.each(wacthTypes, function(index, item) {
+		if(item.text == type) {
+			value = item.value;
+			return value;
+		}
+	})
+	return value;
 }
