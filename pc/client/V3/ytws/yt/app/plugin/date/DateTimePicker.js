@@ -33,10 +33,12 @@ Ext.define('yt.plugin.date.DateTimePicker', {
         'Ext.XTemplate',
         'Ext.button.Button',
         'Ext.button.Split',
-        'Ext.util.ClickRepeater',
-        'Ext.util.KeyNav',
+        'Ext.form.field.Number',
         'Ext.fx.Manager',
-        'Ext.picker.Month'
+        'Ext.picker.Date',
+        'Ext.picker.Month',
+        'Ext.util.ClickRepeater',
+        'Ext.util.KeyNav'
     ],
 
     //<locale>
