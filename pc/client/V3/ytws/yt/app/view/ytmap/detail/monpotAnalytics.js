@@ -60,7 +60,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                     store: {
                         data: [
                             {label: '位移设备', type: 'wysb'},
-                            {label: '监测设备', type: 'jcsb'},
+                            {label: '裂缝设备', type: 'lfsb'},
                             {label: '雨量设备', type: 'ylsb'}
                         ]
                     },
@@ -77,6 +77,10 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                     displayField: 'label',
                     queryMode: 'local',
                     selectOnTab: true,
+                    editable: false,
+                    typeAhead: false,
+                    allowBlank: false,
+                    emptyText: '请选择对应设备',
                     store: {
                         data: [
                             {label: '设备1'},

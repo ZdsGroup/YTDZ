@@ -48,6 +48,30 @@ var ajax = {
                     timeStamp: Ext.Date.now()
                 }*/
             });
+        },
+        executeV2: function (params, method, url, successcallback, failurecallback) {
+            if (params === null || params === undefined) {
+                params = {};
+            }
+            //追加时间戳
+            params['timeStamp'] = Ext.Date.now();
+
+            Ext.Ajax.setTimeout(ajax.v.timeout);
+            Ext.Ajax.async = true;
+            Ext.Ajax.cors = true;
+            Ext.Ajax.request({
+                method: method || ajax.v.method,
+                url: url || ajax.v.url,
+                success: function (response, opts) {
+                    if(successcallback)
+                        successcallback(response, opts);
+                },
+                failure: function (response, opts) {
+                    if(failurecallback)
+                        failurecallback(response, opts);
+                },
+                params: params
+            });
         }
     }
 }

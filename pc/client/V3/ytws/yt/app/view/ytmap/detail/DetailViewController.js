@@ -60,7 +60,7 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
                     { xtype: 'analytiscsdypmslt' }
                 ]);
                 break;
-            case 'jcsb':
+            case 'lfsb':
                 thisContainer.add([
                     { xtype: 'analyticssbdb' },
                     { xtype: 'analytiscbhgcx' }

@@ -4,7 +4,7 @@
 Ext.define('yt.view.ytmap.detail.analytics.AnalyticsYLZXT', {
     extend: 'Ext.panel.Panel',
 
-    title: '雨量折线图',
+    title: '雨量过程图',
     /*
     Uncomment to give this component an xtype
     xtype: 'analyticsylzxt',
@@ -13,17 +13,38 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsYLZXT', {
 
     requires: [
         'Ext.button.Button',
-        'Ext.form.field.Date',
         'Ext.layout.container.Fit',
         'Ext.toolbar.Fill',
+        'yt.plugin.date.DateTimeField',
+        'yt.view.ytmap.detail.analytics.AnalyticsYLZXTController',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],
 
+    controller: 'analyticsylzxt',
+
     layout: 'fit',
     tbar: [
-        { xtype: 'datefield', fieldLabel: '查询时间',labelAlign: 'right', labelWidth: 65},
-        { xtype: 'datefield', fieldLabel: '至', labelAlign: 'right', labelWidth: 20},
-        { xtype: 'button', text: '搜索'},
+        {
+            xtype: 'datetimefield',
+            reference: 'ylzxt_startTime',
+            format: 'Y-m-d H',
+            fieldLabel: '查询时间',
+            emptyText: '请选择起始时间',
+            labelAlign: 'right',
+            allowBlank: false,
+            labelWidth: 60
+        },
+        {
+            xtype: 'datetimefield',
+            reference: 'ylzxt_endTime',
+            format: 'Y-m-d H',
+            fieldLabel: '至',
+            emptyText: '请选择结束时间',
+            labelAlign: 'right',
+            allowBlank: false,
+            labelWidth: 20
+        },
+        { xtype: 'button', text: '搜索', handler: 'ylzxtUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],
@@ -31,5 +52,8 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsYLZXT', {
         {
             xtype: 'echartsbasepanel'
         }
-    ]
+    ],
+    listeners: {
+        boxready: 'bhgcxBoxReady'
+    }
 });
