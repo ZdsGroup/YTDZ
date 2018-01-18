@@ -13,7 +13,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalytiscBHGCX', {
 
     requires: [
         'Ext.button.Button',
-        'Ext.chart.series.Line',
         'Ext.form.field.Date',
         'Ext.layout.container.Fit',
         'Ext.toolbar.Fill',

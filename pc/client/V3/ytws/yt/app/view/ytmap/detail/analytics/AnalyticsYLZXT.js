@@ -13,7 +13,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsYLZXT', {
 
     requires: [
         'Ext.button.Button',
-        'Ext.chart.series.Bar',
         'Ext.form.field.Date',
         'Ext.layout.container.Fit',
         'Ext.toolbar.Fill',

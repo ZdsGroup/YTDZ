@@ -12,7 +12,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalytiscSDYPMSLT', {
     xtype: 'analytiscsdypmslt',
 
     requires: [
-        'Ext.chart.series.Scatter',
         'Ext.layout.container.Fit',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],

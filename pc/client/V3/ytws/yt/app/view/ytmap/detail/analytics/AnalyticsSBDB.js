@@ -12,15 +12,15 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsSBDB', {
 
     requires: [
         'Ext.button.Button',
+        'Ext.data.TreeStore',
         'Ext.form.field.Checkbox',
-        'Ext.form.field.Date',
         'Ext.layout.container.Fit',
-        'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'Ext.toolbar.Fill',
         'Ext.toolbar.Separator',
         'yt.plugin.date.DateTimeField',
+        'yt.view.ytmap.detail.analytics.AnalyticsSBDBController',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],
 
@@ -31,21 +31,42 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsSBDB', {
         align: 'stretch'
     },
 
+    controller: {
+        type: 'analyticssbdb'
+    },
+
     items: [
         {
             xtype: 'panel',
             title: '同类型设备对比',
+            reference: 'tlxsbdb',
             iconCls: 'fa fa-chain',
             height: '50%',
             ui: 'map-detail-secend-panel-ui',
-            layout: {
-                type: 'hbox',
-                align: 'stretch'
-            },
+            layout: 'fit',
             tbar: [
-                { xtype: 'datefield', fieldLabel: '查询时间',labelAlign: 'right', labelWidth: 65},
-                { xtype: 'datefield', fieldLabel: '至', labelAlign: 'right', labelWidth: 20},
-                { xtype: 'button', text: '搜索'},
+                {
+                    xtype: 'datetimefield',
+                    reference: 'tlxsbdb_startTime',
+                    format: 'Y-m-d H',
+                    fieldLabel: '查询时间',
+                    emptyText: '请选择起始时间',
+                    labelAlign: 'right',
+                    allowBlank: false,
+                    labelWidth: 60
+                },
+                {
+                    xtype: 'datetimefield',
+                    reference: 'tlxsbdb_endTime',
+                    format: 'Y-m-d H',
+                    fieldLabel: '至',
+                    emptyText: '请选择结束时间',
+                    labelAlign: 'right',
+                    allowBlank: false,
+                    hidden: true,
+                    labelWidth: 20
+                },
+                { xtype: 'button', text: '搜索', handler: 'tlxsbdbUpdateEcharts'},
                 '-',
                 { xtype: 'checkbox', boxLabel: '对比设备1',inputValue: '对比设备1'},
                 { xtype: 'checkbox', boxLabel: '对比设备2',inputValue: '对比设备2'},
@@ -57,7 +78,10 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsSBDB', {
                 {
                     xtype: 'echartsbasepanel'
                 }
-            ]
+            ],
+            listeners: {
+                boxready: 'tlxsbdbBoxReady'
+            }
         },
         {
             xtype: 'panel',

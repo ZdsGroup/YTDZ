@@ -10,9 +10,7 @@ Ext.define('yt.view.ytmap.detail.analytics.EchartsBasePanel', {
     */
     xtype: 'echartsbasepanel',
 
-    requires: [
-        'Ext.chart.series.Bar'
-    ],
+    requires: [],
 
     bodyPadding: 5,
     border: false,
