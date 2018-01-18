@@ -17,7 +17,10 @@ var mv = {
             mapDetailPanelParam: null,//详情面板浮动参数
             isMapDetaiMaximize: false,//属性面板是否最大化
             markerGroup: null,
-            LayerGroup: null
+            LayerGroup: null,
+            dzMarkerGroup: new L.layerGroup(),
+            jcsbMarkerGroup: new L.layerGroup(),
+            maxZoomShow: 16
         },
         fn: {
             initMap: function (mapid) {
@@ -75,7 +78,7 @@ var mv = {
             createMarker: function (dataList) {
                 //地灾点
                 if (dataList && dataList instanceof Array && dataList.length > 0) {
-                    var markers = [];
+                    var latlngs = new Array();
                     Ext.each(dataList, function (data) {
                         if (data != null && data['children'] && data['children'].length > 0) {
                             var dzList = data['children'];
@@ -99,8 +102,10 @@ var mv = {
                                         title: dzName,
                                         attribution: dzData//绑定数据
                                     });
+                                    latlngs
 
                                     dzMarker.on('click', function () {
+                                        mv.v.map.flyTo(dzMarker.getLatLng());
                                         mv.v.isMapDetaiMaximize = false;
                                         mv.v.mapDetailPanelParam = {
                                             gapX: 5,
@@ -110,6 +115,11 @@ var mv = {
                                             h: '100%',//数值或百分比，如：100%
                                             align: 'br' //右下
                                         };
+                                        if(mv.v.jcsbMarkerGroup){
+                                            mv.v.jcsbMarkerGroup.clearLayers();
+                                        }
+                                        mv.fn.dzAreaLine(dzMarker.options.attribution.coordinates);
+                                        mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
                                         //显示属性面板
                                         mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam)
 
@@ -118,17 +128,20 @@ var mv = {
                                             mv.fn.showBasicInfo();
                                         }
                                     });
-
-                                    markers.push(dzMarker);
+                                    mv.v.dzMarkerGroup.addLayer(dzMarker);
+                                    latlngs.push(dzMarker.getLatLng());
                                 });
                             }
                         }
                     });
-
-                    //创建标签分组
-                    if (markers.length > 0) {
-                        mv.v.markerGroup = L.layerGroup(markers);
-                        mv.v.map.addLayer(mv.v.markerGroup);
+                    mv.v.map.addLayer(mv.v.dzMarkerGroup);
+                    if(latlngs.length>0){
+                        var bounds = L.latLngBounds(latlngs).pad(0.2);
+                        setTimeout(function() {
+                            mv.v.map.flyToBounds(bounds, {
+                                maxZoom: mv.v.maxZoomShow
+                            });
+                        }, 500);
                     }
                 }
             },
@@ -426,6 +439,65 @@ var mv = {
 
                 //@TODO 根据当前选中对象（地灾点或监测设备动态加载详情内容,若显示基本信息面板时，这里的内容没有事先加载，这里需要加载）
 
+            },
+            //地图操作
+            dzAreaLine:function (points) {
+                var pointsT = Ext.decode(points);
+                if(pointsT!=null&&pointsT.length>2){
+                    var latlngs = new Array();
+                    for (var i = 0; i < pointsT.length; i++) {
+                        latlngs.push(new L.latLng(pointsT[i].lat, pointsT[i].lng));
+                    }
+                    var dzAreaLine = L.polygon(latlngs, {
+                        color: 'red',
+                        weight: 2,
+                        opacity: 0.5,
+                        fillColor: '#cccccc',
+                        fillOpacity: 0.4,
+                        fill: true
+                    });
+                    mv.v.jcsbMarkerGroup.addLayer(dzAreaLine);
+                    mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
+                }
+            },
+            showJcsbMarkersByDZ:function (dzInfo) {
+                if(dzInfo!=null && dzInfo['children']!=null){
+                    var jcsbList = dzInfo['children'];
+                    if(jcsbList.length>0){
+                        var latlngs = new Array();
+                        Ext.each(jcsbList, function (jcdbInfo){
+                            var jcName = jcdbInfo['text'];
+                            var jcRank = jcdbInfo['rank'];
+                            var iconName = 'camera';
+                            var markColor = 'purple';
+                            var markColor = mv.fn.calcRank(jcRank);
+                            var markerIcon = L.AwesomeMarkers.icon({
+                                icon: iconName,
+                                markerColor: markColor,
+                                prefix: 'fa',
+                                spin: false
+                            });
+                            var jcdbPot = [jcdbInfo['lat'], jcdbInfo['lng']];
+                            var jcdbMarker = new L.marker(jcdbPot, {
+                                icon: markerIcon,
+                                draggable: false,
+                                title: jcName,
+                                attribution: jcdbInfo//绑定数据
+                            });
+                            mv.v.jcsbMarkerGroup.addLayer(jcdbMarker);
+                            latlngs.push(jcdbMarker.getLatLng());
+                        });
+                        mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
+                        if(latlngs.length>0){
+                            var bounds = L.latLngBounds(latlngs).pad(0.2);
+                            setTimeout(function() {
+                                mv.v.map.flyToBounds(bounds, {
+                                    maxZoom: mv.v.maxZoomShow
+                                });
+                            }, 500);
+                        }
+                    }
+                }
             },
             //属性面板布局重绘
             relayoutPanel: function (parentContainer, childContainer, floatParams) {
