@@ -44,34 +44,28 @@ var mv = {
                 // mv.fn.setWarnInfo();
             },
             calcRank: function (dzRank) {
-                switch(String(dzRank)) {
-                    case '4':
-                    {
+                switch (String(dzRank)) {
+                    case '4': {
                         markColor = 'red';
                         break;
                     }
-                    case '3':
-                    {
+                    case '3': {
                         markColor = 'orange';
                         break;
                     }
-                    case '2':
-                    {
+                    case '2': {
                         markColor = 'purple'; //就是yellow颜色
                         break;
                     }
-                    case '1':
-                    {
+                    case '1': {
                         markColor = 'blue';
                         break;
                     }
-                    case '0':
-                    {
+                    case '0': {
                         markColor = 'green';
                         break;
                     }
-                    default:
-                    {
+                    default: {
                         markColor = 'cadetblue';
                         break;
                     }
@@ -121,7 +115,7 @@ var mv = {
                                             h: '100%',//数值或百分比，如：100%
                                             align: 'br' //右下
                                         };
-                                        if(mv.v.jcsbMarkerGroup){
+                                        if (mv.v.jcsbMarkerGroup) {
                                             mv.v.jcsbMarkerGroup.clearLayers();
                                         }
                                         mv.fn.dzAreaLine(dzMarker.options.attribution.coordinates);
@@ -141,9 +135,9 @@ var mv = {
                         }
                     });
                     mv.v.map.addLayer(mv.v.dzMarkerGroup);
-                    if(latlngs.length>0){
+                    if (latlngs.length > 0) {
                         var bounds = L.latLngBounds(latlngs).pad(0.2);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             mv.v.map.flyToBounds(bounds, {
                                 maxZoom: mv.v.maxZoomShow
                             });
@@ -300,6 +294,13 @@ var mv = {
                                                 handler: function () {
                                                     mv.v.mapDetailPanel.hide();
                                                     mv.v.isMapDetaiMaximize = false;
+
+                                                    //变更按钮状态
+                                                    var closeBtn = Ext.getCmp('mondataMoreId');
+                                                    if (closeBtn) {
+                                                        closeBtn.setIconCls('fa fa-plus');
+                                                        closeBtn.setTooltip('更多信息');
+                                                    }
                                                 }
                                             }
                                         ]
@@ -447,9 +448,9 @@ var mv = {
 
             },
             //地图操作
-            dzAreaLine:function (points) {
+            dzAreaLine: function (points) {
                 var pointsT = Ext.decode(points);
-                if(pointsT!=null&&pointsT.length>2){
+                if (pointsT != null && pointsT.length > 2) {
                     var latlngs = new Array();
                     for (var i = 0; i < pointsT.length; i++) {
                         latlngs.push(new L.latLng(pointsT[i].lat, pointsT[i].lng));
@@ -466,12 +467,12 @@ var mv = {
                     mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
                 }
             },
-            showJcsbMarkersByDZ:function (dzInfo) {
-                if(dzInfo!=null && dzInfo['children']!=null){
+            showJcsbMarkersByDZ: function (dzInfo) {
+                if (dzInfo != null && dzInfo['children'] != null) {
                     var jcsbList = dzInfo['children'];
-                    if(jcsbList.length>0){
+                    if (jcsbList.length > 0) {
                         var latlngs = new Array();
-                        Ext.each(jcsbList, function (jcdbInfo){
+                        Ext.each(jcsbList, function (jcdbInfo) {
                             var jcName = jcdbInfo['text'];
                             var jcRank = jcdbInfo['rank'];
                             var mId = jcdbInfo['id'];
@@ -498,9 +499,9 @@ var mv = {
                             latlngs.push(jcdbMarker.getLatLng());
                         });
                         mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
-                        if(latlngs.length>0){
+                        if (latlngs.length > 0) {
                             var bounds = L.latLngBounds(latlngs).pad(0.2);
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 mv.v.map.flyToBounds(bounds, {
                                     maxZoom: mv.v.maxZoomShow
                                 });
@@ -509,20 +510,20 @@ var mv = {
                     }
                 }
             },
-            getWarnInfoList:function () {
+            getWarnInfoList: function () {
                 var method = 'GET';
                 var url = conf.serviceUrl + 'alarms/menu/rank';
                 ajax.fn.executeV2('', method, url,
                     function (response) {
                         var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                        if(result!=null && result['data']!=null){
+                        if (result != null && result['data'] != null) {
                             var quakeNum = 0;
                             var deviceNum = 0;
                             var rankList = result['data'];
-                            if(rankList['quakeList']!=null){
+                            if (rankList['quakeList'] != null) {
                                 mv.v.quakesList = rankList['quakeList'];
                             }
-                            if(rankList['deviceList']!=null){
+                            if (rankList['deviceList'] != null) {
                                 mv.v.devicesList = rankList['deviceList'];
                             }
                             mv.fn.setWarnInfo();
@@ -534,16 +535,16 @@ var mv = {
                     }
                 );
             },
-            setWarnInfo:function () {
-                var quakeNum = mv.v.quakesList==null? 0:mv.v.quakesList.length;
-                var deviceNum = mv.v.devicesList==null? 0:mv.v.devicesList.length;
+            setWarnInfo: function () {
+                var quakeNum = mv.v.quakesList == null ? 0 : mv.v.quakesList.length;
+                var deviceNum = mv.v.devicesList == null ? 0 : mv.v.devicesList.length;
                 var warnInfo = Ext.String.format("当前预警：地灾点{0}个，监测设备{1}个。", quakeNum, deviceNum);
                 var warnInfoTextCom = Ext.getCmp('warnInfoText');
                 if (warnInfoTextCom) {
                     warnInfoTextCom.setHtml(warnInfo);
                 }
             },
-            refreshMarkerColor:function () {
+            refreshMarkerColor: function () {
 
             },
             //属性面板布局重绘
