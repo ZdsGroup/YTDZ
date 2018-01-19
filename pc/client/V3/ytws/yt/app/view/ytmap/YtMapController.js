@@ -20,6 +20,8 @@ var mv = {
             LayerGroup: null,
             dzMarkerGroup: new L.layerGroup(),
             jcsbMarkerGroup: new L.layerGroup(),
+            quakesList: null,
+            devicesList: null,
             maxZoomShow: 16
         },
         fn: {
@@ -38,6 +40,8 @@ var mv = {
                 mv.fn.createMapToolPanel(mv.v.mapParentId);
                 //mv.fn.createWarnTip(mapid);
                 mv.fn.createWarnPanel(mv.v.mapParentId);
+                mv.fn.getWarnInfoList();
+                // mv.fn.setWarnInfo();
             },
             calcRank: function (dzRank) {
                 switch(String(dzRank)) {
@@ -86,6 +90,8 @@ var mv = {
                                 Ext.each(dzList, function (dzData) {
                                     var dzName = dzData['text'];
                                     var dzRank = dzData['rank'];
+                                    var mId = dzData['quakeid'];
+                                    var mType = 'dzd';
                                     var iconName = 'bullseye';
                                     var markColor = 'green';
                                     var markColor = mv.fn.calcRank(dzRank);
@@ -100,10 +106,10 @@ var mv = {
                                         icon: markerIcon,
                                         draggable: false,
                                         title: dzName,
+                                        type: mType,
+                                        id: mId,
                                         attribution: dzData//绑定数据
                                     });
-                                    latlngs
-
                                     dzMarker.on('click', function () {
                                         mv.v.map.flyTo(dzMarker.getLatLng());
                                         mv.v.isMapDetaiMaximize = false;
@@ -121,7 +127,7 @@ var mv = {
                                         mv.fn.dzAreaLine(dzMarker.options.attribution.coordinates);
                                         mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
                                         //显示属性面板
-                                        mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam)
+                                        mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
 
                                         if (mv.v.mapDetailPanel) {
                                             //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
@@ -468,6 +474,8 @@ var mv = {
                         Ext.each(jcsbList, function (jcdbInfo){
                             var jcName = jcdbInfo['text'];
                             var jcRank = jcdbInfo['rank'];
+                            var mId = jcdbInfo['id'];
+                            var mType = jcdbInfo['type'];
                             var iconName = 'camera';
                             var markColor = 'purple';
                             var markColor = mv.fn.calcRank(jcRank);
@@ -482,6 +490,8 @@ var mv = {
                                 icon: markerIcon,
                                 draggable: false,
                                 title: jcName,
+                                type: mType,
+                                id: mId,
                                 attribution: jcdbInfo//绑定数据
                             });
                             mv.v.jcsbMarkerGroup.addLayer(jcdbMarker);
@@ -498,6 +508,43 @@ var mv = {
                         }
                     }
                 }
+            },
+            getWarnInfoList:function () {
+                var method = 'GET';
+                var url = conf.serviceUrl + 'alarms/menu/rank';
+                ajax.fn.executeV2('', method, url,
+                    function (response) {
+                        var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                        if(result!=null && result['data']!=null){
+                            var quakeNum = 0;
+                            var deviceNum = 0;
+                            var rankList = result['data'];
+                            if(rankList['quakeList']!=null){
+                                mv.v.quakesList = rankList['quakeList'];
+                            }
+                            if(rankList['deviceList']!=null){
+                                mv.v.devicesList = rankList['deviceList'];
+                            }
+                            mv.fn.setWarnInfo();
+                            mv.fn.refreshMarkerColor();
+                        }
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            },
+            setWarnInfo:function () {
+                var quakeNum = mv.v.quakesList==null? 0:mv.v.quakesList.length;
+                var deviceNum = mv.v.devicesList==null? 0:mv.v.devicesList.length;
+                var warnInfo = Ext.String.format("当前预警：地灾点{0}个，监测设备{1}个。", quakeNum, deviceNum);
+                var warnInfoTextCom = Ext.getCmp('warnInfoText');
+                if (warnInfoTextCom) {
+                    warnInfoTextCom.setHtml(warnInfo);
+                }
+            },
+            refreshMarkerColor:function () {
+
             },
             //属性面板布局重绘
             relayoutPanel: function (parentContainer, childContainer, floatParams) {
@@ -583,10 +630,6 @@ var mv = {
                 mv.v.mapWarnPanel.el.alignTo(parentContainer, "tl?", [offsetX, offsetY], true);
                 mv.v.mapWarnPanel.updateLayout();
 
-                var warnInfoTextCom = Ext.getCmp('warnInfoText');
-                if (warnInfoTextCom) {
-                    warnInfoTextCom.setHtml('今日预警：地灾点5个，监测设备26个。');
-                }
             },
             createMapToolPanel: function (parentId) {
                 if (mv.v.mapToolPanel != null) {
