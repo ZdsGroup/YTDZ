@@ -45,7 +45,7 @@ var mv = {
                 mv.fn.getWarnInfoList();
                 var refershMarkColor = {
                     run: mv.fn.getWarnInfoList,
-                    interval: 1000 * 10
+                    interval: 1000 * 60 * conf.refreshTime
                 }
                 Ext.TaskManager.start( refershMarkColor );
                 // mv.fn.setWarnInfo();
@@ -554,6 +554,7 @@ var mv = {
                             }
                             mv.fn.setWarnInfo();
                             mv.fn.refreshMarkerColor();
+                            mv.fn.refreshMenuColor();
                         }
                     },
                     function (response) {
@@ -591,6 +592,8 @@ var mv = {
                         if(markerIcon)dzMarker.setIcon(markerIcon);
                     })
                 }
+            },
+            refreshMenuColor: function () {
                 // 更新左侧树
                 var newMenuList = Ext.clone( mv.v.menuDataNoRankList );
                 Ext.each(newMenuList,function (regionData) {
