@@ -18,8 +18,8 @@ var mv = {
             isMapDetaiMaximize: false,//属性面板是否最大化
             markerGroup: null,
             LayerGroup: null,
-            dzMarkerGroup: new L.layerGroup(),
-            jcsbMarkerGroup: new L.layerGroup(),
+            dzMarkerGroup: null,//new L.layerGroup(),
+            jcsbMarkerGroup: null,//new L.layerGroup(),
             quakesList: null,
             devicesList: null,
             maxZoomShow: 16
@@ -749,6 +749,8 @@ Ext.define('yt.view.ytmap.YtMapController', {
      * Called when the view is created
      */
     init: function () {
+        mv.v.dzMarkerGroup = new L.layerGroup();
+        mv.v.jcsbMarkerGroup = new L.layerGroup();
     },
     afterlayout: function () {
         if (!mv.v.isMapAdded) {
