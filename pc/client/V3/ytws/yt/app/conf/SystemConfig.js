@@ -6,6 +6,7 @@ Ext.define('yt.conf.SystemConfig', {
     //singleton: true,
     serviceUrl: 'http://182.92.2.91:8080/oracle/',
     title: "鹰潭市智能监测预警系统",
+    refreshTime: 5, // 单位：分钟
     //主容器ID
     bodyContainerID: 'bodyContainerID',
     //浮动容器ID
