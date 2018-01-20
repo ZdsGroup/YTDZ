@@ -77,7 +77,7 @@ Ext.define('yt.view.ytwest.YtWest', {
                 rowLines: true,
                 columnLines: true,
                 singleExpand: false,
-                expanderOnly: false,
+                expanderOnly: true,
                 expanderFirst: false,
                 itemRipple: true,
 
