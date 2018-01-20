@@ -318,7 +318,7 @@ var g = {
         //获取地灾点树
         getDzDataTree: function (view) {
             var me = view;
-            var dzDataTree = me.lookupReference('dzDataTreeRef');
+            var dzDataTree = Ext.getCmp('dzDataTreeRef');
             var dzDataTreeCon = Ext.getCmp('dzDataTreeContainerId');
             var mask = ajax.fn.showMask(dzDataTreeCon, '数据加载中...');
 
@@ -330,6 +330,50 @@ var g = {
                 if (result['data'] != null) {
                     var dataList = result['data'];
                     if (dataList && dataList.length > 0) {
+                        mv.v.menuDataNoRankList = Ext.clone( dataList );
+                        // 如果此时预警信息已经获取则通过预警信息格式化此时的数据
+                        Ext.each(dataList,function (regionData) {
+                            if(regionData.children && regionData.children.length > 0){
+                                Ext.each(regionData.children, function (quakeData) {
+                                    if(quakeData['children'] && quakeData['children'].length > 0){
+                                        Ext.each( quakeData.children, function (deviceData) {
+                                            deviceData.rank = 0;
+                                            if(mv.v.devicesRankList){
+                                                Ext.each(mv.v.devicesRankList, function (devicesRankData) {
+                                                    if(devicesRankData.QUAKEID === quakeData.code
+                                                    && devicesRankData.DEVICEID === deviceData.code)
+                                                        deviceData.rank = devicesRankData.RANK;
+                                                })
+                                            }
+                                            switch (deviceData.rank){
+                                                case 0:
+                                                    deviceData.iconCls += ' green-cls';
+                                                    break;
+                                                case 1:
+                                                    deviceData.iconCls += ' blue-cls';
+                                                    break;
+                                                case 2:
+                                                    deviceData.iconCls += ' yellow-cls';
+                                                    break;
+                                                case 3:
+                                                    deviceData.iconCls += ' orange-cls';
+                                                    break;
+                                                case 4:
+                                                    deviceData.iconCls += ' red-cls';
+                                                    break;
+                                            }
+                                        } )
+                                    }
+                                    quakeData.rank = 0;
+                                    if(mv.v.quakesRankList){
+                                        Ext.each(mv.v.quakesRankList, function (quakesRankData) {
+                                            if(quakesRankData.QUAKEID === quakeData.code)
+                                                quakeData.rank = quakesRankData.RANK;
+                                        })
+                                    }
+                                })
+                            }
+                        })
                         var treeStore = new Ext.create('Ext.data.TreeStore', {
                             data: dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
                         });
@@ -337,7 +381,7 @@ var g = {
                         //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
 
                         //解析数据，并绘制到当前地图
-                        mv.fn.createMarker(dataList);//@TODO 已对接服务
+                        mv.fn.createMarker(dataList);
                     }
                 }
 

@@ -18,8 +18,11 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'Ext.toolbar.Paging',
-        'yt.plugin.date.DateTimeField'
+        'yt.plugin.date.DateTimeField',
+        'yt.view.ytmap.detail.DetailViewController'
     ],
+
+    controller: 'detailViewController',
 
     flex: 1,
     margin: '5 10 5 10',
@@ -39,7 +42,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
             items: [
                 {
                     xtype: 'datetimefield',
-                    format: 'Y/m/d H:i:s',
+                    reference: 'startDate',
+                    format: 'Y-m-d H:i:s',
                     fieldLabel: '查询时间',
                     emptyText: '请选择起始时间',
                     labelAlign: 'right',
@@ -48,7 +52,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 },
                 {
                     xtype: 'datetimefield',
-                    format: 'Y/m/d H:i:s',
+                    reference: 'endDate',
+                    format: 'Y-m-d H:i:s',
                     fieldLabel: '至',
                     emptyText: '请选择结束时间',
                     labelAlign: 'right',
@@ -61,6 +66,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 },
                 {
                     xtype: 'button',
+                    handler: 'updateAlertInfoDataGrid',
                     text: '搜索'
                 },
                 {
@@ -120,6 +126,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
         },
         {
             xtype: 'gridpanel',
+            reference: 'AlertInfoGridPanel',
             flex: 1,
             margin: '5 0 0 0',
             border: true,
@@ -135,27 +142,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
 
             columns: [
                 {
-                    dataIndex: '1',
-                    text: '序号',
-                    flex: 1,
-
-                    hideable: false,
-                    menuDisabled: true,
-                    resizable: false,
-                    sortable: false,
-                    align: 'center'
-                }, {
-                    dataIndex: '2',
-                    text: '断面名称',
-                    flex: 1,
-
-                    hideable: false,
-                    menuDisabled: true,
-                    resizable: false,
-                    sortable: false,
-                    align: 'center'
-                }, {
-                    dataIndex: '3',
+                    dataIndex: 'devicename',
                     text: '设备名称',
                     flex: 1,
 
@@ -165,8 +152,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     sortable: false,
                     align: 'center'
                 }, {
-                    dataIndex: '4',
-                    text: '报警等级',
+                    dataIndex: 'alarmtype',
+                    text: '预警类型',
                     flex: 1,
 
                     hideable: false,
@@ -175,8 +162,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     sortable: false,
                     align: 'center'
                 }, {
-                    dataIndex: '5',
-                    text: '报警内容',
+                    dataIndex: 'settingv',
+                    text: '设定值',
                     flex: 1,
 
                     hideable: false,
@@ -185,9 +172,39 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     sortable: false,
                     align: 'center'
                 }, {
-                    dataIndex: '6',
-                    text: '报警时间',
+                    dataIndex: 'alarmv',
+                    text: '预警值',
                     flex: 1,
+
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false,
+                    align: 'center'
+                }, {
+                    dataIndex: 'rank',
+                    text: '预警等级',
+                    flex: 1,
+
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false,
+                    align: 'center'
+                }, {
+                    dataIndex: 'content',
+                    text: '详细信息',
+                    flex: 3,
+
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false,
+                    align: 'center'
+                },{
+                    dataIndex: 'alarmtime',
+                    text: '预警时间',
+                    flex: 3,
 
                     hideable: false,
                     menuDisabled: true,
@@ -200,6 +217,9 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 displayInfo: true,
                 displayMsg: '当前展示 {0} - {1} 共 {2}',
                 emptyMsg: "当前列表为空"
+            },
+            listeners: {
+                boxready: 'updateAlertInfoDataGrid',
             }
         }
     ]

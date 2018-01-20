@@ -15,13 +15,15 @@ var mv = {
             mapWarnPanel: null,//地灾点预警信息面板
             mapDetailPanel: null,//地灾点或设备详情面板
             mapDetailPanelParam: null,//详情面板浮动参数
+            mapDetailPanelInfo: null,//地灾点或设备详情信息
             isMapDetaiMaximize: false,//属性面板是否最大化
             markerGroup: null,
             LayerGroup: null,
             dzMarkerGroup: null,//new L.layerGroup(),
             jcsbMarkerGroup: null,//new L.layerGroup(),
-            quakesList: null,
-            devicesList: null,
+            menuDataNoRankList: null,// 左侧树没有rank值的数据
+            quakesRankList: null,
+            devicesRankList: null,
             maxZoomShow: 16
         },
         fn: {
@@ -41,6 +43,11 @@ var mv = {
                 //mv.fn.createWarnTip(mapid);
                 mv.fn.createWarnPanel(mv.v.mapParentId);
                 mv.fn.getWarnInfoList();
+                var refershMarkColor = {
+                    run: mv.fn.getWarnInfoList,
+                    interval: 1000 * 10
+                }
+                Ext.TaskManager.start( refershMarkColor );
                 // mv.fn.setWarnInfo();
             },
             calcRank: function (dzRank) {
@@ -77,6 +84,9 @@ var mv = {
                 //地灾点
                 if (dataList && dataList instanceof Array && dataList.length > 0) {
                     var latlngs = new Array();
+                    if (mv.v.dzMarkerGroup != null) {
+                        mv.v.dzMarkerGroup.clearLayers();
+                    }
                     Ext.each(dataList, function (data) {
                         if (data != null && data['children'] && data['children'].length > 0) {
                             var dzList = data['children'];
@@ -84,11 +94,11 @@ var mv = {
                                 Ext.each(dzList, function (dzData) {
                                     var dzName = dzData['text'];
                                     var dzRank = dzData['rank'];
-                                    var mId = dzData['quakeid'];
+                                    var mId = dzData['code'];
                                     var mType = 'dzd';
                                     var iconName = 'bullseye';
                                     var markColor = 'green';
-                                    var markColor = mv.fn.calcRank(dzRank);
+                                    markColor = mv.fn.calcRank(dzRank);
                                     var markerIcon = L.AwesomeMarkers.icon({
                                         icon: iconName,
                                         markerColor: markColor,
@@ -122,9 +132,25 @@ var mv = {
                                         mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
                                         //显示属性面板
                                         mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
-
                                         if (mv.v.mapDetailPanel) {
                                             //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
+                                            if( !mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== dzMarker.options.attribution.code){
+                                                // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
+                                                Ext.getCmp('mondataTitleId').setHtml( dzMarker.options.attribution.text );
+                                                Ext.getCmp('mondataAddressId').setHtml(  ); // todo address 没找到对应字段
+                                                var showMondataType = '';
+                                                switch ( dzMarker.options.attribution.type ){
+                                                    case 'disasterpoint':
+                                                        showMondataType = '地面塌陷';
+                                                        break;
+                                                }
+                                                Ext.getCmp('mondataTypeId').setHtml( showMondataType );
+
+                                                Ext.getCmp('mondataRankId').setValue( dzMarker.options.attribution.rank );
+                                                Ext.getCmp('mondataRankId').setLimit( dzMarker.options.attribution.rank );
+                                                Ext.getCmp('mondataRankId').setMinimum( dzMarker.options.attribution.rank );
+                                            }
+                                            mv.v.mapDetailPanelInfo = dzMarker.options.attribution;
                                             mv.fn.showBasicInfo();
                                         }
                                     });
@@ -371,10 +397,10 @@ var mv = {
                                                 flex: 1,
                                                 height: 16,
                                                 minimum: 4,
-                                                value: 4,
                                                 limit: 4,
+                                                value: 4,
                                                 overStyle: 'color:red;',
-                                                selectedStyle: 'color:red;'
+                                                selectedStyle: 'color:red;',
                                             }
                                         ]
                                     }
@@ -521,10 +547,10 @@ var mv = {
                             var deviceNum = 0;
                             var rankList = result['data'];
                             if (rankList['quakeList'] != null) {
-                                mv.v.quakesList = rankList['quakeList'];
+                                mv.v.quakesRankList = rankList['quakeList'];
                             }
                             if (rankList['deviceList'] != null) {
-                                mv.v.devicesList = rankList['deviceList'];
+                                mv.v.devicesRankList = rankList['deviceList'];
                             }
                             mv.fn.setWarnInfo();
                             mv.fn.refreshMarkerColor();
@@ -536,8 +562,8 @@ var mv = {
                 );
             },
             setWarnInfo: function () {
-                var quakeNum = mv.v.quakesList == null ? 0 : mv.v.quakesList.length;
-                var deviceNum = mv.v.devicesList == null ? 0 : mv.v.devicesList.length;
+                var quakeNum = mv.v.quakesRankList == null ? 0 : mv.v.quakesRankList.length;
+                var deviceNum = mv.v.devicesRankList == null ? 0 : mv.v.devicesRankList.length;
                 var warnInfo = Ext.String.format("当前预警：地灾点{0}个，监测设备{1}个。", quakeNum, deviceNum);
                 var warnInfoTextCom = Ext.getCmp('warnInfoText');
                 if (warnInfoTextCom) {
@@ -545,7 +571,74 @@ var mv = {
                 }
             },
             refreshMarkerColor: function () {
-
+                // 更新地图上的 mark 点
+                if (mv.v.dzMarkerGroup != null) {
+                    mv.v.dzMarkerGroup.eachLayer(function (dzMarker) {
+                        var oldOption = dzMarker.options;
+                        var dzName = oldOption['title'];
+                        var dzCode = oldOption['id'];
+                        var markerIcon = null;
+                        Ext.each(mv.v.quakesRankList , function (quakesRankData) {
+                            if(quakesRankData.QUAKEID === dzCode){
+                                markerIcon= L.AwesomeMarkers.icon({
+                                    icon: 'bullseye',
+                                    markerColor: mv.fn.calcRank( quakesRankData.RANK ),
+                                    prefix: 'fa',
+                                    spin: false
+                                });
+                            }
+                        })
+                        if(markerIcon)dzMarker.setIcon(markerIcon);
+                    })
+                }
+                // 更新左侧树
+                var newMenuList = Ext.clone( mv.v.menuDataNoRankList );
+                Ext.each(newMenuList,function (regionData) {
+                    if(regionData.children && regionData.children.length > 0){
+                        Ext.each(regionData.children, function (quakeData) {
+                            if(quakeData['children'] && quakeData['children'].length > 0){
+                                Ext.each( quakeData.children, function (deviceData) {
+                                    deviceData.rank = 0;
+                                    if(mv.v.devicesRankList){
+                                        Ext.each(mv.v.devicesRankList, function (devicesRankData) {
+                                            if(devicesRankData.QUAKEID === quakeData.code
+                                                && devicesRankData.DEVICEID === deviceData.code)
+                                                deviceData.rank = devicesRankData.RANK;
+                                        })
+                                    }
+                                    switch (deviceData.rank){
+                                        case 0:
+                                            deviceData.iconCls += ' green-cls';
+                                            break;
+                                        case 1:
+                                            deviceData.iconCls += ' blue-cls';
+                                            break;
+                                        case 2:
+                                            deviceData.iconCls += ' yellow-cls';
+                                            break;
+                                        case 3:
+                                            deviceData.iconCls += ' orange-cls';
+                                            break;
+                                        case 4:
+                                            deviceData.iconCls += ' red-cls';
+                                            break;
+                                    }
+                                } )
+                            }
+                            quakeData.rank = 0;
+                            if(mv.v.quakesRankList){
+                                Ext.each(mv.v.quakesRankList, function (quakesRankData) {
+                                    if(quakesRankData.QUAKEID === quakeData.code)
+                                        quakeData.rank = quakesRankData.RANK;
+                                })
+                            }
+                        })
+                    }
+                })
+                var treeStore = new Ext.create('Ext.data.TreeStore', {
+                    data: newMenuList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
+                });
+                Ext.getCmp('dzDataTreeRef').setStore(treeStore);
             },
             //属性面板布局重绘
             relayoutPanel: function (parentContainer, childContainer, floatParams) {

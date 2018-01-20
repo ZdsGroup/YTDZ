@@ -68,7 +68,7 @@ Ext.define('yt.view.ytwest.YtWest', {
             layout: 'fit',
             items: [{
                 xtype: 'treelist',
-                reference: 'dzDataTreeRef',
+                id: 'dzDataTreeRef',
                 rootVisible: false,
                 useArrows: true,
                 frame: false,
@@ -79,7 +79,11 @@ Ext.define('yt.view.ytwest.YtWest', {
                 singleExpand: false,
                 expanderOnly: false,
                 expanderFirst: false,
-                itemRipple: true
+                itemRipple: true,
+
+                listeners: {
+                    selectionchange: 'treeSelection'
+                }
             }]
         }]
 });

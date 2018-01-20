@@ -47,6 +47,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
             items: [
                 {
                     xtype: 'combo',
+                    reference: 'deviceTypeCombo',
                     fieldLabel: '设备筛选',
                     labelWidth: 65,
                     labelAlign: 'right',
@@ -112,5 +113,9 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                 }
             }
         }
-    ]
+    ],
+
+    listeners: {
+        boxready: 'boxReadyFunc'
+    }
 });

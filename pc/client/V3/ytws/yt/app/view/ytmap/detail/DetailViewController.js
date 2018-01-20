@@ -6,6 +6,9 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
     alias: 'controller.detailViewController',
 
     requires: [
+        'Ext.chart.series.Scatter',
+        'Ext.data.Store',
+        'Ext.data.TreeStore',
         'Ext.util.Format',
         'yt.view.ytmap.detail.analytics.AnalyticsDMQXT',
         'yt.view.ytmap.detail.analytics.AnalyticsSBDB',
@@ -32,6 +35,14 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
     },
 
     // 智能分析面板相关 controller
+    boxReadyFunc: function () {
+        var me = this;
+        var meView = me.getView();
+
+        var deviceTypeCombo = meView.lookupReference('deviceTypeCombo');
+        var deviceTypeStore = deviceTypeCombo.getStore();
+        deviceTypeCombo.setSelection( deviceTypeStore.first() );
+    },
     deviceTypeChange: function (combo, record, eOpts) {
         // 根据设备的type切换显示指定的tab页
         this.switchAnalyticsTab(record.get('type'));
@@ -74,8 +85,39 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
                 break;
         }
         thisContainer.setActiveTab( 0 );
-    }
+    },
 
 
     // 预警信息面板相关 controller
+    updateAlertInfoDataGrid: function () {
+        var me = this;
+        var meView = me.getView();
+        var datagrid = meView.lookupReference('AlertInfoGridPanel');
+
+        var action = "alarms";
+        var param = {};// todo 参数待填充
+        // param.deviceid = '7';
+        // param.begin = meView.lookupReference('startTime').getRawValue();
+        // param.end = meView.lookupReference('endTime').getRawValue();
+        param.pageno = 1;
+        param.pagesize = 50;
+
+        var mask = ajax.fn.showMask( meView, '数据加载中...');
+
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if (result['data'] === null) return;
+
+            var gridStore = new Ext.create('Ext.data.Store', {
+                data: result.data.rows
+            });
+            datagrid.setStore(gridStore);
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+        ajax.fn.executeV2(param, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
+    }
 });
