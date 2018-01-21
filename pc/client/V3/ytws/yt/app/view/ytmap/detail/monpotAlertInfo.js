@@ -48,7 +48,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     emptyText: '请选择起始时间',
                     labelAlign: 'right',
                     allowBlank: false,
-                    labelWidth: 60
+                    labelWidth: 60,
+                    value: Ext.Date.add(new Date(), Ext.Date.DAY, -1)
                 },
                 {
                     xtype: 'datetimefield',
@@ -58,7 +59,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     emptyText: '请选择结束时间',
                     labelAlign: 'right',
                     allowBlank: false,
-                    labelWidth: 20
+                    labelWidth: 20,
+                    value: new Date()  //默认当天
                 },
                 {
                     xtype: 'component',
@@ -85,7 +87,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     items: [
                         {
                             xtype: 'combo',
-                            fieldLabel: '设备筛选',
+                            fieldLabel: '设备类型',
                             labelWidth: 65,
                             labelAlign: 'right',
                             displayField: 'label',
@@ -93,10 +95,11 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                             typeAhead: false,
                             queryMode: 'local',
                             selectOnTab: true,
+                            value: '裂缝设备',
                             store: {
                                 data: [
+                                    {label: '裂缝设备'},
                                     {label: '位移设备'},
-                                    {label: '监测设备'},
                                     {label: '雨量设备'}
                                 ]
                             }

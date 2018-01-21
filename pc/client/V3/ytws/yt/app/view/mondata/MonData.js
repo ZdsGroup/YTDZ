@@ -94,18 +94,18 @@ Ext.define('yt.view.mondata.MonData', {
                             reference: 'monTypeListRef',
                             margin: '0 0 0 10',
                             allowBlank: false,
-                            fieldLabel: '监测类型',
+                            fieldLabel: '设备类型',
                             name: 'monType',
                             bind: {
                                 store: '{typeStore}'
                             },
                             valueField: 'type',
                             displayField: 'name',
-                            value: '全部类型',
+                            value: '裂缝设备',
                             editable: false,
                             typeAhead: false,
                             queryMode: 'local',
-                            emptyText: '请选择类型，默认全部类型'
+                            emptyText: '请选择类型，默认裂缝设备'
                         }]
                 },
                 {
@@ -128,7 +128,7 @@ Ext.define('yt.view.mondata.MonData', {
                             flex: 1,
                             emptyText: '请选择起始时间',
                             allowBlank: false,
-                            value: new Date()  //默认当天
+                            value: Ext.Date.add(new Date(), Ext.Date.DAY, -1)  //默认提前一天
                         }, {
                             xtype: 'datetimefield',
                             format: 'Y/m/d H:i:s',
@@ -153,7 +153,7 @@ Ext.define('yt.view.mondata.MonData', {
                                     xtype: 'label',
                                     id: 'queryMonDataInfo',
                                     style: 'color:red;font-size:14px;font-weight:normal;margin:6px 6px 6px 0px;',
-                                    text: '默认显示全部监测数据'
+                                    text: '默认显示前一天监测数据'
                                 },
                                 {
                                     xtype: 'component',

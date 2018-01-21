@@ -48,7 +48,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                 {
                     xtype: 'combo',
                     reference: 'deviceTypeCombo',
-                    fieldLabel: '设备筛选',
+                    fieldLabel: '设备类型',
                     labelWidth: 65,
                     labelAlign: 'right',
                     displayField: 'label',
@@ -60,8 +60,8 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                     emptyText: '请选择设备类型',
                     store: {
                         data: [
-                            {label: '位移设备', type: 'wysb'},
                             {label: '裂缝设备', type: 'lfsb'},
+                            {label: '位移设备', type: 'wysb'},
                             {label: '雨量设备', type: 'ylsb'}
                         ]
                     },
