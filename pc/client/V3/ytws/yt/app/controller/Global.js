@@ -268,11 +268,11 @@ var g = {
         },
         switchLeftPanel: function (button, e, eOpts) {
             var wv = this.getWestView();
-            if(wv.hidden){
+            if (wv.hidden) {
                 wv.show(true);
                 button.setIconCls('fa fa-caret-left');
                 button.setTooltip('关闭左侧面板');
-            }else{
+            } else {
                 wv.hide(true);
                 button.setIconCls('fa fa-caret-right');
                 button.setTooltip('显示左侧面板');
@@ -330,54 +330,17 @@ var g = {
                 if (result['data'] != null) {
                     var dataList = result['data'];
                     if (dataList && dataList.length > 0) {
-                        mv.v.menuDataNoRankList = Ext.clone( dataList );
-                        // 如果此时预警信息已经获取则通过预警信息格式化此时的数据
-                        Ext.each(dataList,function (regionData) {
-                            if(regionData.children && regionData.children.length > 0){
-                                Ext.each(regionData.children, function (quakeData) {
-                                    if(quakeData['children'] && quakeData['children'].length > 0){
-                                        Ext.each( quakeData.children, function (deviceData) {
-                                            deviceData.rank = 0;
-                                            if(mv.v.devicesRankList){
-                                                Ext.each(mv.v.devicesRankList, function (devicesRankData) {
-                                                    if(devicesRankData.QUAKEID === quakeData.code
-                                                    && devicesRankData.DEVICEID === deviceData.code)
-                                                        deviceData.rank = devicesRankData.RANK;
-                                                })
-                                            }
-                                            switch (deviceData.rank){
-                                                case 0:
-                                                    deviceData.iconCls += ' green-cls';
-                                                    break;
-                                                case 1:
-                                                    deviceData.iconCls += ' blue-cls';
-                                                    break;
-                                                case 2:
-                                                    deviceData.iconCls += ' yellow-cls';
-                                                    break;
-                                                case 3:
-                                                    deviceData.iconCls += ' orange-cls';
-                                                    break;
-                                                case 4:
-                                                    deviceData.iconCls += ' red-cls';
-                                                    break;
-                                            }
-                                        } )
-                                    }
-                                    quakeData.rank = 0;
-                                    if(mv.v.quakesRankList){
-                                        Ext.each(mv.v.quakesRankList, function (quakesRankData) {
-                                            if(quakesRankData.QUAKEID === quakeData.code)
-                                                quakeData.rank = quakesRankData.RANK;
-                                        })
-                                    }
-                                })
-                            }
-                        })
                         var treeStore = new Ext.create('Ext.data.TreeStore', {
                             data: dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
                         });
                         dzDataTree.setStore(treeStore);
+
+                        //刷新等级，默认全部正常
+                        treeStore.each(function (node) {
+                            if (node) {
+                                mv.fn.calcRank4TreeNode(0, node);
+                            }
+                        }, this)
                         //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
 
                         //解析数据，并绘制到当前地图

@@ -21,7 +21,7 @@ var mv = {
             LayerGroup: null,
             dzMarkerGroup: null,//new L.layerGroup(),
             jcsbMarkerGroup: null,//new L.layerGroup(),
-            menuDataNoRankList: null,// 左侧树没有rank值的数据
+            dzTreeStore: null,//左侧树tree store
             quakesRankList: null,
             devicesRankList: null,
             maxZoomShow: 16
@@ -45,9 +45,11 @@ var mv = {
                 mv.fn.getWarnInfoList();
                 var refershMarkColor = {
                     run: mv.fn.getWarnInfoList,
-                    interval: 1000 * 60 * conf.refreshTime
-                }
-                Ext.TaskManager.start( refershMarkColor );
+                    interval: 1000 * conf.refreshTime
+                    //interval: 1000 * 60 * conf.refreshTime
+                };
+                //执行预警等级刷新并更新树节点显示状态
+                Ext.TaskManager.start(refershMarkColor);
                 // mv.fn.setWarnInfo();
             },
             calcRank: function (dzRank) {
@@ -134,21 +136,21 @@ var mv = {
                                         mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
                                         if (mv.v.mapDetailPanel) {
                                             //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
-                                            if( !mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== dzMarker.options.attribution.code){
+                                            if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== dzMarker.options.attribution.code) {
                                                 // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
-                                                Ext.getCmp('mondataTitleId').setHtml( dzMarker.options.attribution.text );
-                                                Ext.getCmp('mondataAddressId').setHtml(  ); // todo address 没找到对应字段
+                                                Ext.getCmp('mondataTitleId').setHtml(dzMarker.options.attribution.text);
+                                                Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段
                                                 var showMondataType = '';
-                                                switch ( dzMarker.options.attribution.type ){
+                                                switch (dzMarker.options.attribution.type) {
                                                     case 'disasterpoint':
                                                         showMondataType = '地面塌陷';
                                                         break;
                                                 }
-                                                Ext.getCmp('mondataTypeId').setHtml( showMondataType );
+                                                Ext.getCmp('mondataTypeId').setHtml(showMondataType);
 
-                                                Ext.getCmp('mondataRankId').setValue( dzMarker.options.attribution.rank );
-                                                Ext.getCmp('mondataRankId').setLimit( dzMarker.options.attribution.rank );
-                                                Ext.getCmp('mondataRankId').setMinimum( dzMarker.options.attribution.rank );
+                                                Ext.getCmp('mondataRankId').setValue(dzMarker.options.attribution.rank);
+                                                Ext.getCmp('mondataRankId').setLimit(dzMarker.options.attribution.rank);
+                                                Ext.getCmp('mondataRankId').setMinimum(dzMarker.options.attribution.rank);
                                             }
                                             mv.v.mapDetailPanelInfo = dzMarker.options.attribution;
                                             mv.fn.showBasicInfo();
@@ -400,7 +402,7 @@ var mv = {
                                                 limit: 4,
                                                 value: 4,
                                                 overStyle: 'color:red;',
-                                                selectedStyle: 'color:red;',
+                                                selectedStyle: 'color:red;'
                                             }
                                         ]
                                     }
@@ -537,6 +539,7 @@ var mv = {
                     }
                 }
             },
+            //按照时间间隔获取地灾点或设备的预警等级
             getWarnInfoList: function () {
                 var method = 'GET';
                 var url = conf.serviceUrl + 'alarms/menu/rank';
@@ -544,8 +547,6 @@ var mv = {
                     function (response) {
                         var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
                         if (result != null && result['data'] != null) {
-                            var quakeNum = 0;
-                            var deviceNum = 0;
                             var rankList = result['data'];
                             if (rankList['quakeList'] != null) {
                                 mv.v.quakesRankList = rankList['quakeList'];
@@ -553,9 +554,12 @@ var mv = {
                             if (rankList['deviceList'] != null) {
                                 mv.v.devicesRankList = rankList['deviceList'];
                             }
+                            //设置地图预警banner信息
                             mv.fn.setWarnInfo();
+                            //刷新地图mark显示
                             mv.fn.refreshMarkerColor();
-                            mv.fn.refreshMenuColor();
+                            //刷新地灾树节点显示
+                            mv.fn.refreshMenu4Rank();
                         }
                     },
                     function (response) {
@@ -580,17 +584,17 @@ var mv = {
                         var dzName = oldOption['title'];
                         var dzCode = oldOption['id'];
                         var markerIcon = null;
-                        Ext.each(mv.v.quakesRankList , function (quakesRankData) {
-                            if(quakesRankData.QUAKEID === dzCode){
-                                markerIcon= L.AwesomeMarkers.icon({
+                        Ext.each(mv.v.quakesRankList, function (quakesRankData) {
+                            if (quakesRankData.QUAKEID === dzCode) {
+                                markerIcon = L.AwesomeMarkers.icon({
                                     icon: 'bullseye',
-                                    markerColor: mv.fn.calcRank( quakesRankData.RANK ),
+                                    markerColor: mv.fn.calcRank(quakesRankData.RANK),
                                     prefix: 'fa',
                                     spin: false
                                 });
                             }
                         });
-                        if(markerIcon) {
+                        if (markerIcon) {
                             dzMarker.setIcon(markerIcon);
                         }
                     })
@@ -600,71 +604,87 @@ var mv = {
                         var oldOption = jcsbMarker.options;
                         var jcsbCode = oldOption['id'];
                         var markerIcon = null;
-                        Ext.each(mv.v.devicesRankList , function (devicesRankData) {
-                            if(devicesRankData.DEVICEID === jcsbCode){
-                                markerIcon= L.AwesomeMarkers.icon({
+                        Ext.each(mv.v.devicesRankList, function (devicesRankData) {
+                            if (devicesRankData.DEVICEID === jcsbCode) {
+                                markerIcon = L.AwesomeMarkers.icon({
                                     icon: 'camera',
-                                    markerColor: mv.fn.calcRank( devicesRankData.RANK ),
+                                    markerColor: mv.fn.calcRank(devicesRankData.RANK),
                                     prefix: 'fa',
                                     spin: false
                                 });
                             }
                         });
-                        if(markerIcon){
+                        if (markerIcon) {
                             jcsbMarker.setIcon(markerIcon);
                         }
                     })
                 }
             },
-            refreshMenuColor: function () {
-                // 更新左侧树
-                var newMenuList = Ext.clone( mv.v.menuDataNoRankList );
-                Ext.each(newMenuList,function (regionData) {
-                    if(regionData.children && regionData.children.length > 0){
-                        Ext.each(regionData.children, function (quakeData) {
-                            if(quakeData['children'] && quakeData['children'].length > 0){
-                                Ext.each( quakeData.children, function (deviceData) {
-                                    deviceData.rank = 0;
-                                    if(mv.v.devicesRankList){
-                                        Ext.each(mv.v.devicesRankList, function (devicesRankData) {
-                                            if(devicesRankData.QUAKEID === quakeData.code
-                                                && devicesRankData.DEVICEID === deviceData.code)
-                                                deviceData.rank = devicesRankData.RANK;
+            //按照预警等级更新树节点状态
+            refreshMenu4Rank: function () {
+                //获取左侧菜单树
+                var sysTree = Ext.getCmp('dzDataTreeRef');
+                var sysTreeStore = sysTree.getStore();
+                if (sysTreeStore) {
+                    sysTreeStore.each(function (node) {
+                        if (node) {
+                            //console.log(node.get('iconCls'));
+                            var nodeType = node.get('type');
+                            //判断当前节点是否为区域
+                            if (nodeType != 'region') {
+                                if (nodeType == 'disasterpoint') {
+                                    //地灾点
+                                    if (mv.v.quakesRankList) {
+                                        Ext.each(mv.v.quakesRankList, function (nodeRankItem) {
+                                            if (nodeRankItem['QUAKEID'] == node.get('code')) {
+                                                mv.fn.calcRank4TreeNode(nodeRankItem['RANK'], node);
+                                                return false;
+                                            }
                                         })
                                     }
-                                    switch (deviceData.rank){
-                                        case 0:
-                                            deviceData.iconCls += ' green-cls';
-                                            break;
-                                        case 1:
-                                            deviceData.iconCls += ' blue-cls';
-                                            break;
-                                        case 2:
-                                            deviceData.iconCls += ' yellow-cls';
-                                            break;
-                                        case 3:
-                                            deviceData.iconCls += ' orange-cls';
-                                            break;
-                                        case 4:
-                                            deviceData.iconCls += ' red-cls';
-                                            break;
+
+                                } else if (nodeType == 'device') {
+                                    //监测设备
+                                    if (mv.v.devicesRankList) {
+                                        Ext.each(mv.v.devicesRankList, function (nodeRankItem) {
+                                            if (nodeRankItem['DEVICEID'] == node.get('code')) {
+                                                mv.fn.calcRank4TreeNode(nodeRankItem['RANK'], node);
+                                                return false;
+                                            }
+                                        })
                                     }
-                                } )
+                                }
                             }
-                            quakeData.rank = 0;
-                            if(mv.v.quakesRankList){
-                                Ext.each(mv.v.quakesRankList, function (quakesRankData) {
-                                    if(quakesRankData.QUAKEID === quakeData.code)
-                                        quakeData.rank = quakesRankData.RANK;
-                                })
-                            }
-                        })
-                    }
-                })
-                var treeStore = new Ext.create('Ext.data.TreeStore', {
-                    data: newMenuList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
-                });
-                Ext.getCmp('dzDataTreeRef').setStore(treeStore);
+                        }
+                    }, this)
+                }
+            },
+            //根据地灾点树节点等级设置显示图标颜色
+            calcRank4TreeNode: function (rank, node) {
+                var iconCls = '';
+                if (node.get('type') == 'disasterpoint') {
+                    iconCls = 'fa fa-plus-square';
+                } else if (node.get('type') == 'device') {
+                    iconCls = 'fa fa-circle';
+                }
+                switch (rank) {
+                    case 0:
+                        node.set('iconCls', iconCls + ' green-cls');
+                        break;
+                    case 1:
+                        node.set('iconCls', iconCls + ' blue-cls');
+                        break;
+                    case 2:
+                        node.set('iconCls', iconCls + ' yellow-cls');
+                        break;
+                    case 3:
+                        node.set('iconCls', iconCls + ' orange-cls');
+                        break;
+                    case 4:
+                        node.set('iconCls', iconCls + ' red-cls');
+                        break;
+                }
+                //node.load();
             },
             //属性面板布局重绘
             relayoutPanel: function (parentContainer, childContainer, floatParams) {
