@@ -498,11 +498,11 @@ var mv = {
                     var jcsbList = dzInfo['children'];
                     if (jcsbList.length > 0) {
                         var latlngs = new Array();
-                        Ext.each(jcsbList, function (jcdbInfo) {
-                            var jcName = jcdbInfo['text'];
-                            var jcRank = jcdbInfo['rank'];
-                            var mId = jcdbInfo['id'];
-                            var mType = jcdbInfo['type'];
+                        Ext.each(jcsbList, function (jcsbInfo) {
+                            var jcName = jcsbInfo['text'];
+                            var jcRank = jcsbInfo['rank'];
+                            var mId = jcsbInfo['code'];
+                            var mType = jcsbInfo['type'];
                             var iconName = 'camera';
                             var markColor = 'purple';
                             var markColor = mv.fn.calcRank(jcRank);
@@ -512,19 +512,20 @@ var mv = {
                                 prefix: 'fa',
                                 spin: false
                             });
-                            var jcdbPot = [jcdbInfo['lat'], jcdbInfo['lng']];
-                            var jcdbMarker = new L.marker(jcdbPot, {
+                            var jcsbPot = [jcsbInfo['lat'], jcsbInfo['lng']];
+                            var jcsbMarker = new L.marker(jcsbPot, {
                                 icon: markerIcon,
                                 draggable: false,
                                 title: jcName,
                                 type: mType,
                                 id: mId,
-                                attribution: jcdbInfo//绑定数据
+                                attribution: jcsbInfo//绑定数据
                             });
-                            mv.v.jcsbMarkerGroup.addLayer(jcdbMarker);
-                            latlngs.push(jcdbMarker.getLatLng());
+                            mv.v.jcsbMarkerGroup.addLayer(jcsbMarker);
+                            latlngs.push(jcsbMarker.getLatLng());
                         });
                         mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
+                        mv.fn.refreshMarkerColor();
                         if (latlngs.length > 0) {
                             var bounds = L.latLngBounds(latlngs).pad(0.2);
                             setTimeout(function () {
@@ -588,8 +589,30 @@ var mv = {
                                     spin: false
                                 });
                             }
-                        })
-                        if(markerIcon)dzMarker.setIcon(markerIcon);
+                        });
+                        if(markerIcon) {
+                            dzMarker.setIcon(markerIcon);
+                        }
+                    })
+                }
+                if (mv.v.jcsbMarkerGroup != null) {
+                    mv.v.jcsbMarkerGroup.eachLayer(function (jcsbMarker) {
+                        var oldOption = jcsbMarker.options;
+                        var jcsbCode = oldOption['id'];
+                        var markerIcon = null;
+                        Ext.each(mv.v.devicesRankList , function (devicesRankData) {
+                            if(devicesRankData.DEVICEID === jcsbCode){
+                                markerIcon= L.AwesomeMarkers.icon({
+                                    icon: 'camera',
+                                    markerColor: mv.fn.calcRank( devicesRankData.RANK ),
+                                    prefix: 'fa',
+                                    spin: false
+                                });
+                            }
+                        });
+                        if(markerIcon){
+                            jcsbMarker.setIcon(markerIcon);
+                        }
                     })
                 }
             },
