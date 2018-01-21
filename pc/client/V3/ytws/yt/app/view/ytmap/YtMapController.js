@@ -636,7 +636,7 @@ var mv = {
                                     if (mv.v.quakesRankList) {
                                         Ext.each(mv.v.quakesRankList, function (nodeRankItem) {
                                             if (nodeRankItem['QUAKEID'] == node.get('code')) {
-                                                mv.fn.calcRank4TreeNode(nodeRankItem['RANK'], node);
+                                                mv.fn.calcRank4TreeNode(nodeRankItem['RANK'], node, false);
                                                 return false;
                                             }
                                         })
@@ -647,7 +647,7 @@ var mv = {
                                     if (mv.v.devicesRankList) {
                                         Ext.each(mv.v.devicesRankList, function (nodeRankItem) {
                                             if (nodeRankItem['DEVICEID'] == node.get('code')) {
-                                                mv.fn.calcRank4TreeNode(nodeRankItem['RANK'], node);
+                                                mv.fn.calcRank4TreeNode(nodeRankItem['RANK'], node, false);
                                                 return false;
                                             }
                                         })
@@ -658,31 +658,39 @@ var mv = {
                     }, this)
                 }
             },
-            //根据地灾点树节点等级设置显示图标颜色
-            calcRank4TreeNode: function (rank, node) {
+            //根据地灾点树节点等级设置显示图标颜色,isRegionRefresh为true表示包含区域节点刷新，false表示不包含区域节点刷新
+            calcRank4TreeNode: function (rank, node, isRegionRefresh) {
                 var iconCls = '';
+
                 if (node.get('type') == 'disasterpoint') {
                     iconCls = 'fa fa-plus-square';
                 } else if (node.get('type') == 'device') {
                     iconCls = 'fa fa-circle';
+                } else if (node.get('type') == 'region' && isRegionRefresh) {
+                    iconCls = 'fa fa-table'
+                    node.set('iconCls', iconCls);
                 }
-                switch (rank) {
-                    case 0:
-                        node.set('iconCls', iconCls + ' green-cls');
-                        break;
-                    case 1:
-                        node.set('iconCls', iconCls + ' blue-cls');
-                        break;
-                    case 2:
-                        node.set('iconCls', iconCls + ' yellow-cls');
-                        break;
-                    case 3:
-                        node.set('iconCls', iconCls + ' orange-cls');
-                        break;
-                    case 4:
-                        node.set('iconCls', iconCls + ' red-cls');
-                        break;
+
+                if (node.get('type') != 'region') {
+                    switch (rank) {
+                        case 0:
+                            node.set('iconCls', iconCls + ' green-cls');
+                            break;
+                        case 1:
+                            node.set('iconCls', iconCls + ' blue-cls');
+                            break;
+                        case 2:
+                            node.set('iconCls', iconCls + ' yellow-cls');
+                            break;
+                        case 3:
+                            node.set('iconCls', iconCls + ' orange-cls');
+                            break;
+                        case 4:
+                            node.set('iconCls', iconCls + ' red-cls');
+                            break;
+                    }
                 }
+
                 //node.load();
             },
             //属性面板布局重绘

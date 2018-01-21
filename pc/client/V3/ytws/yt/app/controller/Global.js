@@ -335,13 +335,15 @@ var g = {
                         });
                         dzDataTree.setStore(treeStore);
 
-                        //刷新等级，默认全部正常
+                        //刷新等级,包括区域节点图标，默认全部正常
                         treeStore.each(function (node) {
                             if (node) {
-                                mv.fn.calcRank4TreeNode(0, node);
+                                mv.fn.calcRank4TreeNode(0, node, true);
                             }
                         }, this)
-                        //dzDataTree.setExpanderFirst(false);//false-表示下拉箭头位于右侧，与expanderFirst: false效果一致
+
+                        //因刷新间隔为5分钟，这里需要先执行一次预警等级请求
+                        mv.fn.getWarnInfoList();
 
                         //解析数据，并绘制到当前地图
                         mv.fn.createMarker(dataList);
