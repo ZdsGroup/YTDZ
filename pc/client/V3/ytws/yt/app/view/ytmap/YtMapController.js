@@ -45,8 +45,7 @@ var mv = {
                 mv.fn.getWarnInfoList();
                 var refershMarkColor = {
                     run: mv.fn.getWarnInfoList,
-                    interval: 1000 * conf.refreshTime
-                    //interval: 1000 * 60 * conf.refreshTime
+                    interval: 1000 * 60 * conf.refreshTime
                 };
                 //执行预警等级刷新并更新树节点显示状态
                 Ext.TaskManager.start(refershMarkColor);
