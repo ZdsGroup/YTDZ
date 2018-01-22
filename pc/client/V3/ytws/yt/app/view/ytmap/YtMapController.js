@@ -242,6 +242,7 @@ var mv = {
                                             align: 'middle',
                                             pack: 'center'
                                         },
+                                        height: 24,
                                         margin: '3 10 3 10',
                                         items: [
                                             {

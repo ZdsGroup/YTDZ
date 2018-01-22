@@ -26,6 +26,7 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
         /* include child components here */
         {
             xtype: 'tabpanel',
+            ui: 'navigation1',
             border: false,
             flex: 1,
             defaults: {
@@ -37,12 +38,12 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
             tabPosition: 'left',
             tabRotation: 0,
             items: [{
-                title: '详    情',
-                icon: null,
+                title: '详情信息',
+                iconCls: 'fa fa-file-image-o',
                 xtype: 'monpot-detail'
             }, {
                 title: '智能分析',
-                icon: null,
+                iconCls: 'fa fa-lightbulb-o',
                 xtype: 'monpot-analytics'
             },
                 //     {
@@ -52,7 +53,7 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
                 // },
                 {
                     title: '预警信息',
-                    icon: null,
+                    iconCls: 'fa fa-exclamation-triangle',
                     xtype: 'monpot-alertinfo'
                 }]
         }

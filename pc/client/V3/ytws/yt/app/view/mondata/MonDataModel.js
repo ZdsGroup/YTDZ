@@ -28,7 +28,7 @@ Ext.define('yt.view.mondata.MonDataModel', {
             alias: 'store.areas',
             data: [
                 {name: '鹰潭市', code: '360600000000'},
-                // {name: '市辖区', code: '360601000000'},
+                {name: '市辖区', code: '360601000000'},
                 {name: '月湖区', code: '360602000000'},
                 {name: '余江县', code: '360622000000'},
                 {name: '贵溪市', code: '360681000000'}

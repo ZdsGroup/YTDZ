@@ -22,7 +22,10 @@ Ext.define('yt.Application', {
     launch: function () {
         // TODO - Launch the application
         document.title = conf.title;
-        Ext.get('loading').remove();//清除启动mask
+        var load = Ext.get('loading');
+        if (load) {
+            load.remove();//清除启动mask
+        }
     },
 
     onAppUpdate: function () {

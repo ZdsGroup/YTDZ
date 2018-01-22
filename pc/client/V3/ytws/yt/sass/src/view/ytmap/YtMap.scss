@@ -30,7 +30,7 @@ $map-default-text-color: #ffffff;
 
 @include extjs-panel-ui(
         $ui: 'map-detail-warnning-panel-ui',
-        $ui-header-background-color: rgba(120, 144, 156,1.0),
+        $ui-header-background-color: rgba(120, 144, 156, 1.0),
         $ui-header-color: #ffffff,
         $ui-header-glyph-color: #ffffff,
         $ui-header-glyph-opacity: 1,
@@ -52,7 +52,7 @@ $map-default-text-color: #ffffff;
 );
 
 .mondata-detail-info-title {
-        font-size: 18px !important;
+  font-size: 18px !important;
 }
 
 @include extjs-button-small-ui(
