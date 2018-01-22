@@ -1,14 +1,14 @@
 /**
  * Created by lyuwei on 2018/1/22.
  */
-Ext.define('yt.view.monpot.disasterpointDetail', {
+Ext.define('yt.view.monpot.deviceDetail', {
     extend: 'Ext.form.Panel',
 
     /*
     Uncomment to give this component an xtype
-    xtype: 'disasterpointdetail',
+    xtype: '',
     */
-    xtype: 'disasterpointdetail',
+    xtype: 'devicedetail',
 
     viewModel: {
         type: 'monpot'
@@ -30,7 +30,7 @@ Ext.define('yt.view.monpot.disasterpointDetail', {
         align: 'stretch'
     },
     config: {
-        disasterpointData: {},
+        deviceData: {},
         editable: false
     },
     scrollable: 'y',
@@ -39,42 +39,42 @@ Ext.define('yt.view.monpot.disasterpointDetail', {
         {
             fieldLabel: '名称',
             bind: {
-                value:'{disasterpointDetailData.name}',
+                value:'{deviceDetailData.name}',
                 editable: '{detailEditable}'
             }
         },
         {
             fieldLabel: '公司',
             bind: {
-                value:'{disasterpointDetailData.company}',
+                value:'{deviceDetailData.company}',
                 editable: '{detailEditable}'
             }
         },
         {
             fieldLabel: '负责人',
             bind: {
-                value:'{disasterpointDetailData.username}',
+                value:'{deviceDetailData.username}',
                 editable: '{detailEditable}'
             }
         },
         {
             fieldLabel: '联系电话',
             bind: {
-                value:'{disasterpointDetailData.mobile}',
+                value:'{deviceDetailData.mobile}',
                 editable: '{detailEditable}'
             }
         },
         {
-            fieldLabel: '地灾点类型',
+            fieldLabel: '设备类型',
             bind: {
-                value:'{disasterpointDetailData.dtype}',
+                value:'{deviceDetailData.type}',
                 editable: '{detailEditable}'
             }
         },
         {
-            fieldLabel: '地灾点地址',
+            fieldLabel: '设备地址',
             bind: {
-                value:'{disasterpointDetailData.address}',
+                value:'{deviceDetailData.address}',
                 editable: '{detailEditable}'
             }
         }
@@ -84,8 +84,8 @@ Ext.define('yt.view.monpot.disasterpointDetail', {
         var me = this;
         me.on("boxready", function () {
             var meViewModel = me.getViewModel();
-            if (me.disasterpointData) {
-                meViewModel.set('disasterpointDetailData',me.disasterpointData)
+            if (me.deviceData) {
+                meViewModel.set('deviceDetailData',me.deviceData)
             }
             meViewModel.set('detailEditable',me.editable);
         });

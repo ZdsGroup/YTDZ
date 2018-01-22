@@ -23,6 +23,23 @@ Ext.define('yt.view.monpot.MonPotModel', {
 
     data: {
         /* This object holds the arbitrary data that populates the ViewModel and is then available for binding. */
-        disasterpointDetailData: {}
+        disasterpointDetailData: {
+            name: '',
+            company: '',
+            username: '',
+            mobile: '',
+            dtype: '',
+            address: ''
+        },
+        deviceDetailData: {
+            name: '',
+            company: '',
+            username: '',
+            mobile: '',
+            type: '',
+            address: ''
+        },
+
+        detailEditable: false
     }
 });

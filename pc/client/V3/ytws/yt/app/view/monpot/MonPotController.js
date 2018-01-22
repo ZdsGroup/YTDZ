@@ -133,6 +133,7 @@ monpot.fn = {
         // 设置相关按钮的可用状态
         Ext.getCmp('monpotGridpanelUpdate').setDisabled(true);
         Ext.getCmp('monpotGridpanelBack').setDisabled(true);
+        Ext.getCmp('monpotGridActionColumn').hide();
 
         var xdata = [];
         var yvalue = [];
@@ -157,6 +158,7 @@ monpot.fn = {
         // 设置相关按钮的可用状态
         Ext.getCmp('monpotGridpanelUpdate').setDisabled(false);
         Ext.getCmp('monpotGridpanelBack').setDisabled(false);
+        Ext.getCmp('monpotGridActionColumn').show();
 
         var xdata = [];
         var yvalue = [];
@@ -181,6 +183,7 @@ monpot.fn = {
         // 设置相关按钮的可用状态
         Ext.getCmp('monpotGridpanelUpdate').setDisabled(false);
         Ext.getCmp('monpotGridpanelBack').setDisabled(false);
+        Ext.getCmp('monpotGridActionColumn').show();
 
         var newConfig = Ext.clone(monpot.v.deviceEchartsConfig);
         newConfig.series[0].data = [
@@ -191,12 +194,131 @@ monpot.fn = {
 
         monpot.fn.updateGridStore( monpot.v.currentDataList );
         return newConfig;
+    },
+    
+    showNewModelWin: function (state, objTitle, objCode) {
+        var winOption = {
+            title: "详情",
+            width: 700,
+            height: 400,
+            layout: "fit",
+            modal: true,
+            closable: true,
+            maximizable: false,
+            minimizable: false,
+            resizable: false,
+            items: []
+        }
+        var isEdit = false;
+        switch (state){
+            case 'view':
+                winOption.title = objTitle + '详情';
+                break;
+            case 'edit':
+                winOption.closable = false;
+                winOption.title = '编辑' + objTitle + '详情';
+                isEdit = true;
+                winOption.fbar = [
+                    '->',
+                    { xtype: 'button', text: '确定' },
+                    { xtype: 'button', text: '取消', handler: function () {
+                        this.up('window').close()
+                    } },
+                ]
+                break;
+        }
+        if(state === 'add'){
+            winOption.closable = false;
+            isEdit = true;
+            winOption.fbar = [
+                '->',
+                { xtype: 'button', text: '确定' },
+                { xtype: 'button', text: '取消', handler: function () {
+                    this.up('window').close()
+                } },
+            ]
+            switch (monpot.v.currentType){
+                case 'disasterpoint':
+                    winOption.items = [
+                        {
+                            xtype: 'disasterpointdetail',
+                            editable: isEdit
+                        }
+                    ]
+                    winOption.title = '地灾点新增';
+                    Ext.create("Ext.window.Window", winOption).show();
+                    break;
+                case 'device':
+                    winOption.items = [
+                        {
+                            xtype: 'devicedetail',
+                            editable: isEdit
+                        }
+                    ]
+                    winOption.title = '设备新增';
+                    Ext.create("Ext.window.Window", winOption).show();
+                    break;
+            }
+            return;
+        }
+
+        var action = null;
+        var successCallBack = null;
+        switch (monpot.v.currentType){
+            case 'disasterpoint':
+                action = 'quakes/' + objCode;
+                successCallBack = function (response, opts) {
+                    //查询结果转json对象
+                    var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                    if (result['data'] === null) return;
+                    // 展示地灾点详情
+                    winOption.items = [
+                        {
+                            xtype: 'disasterpointdetail',
+                            disasterpointData: result['data'],
+                            editable: isEdit
+                        }
+                    ]
+                    Ext.create("Ext.window.Window", winOption).show();
+                }
+                break;
+            case 'device':
+                action = 'devices/' + objCode;
+                successCallBack = function (response, opts) {
+                    //查询结果转json对象
+                    var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                    if (result['data'] === null) return;
+                    // 展示地灾点详情
+                    winOption.items = [
+                        {
+                            xtype: 'devicedetail',
+                            deviceData: result['data'],
+                            editable: isEdit
+                        }
+                    ]
+                    Ext.create("Ext.window.Window", winOption).show();
+                }
+                break;
+        }
+        function failureCallBack(response, opts) {
+            // 失败
+        }
+        if(action)
+            ajax.fn.executeV2({},'GET',conf.serviceUrl + action,successCallBack,failureCallBack);
     }
 }
 
 Ext.define('yt.view.monpot.MonPotController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.monpot',
+
+    requires: [
+        'Ext.layout.container.Fit',
+        'Ext.toolbar.Fill',
+        'Ext.window.Window',
+        'yt.view.monpot.deviceDetail',
+        'yt.view.monpot.disasterpointDetail'
+    ],
 
     /**
      * Called when the view is created
@@ -246,14 +368,13 @@ Ext.define('yt.view.monpot.MonPotController', {
     },
     
     gridpanelRowClickfunc: function (thisExt, record, element, rowIndex, e, eOpts) {
+        var detailData = record.getData();
         // 如果点击的是对应的 操作按钮
         if(e.target.dataset.qtip === '详情'){
-            if(monpot.v.currentType === 'disasterpoint'){
-                // 展示地灾点详情
-
-            }
+            monpot.fn.showNewModelWin('view', detailData.text, detailData.code);
             return;
         } else if(e.target.dataset.qtip === '修改'){
+            monpot.fn.showNewModelWin('edit', detailData.text, detailData.code);
             return;
         } else if(e.target.dataset.qtip === '删除'){
             return;
@@ -278,5 +399,9 @@ Ext.define('yt.view.monpot.MonPotController', {
             var fatData = monpot.fn.findFatItems( monpot.v.parentType, monpot.v.parentCode );
             monpot.fn.updateEcharts( monpot.fn.getDZPointEchartsConfig(fatData) );
         }
+    },
+
+    addNew: function () {
+        monpot.fn.showNewModelWin('add');
     }
 });
