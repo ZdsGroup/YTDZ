@@ -58,6 +58,29 @@ monpot.v = {
                 type: 'bar'
             }
         ]
+    },
+
+    deviceEchartsConfig: {
+        xAxis: {
+            type: 'category',
+            data: ['位移设备','雨量设备','裂缝设备']
+        },
+        yAxis: {
+            type: 'value',
+            name: '设备个数(个)',
+        },
+        series: [
+            {
+                data: [],
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                type: 'bar'
+            }
+        ]
     }
 }
 
@@ -76,6 +99,29 @@ monpot.fn = {
                 data: data
             })
         )
+    },
+
+    findFatItems: function (fatType, fatCode) {
+        var findItems = null;
+
+        function eachChildren(itemData) {
+            if(findItems)return false;
+            if(itemData.type === fatType && itemData.code === fatCode){
+                return true;
+            }
+            if(itemData.hasOwnProperty('children') && itemData.children){
+                Ext.each(itemData.children,function (eachItems) {
+                    if( eachChildren(eachItems) ){
+                        findItems = itemData;
+                    }
+                })
+            }
+        }
+        Ext.each(monpot.v.menuListData,function (eachRegion) {
+            eachChildren(eachRegion);
+        })
+
+        return findItems;
     },
 
     getRegionEchartsConfig: function () {
@@ -114,13 +160,34 @@ monpot.fn = {
 
         var xdata = [];
         var yvalue = [];
-        Ext.each(monpot.v.currentDataList, function (eachDZPointItem) {
-            xdata.push(eachDZPointItem.text);
-            yvalue.push(Number(eachDZPointItem.num));
+        Ext.each(monpot.v.currentDataList, function (eachDZpointItem) {
+            xdata.push(eachDZpointItem.text);
+            yvalue.push(Number(eachDZpointItem.num));
         })
         var newConfig = Ext.clone(monpot.v.DZPointEchartsConfig);
         newConfig.xAxis.data = xdata;
         newConfig.series[0].data = yvalue;
+
+        monpot.fn.updateGridStore( monpot.v.currentDataList );
+        return newConfig;
+    },
+
+    updateDeviceEchartsConfig: function (DZPointData) {
+        if(!DZPointData)return null;
+        monpot.v.currentDataList = DZPointData.hasOwnProperty('children') ? DZPointData.children : [];
+        monpot.v.currentType = 'device';
+        monpot.v.parentType = 'disasterpoint';
+        monpot.v.parentCode = DZPointData.code;
+        // 设置相关按钮的可用状态
+        Ext.getCmp('monpotGridpanelUpdate').setDisabled(false);
+        Ext.getCmp('monpotGridpanelBack').setDisabled(false);
+
+        var newConfig = Ext.clone(monpot.v.deviceEchartsConfig);
+        newConfig.series[0].data = [
+            DZPointData.weiyiDeviceNum,
+            DZPointData.rainDeviceNum,
+            DZPointData.crevDeviceNum
+        ];
 
         monpot.fn.updateGridStore( monpot.v.currentDataList );
         return newConfig;
@@ -169,12 +236,12 @@ Ext.define('yt.view.monpot.MonPotController', {
                 // 接下来需要展示的是 地灾点
                 // params.dataIndex 代表点击的是第几个地灾点
                 var selectedRegion = monpot.v.currentDataList[params.dataIndex];
-
                 monpot.fn.updateEcharts( monpot.fn.getDZPointEchartsConfig(selectedRegion) );
             } else if(monpot.v.currentType === 'disasterpoint'){
                 // 接下来要展示的是 设备列表
+                var selectedDZPoint = monpot.v.currentDataList[params.dataIndex];
+                monpot.fn.updateEcharts( monpot.fn.updateDeviceEchartsConfig(selectedDZPoint) );
             }
-            console.log(params);
         });
     },
     
@@ -197,6 +264,8 @@ Ext.define('yt.view.monpot.MonPotController', {
             monpot.fn.updateEcharts( monpot.fn.getDZPointEchartsConfig(selectedRegion) );
         } else if(monpot.v.currentType === 'disasterpoint'){
             // 接下来要展示的是 设备列表
+            var selectedDZPoint = record.getData();
+            monpot.fn.updateEcharts( monpot.fn.updateDeviceEchartsConfig(selectedDZPoint) );
         }
     },
     
@@ -205,7 +274,9 @@ Ext.define('yt.view.monpot.MonPotController', {
             // 如果当前是地灾点，则返回到行政区划
             monpot.fn.updateEcharts( monpot.fn.getRegionEchartsConfig() );
         } else if(monpot.v.currentType === 'device'){
-            // 如果当前是设备列表，则返回到对应的地灾点
+            // 如果当前是设备列表，则返回到对应的地灾点列表
+            var fatData = monpot.fn.findFatItems( monpot.v.parentType, monpot.v.parentCode );
+            monpot.fn.updateEcharts( monpot.fn.getDZPointEchartsConfig(fatData) );
         }
     }
 });
