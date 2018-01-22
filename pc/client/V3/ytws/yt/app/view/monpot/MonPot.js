@@ -46,6 +46,30 @@ Ext.define('yt.view.monpot.MonPot', {
         {
             xtype: 'panel',
             flex: 1,
+            layout: 'fit',
+            items: [
+                {
+                    xtype: 'echartsbasepanel',
+                    id: 'monpotEchart',
+                    echartsOption: {
+                        xAxis: {
+                            type: 'category',
+                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            data: [120, 200, 150, 80, 70, 110, 130],
+                            type: 'bar'
+                        }]
+                    }
+                }
+            ]
+        },
+        {
+            xtype: 'panel',
+            flex: 1,
             layout: {
                 type: 'vbox',
                 pack: 'start',
@@ -66,18 +90,18 @@ Ext.define('yt.view.monpot.MonPot', {
                     multiSelect: true,
                     singleExpand: true,
                     tbar: [
-                        '->',
-                        {
-                            xtype: 'button',
-                            id: 'monpotGridpanelUpdate',
-                            text: '新增',
-                            handler: ''
-                        },
+                        // '->',
                         {
                             xtype: 'button',
                             id: 'monpotGridpanelBack',
                             text: '返回上一级',
                             handler: 'getBack'
+                        },
+                        {
+                            xtype: 'button',
+                            id: 'monpotGridpanelUpdate',
+                            text: '新增',
+                            handler: 'addNew'
                         }
                     ],
                     viewConfig: {
@@ -108,27 +132,25 @@ Ext.define('yt.view.monpot.MonPot', {
                         sortable: false
                     },{
                         xtype: 'actioncolumn',
+                        id: 'monpotGridActionColumn',
                         text: '操作',
 
                         width: 165,
                         align: 'center',
-
                         items: [
                             {
                                 xtype: 'button',
-                                iconCls: 'x-fa fa-info-circle',
+                                iconCls: 'x-fa fa-info-circle actioncolumnMargin',
                                 tooltip: '详情'
                             },
                             {
                                 xtype: 'button',
-                                iconCls: 'x-fa fa-edit',
-                                margin: '0 0 0 10',
+                                iconCls: 'x-fa fa-edit actioncolumnMargin',
                                 tooltip: '修改'
                             },
                             {
                                 xtype: 'button',
                                 iconCls: 'x-fa fa-trash',
-                                margin: '0 0 0 10',
                                 tooltip: '删除'
                             }
                         ],
@@ -140,30 +162,6 @@ Ext.define('yt.view.monpot.MonPot', {
                     }],
                     listeners: {
                         rowclick: 'gridpanelRowClickfunc'
-                    }
-                }
-            ]
-        },
-        {
-            xtype: 'panel',
-            flex: 1,
-            layout: 'fit',
-            items: [
-                {
-                    xtype: 'echartsbasepanel',
-                    id: 'monpotEchart',
-                    echartsOption: {
-                        xAxis: {
-                            type: 'category',
-                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [{
-                            data: [120, 200, 150, 80, 70, 110, 130],
-                            type: 'bar'
-                        }]
                     }
                 }
             ]
