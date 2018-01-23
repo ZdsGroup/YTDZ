@@ -14,7 +14,10 @@ Ext.define('yt.view.mondata.MonData', {
         'Ext.grid.Panel',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
+        'Ext.toolbar.Paging',
         'yt.plugin.date.DateTimeField',
+        'yt.utils.CustomPageToolBar',
+        // 'yt.utils.CustomPageToolBar',
         'yt.view.mondata.MonDataController',
         'yt.view.mondata.MonDataModel'
     ],
@@ -66,7 +69,7 @@ Ext.define('yt.view.mondata.MonData', {
                             flex: 1,
                             allowBlank: true,
                             fieldLabel: '关键字',
-                            name: 'monName',
+                            reference: 'monName',
                             emptyText: '请输入地灾点或设备名称'
                         },
                         {
@@ -82,11 +85,11 @@ Ext.define('yt.view.mondata.MonData', {
                             },
                             valueField: 'area',
                             displayField: 'name',
-                            value: '鹰潭市',
+                            // value: '鹰潭市',
                             editable: false,
                             typeAhead: false,
                             queryMode: 'local',
-                            emptyText: '请选择区域，默认全部区域'
+                            emptyText: '请选择区域，默认全市'
                         },
                         {
                             xtype: 'combobox',
@@ -101,7 +104,7 @@ Ext.define('yt.view.mondata.MonData', {
                             },
                             valueField: 'type',
                             displayField: 'name',
-                            value: '裂缝设备',
+                            // value: '裂缝设备',
                             editable: false,
                             typeAhead: false,
                             queryMode: 'local',
@@ -122,18 +125,18 @@ Ext.define('yt.view.mondata.MonData', {
                     items: [
                         {
                             xtype: 'datetimefield',
-                            format: 'Y/m/d H:i:s',
+                            format: 'Y-m-d H:i:s',
                             fieldLabel: '起始时间',
-                            name: 'startTime',
+                            reference: 'startTime',
                             flex: 1,
                             emptyText: '请选择起始时间',
                             allowBlank: false,
                             value: Ext.Date.add(new Date(), Ext.Date.DAY, -1)  //默认提前一天
                         }, {
                             xtype: 'datetimefield',
-                            format: 'Y/m/d H:i:s',
+                            format: 'Y-m-d H:i:s',
                             fieldLabel: '结束时间',
-                            name: 'endTime',
+                            reference: 'endTime',
                             flex: 1,
                             margin: '0 0 0 10',
                             emptyText: '请选择结束时间',
@@ -165,13 +168,13 @@ Ext.define('yt.view.mondata.MonData', {
                                     reference: 'queryMonDataRef',
                                     disabled: false,
                                     formBind: false,
-                                    handler: ''
+                                    handler: 'buttonRefreshFun'
                                 },
                                 {
                                     xtype: 'button',
                                     margin: '0 0 0 10',
                                     text: '重置',
-                                    handler: ''
+                                    handler: 'cleanAllData'
                                 }
                             ]
                         }]
@@ -199,16 +202,7 @@ Ext.define('yt.view.mondata.MonData', {
             columns: [{
                 text: '设备名称',
                 flex: 1,
-                dataIndex: 'deviceName',
-                hideable: false,
-                menuDisabled: true,
-                resizable: false,
-                sortable: false,
-                align: 'center'
-            }, {
-                text: '设备类型',
-                flex: 1,
-                dataIndex: 'deviceType',
+                dataIndex: 'devicename',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
@@ -217,7 +211,7 @@ Ext.define('yt.view.mondata.MonData', {
             }, {
                 text: '所属区域',
                 flex: 1,
-                dataIndex: 'area',
+                dataIndex: 'regionname',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
@@ -226,7 +220,7 @@ Ext.define('yt.view.mondata.MonData', {
             }, {
                 text: '所属地灾点',
                 flex: 1,
-                dataIndex: 'dzd',
+                dataIndex: 'quakename',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
@@ -243,8 +237,20 @@ Ext.define('yt.view.mondata.MonData', {
                 align: 'center'
             }],
             leadingBufferZone: 8,
-            trailingBufferZone: 8
-
+            trailingBufferZone: 8,
+            bbar: [
+                {
+                    xtype: 'Custompagetoolbar',
+                    displayInfo: true,
+                    bind: '{gridPageStore}',
+                    listeners: {
+                        beforechange: 'pagebuttonChange'
+                    }
+                }
+            ]
         }
-    ]
+    ],
+    listeners: {
+        afterrender: 'gridPanelBoxReady'
+    }
 });

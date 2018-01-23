@@ -5,6 +5,11 @@ Ext.define('yt.view.mondata.MonDataModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.mondata',
 
+    requires: [
+        'Ext.data.proxy.Ajax',
+        'Ext.data.reader.Json'
+    ],
+
     stores: {
         /*
         A declaration of Ext.data.Store configurations that are first processed as binds to produce an effective
@@ -27,16 +32,20 @@ Ext.define('yt.view.mondata.MonDataModel', {
         areaStore: {
             alias: 'store.areas',
             data: [
-                {name: '鹰潭市', code: '360600000000'},
-                {name: '市辖区', code: '360601000000'},
-                {name: '月湖区', code: '360602000000'},
-                {name: '余江县', code: '360622000000'},
-                {name: '贵溪市', code: '360681000000'}
+                {name: '市辖区', code: '600000000'},
+                {name: '月湖区', code: '300000000'},
+                {name: '余江县', code: '400000000'},
+                {name: '贵溪市', code: '500000000'}
             ]
         }
     },
 
     data: {
         /* This object holds the arbitrary data that populates the ViewModel and is then available for binding. */
+        gridPageStore:{
+            total: 0,
+            currentPage: 0,
+            pageSize: 20
+        }
     }
 });

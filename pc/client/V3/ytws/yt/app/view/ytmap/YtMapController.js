@@ -537,6 +537,8 @@ var mv = {
                             }, 500);
                         }
                     }
+                } else {
+                    mv.v.map.flyTo([dzInfo['lat'], dzInfo['lng']]);
                 }
             },
             //按照时间间隔获取地灾点或设备的预警等级

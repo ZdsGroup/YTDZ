@@ -90,18 +90,18 @@ Ext.define('yt.view.monpot.MonPot', {
                     multiSelect: true,
                     singleExpand: true,
                     tbar: [
-                        // '->',
-                        {
-                            xtype: 'button',
-                            id: 'monpotGridpanelBack',
-                            text: '返回上一级',
-                            handler: 'getBack'
-                        },
+                        '->',
                         {
                             xtype: 'button',
                             id: 'monpotGridpanelUpdate',
                             text: '新增',
                             handler: 'addNew'
+                        },
+                        {
+                            xtype: 'button',
+                            id: 'monpotGridpanelBack',
+                            text: '返回上一级',
+                            handler: 'getBack'
                         }
                     ],
                     viewConfig: {
