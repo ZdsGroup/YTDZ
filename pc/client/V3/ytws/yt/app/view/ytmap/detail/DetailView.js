@@ -30,10 +30,10 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
             border: false,
             flex: 1,
             defaults: {
-                bodyPadding: 10,
+                bodyPadding: 5,
                 scrollable: true,
                 closable: false,
-                border: false
+                border: true
             },
             tabPosition: 'left',
             tabRotation: 0,

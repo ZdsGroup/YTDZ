@@ -3,11 +3,11 @@ Error: Invalid CSS after "//自定义变量": expected selector or at-rule, was 
         on line 19 of YtTop.scss
 
 14:         $ui: 'banner-panel-bgcolor',
-15:         $ui-body-background-color: rgba(69, 90, 100, 1.0)
+15:         $ui-body-background-color: rgb(53, 128, 232)
 16: )
 17: 
 18: //自定义变量
-19: $focus-text-color: rgba(255, 109, 0,1.0);
+19: $focus-text-color: rgb(255, 91, 5);
 20: $default-text-color: rgba(255,255,255,1);
 21: $custome-font-family: '微软雅黑';
 22: 
@@ -38,4 +38,4 @@ E:/Ruby24-x64/bin/scss:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Invalid CSS after \"//自定义变量\": expected selector or at-rule, was \"$focus-text-col...\"\A         on line 19 of YtTop.scss\A \A 14:         $ui: 'banner-panel-bgcolor',\A 15:         $ui-body-background-color: rgba(69, 90, 100, 1.0)\A 16: )\A 17: \A 18: //自定义变量\A 19: $focus-text-color: rgba(255, 109, 0,1.0);\A 20: $default-text-color: rgba(255,255,255,1);\A 21: $custome-font-family: '微软雅黑';\A 22: \A 23: @include extjs-button-medium-ui(\A 24:         $ui: 'top-menu-ui',"; }
+  content: "Error: Invalid CSS after \"//自定义变量\": expected selector or at-rule, was \"$focus-text-col...\"\A         on line 19 of YtTop.scss\A \A 14:         $ui: 'banner-panel-bgcolor',\A 15:         $ui-body-background-color: rgb(53, 128, 232)\A 16: )\A 17: \A 18: //自定义变量\A 19: $focus-text-color: rgb(255, 91, 5);\A 20: $default-text-color: rgba(255,255,255,1);\A 21: $custome-font-family: '微软雅黑';\A 22: \A 23: @include extjs-button-medium-ui(\A 24:         $ui: 'top-menu-ui',"; }

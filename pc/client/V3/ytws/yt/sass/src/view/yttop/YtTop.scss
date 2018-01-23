@@ -12,11 +12,11 @@
 
 @include extjs-panel-ui(
         $ui: 'banner-panel-bgcolor',
-        $ui-body-background-color: rgba(69, 90, 100, 1.0)
+        $ui-body-background-color: rgb(53, 128, 232)
 )
 
 //自定义变量
-$focus-text-color: rgba(255, 109, 0,1.0);
+$focus-text-color: rgb(255, 91, 5);
 $default-text-color: rgba(255,255,255,1);
 $custome-font-family: '微软雅黑';
 
@@ -28,9 +28,9 @@ $custome-font-family: '微软雅黑';
         $color: $default-text-color,
         $color-over: $focus-text-color,
         $color-pressed: $focus-text-color,
-        $text-padding: 5px,
+        $text-padding: 0px,
         $padding: 5px,
-        $icon-size: 24px,
+        $icon-size: 18px,
         $font-size: 14px,
         $font-family: $custome-font-family
 );
