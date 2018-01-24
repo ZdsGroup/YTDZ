@@ -12,13 +12,8 @@
 
 @include extjs-panel-ui(
         $ui: 'banner-panel-bgcolor',
-        $ui-body-background-color: rgb(53, 128, 232)
+        $ui-body-background-color: $common-color
 )
-
-//自定义变量
-$focus-text-color: rgb(255, 91, 5);
-$default-text-color: rgba(255,255,255,1);
-$custome-font-family: '微软雅黑';
 
 @include extjs-button-medium-ui(
         $ui: 'top-menu-ui',

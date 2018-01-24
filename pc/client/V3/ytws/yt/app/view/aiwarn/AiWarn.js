@@ -10,9 +10,8 @@ Ext.define('yt.view.aiwarn.AiWarn', {
     ],
 
     /*
-    Uncomment to give this component an xtype
-    xtype: 'aiwarn',
-    */
+    Uncomment to give this component an xtype*/
+    xtype: 'yt-aiwarm',
 
     viewModel: {
         type: 'aiwarn'

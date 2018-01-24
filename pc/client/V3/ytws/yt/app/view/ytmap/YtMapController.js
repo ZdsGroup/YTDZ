@@ -552,20 +552,20 @@ var mv = {
                 }
             },
             showHighMarker: function (markerObj) {
-              if(mv.v.highMarker==null){
-                  markerObj.setZIndexOffset(100);
-                  var pulsingIcon = L.icon.pulse({
-                      iconSize: [10, 10],
-                      color: '#3385FF',
-                      fillColor: '#3385FF',
-                      heartbeat: 2
-                  });
-                  mv.v.highMarker = L.marker(markerObj.getLatLng(), {
-                      icon: pulsingIcon
-                  }).addTo(mv.v.map);
-              }else {
-                  mv.v.highMarker.setLatLng(markerObj.getLatLng());
-              }
+                if (mv.v.highMarker == null) {
+                    markerObj.setZIndexOffset(100);
+                    var pulsingIcon = L.icon.pulse({
+                        iconSize: [10, 10],
+                        color: '#3385FF',
+                        fillColor: '#3385FF',
+                        heartbeat: 2
+                    });
+                    mv.v.highMarker = L.marker(markerObj.getLatLng(), {
+                        icon: pulsingIcon
+                    }).addTo(mv.v.map);
+                } else {
+                    mv.v.highMarker.setLatLng(markerObj.getLatLng());
+                }
             },
             //按照时间间隔获取地灾点或设备的预警等级
             getWarnInfoList: function () {
@@ -832,6 +832,7 @@ var mv = {
                         items: [
                             {
                                 xtype: 'button',
+                                id: 'controllleftpanelId',
                                 tooltip: '关闭左侧面板',
                                 text: '',
                                 action: 'controllleftpanel',

@@ -5,8 +5,10 @@ Ext.define('yt.view.setting.Setting', {
     extend: 'Ext.Container',
 
     requires: [
-        'yt.view.setting.SettingModel',
-        'yt.view.setting.SettingController'
+        'Ext.layout.container.Fit',
+        'Ext.ux.IFrame',
+        'yt.view.setting.SettingController',
+        'yt.view.setting.SettingModel'
     ],
 
     /*
@@ -19,6 +21,12 @@ Ext.define('yt.view.setting.Setting', {
     },
 
     controller: 'setting',
-
-    items: []
+    layout: 'fit',
+    items: [
+        {
+            xtype: 'uxiframe',
+            id: 'appiFrame',
+            loadMask: false
+        }
+    ]
 });

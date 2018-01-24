@@ -3,6 +3,7 @@
  */
 var g = {
     v: {
+        westView: null,//左侧视图窗口
         isInit: false,
         //系统主菜单项目
         sysMenuItems: [],
@@ -38,6 +39,7 @@ var g = {
                             menuItem['init'] = rec['init'];
                             menuItem['mode'] = rec['mode'];
                             menuItem['widgetId'] = rec['widgetId'];
+                            menuItem['html'] = rec['html'];
                             menuItem['floatContainerParams'] = rec['floatContainerParams'];
                             g.v.sysMenuItems.push(menuItem);
                         }
@@ -96,16 +98,48 @@ var g = {
                     }
                 }
 
+                //还原左侧面板显示状态
+                //左侧面板控制按钮
+                var leftControllerBtn = Ext.getCmp('controllleftpanelId');
+                if (leftControllerBtn) {
+                    var ltp = leftControllerBtn.tooltip;
+                    if (ltp != '显示左侧面板') {
+                        //此时左侧面板本应该显示的
+                        var wv = g.v.westView;
+                        if (wv) {
+                            wv.show();
+                        }
+                    }
+                }
+
                 //加载新的模块,判断模块是否已经加载，有-显示，无-新建
                 var wParent = widget['parent'];
                 var tempWidget = null;
                 if (g.v.mainContainer && wParent == conf.bodyContainerID) {
+                    if (widget['html'] != null) {
+                        //关闭左侧面板
+                        var wv = g.v.westView;
+                        if (wv) {
+                            wv.hide();
+                        }
+                    }
+
                     tempWidget = g.v.mainContainer.getComponent(widget['widgetId']);
                     if (tempWidget) {
                         tempWidget.show();
                     } else {
                         tempWidget = new Ext.create('widget.' + widget['value'], {id: widget['widgetId']});
                         g.v.mainContainer.add(tempWidget);
+
+                        //如果存在网页连接，则加载页面内容
+                        if (widget['html'] != null) {
+                            var htmlContainer = Ext.getCmp('appiFrame');
+                            if (htmlContainer) {
+                                g.fn.loadHtmlContent(htmlContainer, widget['html'], true, '页面跳转中...', 1000);
+                            }
+
+                            g.v.mainContainer.updateLayout();
+                        }
                     }
 
                     g.v.mainContainer.updateLayout();
@@ -129,6 +163,24 @@ var g = {
                     g.v.floatContainer.updateLayout();
                 }
             }
+        },
+        loadHtmlContent: function (iframe, url, mask, message, millisecond) {
+            if (mask) {
+                var loadMask = new Ext.LoadMask(iframe, {
+                    msg: message,
+                    style: {
+                        width: '100%',
+                        height: '100%',
+                        background: '#0773A6'
+                    }
+                });
+                loadMask.show();
+                Ext.defer(function () {
+                    loadMask.hide();
+                }, millisecond);
+            }
+
+            iframe.load(url);
         },
         initWidget: function () {
             var menus = conf.systemMenu;
@@ -363,7 +415,11 @@ var g = {
 
 Ext.define('yt.controller.Global', {
     extend: 'Ext.app.Controller',
-    requires: ['Ext.data.TreeStore'],
+    requires:
+        [
+            'Ext.data.TreeStore',
+            'Ext.ux.IFrame'
+        ],
     config: {
         //Uncomment to add references to view components
         refs: [
@@ -416,6 +472,9 @@ Ext.define('yt.controller.Global', {
             'yt-west': {
                 afterrender: function (view, eOpts) {
                     g.fn.getDzDataTree(view);
+                },
+                added: function (view, container, pos, eOpts) {
+                    g.v.westView = view;
                 }
             },
             'button[action=fullScreen]': {

@@ -33,7 +33,7 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
                 bodyPadding: 5,
                 scrollable: true,
                 closable: false,
-                border: true
+                border: false
             },
             tabPosition: 'left',
             tabRotation: 0,

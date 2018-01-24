@@ -4,8 +4,19 @@
 
 $enable-font-awesome: dynamic(true);
 
-$base-color: rgb(53, 128, 232);
+//自定义变量
+$map-focus-text-color: rgba(255, 109, 0, 1.0);
+$map-default-text-color: #ffffff;
 
-$my-panel-header-color: rgb(53, 128, 232);
+$common-color: rgb(7, 115, 166);
 
-$font-family:'微软雅黑';
+$base-color: $common-color;
+
+$my-panel-header-color: $common-color;
+
+$font-family: '微软雅黑';
+
+//自定义变量
+$focus-text-color: $map-focus-text-color;
+$default-text-color: rgba(255,255,255,1);
+$custome-font-family: '微软雅黑';
