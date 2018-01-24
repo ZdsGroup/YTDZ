@@ -24,6 +24,7 @@ var mv = {
             dzTreeStore: null,//左侧树tree store
             quakesRankList: null,
             devicesRankList: null,
+            highMarker: null,
             maxZoomShow: 16
         },
         fn: {
@@ -129,8 +130,10 @@ var mv = {
                                         if (mv.v.jcsbMarkerGroup) {
                                             mv.v.jcsbMarkerGroup.clearLayers();
                                         }
+                                        mv.fn.showHighMarker(dzMarker);
                                         mv.fn.dzAreaLine(dzMarker.options.attribution.coordinates);
                                         mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
+
                                         //显示属性面板
                                         mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
                                         if (mv.v.mapDetailPanel) {
@@ -523,6 +526,13 @@ var mv = {
                                 id: mId,
                                 attribution: jcsbInfo//绑定数据
                             });
+                            jcsbMarker.on('click', function () {
+                                mv.v.map.flyTo(jcsbMarker.getLatLng());
+                                mv.v.isMapDetaiMaximize = false;
+                                mv.fn.showHighMarker(jcsbMarker);
+
+                                //@TODO 属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
+                            });
                             mv.v.jcsbMarkerGroup.addLayer(jcsbMarker);
                             latlngs.push(jcsbMarker.getLatLng());
                         });
@@ -540,6 +550,22 @@ var mv = {
                 } else {
                     mv.v.map.flyTo([dzInfo['lat'], dzInfo['lng']]);
                 }
+            },
+            showHighMarker: function (markerObj) {
+              if(mv.v.highMarker==null){
+                  markerObj.setZIndexOffset(100);
+                  var pulsingIcon = L.icon.pulse({
+                      iconSize: [10, 10],
+                      color: '#3385FF',
+                      fillColor: '#3385FF',
+                      heartbeat: 2
+                  });
+                  mv.v.highMarker = L.marker(markerObj.getLatLng(), {
+                      icon: pulsingIcon
+                  }).addTo(mv.v.map);
+              }else {
+                  mv.v.highMarker.setLatLng(markerObj.getLatLng());
+              }
             },
             //按照时间间隔获取地灾点或设备的预警等级
             getWarnInfoList: function () {
