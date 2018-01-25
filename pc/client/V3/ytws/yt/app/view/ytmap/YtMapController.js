@@ -21,7 +21,6 @@ var mv = {
             LayerGroup: null,
             dzMarkerGroup: null,//new L.layerGroup(),
             jcsbMarkerGroup: null,//new L.layerGroup(),
-            dzTreeStore: null,//左侧树tree store
             quakesRankList: null,
             devicesRankList: null,
             highMarker: null,
@@ -135,28 +134,7 @@ var mv = {
                                         mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
 
                                         //显示属性面板
-                                        mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
-                                        if (mv.v.mapDetailPanel) {
-                                            //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
-                                            if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== dzMarker.options.attribution.code) {
-                                                // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
-                                                Ext.getCmp('mondataTitleId').setHtml(dzMarker.options.attribution.text);
-                                                Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段
-                                                var showMondataType = '';
-                                                switch (dzMarker.options.attribution.type) {
-                                                    case 'disasterpoint':
-                                                        showMondataType = '地面塌陷';
-                                                        break;
-                                                }
-                                                Ext.getCmp('mondataTypeId').setHtml(showMondataType);
-
-                                                Ext.getCmp('mondataRankId').setValue(dzMarker.options.attribution.rank);
-                                                Ext.getCmp('mondataRankId').setLimit(dzMarker.options.attribution.rank);
-                                                Ext.getCmp('mondataRankId').setMinimum(dzMarker.options.attribution.rank);
-                                            }
-                                            mv.v.mapDetailPanelInfo = dzMarker.options.attribution;
-                                            mv.fn.showBasicInfo();
-                                        }
+                                        mv.fn.markClickShowDetail(dzMarker);
                                     });
                                     mv.v.dzMarkerGroup.addLayer(dzMarker);
                                     latlngs.push(dzMarker.getLatLng());
@@ -173,6 +151,36 @@ var mv = {
                             });
                         }, 500);
                     }
+                }
+            },
+            markClickShowDetail: function (markObj) {
+                mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
+                if (mv.v.mapDetailPanel) {
+                    //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
+                    if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== markObj.options.attribution.code) {
+                        // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
+                        Ext.getCmp('mondataTitleId').setHtml(markObj.options.attribution.text);
+                        Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段
+                        var showMondataType = '';
+                        if (markObj.options.attribution.type === 'disasterpoint')
+                            showMondataType = '地面塌陷';
+                        else if (markObj.options.attribution.type === 'device'){
+                            showMondataType = '设备';
+                            if( markObj.options.attribution.deviceType === 1 )
+                                showMondataType = '位移设备'
+                            else if( markObj.options.attribution.deviceType === 2 )
+                                showMondataType = '雨量设备'
+                            else if( markObj.options.attribution.deviceType === 3 )
+                                showMondataType = '裂缝设备'
+                        }
+                        Ext.getCmp('mondataTypeId').setHtml(showMondataType);
+
+                        Ext.getCmp('mondataRankId').setValue(markObj.options.attribution.rank);
+                        Ext.getCmp('mondataRankId').setLimit(markObj.options.attribution.rank);
+                        Ext.getCmp('mondataRankId').setMinimum(markObj.options.attribution.rank);
+                    }
+                    mv.v.mapDetailPanelInfo = markObj.options.attribution;
+                    mv.fn.showBasicInfo();
                 }
             },
             switchBaseLayer: function (action) {
@@ -531,7 +539,8 @@ var mv = {
                                 mv.v.isMapDetaiMaximize = false;
                                 mv.fn.showHighMarker(jcsbMarker);
 
-                                //@TODO 属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
+                                // 显示概要面板
+                                mv.fn.markClickShowDetail(jcsbMarker);
                             });
                             mv.v.jcsbMarkerGroup.addLayer(jcsbMarker);
                             latlngs.push(jcsbMarker.getLatLng());

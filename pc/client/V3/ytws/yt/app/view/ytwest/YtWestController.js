@@ -16,6 +16,7 @@ Ext.define('yt.view.ytwest.YtWestController', {
         var noteData = record.data;
         if (noteData.type !== 'disasterpoint' && noteData.type !== 'device')
             return;
+        var findMark = null;
         if (noteData.type === 'disasterpoint') {
             // 选中的是地灾点节点
             if (mv.v.jcsbMarkerGroup) {
@@ -23,8 +24,13 @@ Ext.define('yt.view.ytwest.YtWestController', {
             }
             mv.fn.dzAreaLine(noteData.coordinates);
             mv.fn.showJcsbMarkersByDZ(noteData);
+
+            mv.v.dzMarkerGroup.eachLayer(function (markLayer) {
+                if(markLayer.options.id === noteData.code)
+                    findMark = markLayer
+            })
+
         } else if (noteData.type === 'device'){
-            console.log( noteData )
             // 选中的是设备
             var parentData = record.parentNode.data;
             if (mv.v.jcsbMarkerGroup) {
@@ -32,7 +38,15 @@ Ext.define('yt.view.ytwest.YtWestController', {
             }
             mv.fn.dzAreaLine(parentData.coordinates);
             mv.fn.showJcsbMarkersByDZ(parentData);
+            // 找到对应 code 的 mv.v.dzMarkerGroup mark对象，然后高亮
+            mv.v.jcsbMarkerGroup.eachLayer(function (markLayer) {
+                if(markLayer.options.id === noteData.code)
+                    findMark = markLayer
+            })
         }
+        // 高亮
+        console.log( findMark );
+        if(findMark)mv.fn.showHighMarker( findMark );
 
         //显示属性面板
         var isNowCreate = false;

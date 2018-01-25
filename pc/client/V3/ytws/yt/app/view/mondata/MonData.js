@@ -80,23 +80,23 @@ Ext.define('yt.view.mondata.MonData', {
                             allowBlank: false,
                             fieldLabel: '监测区域',
                             name: 'monArea',
-                            bind: {
-                                store: '{areaStore}'
-                            },
                             valueField: 'area',
-                            displayField: 'name',
-                            // value: '鹰潭市',
+                            displayField: 'text',
                             editable: false,
                             typeAhead: false,
                             queryMode: 'local',
-                            emptyText: '请选择区域，默认全市'
+                            emptyText: '请选择区域，默认全市',
+
+                            listeners: {
+                                select: 'showDeviceList'
+                            }
                         },
                         {
                             xtype: 'combobox',
                             flex: 1,
                             reference: 'monTypeListRef',
                             margin: '0 0 0 10',
-                            allowBlank: false,
+                            allowBlank: true,
                             fieldLabel: '设备类型',
                             name: 'monType',
                             bind: {
@@ -108,7 +108,24 @@ Ext.define('yt.view.mondata.MonData', {
                             editable: false,
                             typeAhead: false,
                             queryMode: 'local',
-                            emptyText: '请选择类型，默认裂缝设备'
+                            emptyText: '请选择类型，默认裂缝设备',
+
+                            listeners: {
+                                select: 'showDeviceList'
+                            }
+                        },
+                        {
+                            xtype: 'combobox',
+                            flex: 1,
+                            reference: 'monDeviceListRef',
+                            margin: '0 0 0 10',
+                            allowBlank: true,
+                            fieldLabel: '设备列表',
+                            valueField: 'type',
+                            displayField: 'text',
+                            editable: false,
+                            typeAhead: false,
+                            queryMode: 'local'
                         }]
                 },
                 {
@@ -241,7 +258,7 @@ Ext.define('yt.view.mondata.MonData', {
             bbar: [
                 {
                     xtype: 'Custompagetoolbar',
-                    displayInfo: true,
+                    displayInfo: false,
                     bind: '{gridPageStore}',
                     listeners: {
                         beforechange: 'pagebuttonChange'

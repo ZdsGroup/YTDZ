@@ -19,10 +19,20 @@ Ext.define('yt.view.mondata.MonDataController', {
         var me = this;
         var meView = me.getView();
 
-        // var monArea = meView.lookupReference('monAreaListRef');
+        var monArea = meView.lookupReference('monAreaListRef');
+        var treeData = [{text: '全部区域',code: ''}];
+        meView.getTreeRegion = g.fn.getRegionData();
+        for(var index = 0; index < meView.getTreeRegion.length; index++){
+            treeData.push( meView.getTreeRegion[index] );
+        }
+        monArea.setStore(
+            new Ext.data.Store({
+                data: treeData
+            })
+        );
+        monArea.setSelection( monArea.getStore().first() );
+
         // var monType = meView.lookupReference('monTypeListRef');
-        //
-        // monArea.setSelection( monArea.getStore().first() );
         // monType.setSelection( monType.getStore().first() );
 
         // 初始化加载数据
@@ -60,6 +70,7 @@ Ext.define('yt.view.mondata.MonDataController', {
         var monName = meView.lookupReference('monName').getValue();
         var monArea = meView.lookupReference('monAreaListRef').getSelection();
         var monType = meView.lookupReference('monTypeListRef').getSelection();
+        var monDevice = meView.lookupReference('monDeviceListRef').getSelection();
 
         var startTime = meView.lookupReference('startTime').getRawValue();
         var endTime = meView.lookupReference('endTime').getRawValue();
@@ -72,6 +83,10 @@ Ext.define('yt.view.mondata.MonDataController', {
             monType = 'lfjc';
         else
             monType = monType.get('type');
+        if(monDevice === null)
+            monDevice = '';
+        else
+            monDevice = monDevice.get('code');
 
         var action = null;
         switch (monType){
@@ -90,7 +105,7 @@ Ext.define('yt.view.mondata.MonDataController', {
         params.begin = startTime;
         params.end = endTime;
         params.regionid = monArea
-        // params.deviceid = ''; // todo 暂时没有对接上
+        params.deviceid = monDevice;
         params.name = monName;
         params.pageno = wantpageno;
         params.pagesize = meView.getViewModel().get('gridPageStore').pageSize;
@@ -123,5 +138,81 @@ Ext.define('yt.view.mondata.MonDataController', {
         var me = this;
         me.mondataRefreshFun(page);
         return false;
+    },
+
+    showDeviceList: function () {
+        var me = this;
+        var meView = me.getView();
+
+        var monArea = meView.lookupReference('monAreaListRef').getSelection();
+        var monType = meView.lookupReference('monTypeListRef').getSelection();
+
+        var monAreaCode = null;
+        if(monArea === null)
+            monAreaCode = '';
+        else
+            monAreaCode = monArea.get('code');
+
+
+        if(monType === null)
+            monType = 'lfjc';
+        else
+            monType = monType.get('type');
+        var deviceType = null;
+        switch (monType){
+            case 'wyjc':
+                deviceType = 1;
+                break;
+            case 'lfjc':
+                deviceType = 3;
+                break;
+            case 'yljc':
+                deviceType = 2;
+                break;
+        }
+        var allDeviceList = [];
+        if(monAreaCode === ''){
+            for(var index = 0; index < meView.getTreeRegion.length; index++){
+                if(meView.getTreeRegion[index].hasOwnProperty('children') &&
+                    meView.getTreeRegion[index].children !== null){
+                    for(var regionIndex = 0;regionIndex < meView.getTreeRegion[index].children.length; regionIndex++)
+                    {
+                        var regionData = meView.getTreeRegion[index].children[regionIndex];
+                        if(regionData.hasOwnProperty('children') && regionData.children !== null)
+                            allDeviceList = allDeviceList.concat( regionData.children );
+                    }
+                }
+            }
+        } else {
+            var regiondata = monArea.getData();
+            if(regiondata.hasOwnProperty('children') && regiondata.children !== null){
+                for(var regionIndex = 0;regionIndex < regiondata.children.length; regionIndex++)
+                {
+                    var regionData = regiondata.children[regionIndex];
+                    if(regionData.hasOwnProperty('children') && regionData.children !== null)
+                        allDeviceList = allDeviceList.concat( regionData.children );
+                }
+            }
+        }
+        console.log(allDeviceList);
+        var deviceList = [
+            {
+                text: '全部设备',
+                code: ''
+            }
+        ];
+        for(var index in allDeviceList){
+            var eachData = allDeviceList[index];
+            if(eachData.deviceType === deviceType)
+                deviceList.push(eachData);
+        }
+
+        var monDevice = meView.lookupReference('monDeviceListRef');
+        monDevice.setStore(
+            new Ext.data.Store({
+                data: deviceList
+            })
+        );
+        monDevice.setSelection( monDevice.getStore().first() );
     }
 });

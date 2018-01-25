@@ -12,7 +12,9 @@ var g = {
         //浮动容器
         floatContainer: null,
         //当前显示的模块布局参数
-        currentFloatParams: null
+        currentFloatParams: null,
+        //左侧树tree 原始数据
+        menuTreeData: null
     },
     fn: {
         //根据配置文件初始化系统主菜单项目
@@ -382,6 +384,8 @@ var g = {
                 if (result['data'] != null) {
                     var dataList = result['data'];
                     if (dataList && dataList.length > 0) {
+                        // 将原始 menu 数据保存，以便后面使用
+                        g.v.menuTreeData = dataList;
                         var treeStore = new Ext.create('Ext.data.TreeStore', {
                             data: dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
                         });
@@ -409,7 +413,12 @@ var g = {
                 ajax.fn.hideMask(mask);
             };
             ajax.fn.execute();
+        },
+
+        getRegionData: function () {
+            return g.v.menuTreeData;
         }
+
     }
 }
 
