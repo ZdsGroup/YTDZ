@@ -576,6 +576,49 @@ var mv = {
                     mv.v.highMarker.setLatLng(markerObj.getLatLng());
                 }
             },
+            isShowWarnInfos: function (warnObj) {
+                if(warnObj){
+                    var isShow = true;
+                    if(warnObj.iconCls=='fa fa-bell'){
+                        warnObj.setIconCls('fa fa-bell-slash');
+                        isShow = false;
+                    }else {
+                        warnObj.setIconCls('fa fa-bell');
+                    }
+                    if(isShow==true){
+                        mv.fn.refreshMarkerColor();
+                    }else{
+                        if(mv.v.dzMarkerGroup){
+                            mv.v.dzMarkerGroup.eachLayer(function (dzLayer) {
+                                var markerIcon = L.AwesomeMarkers.icon({
+                                    icon: 'bullseye',
+                                    markerColor: mv.fn.calcRank('0'),
+                                    prefix: 'fa',
+                                    spin: false
+                                });
+                                if (markerIcon) {
+                                    dzLayer.setIcon(markerIcon);
+                                }
+                            })
+                        }
+                        if(mv.v.jcsbMarkerGroup){
+                            mv.v.jcsbMarkerGroup.eachLayer(function (jcsbLayer) {
+                                if(jcsbLayer instanceof L.Marker){
+                                    var markerIcon = L.AwesomeMarkers.icon({
+                                        icon: 'camera',
+                                        markerColor: mv.fn.calcRank('0'),
+                                        prefix: 'fa',
+                                        spin: false
+                                    });
+                                    if (markerIcon) {
+                                        jcsbLayer.setIcon(markerIcon);
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+            },
             //按照时间间隔获取地灾点或设备的预警等级
             getWarnInfoList: function () {
                 var method = 'GET';
@@ -795,16 +838,39 @@ var mv = {
                         ui: 'map-warn-panel-ui',
                         floating: true,
                         height: 30,
-                        width: 300,
+                        // width: 350,
                         layout: {
                             type: 'hbox',
-                            align: 'middle',
-                            pack: 'center'
+                            pack: 'center',
+                            align: 'middle'
                         },
                         items: [
                             {
+                                xtype: 'button',
+                                tooltip: '显示告警',
+                                id: 'showWarnInfoId',
+                                enableToggle: true,
+                                pressed: false,
+                                width: 50,
+                                // scale: 'large',
+                                iconCls: 'fa fa-bell',
+                                // style: 'background: blue;border: 0;color: rgba(192, 57, 43, 1.0);',
+                                handler: function () {
+                                    //地图是否显示告警等级
+                                    mv.fn.isShowWarnInfos(this);
+                                }
+                            },
+                            {
+                                xtype: 'component',
+                                width: 1,
+                                height: 30,
+                                style: 'background-color:rgba(250, 250, 250,1.0);'
+                            },
+                            {
                                 xtype: 'container',
                                 id: 'warnInfoText',
+                                padding: '0 0 0 10',
+                                width: 300,
                                 html: ''
                             }
                         ]
