@@ -205,9 +205,10 @@ Ext.define('yt.view.mondata.MonData', {
             xtype: 'gridpanel',
             title: '',
             ui: '',
-            reference: 'monDataGridRef',
+            reference: 'monLFYLDataGridRef',
             margin: '10 10 10 10',
             flex: 1,
+            hidden: true,
             border: true,
             columnLines: true,
             reserveScrollbar: true,
@@ -244,9 +245,215 @@ Ext.define('yt.view.mondata.MonData', {
                 sortable: false,
                 align: 'center'
             }, {
-                text: '各类型对应的监测指标...',
+                text: '数据值',
                 flex: 1,
-                dataIndex: 'quote',
+                dataIndex: 'v1',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: '时间',
+                flex: 1,
+                dataIndex: 'datekey',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }],
+            leadingBufferZone: 8,
+            trailingBufferZone: 8,
+            bbar: [
+                {
+                    xtype: 'Custompagetoolbar',
+                    displayInfo: false,
+                    bind: '{gridPageStore}',
+                    listeners: {
+                        beforechange: 'pagebuttonChange'
+                    }
+                }
+            ]
+        },
+
+        {
+            xtype: 'gridpanel',
+            title: '',
+            ui: '',
+            reference: 'monWYDataGridRef',
+            margin: '10 10 10 10',
+            flex: 1,
+            hidden: true,
+            border: true,
+            columnLines: true,
+            reserveScrollbar: true,
+            multiSelect: false,
+            scrollable: true,
+            viewConfig: {
+                stripeRows: false
+            },
+            columns: [{
+                text: '设备名称',
+                width: 170,
+                dataIndex: 'devicename',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                locked: true,
+                align: 'center'
+            }, {
+                text: '所属区域',
+                width: 120,
+                dataIndex: 'regionname',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                locked: true,
+                align: 'center'
+            }, {
+                text: '所属地灾点',
+                width: 170,
+                dataIndex: 'quakename',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                locked: true,
+                align: 'center'
+            }, {
+                text: '时间',
+                width: 170,
+                dataIndex: 'datekey',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                locked: true,
+                align: 'center'
+            }, {
+                text: 'x',
+                width: 120,
+                dataIndex: 'x',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'y',
+                width: 120,
+                dataIndex: 'y',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'h',
+                width: 120,
+                dataIndex: 'h',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'X轴位移',
+                width: 120,
+                dataIndex: 'dx',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'Y轴位移',
+                width: 120,
+                dataIndex: 'dy',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'H轴位移',
+                width: 120,
+                dataIndex: 'dh',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: '二维位移长度',
+                width: 120,
+                dataIndex: 'd2',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: '三维位移长度',
+                width: 120,
+                dataIndex: 'd3',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'X轴速度',
+                width: 120,
+                dataIndex: 'xs',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'Y轴速度',
+                width: 120,
+                dataIndex: 'ys',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'H轴速度',
+                width: 120,
+                dataIndex: 'hs',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'X轴加速度',
+                width: 120,
+                dataIndex: 'xxs',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'Y轴加速度',
+                width: 120,
+                dataIndex: 'yys',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: 'H轴加速度',
+                width: 120,
+                dataIndex: 'hhs',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
