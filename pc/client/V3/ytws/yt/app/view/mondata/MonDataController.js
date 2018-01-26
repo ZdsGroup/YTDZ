@@ -104,7 +104,7 @@ Ext.define('yt.view.mondata.MonDataController', {
         var params = {};
         params.begin = startTime;
         params.end = endTime;
-        params.regionid = monArea
+        params.regionid = monArea;
         params.deviceid = monDevice;
         params.name = monName;
         params.pageno = wantpageno;
@@ -121,11 +121,28 @@ Ext.define('yt.view.mondata.MonDataController', {
                     currentPage: result['data']['page'],
                     pageSize: result['data']['size']
                 })
-                meView.lookupReference('monDataGridRef').setStore(
-                    new Ext.data.Store({
-                        data: result['data']['rows']
-                    })
-                )
+                // 如果是裂缝和雨量设备就用第一个grid
+                if(monType === 'lfjc' || monType === 'yljc')
+                {
+                    meView.lookupReference('monLFYLDataGridRef').setHidden(false);
+                    meView.lookupReference('monWYDataGridRef').setHidden(true);
+                    meView.lookupReference('monLFYLDataGridRef').setStore(
+                        new Ext.data.Store({
+                            data: result['data']['rows']
+                        })
+                    )
+                }
+                else
+                {
+                    // 位移设备的数据量大，表格横向可缩放
+                    meView.lookupReference('monLFYLDataGridRef').setHidden(true);
+                    meView.lookupReference('monWYDataGridRef').setHidden(false);
+                    meView.lookupReference('monWYDataGridRef').setStore(
+                        new Ext.data.Store({
+                            data: result['data']['rows']
+                        })
+                    )
+                }
             }
         }
         function failureCallBack(response, opts) {
@@ -194,7 +211,6 @@ Ext.define('yt.view.mondata.MonDataController', {
                 }
             }
         }
-        console.log(allDeviceList);
         var deviceList = [
             {
                 text: '全部设备',

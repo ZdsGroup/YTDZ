@@ -26,6 +26,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
         'Ext.grid.Panel',
         'Ext.panel.Panel',
         'Ext.ux.layout.ResponsiveColumn',
+        'yt.utils.ImageSwiper',
         'yt.view.ytmap.detail.DetailViewController',
         'yt.view.ytmap.detail.DetailViewModel'
     ],
@@ -41,6 +42,13 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
             userCls: 'big-30',
             height: 340
         },
+        // {
+        //     title: '设备图片',
+        //     xtype: 'imageswiper',
+        //     // src: 'http://yt.qinchenguang.com/img/1.png',
+        //     userCls: 'big-30',
+        //     height: 340
+        // },
 
         {
             xtype: 'gridpanel',
