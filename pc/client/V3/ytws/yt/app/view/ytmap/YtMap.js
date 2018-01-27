@@ -21,7 +21,8 @@ Ext.define('yt.view.ytmap.YtMap', {
     controller: 'map',
     layout: 'fit',
     listeners: {
-        afterlayout: 'afterlayout'
+        afterlayout: 'afterlayout',
+        show: 'mapViewShow'
     },
     items: [
         {

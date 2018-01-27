@@ -164,13 +164,13 @@ var mv = {
                         var showMondataType = '';
                         if (markObj.options.attribution.type === 'disasterpoint')
                             showMondataType = '地面塌陷';
-                        else if (markObj.options.attribution.type === 'device'){
+                        else if (markObj.options.attribution.type === 'device') {
                             showMondataType = '设备';
-                            if( markObj.options.attribution.deviceType === 1 )
+                            if (markObj.options.attribution.deviceType === 1)
                                 showMondataType = '位移设备'
-                            else if( markObj.options.attribution.deviceType === 2 )
+                            else if (markObj.options.attribution.deviceType === 2)
                                 showMondataType = '雨量设备'
-                            else if( markObj.options.attribution.deviceType === 3 )
+                            else if (markObj.options.attribution.deviceType === 3)
                                 showMondataType = '裂缝设备'
                         }
                         Ext.getCmp('mondataTypeId').setHtml(showMondataType);
@@ -577,18 +577,18 @@ var mv = {
                 }
             },
             isShowWarnInfos: function (warnObj) {
-                if(warnObj){
+                if (warnObj) {
                     var isShow = true;
-                    if(warnObj.iconCls=='fa fa-bell'){
+                    if (warnObj.iconCls == 'fa fa-bell') {
                         warnObj.setIconCls('fa fa-bell-slash');
                         isShow = false;
-                    }else {
+                    } else {
                         warnObj.setIconCls('fa fa-bell');
                     }
-                    if(isShow==true){
+                    if (isShow == true) {
                         mv.fn.refreshMarkerColor();
-                    }else{
-                        if(mv.v.dzMarkerGroup){
+                    } else {
+                        if (mv.v.dzMarkerGroup) {
                             mv.v.dzMarkerGroup.eachLayer(function (dzLayer) {
                                 var markerIcon = L.AwesomeMarkers.icon({
                                     icon: 'bullseye',
@@ -601,9 +601,9 @@ var mv = {
                                 }
                             })
                         }
-                        if(mv.v.jcsbMarkerGroup){
+                        if (mv.v.jcsbMarkerGroup) {
                             mv.v.jcsbMarkerGroup.eachLayer(function (jcsbLayer) {
-                                if(jcsbLayer instanceof L.Marker){
+                                if (jcsbLayer instanceof L.Marker) {
                                     var markerIcon = L.AwesomeMarkers.icon({
                                         icon: 'camera',
                                         markerColor: mv.fn.calcRank('0'),
@@ -1016,5 +1016,10 @@ Ext.define('yt.view.ytmap.YtMapController', {
         }
 
         mv.fn.refreshLayout(mv.v.mapParentId);
+    },
+    mapViewShow: function () {
+        if (mv.v.mapDetailPanel && !mv.v.mapDetailPanel.isHidden()) {
+            mv.v.mapDetailPanel.updateLayout();
+        }
     }
 });
