@@ -14,10 +14,8 @@ Ext.define('yt.view.mondata.MonData', {
         'Ext.grid.Panel',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
-        'Ext.toolbar.Paging',
         'yt.plugin.date.DateTimeField',
         'yt.utils.CustomPageToolBar',
-        // 'yt.utils.CustomPageToolBar',
         'yt.view.mondata.MonDataController',
         'yt.view.mondata.MonDataModel'
     ],

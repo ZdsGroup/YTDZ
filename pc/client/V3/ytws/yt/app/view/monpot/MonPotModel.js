@@ -40,6 +40,13 @@ Ext.define('yt.view.monpot.MonPotModel', {
             address: ''
         },
 
-        detailEditable: false
+        detailEditable: false,
+
+
+        gridPageStore:{
+            total: 0,
+            currentPage: 0,
+            pageSize: 20
+        }
     }
 });

@@ -2,12 +2,14 @@
  * Created by LBM on 2017/12/30.
  */
 Ext.define('yt.view.monpot.MonPot', {
-    extend: 'Ext.Container',
+    extend: 'Ext.panel.Panel',
 
     requires: [
         'Ext.button.Button',
         'Ext.chart.series.Bar',
         'Ext.container.Container',
+        'Ext.form.Panel',
+        'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.grid.column.Action',
         'Ext.layout.container.Fit',
@@ -16,6 +18,7 @@ Ext.define('yt.view.monpot.MonPot', {
         'Ext.panel.Panel',
         'Ext.toolbar.Fill',
         'Ext.tree.Column',
+        'yt.utils.CustomPageToolBar',
         'yt.view.monpot.MonPotController',
         'yt.view.monpot.MonPotModel',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
@@ -33,7 +36,7 @@ Ext.define('yt.view.monpot.MonPot', {
     controller: 'monpot',
 
     layout: {
-        type: 'hbox',
+        type: 'vbox',
         pack: 'start',
         align: 'stretch'
     },
@@ -44,52 +47,131 @@ Ext.define('yt.view.monpot.MonPot', {
     items: [
         /* include child components here */
         {
-            xtype: 'panel',
-            flex: 1,
-            layout: 'fit',
+            xtype: 'form',
+            title: '',
+            ui: 'monpot-form-ui',
+            reference: 'monPotFormRef',
+            margin: '10 10 0 10',
+            defaultType: 'textfield',
+            fieldDefaults: {
+                msgTarget: 'side',
+                labelWidth: 60
+            },
+            layout: 'hbox',
             items: [
                 {
-                    xtype: 'echartsbasepanel',
-                    id: 'monpotEchart',
-                    echartsOption: {
-                        xAxis: {
-                            type: 'category',
-                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [{
-                            data: [120, 200, 150, 80, 70, 110, 130],
-                            type: 'bar'
-                        }]
+                    flex: 1,
+                    allowBlank: true,
+                    fieldLabel: '关键字',
+                    reference: 'monpotName',
+                    emptyText: '请输入地灾点或设备名称'
+                },
+                {
+                    xtype: 'combobox',
+                    flex: 1,
+                    reference: 'monAreaListRef',
+                    margin: '0 0 0 10',
+                    allowBlank: false,
+                    fieldLabel: '监测区域',
+                    valueField: 'area',
+                    displayField: 'text',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '请选择区域，默认全市',
+                },
+                {
+                    xtype: 'combobox',
+                    flex: 1,
+                    reference: 'queryTypeRef',
+                    margin: '0 0 0 10',
+                    allowBlank: true,
+                    fieldLabel: '查询类型',
+                    store: {
+                        data: [
+                            {name: '地灾点', type: 'dzd'},
+                            {name: '监测设备', type: 'jcsb'}
+                        ]
+                    },
+                    valueField: 'type',
+                    displayField: 'name',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '请选择查询类型，默认地灾点',
+
+                    listeners: {
+                        select: 'showDeviceTypeList'
                     }
+                },
+                {
+                    xtype: 'combobox',
+                    flex: 1,
+                    reference: 'queryDeviceTypeRef',
+                    margin: '0 0 0 10',
+                    allowBlank: true,
+                    hidden: true,
+                    fieldLabel: '设备类型',
+                    store: {
+                        data: [
+                            {name: '全部类型', type: 'alljc'},
+                            {name: '裂缝设备', type: 'lfjc'},
+                            {name: '位移设备', type: 'wyjc'},
+                            {name: '雨量设备', type: 'yljc'}
+                        ]
+                    },
+                    valueField: 'type',
+                    displayField: 'name',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '请选择类型，默认全部设备',
+                },
+                {
+                    xtype: 'container',
+                    flex: 1,
+                    margin: '0 0 0 10',
+                    layout: {
+                        type: 'hbox',
+                        pack: 'start',
+                        align: 'stretch'
+                    },
+                    items: [
+                        {
+                            xtype: 'component',
+                            flex: 1
+                        },
+                        {
+                            xtype: 'button',
+                            text: '查询',
+                            reference: 'queryMonPotRef',
+                            disabled: false,
+                            formBind: false,
+                            handler: 'queryButtonClick'
+                        }
+                    ]
                 }
             ]
         },
         {
-            xtype: 'panel',
-            flex: 1,
-            layout: {
-                type: 'vbox',
-                pack: 'start',
-                align: 'stretch'
-            },
-            items: [
-                {
-                    xtype: 'gridpanel',
-                    id: 'monpotGridpanel',
+            xtype: 'gridpanel',
+            id: 'monpotGridpanel',
 
-                    flex: 1,
-                    border: true,
-                    scrollable: 'y',
-                    margin: '10 10 10 10',
-                    reserveScrollbar: true,
-                    useArrows: true,
-                    rootVisible: false,
-                    multiSelect: true,
-                    singleExpand: true,
-                    tbar: [
+            flex: 1,
+            border: true,
+            scrollable: 'y',
+            margin: '10 10 10 10',
+            reserveScrollbar: true,
+            useArrows: true,
+            rootVisible: false,
+            multiSelect: true,
+            singleExpand: true,
+            dockedItems: [
+                {
+                    id: 'monpotToolBar',
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
                         '->',
                         {
                             xtype: 'button',
@@ -103,68 +185,82 @@ Ext.define('yt.view.monpot.MonPot', {
                             text: '返回上一级',
                             handler: 'getBack'
                         }
-                    ],
-                    viewConfig: {
-                        stripeRows: false
-                    },
-                    store: {
-                        data: []
-                    },
-                    columns: [{
-                        text: '名称',
-                        dataIndex: 'text',
-
-                        flex: 1,
-                        align: 'center',
-                        hideable: false,
-                        menuDisabled: true,
-                        resizable: false,
-                        sortable: false
-                    }, {
-                        text: '编码',
-                        dataIndex: 'code',
-
-                        flex: 1,
-                        align: 'center',
-                        hideable: false,
-                        menuDisabled: true,
-                        resizable: false,
-                        sortable: false
-                    },{
-                        xtype: 'actioncolumn',
-                        id: 'monpotGridActionColumn',
-                        text: '操作',
-
-                        width: 165,
-                        align: 'center',
-                        items: [
-                            {
-                                xtype: 'button',
-                                iconCls: 'x-fa fa-info-circle actioncolumnMargin',
-                                tooltip: '详情'
-                            },
-                            {
-                                xtype: 'button',
-                                iconCls: 'x-fa fa-edit actioncolumnMargin',
-                                tooltip: '修改'
-                            },
-                            {
-                                xtype: 'button',
-                                iconCls: 'x-fa fa-trash',
-                                tooltip: '删除'
+                    ]
+                },
+                {
+                    xtype: 'toolbar',
+                    dock: 'bottom',
+                    items:[
+                        {
+                            xtype: 'Custompagetoolbar',
+                            displayInfo: false,
+                            bind: '{gridPageStore}',
+                            listeners: {
+                                // beforechange: 'pagebuttonChange'
                             }
-                        ],
-
-                        hideable: false,
-                        menuDisabled: true,
-                        resizable: false,
-                        sortable: false
-                    }],
-                    listeners: {
-                        rowclick: 'gridpanelRowClickfunc'
-                    }
+                        }
+                    ]
                 }
-            ]
+            ],
+            viewConfig: {
+                stripeRows: false
+            },
+            store: {
+                data: []
+            },
+            columns: [{
+                text: '名称',
+                dataIndex: 'name',
+
+                flex: 1,
+                align: 'center',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            }, {
+                text: '公司',
+                dataIndex: 'company',
+
+                flex: 1,
+                align: 'center',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            },{
+                xtype: 'actioncolumn',
+                id: 'monpotGridActionColumn',
+                text: '操作',
+
+                width: 165,
+                align: 'center',
+                items: [
+                    {
+                        xtype: 'button',
+                        iconCls: 'x-fa fa-info-circle actioncolumnMargin',
+                        tooltip: '详情'
+                    },
+                    {
+                        xtype: 'button',
+                        iconCls: 'x-fa fa-edit actioncolumnMargin',
+                        tooltip: '修改'
+                    },
+                    {
+                        xtype: 'button',
+                        iconCls: 'x-fa fa-trash',
+                        tooltip: '删除'
+                    }
+                ],
+
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            }],
+            listeners: {
+                rowclick: 'gridpanelRowClickfunc'
+            }
         }
     ]
 });

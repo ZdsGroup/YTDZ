@@ -1,3 +1,12 @@
 .actioncolumnMargin {
   margin: 0 15px 0 0;
 }
+
+@include extjs-panel-ui (
+        $ui: 'monpot-form-ui',
+        $ui-body-background-color: rgba(255, 255, 255, 1.0)
+);
+
+$datepicker-background-color: rgba(255, 255, 255, 1.0);
+
+$datepicker-footer-background-color: rgba(255, 255, 255, 1.0);
