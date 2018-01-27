@@ -26,6 +26,7 @@ Ext.define('yt.conf.SystemConfig', {
             ui: "top-menu-ui",
             icon: "fa fa-map-marker",
             mode: "cover",
+            fill: false,//若左侧树显示则为false，隐藏为true
             hide: false
         },
         {
@@ -40,6 +41,7 @@ Ext.define('yt.conf.SystemConfig', {
             ui: "top-menu-ui",
             icon: "fa fa-circle",
             mode: "cover",
+            fill: true,
             hide: false,
 
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
@@ -63,6 +65,7 @@ Ext.define('yt.conf.SystemConfig', {
             ui: "top-menu-ui",
             icon: "fa fa-cubes",
             mode: "cover",
+            fill: true,
             hide: false,
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
             floatContainerParams: {
@@ -85,6 +88,7 @@ Ext.define('yt.conf.SystemConfig', {
             ui: "top-menu-ui",
             icon: "fa fa-exclamation-triangle",
             mode: "cover",
+            fill: true,
             hide: false,
 
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
@@ -109,6 +113,7 @@ Ext.define('yt.conf.SystemConfig', {
             ui: "top-menu-ui",
             icon: "fa fa-cog",
             mode: "cover",
+            fill: true,
             hide: false,
 
             //浮动容器相关参数,align: l(左)、r(右)、t(上)、b(下)
@@ -120,220 +125,7 @@ Ext.define('yt.conf.SystemConfig', {
                 align: 'tr' //左上
             }
         }
-    ],
-    dataList: [
-        {
-            text: '月湖区',
-            type: 'region',
-            num: 3,
-            leftTop: '29.815559,116.503952',
-            rightBottom: '26.815559,120.503952',
-            expanded: true,
-            iconCls: 'fa fa-table',
-            children: [{
-                text: '月湖地灾点1',
-                lat: 28.815559,
-                lng: 117.503952,
-                type: 'disasterpoint',
-                rank: 4,
-                expanded: true,
-                iconCls: 'fa fa-plus-square red-cls',
-                children: [
-                    {
-                        text: '监测设备1',
-                        lat: 28.215559,
-                        lng: 117.203952,
-                        iconCls: 'fa fa-circle red-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 4
-                    },
-                    {
-                        text: '监测设备2',
-                        lat: 28.515559,
-                        lng: 117.303952,
-                        iconCls: 'fa fa-circle yellow-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 2
-                    },
-                    {
-                        text: '监测设备3',
-                        lat: 28.295559,
-                        lng: 117.283952,
-                        iconCls: 'fa fa-circle orange-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 3
-                    },
-                    {
-                        text: '监测设备4',
-                        lat: 29.285559,
-                        lng: 117.503952,
-                        iconCls: 'fa fa-circle orange-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 3
-                    }
-                ]
-            }, {
-                text: '月湖地灾点2',
-                lat: 30.215559,
-                lng: 116.263952,
-                type: 'disasterpoint',
-                rank: 4,
-                expanded: true,
-                iconCls: 'fa fa-plus-square red-cls',
-                children: [
-                    {
-                        text: '监测设备1',
-                        lat: 28.315559,
-                        lng: 117.603952,
-                        iconCls: 'fa fa-circle red-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 4
-                    },
-                    {
-                        text: '监测设备2',
-                        lat: 28.215559,
-                        lng: 118.273952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    },
-                    {
-                        text: '监测设备3',
-                        lat: 28.115559,
-                        lng: 117.503952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    },
-                    {
-                        text: '监测设备4',
-                        lat: 28.415559,
-                        lng: 117.206952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    },
-                    {
-                        text: '监测设备5',
-                        lat: 28.285559,
-                        lng: 117.403952,
-                        iconCls: 'fa fa-circle orange-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 3
-                    }
-                ]
-            }, {
-                text: '月湖地灾点3',
-                lat: 29.215559,
-                lng: 117.203952,
-                type: 'disasterpoint',
-                rank: 0,
-                expanded: true,
-                iconCls: 'fa fa-plus-square  green-cls',
-                children: [
-                    {
-                        text: '监测设备1',
-                        lat: 26.285559,
-                        lng: 116.903952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    },
-                    {
-                        text: '监测设备2',
-                        lat: 28.255559,
-                        lng: 117.303952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    },
-                    {
-                        text: '监测设备3',
-                        lat: 28.845559,
-                        lng: 117.673952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    },
-                    {
-                        text: '监测设备4',
-                        lat: 28.115559,
-                        lng: 117.163952,
-                        iconCls: 'fa fa-circle green-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 0
-                    }
-                ]
-            }]
-        }, {
-            text: '余江县',
-            type: 'region',
-            num: 1,
-            leftTop: '30.815559,115.503952',
-            rightBottom: '28.815559,119.503952',
-            expanded: true,
-            iconCls: 'fa fa-table',
-            children: [{
-                text: '余江地灾点1',
-                lat: 28.115559,
-                lng: 116.903952,
-                type: 'disasterpoint',
-                rank: 3,
-                expanded: true,
-                iconCls: 'fa fa-plus-square red-cls',
-                children: [
-                    {
-                        text: '监测设备1',
-                        lat: 28.545559,
-                        lng: 117.203952,
-                        iconCls: 'fa fa-circle red-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 4
-                    },
-                    {
-                        text: '监测设备2',
-                        lat: 28.515559,
-                        lng: 117.673952,
-                        iconCls: 'fa fa-circle yellow-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 2
-                    },
-                    {
-                        text: '监测设备3',
-                        lat: 28.895559,
-                        lng: 117.433952,
-                        iconCls: 'fa fa-circle orange-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 3
-                    },
-                    {
-                        text: '监测设备4',
-                        lat: 29.125559,
-                        lng: 117.563952,
-                        iconCls: 'fa fa-circle orange-cls',
-                        leaf: true,
-                        type: 'device',
-                        rank: 3
-                    }
-                ]
-            }]
-        }]
+    ]
 });
 /*PS:通过"singleton: true"属性设置类为单例之后，不能再通过new关键字创建类的实例。
 * 是否设置为单例类视个人喜好定,为了简化，现在屏蔽单例设置,否则需要通过全类型路径“jxxc.conf.SystemConfig”

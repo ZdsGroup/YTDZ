@@ -153,13 +153,13 @@ Ext.define('yt.view.mondata.MonData', {
                             fieldLabel: '结束时间',
                             reference: 'endTime',
                             flex: 1,
-                            margin: '0 0 0 10',
+                            margin: '0 0 0 8',
                             emptyText: '请选择结束时间',
                             allowBlank: false,
                             value: new Date()  //默认当天
                         }, {
                             xtype: 'container',
-                            flex: 1,
+                            flex: 2,
                             margin: '0 0 0 10',
                             layout: {
                                 type: 'hbox',

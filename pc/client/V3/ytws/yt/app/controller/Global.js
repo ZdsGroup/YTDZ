@@ -42,6 +42,7 @@ var g = {
                             menuItem['mode'] = rec['mode'];
                             menuItem['widgetId'] = rec['widgetId'];
                             menuItem['html'] = rec['html'];
+                            menuItem['fill'] = rec['fill'];
                             menuItem['floatContainerParams'] = rec['floatContainerParams'];
                             g.v.sysMenuItems.push(menuItem);
                         }
@@ -118,7 +119,7 @@ var g = {
                 var wParent = widget['parent'];
                 var tempWidget = null;
                 if (g.v.mainContainer && wParent == conf.bodyContainerID) {
-                    if (widget['html'] != null) {
+                    if (widget['fill']) {
                         //关闭左侧面板
                         var wv = g.v.westView;
                         if (wv) {
