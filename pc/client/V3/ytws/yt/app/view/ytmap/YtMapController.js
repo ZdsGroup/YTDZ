@@ -159,16 +159,19 @@ var mv = {
                 if (mv.v.mapDetailPanel) {
                     if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== markObj.options.attribution.code) {
                         // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
-                        Ext.getCmp('mondataTitleId').setHtml(markObj.options.attribution.text);
-                        Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段，需要尽快确定
-
-                        Ext.getCmp('mondataTypeId').setHtml(showMondataType);
-
-                        mv.fn.calcRank4FeaturePanel(markObj.options.attribution.rank);
+                        mv.fn.switchSummarypanel(markObj.options.attribution, showMondataType);
                     }
                     mv.v.mapDetailPanelInfo = markObj.options.attribution;
                     mv.fn.showBasicInfo();
                 }
+            },
+            //切换概要信息面板
+            switchSummarypanel: function (data, type) {
+                Ext.getCmp('mondataTitleId').setHtml(data.text);
+                Ext.getCmp('mondataAddressId').setHtml(data.address);
+
+                Ext.getCmp('mondataTypeId').setHtml(type);
+                mv.fn.calcRank4FeaturePanel(data.rank);
             },
             //根据类型计算相关参数并返回类型
             calcParamByType: function (data) {
