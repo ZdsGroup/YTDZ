@@ -72,12 +72,7 @@ Ext.define('yt.view.ytwest.YtWestController', {
         if (mv.v.mapDetailPanel) {
             if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== noteData.code) {
                 // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
-                Ext.getCmp('mondataTitleId').setHtml(noteData.text);
-                Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段
-
-                Ext.getCmp('mondataTypeId').setHtml(showMondataType);
-
-                mv.fn.calcRank4FeaturePanel(noteData.rank);
+                mv.fn.switchSummarypanel(noteData, showMondataType);
 
                 mv.v.mapDetailPanelInfo = noteData;
             }
@@ -86,10 +81,6 @@ Ext.define('yt.view.ytwest.YtWestController', {
                 mv.v.mapDetailPanelInfo = noteData;
             }
 
-            //@todo 如果面板是打开状态就直接改变数据，否则显示, 补充这里可以不需要控制，不会重复创建面板
-            /*if (isNowCreate) {
-                mv.fn.showBasicInfo();
-            }*/
 
             mv.fn.showBasicInfo();
         }

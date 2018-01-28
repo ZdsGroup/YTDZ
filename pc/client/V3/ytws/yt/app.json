@@ -223,7 +223,7 @@
     },
     {
       "path": "resources/libs/swiper/js/swiper.js",
-      "bundle": true
+      "bundle": false
     }
   ],
   /**
@@ -290,7 +290,7 @@
     },
     {
       "path": "resources/libs/swiper/css/swiper.css",
-      "bundle": true
+      "bundle": false
     }
   ],
   /**
