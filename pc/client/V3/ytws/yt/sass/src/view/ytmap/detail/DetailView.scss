@@ -69,9 +69,9 @@
 
 @include extjs-tab-panel-ui(
         $ui: 'navigation1',
-        $ui-tab-background-color: transparent,
-        $ui-tab-background-color-over: transparent,
-        $ui-tab-background-color-active: $common-color,
+        $ui-tab-background-color: $common-color,
+        $ui-tab-background-color-over: $common-active-color,
+        $ui-tab-background-color-active: $common-active-color,
         $ui-tab-background-gradient: 'none',
         $ui-tab-background-gradient-over: 'none',
         $ui-tab-background-gradient-active: 'none',
@@ -85,7 +85,7 @@
         $ui-tab-border-radius: 0,
         $ui-tab-border-width: 0,
         $ui-tab-inner-border-width: 0,
-        $ui-tab-padding: 10px,
+        $ui-tab-padding: 24px,
         $ui-tab-margin: 0,
         $ui-tab-font-size: 15px,
         $ui-tab-font-size-over: 15px,
@@ -93,9 +93,9 @@
         $ui-tab-line-height: 19px,
         $ui-tab-font-weight: normal,
         $ui-tab-font-weight-over: normal,
-        $ui-tab-font-weight-active: normal,
-        $ui-tab-icon-width: 18px,
-        $ui-tab-icon-height: 18px,
+        $ui-tab-font-weight-active: bold,
+        $ui-tab-icon-width: 24px,
+        $ui-tab-icon-height: 24px,
         $ui-tab-icon-spacing: 5px,
         $ui-bar-background-color: $common-color,
         $ui-bar-background-gradient: 'none',
@@ -118,4 +118,47 @@
         $ui-header-padding: 2px,
         $ui-header-text-margin: 2px,
         $ui-header-noborder-adjust: false
+);
+
+/*预警等级统计*/
+@include extjs-button-small-ui (
+        $ui: 'button-red-ui',
+        $background-color: red,
+        $border-width: 0px,
+        $color: black,
+        $font-size: 14px
+);
+
+@include extjs-button-small-ui (
+        $ui: 'button-orange-ui',
+        $background-color: orange,
+        $border-width: 0px,
+        $color: black,
+        $font-size: 14px
+);
+
+@include extjs-button-small-ui (
+        $ui: 'button-yellow-ui',
+        $background-color: yellow,
+        $border-width: 0px,
+        $color: black,
+        $font-size: 14px
+);
+
+@include extjs-button-small-ui (
+        $ui: 'button-blue-ui',
+        $background-color: blue,
+        $border-width: 0px,
+        $color: black,
+        $font-size: 14px
+);
+
+/*监测设备统计*/
+@include extjs-button-small-ui (
+        $ui: 'button-device-ui',
+        $background-color: #055575,
+        $border-width: 1px,
+        $padding: 10px,
+        $color: white,
+        $font-size: 14px
 );

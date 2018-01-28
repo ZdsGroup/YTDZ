@@ -26,11 +26,11 @@ Ext.define('yt.view.ytwest.YtWestController', {
             mv.fn.showJcsbMarkersByDZ(noteData);
 
             mv.v.dzMarkerGroup.eachLayer(function (markLayer) {
-                if(markLayer.options.id === noteData.code)
+                if (markLayer.options.id === noteData.code)
                     findMark = markLayer
             })
 
-        } else if (noteData.type === 'device'){
+        } else if (noteData.type === 'device') {
             // 选中的是设备
             var parentData = record.parentNode.data;
             if (mv.v.jcsbMarkerGroup) {
@@ -40,52 +40,43 @@ Ext.define('yt.view.ytwest.YtWestController', {
             mv.fn.showJcsbMarkersByDZ(parentData);
             // 找到对应 code 的 mv.v.dzMarkerGroup mark对象，然后高亮
             mv.v.jcsbMarkerGroup.eachLayer(function (markLayer) {
-                if(markLayer.options.id === noteData.code)
+                if (markLayer.options.id === noteData.code)
                     findMark = markLayer
             })
         }
         // 高亮
-        console.log( findMark );
-        if(findMark)mv.fn.showHighMarker( findMark );
+        console.log(findMark);
+        if (findMark) {
+            mv.fn.showHighMarker(findMark);
+        }
 
-        //显示属性面板
-        var isNowCreate = false;
-        if (!mv.v.mapDetailPanel || !mv.v.mapDetailPanel.isVisible()) {
-            isNowCreate = true;
+        //var isNowCreate = false;
+        if (!mv.v.mapDetailPanel) {
+            // isNowCreate = true;
             mv.v.isMapDetaiMaximize = false;
             mv.v.mapDetailPanelParam = {
                 gapX: 5,
                 gapY: 40,
                 bottomY: 5,//底部间隔
-                w: 300,//数值或百分比，如：100%
-                h: '100%',//数值或百分比，如：100%
-                align: 'br' //右下
+                w: 350,//数值或百分比，如：100%
+                h: 250,//数值或百分比，如：100%
+                align: 'tr' //右上
             };
-            mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
         }
+
+        var showMondataType = mv.fn.calcParamByType(noteData);
+        mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
+
+        //显示属性面板
         if (mv.v.mapDetailPanel) {
             if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== noteData.code) {
                 // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
                 Ext.getCmp('mondataTitleId').setHtml(noteData.text);
                 Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段
-                var showMondataType = '';
 
-                if (noteData.type === 'disasterpoint')
-                    showMondataType = '地面塌陷';
-                else if (noteData.type === 'device'){
-                    showMondataType = '设备';
-                    if( noteData.deviceType === 1 )
-                        showMondataType = '位移设备'
-                    else if( noteData.deviceType === 2 )
-                        showMondataType = '雨量设备'
-                    else if( noteData.deviceType === 3 )
-                        showMondataType = '裂缝设备'
-                }
                 Ext.getCmp('mondataTypeId').setHtml(showMondataType);
 
-                Ext.getCmp('mondataRankId').setValue(noteData.rank);
-                Ext.getCmp('mondataRankId').setLimit(noteData.rank);
-                Ext.getCmp('mondataRankId').setMinimum(noteData.rank);
+                mv.fn.calcRank4FeaturePanel(noteData.rank);
 
                 mv.v.mapDetailPanelInfo = noteData;
             }
@@ -94,10 +85,12 @@ Ext.define('yt.view.ytwest.YtWestController', {
                 mv.v.mapDetailPanelInfo = noteData;
             }
 
-            // 如果面板是打开状态就直接改变数据，否则显示
-            if (isNowCreate) {
+            //@todo 如果面板是打开状态就直接改变数据，否则显示, 补充这里可以不需要控制，不会重复创建面板
+            /*if (isNowCreate) {
                 mv.fn.showBasicInfo();
-            }
+            }*/
+
+            mv.fn.showBasicInfo();
         }
     }
 });

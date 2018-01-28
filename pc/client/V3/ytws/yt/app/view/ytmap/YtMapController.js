@@ -122,9 +122,9 @@ var mv = {
                                             gapX: 5,
                                             gapY: 40,
                                             bottomY: 5,//底部间隔
-                                            w: 300,//数值或百分比，如：100%
-                                            h: '100%',//数值或百分比，如：100%
-                                            align: 'br' //右下
+                                            w: 350,//数值或百分比，如：100%
+                                            h: 250, //地灾点-250，监测设备-172，'100%',//数值或百分比，如：100%
+                                            align: 'tr' //右上
                                         };
                                         if (mv.v.jcsbMarkerGroup) {
                                             mv.v.jcsbMarkerGroup.clearLayers();
@@ -154,34 +154,47 @@ var mv = {
                 }
             },
             markClickShowDetail: function (markObj) {
+                var showMondataType = mv.fn.calcParamByType(markObj.options.attribution);
                 mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
                 if (mv.v.mapDetailPanel) {
-                    //@TODO 这里的属性信息需要根据地图点击选择地灾点或监测设备进行动态更新
                     if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== markObj.options.attribution.code) {
                         // 如果点击的信息与上次参数不一致才刷新界面，不然不刷新
                         Ext.getCmp('mondataTitleId').setHtml(markObj.options.attribution.text);
-                        Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段
-                        var showMondataType = '';
-                        if (markObj.options.attribution.type === 'disasterpoint')
-                            showMondataType = '地面塌陷';
-                        else if (markObj.options.attribution.type === 'device') {
-                            showMondataType = '设备';
-                            if (markObj.options.attribution.deviceType === 1)
-                                showMondataType = '位移设备'
-                            else if (markObj.options.attribution.deviceType === 2)
-                                showMondataType = '雨量设备'
-                            else if (markObj.options.attribution.deviceType === 3)
-                                showMondataType = '裂缝设备'
-                        }
+                        Ext.getCmp('mondataAddressId').setHtml(); // todo address 没找到对应字段，需要尽快确定
+
                         Ext.getCmp('mondataTypeId').setHtml(showMondataType);
 
-                        Ext.getCmp('mondataRankId').setValue(markObj.options.attribution.rank);
-                        Ext.getCmp('mondataRankId').setLimit(markObj.options.attribution.rank);
-                        Ext.getCmp('mondataRankId').setMinimum(markObj.options.attribution.rank);
+                        mv.fn.calcRank4FeaturePanel(markObj.options.attribution.rank);
                     }
                     mv.v.mapDetailPanelInfo = markObj.options.attribution;
                     mv.fn.showBasicInfo();
                 }
+            },
+            //根据类型计算相关参数并返回类型
+            calcParamByType: function (data) {
+                var showMondataType = '';
+                var w = mv.v.mapDetailPanelParam['w'];
+                if (data.type === 'disasterpoint') {
+                    showMondataType = '地灾点';//统一类型为地灾点
+                    //判断是否最大化属性面板
+                    if (w < 400) {
+                        mv.v.mapDetailPanelParam['h'] = 250;
+                    }
+                }
+                else if (data.type === 'device') {
+                    showMondataType = '监测设备';
+                    if (w < 400) {
+                        mv.v.mapDetailPanelParam['h'] = 172;
+                    }
+                    if (data.deviceType === 1)
+                        showMondataType = '位移设备'
+                    else if (data.deviceType === 2)
+                        showMondataType = '雨量设备'
+                    else if (data.deviceType === 3)
+                        showMondataType = '裂缝设备'
+                }
+
+                return showMondataType;
             },
             switchBaseLayer: function (action) {
                 if (mv.v.LayerGroup != null) {
@@ -221,6 +234,7 @@ var mv = {
                 var fullMapExtent = L.latLngBounds(L.latLng(24.487606414383, 115.572696970468), L.latLng(32.0790331326058, 119.482260921593));
                 mv.v.map.fitBounds(fullMapExtent);
             },
+            //创建详情面板
             createDetailPanel: function (parentId, floatParams) {
                 var parentContainer = Ext.getDom(parentId);
                 if (mv.v.mapDetailPanel == null) {
@@ -299,7 +313,7 @@ var mv = {
                                                             //bottomY: 5,//底部间隔
                                                             w: '100%',//数值或百分比，如：100%
                                                             h: '100%',//数值或百分比，如：100%
-                                                            align: 'br' //右下
+                                                            align: 'tr' //右上
                                                         };
                                                         mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
                                                         mv.v.isMapDetaiMaximize = true;
@@ -312,10 +326,14 @@ var mv = {
                                                             gapX: 5,
                                                             gapY: 40,
                                                             bottomY: 5,//底部间隔
-                                                            w: 300,//数值或百分比，如：100%
+                                                            w: 350,//数值或百分比，如：100%
                                                             h: '100%',//数值或百分比，如：100%
-                                                            align: 'br' //右下
+                                                            align: 'tr' //右上
                                                         };
+                                                        if (mv.v.mapDetailPanelInfo) {
+                                                            mv.fn.calcParamByType(mv.v.mapDetailPanelInfo);
+                                                        }
+
                                                         mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
                                                         mv.v.isMapDetaiMaximize = false;
                                                         mv.fn.showBasicInfo();
@@ -340,6 +358,16 @@ var mv = {
                                                         closeBtn.setIconCls('fa fa-plus');
                                                         closeBtn.setTooltip('更多信息');
                                                     }
+
+                                                    //初始化详情面板参数
+                                                    mv.v.mapDetailPanelParam = {
+                                                        gapX: 5,
+                                                        gapY: 40,
+                                                        bottomY: 5,//底部间隔
+                                                        w: 350,//数值或百分比，如：100%
+                                                        h: '100%',//数值或百分比，如：100%
+                                                        align: 'tr' //右上
+                                                    };
                                                 }
                                             }
                                         ]
@@ -386,7 +414,7 @@ var mv = {
                                                 xtype: 'component',
                                                 id: 'mondataTypeId',
                                                 flex: 1,
-                                                html: '地面塌陷'
+                                                html: ''//地面塌陷
                                             }
                                         ]
                                     },
@@ -422,28 +450,115 @@ var mv = {
                             {
                                 xtype: 'panel',
                                 id: 'monWarnPanelId',
-                                title: '预警信息',
+                                margin: '1 0 0 0',
+                                title: '预警信息统计信息',
                                 ui: 'map-detail-warnning-panel-ui',
-                                iconCls: 'fa fa-exclamation-triangle',
                                 layout: {
-                                    type: 'vbox',
-                                    pack: 'start',
-                                    align: 'stretch'
+                                    type: 'hbox',
+                                    align: 'middle',
+                                    pack: 'center'
                                 },
                                 items: [
                                     {
-                                        xtype: 'timeline',
-                                        cls: 'timline-infoDescription'
+                                        xtype: 'button',
+                                        action: 'warn-red',
+                                        ui: 'button-red-ui',
+                                        text: '红色预警<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchWarnPanel(btn, evt);
+                                            }
+                                        }
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        action: 'warn-orange',
+                                        ui: 'button-orange-ui',
+                                        text: '橙色预警<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchWarnPanel(btn, evt);
+                                            }
+                                        }
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        action: 'warn-yellow',
+                                        ui: 'button-yellow-ui',
+                                        text: '黄色预警<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchWarnPanel(btn, evt);
+                                            }
+                                        }
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        action: 'warn-blud',
+                                        ui: 'button-blue-ui',
+                                        text: '蓝色预警<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchWarnPanel(btn, evt);
+                                            }
+                                        }
                                     }
                                 ]
                             },
                             {
                                 xtype: 'panel',
                                 id: 'monInfoPanelId',
-                                title: '监测设备',
+                                margin: '1 0 0 0',
+                                flex: 1,
+                                title: '监测设备统计信息',
                                 ui: 'map-detail-warnning-panel-ui',
-                                iconCls: 'fa fa-cube',
-                                flex: 1
+                                layout: {
+                                    type: 'hbox',
+                                    align: 'middle',
+                                    pack: 'center'
+                                },
+                                items: [
+                                    {
+                                        xtype: 'button',
+                                        action: 'lfjc',
+                                        ui: 'button-device-ui',
+                                        text: '裂缝监测<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchDeviceListPanel(btn, evt);
+                                            }
+                                        }
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        action: 'bmwyjc',
+                                        ui: 'button-device-ui',
+                                        text: '表面位移监测<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchDeviceListPanel(btn, evt);
+                                            }
+                                        }
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        action: 'yljc',
+                                        ui: 'button-device-ui',
+                                        text: '雨量监测<br/>50',
+                                        flex: 1,
+                                        listeners: {
+                                            click: function (btn, evt) {
+                                                mv.fn.switchDeviceListPanel(btn, evt);
+                                            }
+                                        }
+                                    }
+                                ]
                             },
                             {
                                 xtype: 'detailView',
@@ -466,13 +581,22 @@ var mv = {
                 Ext.getCmp('monMoreInfoPanelId').hide();
 
                 //显示其他基本信息面板
-                Ext.getCmp('monAddressPanelId').show();
-                Ext.getCmp('monTypePanelId').show();
-                Ext.getCmp('monRankPanelId').show();
-                Ext.getCmp('monWarnPanelId').show();
-                Ext.getCmp('monInfoPanelId').show();
+                Ext.getCmp('monAddressPanelId').show();//地灾点或设备地址
+                Ext.getCmp('monTypePanelId').show();//地灾点或监测类型
+                Ext.getCmp('monRankPanelId').show();//预警等级
+                Ext.getCmp('monWarnPanelId').show();//预警信息统计
+                Ext.getCmp('monInfoPanelId').show();//监测设备统计
+
+                //根据类型切换面板
+                var type = mv.v.mapDetailPanelInfo.type;
+                if (type == 'disasterpoint') {
+                    Ext.getCmp('monInfoPanelId').show();
+                } else if (type == 'device') {
+                    Ext.getCmp('monInfoPanelId').hide();
+                }
             },
-            showMoreInfo: function () {
+            //@todo action参数表示需要切换的地灾点或监测设备等级，以及地灾点需要切换的监测设备类型
+            showMoreInfo: function (action) {
                 //显示更多信息面板
                 Ext.getCmp('monMoreInfoPanelId').show();
 
@@ -483,8 +607,49 @@ var mv = {
                 Ext.getCmp('monWarnPanelId').hide();
                 Ext.getCmp('monInfoPanelId').hide();
 
-                //@TODO 根据当前选中对象（地灾点或监测设备动态加载详情内容,若显示基本信息面板时，这里的内容没有事先加载，这里需要加载）
+                var deviceDetail = Ext.getCmp('deviceDetailContainerID');
+                var dzDetail = Ext.getCmp('dzDetailContainerID');
+                deviceDetail.hide();
+                dzDetail.hide();
 
+                //根据类型切换面板
+                var move2ItemId = '';//需要显示的tab项目
+                var type = mv.v.mapDetailPanelInfo.type;
+                if (type == 'disasterpoint') {
+                    dzDetail.show();
+                    if (action) {
+                        if (action.indexOf('warn') > -1) {
+                            //需要切换到预警信息列表
+                            move2ItemId = 'dzWarnInfoId';
+                        } else {
+                            //需要切换到监测设备列表
+                            move2ItemId = 'dzDeviceListId';
+                        }
+                    } else {
+                        move2ItemId = 'dzDetailId';
+                    }
+
+                    //定位模块
+                    if (move2ItemId) {
+                        var dzItem = dzDetail.getComponent(move2ItemId);
+                        dzDetail.setActiveTab(dzItem);
+                    }
+
+                } else if (type == 'device') {
+                    deviceDetail.show();
+                    if (action) {
+                        //需要切换到预警信息列表
+                        move2ItemId = 'deviceWarnInfoId';
+                    } else {
+                        move2ItemId = 'deviceDetailId';//详情面板
+                    }
+
+                    //定位模块
+                    if (move2ItemId) {
+                        var deviceItem = deviceDetail.getComponent(move2ItemId);
+                        deviceDetail.setActiveTab(deviceItem);
+                    }
+                }
             },
             //地图操作
             dzAreaLine: function (points) {
@@ -560,6 +725,46 @@ var mv = {
                     mv.v.map.flyTo([dzInfo['lat'], dzInfo['lng']]);
                 }
             },
+            //通过预警信息统计面板切换到详情面板-地灾点/监测设备
+            switchWarnPanel: function (btn, evt) {
+                //切换详情面板中更多按钮状态
+                var moreBtn = Ext.getCmp('mondataMoreId');
+                moreBtn.setIconCls('fa fa-minus');
+                moreBtn.setTooltip('基本信息');
+
+                var parentContainer = Ext.getDom(mv.v.mapParentId);
+                mv.v.mapDetailPanelParam = {
+                    gapX: 5,
+                    gapY: 5,//40,
+                    //bottomY: 5,//底部间隔
+                    w: '100%',//数值或百分比，如：100%
+                    h: '100%',//数值或百分比，如：100%
+                    align: 'tr' //右上
+                };
+                mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
+                mv.v.isMapDetaiMaximize = true;
+                mv.fn.showMoreInfo(btn['action']);
+            },
+            //通过监测设备统计面板切换到详情面板-地灾点
+            switchDeviceListPanel: function (btn, evt) {
+                //切换详情面板中更多按钮状态
+                var moreBtn = Ext.getCmp('mondataMoreId');
+                moreBtn.setIconCls('fa fa-minus');
+                moreBtn.setTooltip('基本信息');
+
+                var parentContainer = Ext.getDom(mv.v.mapParentId);
+                mv.v.mapDetailPanelParam = {
+                    gapX: 5,
+                    gapY: 5,//40,
+                    //bottomY: 5,//底部间隔
+                    w: '100%',//数值或百分比，如：100%
+                    h: '100%',//数值或百分比，如：100%
+                    align: 'tr' //右上
+                };
+                mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
+                mv.v.isMapDetaiMaximize = true;
+                mv.fn.showMoreInfo(btn['action']);
+            },
             showHighMarker: function (markerObj) {
                 if (mv.v.highMarker == null) {
                     markerObj.setZIndexOffset(100);
@@ -579,11 +784,11 @@ var mv = {
             isShowWarnInfos: function (warnObj) {
                 if (warnObj) {
                     var isShow = true;
-                    if (warnObj.iconCls == 'fa fa-bell') {
+                    if (warnObj.iconCls == 'fa fa-bell orange-cls') {
                         warnObj.setIconCls('fa fa-bell-slash');
                         isShow = false;
                     } else {
-                        warnObj.setIconCls('fa fa-bell');
+                        warnObj.setIconCls('fa fa-bell orange-cls');
                     }
                     if (isShow == true) {
                         mv.fn.refreshMarkerColor();
@@ -756,23 +961,64 @@ var mv = {
                     switch (rank) {
                         case 0:
                             node.set('iconCls', iconCls + ' green-cls');
+                            node.set('rank', 0);
                             break;
                         case 1:
                             node.set('iconCls', iconCls + ' blue-cls');
+                            node.set('rank', 1);
                             break;
                         case 2:
                             node.set('iconCls', iconCls + ' yellow-cls');
+                            node.set('rank', 2);
                             break;
                         case 3:
                             node.set('iconCls', iconCls + ' orange-cls');
+                            node.set('rank', 3);
                             break;
                         case 4:
                             node.set('iconCls', iconCls + ' red-cls');
+                            node.set('rank', 4);
                             break;
                     }
                 }
 
                 //node.load();
+            },
+            // 概要面板等级信息
+            calcRank4FeaturePanel: function (rank) {
+                var mrpid = Ext.getCmp('monRankPanelId');
+                mrpid.show();
+
+                var mdrid = Ext.getCmp('mondataRankId');
+                mdrid.setValue(rank);
+                mdrid.setLimit(rank);
+                mdrid.setMinimum(rank);
+
+                switch (rank) {
+                    case 0://如果等级为0，转化为绿色1星。
+                        mdrid.setValue(1);
+                        mdrid.setLimit(1);
+                        mdrid.setMinimum(1);
+                        mdrid.setSelectedStyle('color:green;');
+                        mdrid.setOverStyle('color:green;');
+                        break;
+                    case 1:
+                        mdrid.setSelectedStyle('color:blue;');
+                        mdrid.setOverStyle('color:blue;');
+                        break;
+                    case 2:
+                        mdrid.setSelectedStyle('color:yellow;');
+                        mdrid.setOverStyle('color:yellow;');
+                        break;
+                    case 3:
+                        mdrid.setSelectedStyle('color:orange;');
+                        mdrid.setOverStyle('color:orange;');
+                        break;
+                    case 4:
+                        mdrid.setSelectedStyle('color:red;');
+                        mdrid.setOverStyle('color:red;');
+                        break;
+                }
             },
             //属性面板布局重绘
             relayoutPanel: function (parentContainer, childContainer, floatParams) {
@@ -784,11 +1030,11 @@ var mv = {
                 var offsetY = floatParams['gapY'];
                 var bottomOffsetY = floatParams['bottomY'];
 
-                if (typeof (w) == 'string' && w.indexOf('%') > -1) {
+                if (w && typeof (w) == 'string' && w.indexOf('%') > -1) {
                     w = parentContainer.clientWidth * parseFloat(w.substr(0, w.indexOf('%'))) / 100 - 2 * offsetX;
                 }
 
-                if (typeof (h) == 'string' && h.indexOf('%') > -1) {
+                if (h && typeof (h) == 'string' && h.indexOf('%') > -1) {
                     if (bottomOffsetY == null) {
                         h = parentContainer.clientHeight * parseFloat(h.substr(0, h.indexOf('%'))) / 100 - 2 * offsetY;
                     } else {
@@ -853,7 +1099,7 @@ var mv = {
                                 pressed: false,
                                 width: 50,
                                 // scale: 'large',
-                                iconCls: 'fa fa-bell',
+                                iconCls: 'fa fa-bell orange-cls',
                                 // style: 'background: blue;border: 0;color: rgba(192, 57, 43, 1.0);',
                                 handler: function () {
                                     //地图是否显示告警等级
