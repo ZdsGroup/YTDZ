@@ -17,12 +17,22 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
-        'Ext.toolbar.Paging',
         'yt.plugin.date.DateTimeField',
-        'yt.view.ytmap.detail.DetailViewController'
+        'yt.utils.CustomPageToolBar',
+        'yt.view.ytmap.detail.DetailViewController',
+        'yt.view.ytmap.detail.DetailViewModel'
     ],
 
     controller: 'detailViewController',
+
+    viewModel: {
+        type: 'detailViewModel'
+    },
+
+    config: {
+        quakeId: '',
+        deviceCode: ''
+    },
 
     flex: 1,
     margin: '5 10 5 10',
@@ -43,7 +53,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 {
                     xtype: 'datetimefield',
                     reference: 'startDate',
-                    format: 'Y-m-d H:i:s',
+                    format: 'Y-m-d',
                     fieldLabel: '查询时间',
                     emptyText: '请选择起始时间',
                     labelAlign: 'right',
@@ -54,7 +64,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 {
                     xtype: 'datetimefield',
                     reference: 'endDate',
-                    format: 'Y-m-d H:i:s',
+                    format: 'Y-m-d',
                     fieldLabel: '至',
                     emptyText: '请选择结束时间',
                     labelAlign: 'right',
@@ -68,7 +78,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 },
                 {
                     xtype: 'button',
-                    handler: 'updateAlertInfoDataGrid',
+                    handler: 'AlertInfobuttonClick',
                     text: '搜索'
                 },
                 {
@@ -84,6 +94,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                         pack: 'center'
                     },
                     border: false,
+                    hidden: true,
                     items: [
                         {
                             xtype: 'combo',
@@ -216,13 +227,15 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     align: 'center'
                 }],
             bbar: {
-                xtype: 'pagingtoolbar',
-                displayInfo: true,
-                displayMsg: '当前展示 {0} - {1} 共 {2}',
-                emptyMsg: "当前列表为空"
+                xtype: 'Custompagetoolbar',
+                displayInfo: false,
+                bind: '{gridPageStore}',
+                listeners: {
+                    beforechange: 'pagebuttonChange'
+                }
             },
             listeners: {
-                boxready: 'updateAlertInfoDataGrid',
+                boxready: 'alertInfoBoxReady',
             }
         }
     ]

@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/18.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalytiscBHGCXController', {
+Ext.define('yt.view.ytmap.detail.analytics.BHGCXController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.analyticsbhgcx',
 
@@ -34,7 +34,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalytiscBHGCXController', {
         var param = {};
 
         var action = "crevices/echarts/hour";
-        param.deviceid = '301'; // todo 暂时使用固定设备id
+        param.deviceid = meView.deviceCode;
         param.begin = meView.lookupReference('bhgcx_startTime').getRawValue() + ":00:00";
         param.end = meView.lookupReference('bhgcx_endTime').getRawValue() + ":59:59";
 

@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/17.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYBHT', {
+Ext.define('yt.view.ytmap.detail.analytics.WYBHT', {
     extend: 'Ext.panel.Panel',
 
     requires: [
@@ -9,7 +9,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYBHT', {
         'Ext.layout.container.Fit',
         'Ext.toolbar.Fill',
         'yt.plugin.date.DateTimeField',
-        'yt.view.ytmap.detail.analytics.AnalyticsWYSBController',
+        'yt.view.ytmap.detail.analytics.WYSBController',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],
 
@@ -24,6 +24,9 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYBHT', {
     controller: 'analyticswysb',
 
     layout: 'fit',
+    config: {
+        deviceCode: '7'
+    },
     tbar: [
         {
             xtype: 'datetimefield',

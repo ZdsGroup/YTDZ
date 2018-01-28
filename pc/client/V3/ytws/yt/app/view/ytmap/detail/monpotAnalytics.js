@@ -29,6 +29,12 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
         type: 'detailViewModel'
     },
 
+    config: {
+        deviceType: '',
+        deviceCode: '',
+        quakeId: ''
+    },
+
     controller: 'detailViewController',
 
     items: [
@@ -40,6 +46,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                 align: 'middle',
                 pack: 'left'
             },
+            hidden: true,
             border: false,
             defaults: {
                 bodyPadding: 5
@@ -67,27 +74,6 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
                     },
                     listeners: {
                         select: 'deviceTypeChange'
-                    }
-                },
-                {
-                    xtype: 'component',
-                    width: 5
-                },
-                {
-                    xtype: 'combo',
-                    displayField: 'label',
-                    queryMode: 'local',
-                    selectOnTab: true,
-                    editable: false,
-                    typeAhead: false,
-                    allowBlank: false,
-                    emptyText: '请选择对应设备',
-                    store: {
-                        data: [
-                            {label: '设备1'},
-                            {label: '设备2'},
-                            {label: '设备3'}
-                        ]
                     }
                 }
             ]

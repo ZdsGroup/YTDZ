@@ -40,33 +40,7 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
             },
             tabPosition: 'left',
             tabRotation: 0,
-            //@todo 需要将具体的内容添加到相应的模块
-            items: [
-                {
-                    title: '详情信息',
-                    iconCls: 'fa fa-file-image-o',
-                    itemId: 'deviceDetailId',
-                    //xtype: 'monpot-detail'
-                },
-                {
-                    title: '数据列表',
-                    iconCls: 'fa fa-list',
-                    itemId: 'deviceDataListId',
-                    //xtype: 'monpot-monitordata'
-                },
-                {
-                    title: '预警信息',
-                    iconCls: 'fa fa-exclamation-triangle',
-                    itemId: 'deviceWarnInfoId',
-                    //xtype: 'monpot-alertinfo'
-                },
-                {
-                    title: '智能分析',
-                    iconCls: 'fa fa-lightbulb-o',
-                    itemId: 'deviceAIId',
-                    //xtype: 'monpot-analytics'
-                }
-            ]
+            items: []
         },
         {
             xtype: 'tabpanel',
@@ -83,32 +57,7 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
             },
             tabPosition: 'left',
             tabRotation: 0,
-            items: [
-                {
-                    title: '详情信息',
-                    iconCls: 'fa fa-file-image-o',
-                    itemId: 'dzDetailId',
-                    //xtype: 'monpot-detail'
-                },
-                {
-                    title: '数据列表',
-                    iconCls: 'fa fa-list',
-                    itemId: 'dzDataListId',
-                    //xtype: 'monpot-monitordata'
-                },
-                {
-                    title: '预警信息',
-                    iconCls: 'fa fa-exclamation-triangle',
-                    itemId: 'dzWarnInfoId',
-                    //xtype: 'monpot-alertinfo'
-                },
-                {
-                    title: '设备列表',
-                    iconCls: 'fa fa-th',
-                    itemId: 'dzDeviceListId',
-                    //xtype: 'monpot-analytics'
-                }
-            ]
+            items: []
         }
     ]
 });

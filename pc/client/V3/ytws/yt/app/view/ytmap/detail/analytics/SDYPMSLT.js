@@ -1,34 +1,32 @@
 /**
  * Created by lyuwei on 2018/1/17.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalyticsSDYJSDT', {
+Ext.define('yt.view.ytmap.detail.analytics.SDYPMSLT', {
     extend: 'Ext.panel.Panel',
 
+    title: '散点图',
     /*
     Uncomment to give this component an xtype
-    xtype: 'analyticssdyjsdt',
+    xtype: 'analytiscsdypmslt',
     */
-    xtype: 'analyticssdyjsdt',
+    xtype: 'analytiscsdypmslt',
 
     requires: [
         'Ext.button.Button',
         'Ext.layout.container.Fit',
-        'Ext.layout.container.VBox',
-        'Ext.panel.Panel',
         'Ext.toolbar.Fill',
         'yt.plugin.date.DateTimeField',
-        'yt.view.ytmap.detail.analytics.AnalyticsWYSBController',
+        'yt.view.ytmap.detail.analytics.WYSBController',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],
 
-    title: '速度与加速度图',
+    layout: 'fit',
 
     controller: 'analyticswysb',
-
-    layout: {
-        type: 'vbox',
-        align: 'stretch'
+    config: {
+        deviceCode: '7'
     },
+
     tbar: [
         {
             xtype: 'datetimefield',
@@ -50,40 +48,20 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsSDYJSDT', {
             allowBlank: false,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'sdyjsdtUpdateEcharts'},
+        { xtype: 'button', text: '搜索', handler: 'sdypmsltUpdateEcharts'},
         '->',
+        // { xtype: 'button', text: '播放位移过程', reference: 'playbtn',handler: 'playLink' },
         { xtype: 'button', text: '导出表格' }
     ],
+
     items: [
+        /* include child components here */
         {
-            xtype: 'panel',
-            title: '速度图',
-            reference: 'speed',
-            height: '50%',
-            ui: 'map-detail-secend-panel-ui',
-            layout: 'fit',
-            items: [
-                {
-                    xtype: 'echartsbasepanel'
-                }
-            ]
-        },
-        {
-            xtype: 'panel',
-            title: '加速度图',
-            reference: 'gspeed',
-            height: '50%',
-            ui: 'map-detail-secend-panel-ui',
-            layout: 'fit',
-            items: [
-                {
-                    xtype: 'echartsbasepanel'
-                }
-            ]
+            xtype: 'echartsbasepanel'
         }
     ],
 
     listeners: {
-        boxready: 'sdyjsdtReady'
+        boxready: 'sdypmsltReady'
     }
 });

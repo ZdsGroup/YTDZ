@@ -1,28 +1,31 @@
 /**
  * Created by lyuwei on 2018/1/17.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalytiscSDYPMSLT', {
+Ext.define('yt.view.ytmap.detail.analytics.PMSLT', {
     extend: 'Ext.panel.Panel',
 
-    title: '散点与平面矢量图',
+    title: '平面矢量图',
     /*
     Uncomment to give this component an xtype
     xtype: 'analytiscsdypmslt',
     */
-    xtype: 'analytiscsdypmslt',
+    xtype: 'analytiscpmslt',
 
     requires: [
         'Ext.button.Button',
         'Ext.layout.container.Fit',
         'Ext.toolbar.Fill',
         'yt.plugin.date.DateTimeField',
-        'yt.view.ytmap.detail.analytics.AnalyticsWYSBController',
+        'yt.view.ytmap.detail.analytics.WYSBController',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],
 
     layout: 'fit',
 
     controller: 'analyticswysb',
+    config: {
+        deviceCode: '7'
+    },
 
     tbar: [
         {
@@ -45,9 +48,8 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalytiscSDYPMSLT', {
             allowBlank: false,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'sdypmsltUpdateEcharts'},
+        { xtype: 'button', text: '搜索', handler: 'pmsltUpdateEcharts'},
         '->',
-        { xtype: 'button', text: '播放位移过程', reference: 'playbtn',handler: 'playLink' },
         { xtype: 'button', text: '导出表格' }
     ],
 
@@ -59,6 +61,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalytiscSDYPMSLT', {
     ],
 
     listeners: {
-        boxready: 'sdypmsltReady'
+        boxready: 'pmsltBoxReady'
     }
 });

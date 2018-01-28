@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/18.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalyticsYLZXTController', {
+Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.analyticsylzxt',
 
@@ -35,7 +35,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsYLZXTController', {
         var param = {};
 
         var action = "rains/echarts/hour";
-        param.deviceid = '2'; // todo 暂时使用固定设备id
+        param.deviceid = meView.deviceCode;
         param.begin = meView.lookupReference('ylzxt_startTime').getRawValue() + ":00:00";
         param.end = meView.lookupReference('ylzxt_endTime').getRawValue() + ":59:59";
 

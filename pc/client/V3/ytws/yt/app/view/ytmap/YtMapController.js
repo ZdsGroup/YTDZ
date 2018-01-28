@@ -613,40 +613,138 @@ var mv = {
                 dzDetail.hide();
 
                 //根据类型切换面板
-                var move2ItemId = '';//需要显示的tab项目
                 var type = mv.v.mapDetailPanelInfo.type;
                 if (type == 'disasterpoint') {
+                    // 动态添加组件，先删除所有组件再添加
+                    dzDetail.removeAll();
+                    var detailpanel = Ext.create(
+                        {
+                            title: '详情信息',
+                            iconCls: 'fa fa-file-image-o',
+                            xtype: 'monpot-detail'
+                        }
+                    );
+                    var datalistpanel = Ext.create(
+                        {
+                            title: '数据列表',
+                            iconCls: 'fa fa-list',
+                            itemId: 'deviceDataListId',
+                            xtype: 'monpot-monitordata',
+
+                            // config
+                            quakeId: mv.v.mapDetailPanelInfo.code.toString(),
+                            deviceId: '',
+                            deviceType: ''
+                        }
+                    );
+                    var warninfopanel = Ext.create(
+                        {
+                            title: '预警信息',
+                            iconCls: 'fa fa-exclamation-triangle',
+                            xtype: 'monpot-alertinfo',
+
+                            // config
+                            quakeId: mv.v.mapDetailPanelInfo.code.toString()
+                        }
+                    );
+                    var devicepanel = Ext.create(
+                        {
+                            title: '设备列表',
+                            iconCls: 'fa fa-th',
+                            xtype: 'monpot-devicelist',
+
+                            quakeId: mv.v.mapDetailPanelInfo.code.toString(),
+                            deviceType: ''
+                        }
+                    )
+                    dzDetail.add(
+                        [detailpanel,datalistpanel,warninfopanel,devicepanel]
+                    )
+
                     dzDetail.show();
+                    var dzItem = null;
                     if (action) {
                         if (action.indexOf('warn') > -1) {
                             //需要切换到预警信息列表
-                            move2ItemId = 'dzWarnInfoId';
+                            dzItem = warninfopanel;
                         } else {
                             //需要切换到监测设备列表
-                            move2ItemId = 'dzDeviceListId';
+                            dzItem = devicepanel;
                         }
                     } else {
-                        move2ItemId = 'dzDetailId';
+                        dzItem = detailpanel;
                     }
 
                     //定位模块
-                    if (move2ItemId) {
-                        var dzItem = dzDetail.getComponent(move2ItemId);
+                    if (dzItem) {
                         dzDetail.setActiveTab(dzItem);
                     }
 
                 } else if (type == 'device') {
+                    // 动态添加组件，先删除所有组件再添加
+                    deviceDetail.removeAll();
+                    var detailPanel = Ext.create(
+                        {
+                            title: '详情信息',
+                            iconCls: 'fa fa-file-image-o',
+                            xtype: 'monpot-detail'
+                        }
+                    )
+                    var warninfopanel = Ext.create(
+                        {
+                            title: '预警信息',
+                            iconCls: 'fa fa-exclamation-triangle',
+                            xtype: 'monpot-alertinfo',
+
+                            // config
+                            quakeId: mv.v.mapDetailPanelInfo.quakeId.toString(),
+                            deviceCode: mv.v.mapDetailPanelInfo.code.toString()
+                        }
+                    )
+                    var devicedatalistpanel = Ext.create(
+                        {
+                            title: '数据列表',
+                            iconCls: 'fa fa-list',
+                            xtype: 'monpot-monitordata',
+
+                            // config
+                            quakeId: mv.v.mapDetailPanelInfo.quakeId.toString(),
+                            deviceId: mv.v.mapDetailPanelInfo.code.toString(),
+                            deviceType:
+                                mv.v.mapDetailPanelInfo.deviceType === 1 ? 'wysb' :
+                                    mv.v.mapDetailPanelInfo.deviceType === 2 ? 'ylsb' : 'lfsb'
+                        }
+                    )
+                    var deviceaipanel = Ext.create(
+                        {
+                            title: '智能分析',
+                            iconCls: 'fa fa-lightbulb-o',
+                            xtype: 'monpot-analytics',
+
+                            // config
+                            deviceType:
+                                mv.v.mapDetailPanelInfo.deviceType === 1 ? 'wysb' :
+                                    mv.v.mapDetailPanelInfo.deviceType === 2 ? 'ylsb' : 'lfsb',
+                            deviceCode: mv.v.mapDetailPanelInfo.code.toString(),
+                            quakeId: mv.v.mapDetailPanelInfo.quakeId.toString()
+                        }
+                    )
+                    deviceDetail.add(
+                        [detailPanel,warninfopanel,devicedatalistpanel,deviceaipanel]
+                    )
+
+
                     deviceDetail.show();
+                    var deviceItem = null;
                     if (action) {
                         //需要切换到预警信息列表
-                        move2ItemId = 'deviceWarnInfoId';
+                        deviceItem = warninfopanel;
                     } else {
-                        move2ItemId = 'deviceDetailId';//详情面板
+                        deviceItem = detailPanel;//详情面板
                     }
 
                     //定位模块
-                    if (move2ItemId) {
-                        var deviceItem = deviceDetail.getComponent(move2ItemId);
+                    if (deviceItem) {
                         deviceDetail.setActiveTab(deviceItem);
                     }
                 }
@@ -677,6 +775,8 @@ var mv = {
                     if (jcsbList.length > 0) {
                         var latlngs = new Array();
                         Ext.each(jcsbList, function (jcsbInfo) {
+                            // 设置监测设备的地灾点id
+                            jcsbInfo.quakeId = dzInfo.code;
                             var jcName = jcsbInfo['text'];
                             var jcRank = jcsbInfo['rank'];
                             var mId = jcsbInfo['code'];

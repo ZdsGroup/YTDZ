@@ -817,79 +817,79 @@ var devicePlaneCompareSuccess = function(result) {
 		};
 	});
 	links.pop();
-	var devicetypecompareOption = {
-		color: [
-			'#8DA8C9', '#8DA8C9', '#6DC576', '#E37072'
-		],
-		legend: {
-			y: 'top',
-			data: ['起始点', '历史点', '结束点']
-		},
-		tooltip: {
-			trigger: 'none',
-			axisPointer: {
-				type: 'cross'
-			}
-		},
-		grid: {
-			top: 60,
-			bottom: 10,
-			left: 20,
-			right: 40,
-			containLabel: true
-		},
-		xAxis: {
-			type: 'value',
-			name: '坐标Y(mm)',
-			nameRotate: 270,
-			splitLine: {
-				show: false
-			}
-		},
-		yAxis: {
-			type: 'value',
-			name: '坐标X(mm)',
-			splitLine: {
-				show: false
-			}
-		},
-		series: [{
-				name: '历史点',
-				type: 'scatter',
-				data: historyPoint
+		var devicetypecompareOption = {
+			color: [
+				'#8DA8C9', '#8DA8C9', '#6DC576', '#E37072'
+			],
+			legend: {
+				y: 'top',
+				data: ['起始点', '历史点', '结束点']
 			},
-			{
-				type: 'graph',
-				layout: 'none',
-				coordinateSystem: 'cartesian2d',
-				symbolSize: 0,
-				label: {
-					normal: {
-						show: true
-					}
-				},
-				edgeSymbol: ['circle', 'arrow'],
-				edgeSymbolSize: [2, 8],
-				data: historyPoint,
-				links: links,
-				lineStyle: {
-					normal: {
-						color: '#8DA8C9'
-					}
+			tooltip: {
+				trigger: 'none',
+				axisPointer: {
+					type: 'cross'
 				}
 			},
-			{
-				name: '起始点',
-				type: 'scatter',
-				data: startPoint
+			grid: {
+				top: 60,
+				bottom: 10,
+				left: 20,
+				right: 40,
+				containLabel: true
 			},
-			{
-				name: '结束点',
-				type: 'scatter',
-				data: endPoint
-			}
-		]
-	}
+			xAxis: {
+				type: 'value',
+				name: '坐标Y(mm)',
+				nameRotate: 270,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+				type: 'value',
+				name: '坐标X(mm)',
+				splitLine: {
+					show: false
+				}
+			},
+			series: [{
+					name: '历史点',
+					type: 'scatter',
+					data: historyPoint
+				},
+				{
+					type: 'graph',
+					layout: 'none',
+					coordinateSystem: 'cartesian2d',
+					symbolSize: 0,
+					label: {
+						normal: {
+							show: true
+						}
+					},
+					edgeSymbol: ['circle', 'arrow'],
+					edgeSymbolSize: [2, 8],
+					data: historyPoint,
+					links: links,
+					lineStyle: {
+						normal: {
+							color: '#8DA8C9'
+						}
+					}
+				},
+				{
+					name: '起始点',
+					type: 'scatter',
+					data: startPoint
+				},
+				{
+					name: '结束点',
+					type: 'scatter',
+					data: endPoint
+				}
+			]
+		}
 	dtc.setOption(devicetypecompareOption);
 }
 

@@ -33,6 +33,8 @@ Ext.define('yt.view.ytwest.YtWestController', {
         } else if (noteData.type === 'device') {
             // 选中的是设备
             var parentData = record.parentNode.data;
+            // 把对应的quakeid设置到当前noteData里面
+            noteData.quakeId = parentData.code;
             if (mv.v.jcsbMarkerGroup) {
                 mv.v.jcsbMarkerGroup.clearLayers();
             }
@@ -45,7 +47,6 @@ Ext.define('yt.view.ytwest.YtWestController', {
             })
         }
         // 高亮
-        console.log(findMark);
         if (findMark) {
             mv.fn.showHighMarker(findMark);
         }

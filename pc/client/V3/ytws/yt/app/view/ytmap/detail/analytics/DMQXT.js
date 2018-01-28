@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/17.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalyticsDMQXT', {
+Ext.define('yt.view.ytmap.detail.analytics.DMQXT', {
     extend: 'Ext.panel.Panel',
 
     requires: [
@@ -10,7 +10,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsDMQXT', {
         'Ext.layout.container.Fit',
         'Ext.toolbar.Fill',
         'yt.plugin.date.DateTimeField',
-        'yt.view.ytmap.detail.analytics.AnalyticsWYSBController',
+        'yt.view.ytmap.detail.analytics.WYSBController',
         'yt.view.ytmap.detail.analytics.EchartsBasePanel'
     ],
 
@@ -24,6 +24,9 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsDMQXT', {
 
     title: '断面曲线图',
     layout: 'fit',
+    config: {
+        quakeCode: '1000'
+    },
     tbar: [
         {
             xtype: 'datetimefield',

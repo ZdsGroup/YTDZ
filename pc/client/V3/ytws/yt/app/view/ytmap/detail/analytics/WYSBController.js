@@ -1,7 +1,7 @@
 /**
  * Created by lyuwei on 2018/1/18.
  */
-Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
+Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.analyticswysb',
 
@@ -26,7 +26,8 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
         meView.lookupReference('endTime').setValue( nowDate );
     },
-    
+
+    // 位移变化图
     wybhtReady: function (thisExt, width, height, eOpts) {
         var me = this;
         me.baseboxreadyFunc();
@@ -39,7 +40,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         var param = {};
 
         var action = "tbmwys/echarts/hour";
-        param.deviceid = '7'; // todo 暂时使用固定设备id
+        param.deviceid = meView.deviceCode;
         param.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
         param.end = meView.lookupReference('endTime').getRawValue() + ":59:59";
 
@@ -50,9 +51,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
             if (result['data'] === null) return;
             var devicetypecompareOption = {
-                color: [
-                    '#60acfc','#32d3eb','#5bc49f','#feb64d','#ff7c7c','#9287e7'
-                ],
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -179,6 +177,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         ajax.fn.executeV2(param, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
     },
 
+    // 断面曲线图
     dmqxtReady: function (thisExt, width, height, eOpts) {
         var me = this;
         me.baseboxreadyFunc();
@@ -192,7 +191,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         var param = {};
 
         var action = "tbmwys/echarts/dmqx";
-        param.quakeid = '100000'; // todo 暂时使用地灾点id
+        param.quakeid = meView.quakeCode;
         param.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
         param.end = meView.lookupReference('endTime').getRawValue() + ":59:59";
 
@@ -203,9 +202,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
             if (result['data'] === null) return;
             var devicetypecompareOption = {
-                color: [
-                    '#60acfc','#32d3eb','#5bc49f','#feb64d','#ff7c7c','#9287e7'
-                ],
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -283,28 +279,23 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         ajax.fn.executeV2(param, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
     },
 
-    sdyjsdtReady: function (thisExt, width, height, eOpts) {
+    // 加速度图
+    jsdtBoxReady: function (thisExt, width, height, eOpts) {
         var me = this;
         var meView = me.getView();
         me.baseboxreadyFunc();
-        me.sdyjsdtUpdateEcharts();
-
-        var thisSpeedEcharts = meView.lookupReference('speed').down('echartsbasepanel').getEcharts();
-        var thisGSpeedEcharts = meView.lookupReference('gspeed').down('echartsbasepanel').getEcharts();
-        echarts.connect( [ thisSpeedEcharts, thisGSpeedEcharts ] );
+        me.jsdtUpdateEcharts();
     },
-    sdyjsdtUpdateEcharts: function () {
+    jsdtUpdateEcharts: function () {
         var me = this;
         var meView = me.getView();
-        var thisSpeedEcharts = meView.lookupReference('speed').down('echartsbasepanel').getEcharts();
-        var thisGSpeedEcharts = meView.lookupReference('gspeed').down('echartsbasepanel').getEcharts();
-        var param = {};
+        var thisEcharts = meView.down('echartsbasepanel').getEcharts();
 
+        var param = {};
         var action = "tbmwys/echarts/hour";
-        param.deviceid = '7'; // todo 暂时使用固定设备id
+        param.deviceid = meView.deviceCode;
         param.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
         param.end = meView.lookupReference('endTime').getRawValue() + ":59:59";
-
         var mask = ajax.fn.showMask( meView, '数据加载中...');
         function successCallBack(response, opts) {
             ajax.fn.hideMask(mask);
@@ -313,9 +304,6 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
             if (result['data'] === null) return;
             // 速度部分
             var devicetypecompareOption = {
-                color: [
-                    '#60acfc','#32d3eb','#5bc49f','#feb64d','#ff7c7c','#9287e7'
-                ],
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -402,13 +390,40 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
             dhseries.data = dhs;
             devicetypecompareOption.series = series;
             devicetypecompareOption.xAxis[0].data = xAxisData;
-            thisSpeedEcharts.setOption(devicetypecompareOption);
-            // 速度完成
+            thisEcharts.setOption(devicetypecompareOption);
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+        ajax.fn.executeV2(param, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
+    },
+
+    // 速度图
+    sdtBoxReady: function (thisExt, width, height, eOpts) {
+        var me = this;
+        var meView = me.getView();
+        me.baseboxreadyFunc();
+        me.sdtUpdateEcharts();
+    },
+    sdtUpdateEcharts: function () {
+        var me = this;
+        var meView = me.getView();
+        var thisEcharts = meView.down('echartsbasepanel').getEcharts();
+        var param = {};
+
+        var action = "tbmwys/echarts/hour";
+        param.deviceid = meView.deviceCode;
+        param.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
+        param.end = meView.lookupReference('endTime').getRawValue() + ":59:59";
+
+        var mask = ajax.fn.showMask( meView, '数据加载中...');
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if (result['data'] === null) return;
             // 加速度开始
             var gdevicetypecompareOption = {
-                color: [
-                    '#60acfc','#32d3eb','#5bc49f','#feb64d','#ff7c7c','#9287e7'
-                ],
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -494,7 +509,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
             gdhseries.data = gdhs;
             gdevicetypecompareOption.series = gseries;
             gdevicetypecompareOption.xAxis[0].data = gxAxisData;
-            thisGSpeedEcharts.setOption(gdevicetypecompareOption);
+            thisEcharts.setOption(gdevicetypecompareOption);
         }
         function failureCallBack(response, opts) {
             ajax.fn.hideMask(mask);
@@ -519,7 +534,7 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         }
 
         var action = "tbmwys/echarts/hour";
-        param.deviceid = '7'; // todo 暂时使用固定设备id
+        param.deviceid = meView.deviceCode;
         param.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
         param.end = meView.lookupReference('endTime').getRawValue() + ":59:59";
 
@@ -649,6 +664,125 @@ Ext.define('yt.view.ytmap.detail.analytics.AnalyticsWYSBController', {
         meView.playTask = playTask;
         meView.lookupReference('playbtn').setDisabled(true);
         Ext.TaskManager.start( meView.playTask );
-    }
+    },
 
+    // 平面矢量图
+    // 平面矢量图
+    pmsltBoxReady: function (thisExt, width, height, eOpts) {
+        var me = this;
+        me.baseboxreadyFunc();
+        me.pmsltUpdateEcharts();
+    },
+    pmsltUpdateEcharts: function () {
+        var me = this;
+        var meView = me.getView();
+        var thisEcharts = meView.down('echartsbasepanel').getEcharts();
+
+        var param = {};
+        var action = "tbmwys/echarts/hour";
+        param.deviceid = meView.deviceCode;
+        param.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
+        param.end = meView.lookupReference('endTime').getRawValue() + ":59:59";
+
+        var mask = ajax.fn.showMask( meView, '数据加载中...');
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if (result['data'] === null) return;
+
+            var vectors = result.data.points;
+            var startPoint = [ vectors[0] ];
+            var endPoint = [ vectors[vectors.length - 1] ];
+            var historyPoint = vectors;
+            var links = historyPoint.map(function(item, i) {
+                return {
+                    source: i,
+                    target: i + 1
+                };
+            });
+            links.pop();
+
+            var devicetypecompareOption = {
+                color: [
+                    '#8DA8C9', '#8DA8C9', '#6DC576', '#E37072'
+                ],
+                legend: {
+                    y: 'top',
+                    data: ['起始点', '历史点', '结束点']
+                },
+                tooltip: {
+                    trigger: 'none',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                grid: {
+                    top: 60,
+                    bottom: 10,
+                    left: 20,
+                    right: 40,
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    name: '坐标Y(mm)',
+                    nameRotate: 270,
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '坐标X(mm)',
+                    splitLine: {
+                        show: false
+                    }
+                },
+                series: [{
+                    name: '历史点',
+                    type: 'scatter',
+                    data: historyPoint
+                },
+                    {
+                        type: 'graph',
+                        layout: 'none',
+                        coordinateSystem: 'cartesian2d',
+                        symbolSize: 0,
+                        label: {
+                            normal: {
+                                show: true
+                            }
+                        },
+                        edgeSymbol: ['circle', 'arrow'],
+                        edgeSymbolSize: [2, 8],
+                        data: historyPoint,
+                        links: links,
+                        lineStyle: {
+                            normal: {
+                                color: '#8DA8C9'
+                            }
+                        }
+                    },
+                    {
+                        name: '起始点',
+                        type: 'scatter',
+                        data: startPoint
+                    },
+                    {
+                        name: '结束点',
+                        type: 'scatter',
+                        data: endPoint
+                    }
+                ]
+            }
+
+            thisEcharts.clear();
+            thisEcharts.setOption(devicetypecompareOption);
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+        ajax.fn.executeV2(param, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
+    }
 });
