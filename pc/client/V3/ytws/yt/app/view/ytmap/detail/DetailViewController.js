@@ -43,6 +43,10 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
             if(!result['data']) return;
 
+            result['data']['runstatus'] = me.rendererDeviceStatus(result['data']['runstatus']);
+            result['data']['connectstatus'] = me.rendererDeviceStatus(result['data']['connectstatus'])
+            result['data']['batterystatus'] = me.rendererDeviceStatus(result['data']['batterystatus'])
+
             meView.getViewModel().set('deviceDetailInfo',result['data']);
         }
         function failureCallBack(response, opts) {
@@ -76,10 +80,10 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
 
     },
     rendererDeviceStatus: function (value, metaData) {
-        if(value !== 0){
-            metaData.tdAttr = 'bgcolor="red"';
-        }
-        return value === 0 ? '正常' : '异常';
+        // if(value !== 0){
+        //     metaData.tdAttr = 'bgcolor="red"';
+        // }
+        return value === 0 ? '异常' : '正常';
     },
 
     // 智能分析面板相关 controller

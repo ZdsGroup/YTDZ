@@ -79,56 +79,99 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
                     flex: 3,
                     fieldDefaults: {
                         labelStyle: 'font-weight:bold',
-                        margin: '0 0 0 0'
+                        margin: '0 0 0 0',
+                        labelWidth: 85
                     },
                     layout: {
-                        type: 'vbox',
+                        type: 'hbox',
                         pack: 'start',
                         align: 'left'
                     },
-                    items: [{
-                        xtype: 'displayfield',
-                        fieldLabel: '设备名称',
-                        bind: {
-                            value: '{deviceDetailInfo.name}'
+
+                    items: [
+                        {
+                            xtype: 'form',
+                            flex: 1,
+                            layout: {
+                                type: 'vbox',
+                                pack: 'start',
+                                align: 'left'
+                            },
+                            items: [{
+                                xtype: 'displayfield',
+                                fieldLabel: '设备名称',
+                                bind: {
+                                    value: '{deviceDetailInfo.name}'
+                                }
+                            }, {
+                                xtype: 'displayfield',
+                                fieldLabel: '负责人',
+                                bind: {
+                                    value: '{deviceDetailInfo.username}'
+                                }
+                            }, {
+                                xtype: 'displayfield',
+                                fieldLabel: '联系电话',
+                                bind: {
+                                    value: '{deviceDetailInfo.mobile}'
+                                }
+                            }, {
+                                xtype: 'displayfield',
+                                fieldLabel: '安装地点',
+                                bind: {
+                                    value: '{deviceDetailInfo.address}'
+                                }
+                            }, {
+                                xtype: 'displayfield',
+                                fieldLabel: '安装时间',
+                                bind: {
+                                    value: '{deviceDetailInfo.addtime}'
+                                }
+                            }, {
+                                xtype: 'displayfield',
+                                fieldLabel: '维护周期',
+                                bind: {
+                                    value: '{deviceDetailInfo.rate}'
+                                }
+                            }, {
+                                xtype: 'displayfield',
+                                fieldLabel: '上次维护',
+                                bind: {
+                                    value: '{deviceDetailInfo.modtime}'
+                                }
+                            }]
+                        },
+                        {
+                            xtype: 'form',
+                            flex: 1,
+                            layout: {
+                                type: 'vbox',
+                                pack: 'start',
+                                align: 'stretch'
+                            },
+                            items: [
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '运行状态',
+                                    bind: {
+                                        value: '{deviceDetailInfo.runstatus}'
+                                    }
+                                }, {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '连接状态',
+                                    bind: {
+                                        value: '{deviceDetailInfo.connectstatus}'
+                                    }
+                                }, {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '电池状态',
+                                    bind: {
+                                        value: '{deviceDetailInfo.batterystatus}'
+                                    }
+                                }
+                            ]
                         }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '负责人',
-                        bind: {
-                            value: '{deviceDetailInfo.username}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '联系电话',
-                        bind: {
-                            value: '{deviceDetailInfo.mobile}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '安装地点',
-                        bind: {
-                            value: '{deviceDetailInfo.address}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '安装时间',
-                        bind: {
-                            value: '{deviceDetailInfo.addtime}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '维护周期',
-                        bind: {
-                            value: '{deviceDetailInfo.rate}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '上次维护',
-                        bind: {
-                            value: '{deviceDetailInfo.modtime}'
-                        }
-                    }],
+                    ]
                 }
             ]
         },

@@ -80,93 +80,131 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     flex: 3,
                     fieldDefaults: {
                         labelStyle: 'font-weight:bold',
-                        margin: '0 0 0 0'
+                        margin: '0 0 0 0',
+                        labelWidth: 85
                     },
                     layout: {
-                        type: 'vbox',
+                        type: 'hbox',
                         pack: 'start',
                         align: 'left'
                     },
-                    scrollable: 'y',
-                    items: [{
-                        xtype: 'displayfield',
-                        fieldLabel: '地灾点',
-                        bind: {
-                            value: '{dzdDetailInfo.name}'
+                    // scrollable: 'y',
+
+                    items: [
+                        {
+                            xtype: 'form',
+                            flex: 1,
+                            layout: {
+                                type: 'vbox',
+                                pack: 'start',
+                                align: 'left'
+                            },
+                            items: [
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '地灾点',
+                                    bind: {
+                                        value: '{dzdDetailInfo.name}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '灾害类型',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dtype}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '威胁人数',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dnum}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '报警方式',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dmethod}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '撤离路线',
+                                    bind: {
+                                        value: '{dzdDetailInfo.droute}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '联系电话',
+                                    bind: {
+                                        value: '{dzdDetailInfo.mobile}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '简介',
+                                    bind: {
+                                        value: '总计{dzdDetailInfo.typenum}种类型，{dzdDetailInfo.devicenum}个监测设备'
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'form',
+                            flex: 1,
+                            layout: {
+                                type: 'vbox',
+                                pack: 'start',
+                                align: 'stretch'
+                            },
+                            items: [
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '承担单位',
+                                    bind: {
+                                        value: '{dzdDetailInfo.company}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '险情等级',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dlevel}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '防治措施',
+                                    bind: {
+                                        value: '{dzdDetailInfo.davoid}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '避灾地点',
+                                    bind: {
+                                        value: '{dzdDetailInfo.daddress}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '负责人',
+                                    bind: {
+                                        value: '{dzdDetailInfo.username}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '监测设备',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dmethod}'
+                                    }
+                                }
+                            ]
                         }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '承担单位',
-                        bind: {
-                            value: '{dzdDetailInfo.company}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '灾害类型',
-                        bind: {
-                            value: '{dzdDetailInfo.dtype}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '险情等级',
-                        bind: {
-                            value: '{dzdDetailInfo.dlevel}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '威胁人数',
-                        bind: {
-                            value: '{dzdDetailInfo.dnum}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '防治措施',
-                        bind: {
-                            value: '{dzdDetailInfo.davoid}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '报警方式',
-                        bind: {
-                            value: '{dzdDetailInfo.dmethod}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '避灾地点',
-                        bind: {
-                            value: '{dzdDetailInfo.daddress}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '撤离路线',
-                        bind: {
-                            value: '{dzdDetailInfo.droute}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '负责人',
-                        bind: {
-                            value: '{dzdDetailInfo.username}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '联系电话',
-                        bind: {
-                            value: '{dzdDetailInfo.mobile}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '监测设备',
-                        bind: {
-                            value: '{dzdDetailInfo.dmethod}'
-                        }
-                    }, {
-                        xtype: 'displayfield',
-                        fieldLabel: '简介',
-                        bind: {
-                            value: '总计{dzdDetailInfo.typenum}种类型，{dzdDetailInfo.devicenum}个监测设备'
-                        }
-                    }]
+                    ]
                 }
             ]
         },
