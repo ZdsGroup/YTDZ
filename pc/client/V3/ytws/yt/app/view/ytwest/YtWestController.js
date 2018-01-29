@@ -52,7 +52,7 @@ Ext.define('yt.view.ytwest.YtWestController', {
         }
 
         //var isNowCreate = false;
-        if (!mv.v.mapDetailPanel) {
+        // if (!mv.v.mapDetailPanel) {
             // isNowCreate = true;
             mv.v.isMapDetaiMaximize = false;
             mv.v.mapDetailPanelParam = {
@@ -63,7 +63,7 @@ Ext.define('yt.view.ytwest.YtWestController', {
                 h: 250,//数值或百分比，如：100%
                 align: 'tr' //右上
             };
-        }
+        // }
 
         var showMondataType = mv.fn.calcParamByType(noteData);
         mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);

@@ -627,6 +627,16 @@ var mv = {
                             xtype: 'monpot-detail'
                         }
                     );
+                    var warninfopanel = Ext.create(
+                        {
+                            title: '预警信息',
+                            iconCls: 'fa fa-exclamation-triangle',
+                            xtype: 'monpot-alertinfo',
+
+                            // config
+                            quakeId: mv.v.mapDetailPanelInfo.code.toString()
+                        }
+                    );
                     var datalistpanel = Ext.create(
                         {
                             title: '数据列表',
@@ -640,16 +650,6 @@ var mv = {
                             deviceType: ''
                         }
                     );
-                    var warninfopanel = Ext.create(
-                        {
-                            title: '预警信息',
-                            iconCls: 'fa fa-exclamation-triangle',
-                            xtype: 'monpot-alertinfo',
-
-                            // config
-                            quakeId: mv.v.mapDetailPanelInfo.code.toString()
-                        }
-                    );
                     var devicepanel = Ext.create(
                         {
                             title: '设备列表',
@@ -661,7 +661,7 @@ var mv = {
                         }
                     )
                     dzDetail.add(
-                        [detailpanel,datalistpanel,warninfopanel,devicepanel]
+                        [detailpanel,warninfopanel,datalistpanel,devicepanel]
                     )
 
                     dzDetail.show();
