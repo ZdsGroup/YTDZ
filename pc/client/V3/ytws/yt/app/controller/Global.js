@@ -14,7 +14,10 @@ var g = {
         //当前显示的模块布局参数
         currentFloatParams: null,
         //左侧树tree 原始数据
-        menuTreeData: null
+        menuTreeData: null,
+        //左侧面板控制
+        isLeftButtonAction: true
+
     },
     fn: {
         //根据配置文件初始化系统主菜单项目
@@ -106,7 +109,7 @@ var g = {
                 var leftControllerBtn = Ext.getCmp('controllleftpanelId');
                 if (leftControllerBtn) {
                     var ltp = leftControllerBtn.tooltip;
-                    if (ltp != '显示左侧面板') {
+                    if (ltp != '显示左侧面板' && !mv.v.isLeftButtonAction) {
                         //此时左侧面板本应该显示的
                         var wv = g.v.westView;
                         if (wv) {
@@ -300,6 +303,7 @@ var g = {
         },
         toggleHandler: function (container, button, pressed) {
             if (pressed) {
+                mv.v.isLeftButtonAction = false;
                 g.v.isInit = true;
                 g.fn.loadWidget(button);
 
@@ -322,8 +326,9 @@ var g = {
             }
         },
         switchLeftPanel: function (button, e, eOpts) {
+            mv.v.isLeftButtonAction = true;
             var wv = this.getWestView();
-            if (wv.hidden) {
+            if (wv.isHidden()) {
                 wv.show(true);
                 button.setIconCls('fa fa-caret-left');
                 button.setTooltip('关闭左侧面板');

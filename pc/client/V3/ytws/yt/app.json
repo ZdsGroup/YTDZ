@@ -220,11 +220,15 @@
     {
       "path": "resources/libs/leaflet-awesome/L.Icon.Pulse.js",
       "bundle": true
-    },
+    }/*,
     {
       "path": "resources/libs/swiper/js/swiper.js",
-      "bundle": false
-    }
+      "bundle": true
+    },
+    {
+      "path": "resources/libs/swiper/js/apple.js",
+      "bundle": true
+    }*/
   ],
   /**
    * List of all CSS assets in the right inclusion order.
@@ -287,10 +291,6 @@
     {
       "path": "resources/libs/leaflet-awesome/L.Icon.Pulse.css",
       "bundle": true
-    },
-    {
-      "path": "resources/libs/swiper/css/swiper.css",
-      "bundle": false
     }
   ],
   /**

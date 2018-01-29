@@ -29,6 +29,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
     },
 
     requires: [
+        'Ext.container.Container',
         'Ext.form.Panel',
         'Ext.form.field.Display',
         'Ext.layout.container.HBox',
@@ -66,13 +67,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     flex: 2,
                     margin: '10 10 10 10'
                 },
-                // {
-                //     title: '设备图片',
-                //     xtype: 'imageswiper',
-                //     // src: 'http://yt.qinchenguang.com/img/1.png',
-                //     userCls: 'big-30',
-                //     height: 340
-                // },
                 {
                     xtype: 'form',
                     reference: 'detailInfoForm',
