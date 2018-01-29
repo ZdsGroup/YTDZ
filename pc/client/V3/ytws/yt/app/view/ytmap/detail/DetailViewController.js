@@ -27,6 +27,54 @@ Ext.define('yt.view.ytmap.detail.DetailViewController', {
     },
 
     // 详细面板相关 controller
+    deviceDetailBoxReady: function () {
+        var me = this;
+        var meView = me.getView();
+
+        if(meView.deviceId === '')
+            return;
+
+        var action = 'devices/' + meView.deviceId;
+        var mask = ajax.fn.showMask( meView.lookupReference('detailInfoForm'), '数据加载中...');
+
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if(!result['data']) return;
+
+            meView.getViewModel().set('deviceDetailInfo',result['data']);
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+        ajax.fn.executeV2({}, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
+
+    },
+    dzdDetailBoxReady: function () {
+        var me = this;
+        var meView = me.getView();
+
+        if(meView.quakeId === '')
+            return;
+
+        var action = 'quakes/' + meView.quakeId;
+        var mask = ajax.fn.showMask( meView.lookupReference('detailInfoForm'), '数据加载中...');
+
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if(!result['data']) return;
+
+            meView.getViewModel().set('dzdDetailInfo',result['data']);
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+        ajax.fn.executeV2({}, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
+
+    },
     rendererDeviceStatus: function (value, metaData) {
         if(value !== 0){
             metaData.tdAttr = 'bgcolor="red"';

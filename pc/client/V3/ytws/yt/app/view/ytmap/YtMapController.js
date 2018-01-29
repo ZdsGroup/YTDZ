@@ -624,7 +624,10 @@ var mv = {
                         {
                             title: '详情信息',
                             iconCls: 'fa fa-file-image-o',
-                            xtype: 'monpot-detail'
+                            xtype: 'monpot-detail',
+
+                            // config
+                            quakeId: mv.v.mapDetailPanelInfo.code.toString()
                         }
                     );
                     var warninfopanel = Ext.create(
@@ -690,7 +693,10 @@ var mv = {
                         {
                             title: '详情信息',
                             iconCls: 'fa fa-file-image-o',
-                            xtype: 'monpot-detail'
+                            xtype: 'monpot-devicedetail',
+
+                            // config
+                            deviceId: mv.v.mapDetailPanelInfo.code.toString()
                         }
                     )
                     var warninfopanel = Ext.create(

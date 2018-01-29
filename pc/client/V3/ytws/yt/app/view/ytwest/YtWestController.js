@@ -68,6 +68,11 @@ Ext.define('yt.view.ytwest.YtWestController', {
         var showMondataType = mv.fn.calcParamByType(noteData);
         mv.fn.createDetailPanel(mv.v.mapParentId, mv.v.mapDetailPanelParam);
 
+        // 切换概要面板中更多按钮状态
+        var moreBtn = Ext.getCmp('mondataMoreId');
+        moreBtn.setIconCls('fa fa-plus');
+        moreBtn.setTooltip('更多信息');
+
         //显示属性面板
         if (mv.v.mapDetailPanel) {
             if (!mv.v.mapDetailPanelInfo || mv.v.mapDetailPanelInfo.code !== noteData.code) {

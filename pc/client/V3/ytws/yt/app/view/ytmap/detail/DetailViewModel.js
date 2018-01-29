@@ -23,6 +23,26 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
             total: 0,
             currentPage: 0,
             pageSize: 20
+        },
+
+        deviceDetailInfo: {
+            name: 'test1',
+            username: 'test11',
+            mobile: 'test12',
+            address: 'test13',
+            addtime: 'test14',
+            rate: 'test15',
+            modtime: 'test16'
+        },
+
+        dzdDetailInfo: {
+            name: 'test1',
+            username: 'test11',
+            mobile: 'test12',
+            address: 'test13',
+            addtime: 'test14',
+            rate: 'test15',
+            modtime: 'test16'
         }
     }
 });
