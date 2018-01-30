@@ -697,7 +697,87 @@ var mv = {
                             xtype: 'monpot-devicelist',
 
                             quakeId: mv.v.mapDetailPanelInfo.code.toString(),
-                            deviceType: ''
+                            deviceType: '',
+                            detailBtnClick: function (thisExt, record, element, rowIndex, e, eOpts) {
+                                var detailData = record.getData();
+                                if(e.target.dataset.qtip === '详情'){
+                                    var winOption = {
+                                        title: "详情",
+                                        width: 1500,
+                                        height: 800,
+                                        layout: "fit",
+                                        modal: true,
+                                        closable: true,
+                                        maximizable: true,
+                                        minimizable: false,
+                                        resizable: true,
+                                        items: []
+                                    }
+
+                                    winOption.title = detailData.name + '详情';
+
+                                    winOption.items = [
+                                        {
+                                            xtype: 'tabpanel',
+                                            ui: 'navigation1',
+                                            border: false,
+                                            flex: 1,
+                                            defaults: {
+                                                bodyPadding: 5,
+                                                scrollable: true,
+                                                closable: false,
+                                                border: false
+                                            },
+                                            tabPosition: 'left',
+                                            tabRotation: 0,
+                                            items: [
+                                                {
+                                                    title: '详情信息',
+                                                    iconCls: 'fa fa-file-image-o',
+                                                    xtype: 'monpot-devicedetail',
+
+                                                    // config
+                                                    deviceId: detailData.deviceid.toString()
+                                                },
+                                                {
+                                                    title: '预警信息',
+                                                    iconCls: 'fa fa-exclamation-triangle',
+                                                    xtype: 'monpot-alertinfo',
+
+                                                    // config
+                                                    quakeId: detailData.quakeid.toString(),
+                                                    deviceCode: detailData.deviceid.toString()
+                                                },
+                                                {
+                                                    title: '数据列表',
+                                                    iconCls: 'fa fa-list',
+                                                    xtype: 'monpot-monitordata',
+
+                                                    // config
+                                                    quakeId: detailData.quakeid.toString(),
+                                                    deviceId: detailData.deviceid.toString(),
+                                                    deviceType:
+                                                        detailData.type === 1 ? 'wysb' :
+                                                            detailData.type === 2 ? 'ylsb' : 'lfsb'
+                                                },
+                                                {
+                                                    title: '智能分析',
+                                                    iconCls: 'fa fa-lightbulb-o',
+                                                    xtype: 'monpot-analytics',
+
+                                                    // config
+                                                    deviceType:
+                                                        detailData.type === 1 ? 'wysb' :
+                                                            detailData.type === 2 ? 'ylsb' : 'lfsb',
+                                                    deviceCode: detailData.deviceid.toString(),
+                                                    quakeId: detailData.quakeid.toString()
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                    Ext.create("Ext.window.Window", winOption).show();
+                                }
+                            }
                         }
                     )
                     dzDetail.add(

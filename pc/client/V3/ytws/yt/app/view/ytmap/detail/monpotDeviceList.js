@@ -31,7 +31,9 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
 
     config: {
         quakeId: '',
-        deviceType: ''
+        deviceType: '',
+
+        detailBtnClick: null
     },
 
     margin: '5 10 5 10',
@@ -198,7 +200,11 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                 }
             },
             listeners: {
-                rowclick: 'monpotDetailBtnClick'
+                rowclick: function(thisExt, record, element, rowIndex, e, eOpts){
+                    var thisFather = thisExt.up('monpot-devicelist');
+                    if(thisFather.config.detailBtnClick)
+                        thisFather.config.detailBtnClick(thisExt, record, element, rowIndex, e, eOpts)
+                }
             }
         }
     ]
