@@ -18,7 +18,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
         type: 'detailViewModel'
     },
 
-    controller: 'detailViewController',
+    controller: 'monpotdetail',
 
     requires: [
         'Ext.form.Panel',
@@ -26,8 +26,8 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
-        'yt.view.ytmap.detail.DetailViewController',
-        'yt.view.ytmap.detail.DetailViewModel'
+        'yt.view.ytmap.detail.DetailViewModel',
+        'yt.view.ytmap.detail.monpotDetailController'
     ],
 
     config: {

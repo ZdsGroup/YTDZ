@@ -6,11 +6,7 @@ Ext.define('yt.view.ytmap.detail.DetailView', {
 
     requires: [
         'Ext.layout.container.Fit',
-        'Ext.tab.Panel',
-        'yt.view.ytmap.detail.monpotAlertInfo',
-        'yt.view.ytmap.detail.monpotAnalytics',
-        'yt.view.ytmap.detail.monpotDetail',
-        'yt.view.ytmap.detail.monpotMonitordata'
+        'Ext.tab.Panel'
     ],
 
     /*

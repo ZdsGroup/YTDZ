@@ -14,15 +14,16 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
         'Ext.button.Button',
         'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
+        'Ext.grid.column.Action',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'yt.utils.CustomPageToolBar',
-        'yt.view.ytmap.detail.DetailViewController',
-        'yt.view.ytmap.detail.DetailViewModel'
+        'yt.view.ytmap.detail.DetailViewModel',
+        'yt.view.ytmap.detail.monpotDeviceListController'
     ],
 
-    controller: 'detailViewController',
+    controller: 'monpotdevicelist',
 
     viewModel: {
         type: 'detailViewModel'
@@ -169,6 +170,24 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                     resizable: false,
                     sortable: false,
                     align: 'center'
+                }, {
+                    xtype: 'actioncolumn',
+                    text: '操作',
+
+                    width: 65,
+                    align: 'center',
+                    items: [
+                        {
+                            xtype: 'button',
+                            iconCls: 'x-fa fa-info-circle',
+                            tooltip: '详情'
+                        }
+                    ],
+
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false
                 }],
             bbar: {
                 xtype: 'Custompagetoolbar',
@@ -177,6 +196,9 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                 listeners: {
                     beforechange: 'monpotdevicelistPagebuttonChange'
                 }
+            },
+            listeners: {
+                rowclick: 'monpotDetailBtnClick'
             }
         }
     ]

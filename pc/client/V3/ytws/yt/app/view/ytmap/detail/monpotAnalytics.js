@@ -16,8 +16,8 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'Ext.tab.Panel',
-        'yt.view.ytmap.detail.DetailViewController',
-        'yt.view.ytmap.detail.DetailViewModel'
+        'yt.view.ytmap.detail.DetailViewModel',
+        'yt.view.ytmap.detail.monpotAnalyticsController'
     ],
 
     layout: {
@@ -35,7 +35,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
         quakeId: ''
     },
 
-    controller: 'detailViewController',
+    controller: 'monpotanalytics',
 
     items: [
         {

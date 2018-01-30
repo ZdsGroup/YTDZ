@@ -19,11 +19,11 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
         'Ext.panel.Panel',
         'yt.plugin.date.DateTimeField',
         'yt.utils.CustomPageToolBar',
-        'yt.view.ytmap.detail.DetailViewController',
-        'yt.view.ytmap.detail.DetailViewModel'
+        'yt.view.ytmap.detail.DetailViewModel',
+        'yt.view.ytmap.detail.monpotAlertInfoController'
     ],
 
-    controller: 'detailViewController',
+    controller: 'monpotalertinfo',
 
     viewModel: {
         type: 'detailViewModel'
