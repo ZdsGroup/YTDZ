@@ -48,7 +48,14 @@ Ext.define('yt.view.ytwest.YtWestController', {
         }
         // 高亮
         if (findMark) {
-            mv.fn.showHighMarker(findMark);
+            if (noteData.type === 'device'){
+                mv.fn.showHighMarker(findMark);
+            }else {
+                if (mv.v.selDzMarker){
+                    mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
+                }
+                mv.v.selDzMarker = findMark;
+            }
         }
 
         //var isNowCreate = false;

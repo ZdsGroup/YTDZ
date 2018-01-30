@@ -24,8 +24,9 @@ var mv = {
             quakesRankList: null,
             devicesRankList: null,
             highMarker: null,
-            jcsbMaxZoomShow: 14,
-            maxZoomShow: 16
+            jcsbMaxZoomShow: 15,
+            maxZoomShow: 16,
+            selDzMarker: null
         },
         fn: {
             initMap: function (mapid) {
@@ -37,7 +38,7 @@ var mv = {
                 //默认显示影像地图
                 mv.fn.switchBaseLayer('vector');
 
-                mv.v.map.setView(L.latLng(28.23, 117.02), 10);//定位到鹰潭市
+                mv.v.map.flyTo(L.latLng(28.23, 117.02), 10);//定位到鹰潭市
 
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mv.v.mapParentId);
@@ -50,16 +51,26 @@ var mv = {
                 };
                 //执行预警等级刷新并更新树节点显示状态
                 Ext.TaskManager.start(refershMarkColor);
-                //监测设备根据不同的地图级别进行显示隐藏
+                //地灾点以及监测设备根据不同的地图级别进行显示隐藏
                 mv.v.map.on('zoomend', function () {
                     var curLel = mv.v.map.getZoom();
                     if(curLel < mv.v.jcsbMaxZoomShow) {
                         if(mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == true) {
                             mv.v.map.removeLayer(mv.v.jcsbMarkerGroup);
                         }
+                        if(mv.v.selDzMarker!=null && mv.v.dzMarkerGroup!=null){
+                            mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
+                            mv.fn.showHighMarker(mv.v.selDzMarker);
+                        }
                     } else {
                         if(mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == false) {
                             mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
+                        }
+                        if(mv.v.selDzMarker!=null && mv.v.dzMarkerGroup!=null){
+                            mv.v.dzMarkerGroup.removeLayer(mv.v.selDzMarker);
+                            if (mv.v.highMarker){
+                                mv.v.map.removeLayer(mv.v.highMarker);
+                            }
                         }
                     }
                 });
@@ -143,7 +154,11 @@ var mv = {
                                         if (mv.v.jcsbMarkerGroup) {
                                             mv.v.jcsbMarkerGroup.clearLayers();
                                         }
-                                        mv.fn.showHighMarker(dzMarker);
+                                        if (mv.v.selDzMarker){
+                                            mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
+                                        }
+                                        mv.v.selDzMarker = dzMarker;
+                                        // mv.fn.showHighMarker(dzMarker);
                                         mv.fn.dzAreaLine(dzMarker.options.attribution.coordinates);
                                         mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
 
@@ -890,7 +905,6 @@ var mv = {
             },
             showHighMarker: function (markerObj) {
                 if (mv.v.highMarker == null) {
-                    markerObj.setZIndexOffset(100);
                     var pulsingIcon = L.icon.pulse({
                         iconSize: [10, 10],
                         color: '#3385FF',
@@ -898,11 +912,17 @@ var mv = {
                         heartbeat: 2
                     });
                     mv.v.highMarker = L.marker(markerObj.getLatLng(), {
+                        type: markerObj.options['type'],
+                        id: markerObj.options['id'],
                         icon: pulsingIcon
                     }).addTo(mv.v.map);
                 } else {
                     mv.v.highMarker.setLatLng(markerObj.getLatLng());
+                    if (mv.v.map.hasLayer(mv.v.highMarker)==false){
+                        mv.v.map.addLayer(mv.v.highMarker);
+                    }
                 }
+                mv.v.highMarker.setZIndexOffset(-100);
             },
             isShowWarnInfos: function (warnObj) {
                 if (warnObj) {
