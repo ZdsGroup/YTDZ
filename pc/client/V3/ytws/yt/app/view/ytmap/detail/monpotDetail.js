@@ -103,30 +103,16 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                 },
                                 {
                                     xtype: 'displayfield',
-                                    fieldLabel: '灾害类型',
+                                    fieldLabel: '承担单位',
                                     bind: {
-                                        value: '{dzdDetailInfo.dtype}'
+                                        value: '{dzdDetailInfo.company}'
                                     }
                                 },
                                 {
                                     xtype: 'displayfield',
-                                    fieldLabel: '威胁人数',
+                                    fieldLabel: '负责人',
                                     bind: {
-                                        value: '{dzdDetailInfo.dnum}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '报警方式',
-                                    bind: {
-                                        value: '{dzdDetailInfo.dmethod}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '撤离路线',
-                                    bind: {
-                                        value: '{dzdDetailInfo.droute}'
+                                        value: '{dzdDetailInfo.username}'
                                     }
                                 },
                                 {
@@ -138,9 +124,23 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                 },
                                 {
                                     xtype: 'displayfield',
+                                    fieldLabel: '险情等级',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dlevel}'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
+                                    fieldLabel: '威胁人数',
+                                    bind: {
+                                        value: '{dzdDetailInfo.dnum} (人)'
+                                    }
+                                },
+                                {
+                                    xtype: 'displayfield',
                                     fieldLabel: '简介',
                                     bind: {
-                                        value: '总计{dzdDetailInfo.typenum}种类型，{dzdDetailInfo.devicenum}个监测设备'
+                                        value: '{dzdDetailInfo.description}'
                                     }
                                 }
                             ]
@@ -156,16 +156,16 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                             items: [
                                 {
                                     xtype: 'displayfield',
-                                    fieldLabel: '承担单位',
+                                    fieldLabel: '灾害类型',
                                     bind: {
-                                        value: '{dzdDetailInfo.company}'
+                                        value: '{dzdDetailInfo.dtype}'
                                     }
                                 },
                                 {
                                     xtype: 'displayfield',
-                                    fieldLabel: '险情等级',
+                                    fieldLabel: '报警方式',
                                     bind: {
-                                        value: '{dzdDetailInfo.dlevel}'
+                                        value: '{dzdDetailInfo.dmethod}'
                                     }
                                 },
                                 {
@@ -184,16 +184,16 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                 },
                                 {
                                     xtype: 'displayfield',
-                                    fieldLabel: '负责人',
+                                    fieldLabel: '撤离路线',
                                     bind: {
-                                        value: '{dzdDetailInfo.username}'
+                                        value: '{dzdDetailInfo.droute}'
                                     }
                                 },
                                 {
                                     xtype: 'displayfield',
                                     fieldLabel: '监测设备',
                                     bind: {
-                                        value: '{dzdDetailInfo.dmethod}'
+                                        value: '总计 {dzdDetailInfo.typenum} 种类型，{dzdDetailInfo.devicenum} 个监测设备'
                                     }
                                 }
                             ]
