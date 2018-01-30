@@ -26,7 +26,6 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
-        'yt.utils.ImageSwiper',
         'yt.view.ytmap.detail.DetailViewController',
         'yt.view.ytmap.detail.DetailViewModel'
     ],
@@ -65,13 +64,6 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
                     flex: 2,
                     margin: '10 10 10 10'
                 },
-                // {
-                //     title: '设备图片',
-                //     xtype: 'imageswiper',
-                //     // src: 'http://yt.qinchenguang.com/img/1.png',
-                //     userCls: 'big-30',
-                //     height: 340
-                // },
                 {
                     xtype: 'form',
                     reference: 'detailInfoForm',

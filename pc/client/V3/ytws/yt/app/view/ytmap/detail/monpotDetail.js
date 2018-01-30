@@ -35,7 +35,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
-        'yt.utils.ImageSwiper',
         'yt.view.ytmap.detail.DetailViewController',
         'yt.view.ytmap.detail.DetailViewModel'
     ],
