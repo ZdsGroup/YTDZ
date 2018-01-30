@@ -54,21 +54,21 @@ var mv = {
                 //地灾点以及监测设备根据不同的地图级别进行显示隐藏
                 mv.v.map.on('zoomend', function () {
                     var curLel = mv.v.map.getZoom();
-                    if(curLel < mv.v.jcsbMaxZoomShow) {
-                        if(mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == true) {
+                    if (curLel < mv.v.jcsbMaxZoomShow) {
+                        if (mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == true) {
                             mv.v.map.removeLayer(mv.v.jcsbMarkerGroup);
                         }
-                        if(mv.v.selDzMarker!=null && mv.v.dzMarkerGroup!=null){
+                        if (mv.v.selDzMarker != null && mv.v.dzMarkerGroup != null) {
                             mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
                             mv.fn.showHighMarker(mv.v.selDzMarker);
                         }
                     } else {
-                        if(mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == false) {
+                        if (mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == false) {
                             mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
                         }
-                        if(mv.v.selDzMarker!=null && mv.v.dzMarkerGroup!=null){
+                        if (mv.v.selDzMarker != null && mv.v.dzMarkerGroup != null) {
                             mv.v.dzMarkerGroup.removeLayer(mv.v.selDzMarker);
-                            if (mv.v.highMarker){
+                            if (mv.v.highMarker) {
                                 mv.v.map.removeLayer(mv.v.highMarker);
                             }
                         }
@@ -154,7 +154,7 @@ var mv = {
                                         if (mv.v.jcsbMarkerGroup) {
                                             mv.v.jcsbMarkerGroup.clearLayers();
                                         }
-                                        if (mv.v.selDzMarker){
+                                        if (mv.v.selDzMarker) {
                                             mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
                                         }
                                         mv.v.selDzMarker = dzMarker;
@@ -335,6 +335,9 @@ var mv = {
                                                 iconCls: 'fa fa-plus',
                                                 tooltip: '更多信息',
                                                 handler: function (btn) {
+                                                    //停止图片轮播功能
+                                                    isw.fn.stopPlay();
+
                                                     //最大化
                                                     if (!mv.v.isMapDetaiMaximize) {
                                                         btn.setIconCls('fa fa-minus');
@@ -351,6 +354,8 @@ var mv = {
                                                         mv.v.isMapDetaiMaximize = true;
                                                         mv.fn.showMoreInfo();
                                                     } else {
+
+
                                                         //最小化
                                                         btn.setIconCls('fa fa-plus');
                                                         btn.setTooltip('更多信息');
@@ -381,6 +386,9 @@ var mv = {
                                                 iconCls: 'fa fa-times',
                                                 tooltip: '关闭',
                                                 handler: function () {
+                                                    //停止图片轮播功能
+                                                    isw.fn.stopPlay();
+
                                                     mv.v.mapDetailPanel.hide();
                                                     mv.v.isMapDetaiMaximize = false;
 
@@ -693,7 +701,7 @@ var mv = {
                         }
                     )
                     dzDetail.add(
-                        [detailpanel,warninfopanel,datalistpanel,devicepanel]
+                        [detailpanel, warninfopanel, datalistpanel, devicepanel]
                     )
 
                     dzDetail.show();
@@ -768,7 +776,7 @@ var mv = {
                         }
                     )
                     deviceDetail.add(
-                        [detailPanel,warninfopanel,devicedatalistpanel,deviceaipanel]
+                        [detailPanel, warninfopanel, devicedatalistpanel, deviceaipanel]
                     )
 
 
@@ -918,7 +926,7 @@ var mv = {
                     }).addTo(mv.v.map);
                 } else {
                     mv.v.highMarker.setLatLng(markerObj.getLatLng());
-                    if (mv.v.map.hasLayer(mv.v.highMarker)==false){
+                    if (mv.v.map.hasLayer(mv.v.highMarker) == false) {
                         mv.v.map.addLayer(mv.v.highMarker);
                     }
                 }

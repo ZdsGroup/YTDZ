@@ -13,6 +13,9 @@ Ext.define('yt.view.ytwest.YtWestController', {
     },
 
     treeSelection: function (thisExt, record, eOpts) {
+        //停止图片轮播功能
+        isw.fn.stopPlay();
+
         var noteData = record.data;
         if (noteData.type !== 'disasterpoint' && noteData.type !== 'device')
             return;
