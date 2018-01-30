@@ -13,6 +13,8 @@ monpot.v = {
     parentType: null,
     parentCode: null,
 
+    /**以上为历史数据，暂时不删除*/
+    detailPanel: null
 }
 
 monpot.fn = {
@@ -125,6 +127,204 @@ monpot.fn = {
         }
         if(action)
             ajax.fn.executeV2({},'GET',conf.serviceUrl + action,successCallBack,failureCallBack);
+    },
+
+    getDetailPanel: function () {
+        if(monpot.v.detailPanel) {
+
+            monpot.v.detailPanel.down('tabpanel[name=disasterpointDetailPanel]').setHidden(true);
+            monpot.v.detailPanel.down('tabpanel[name=deviceDetailPanel]').setHidden(true);
+
+            monpot.v.detailPanel.down('[name=gobackDetail]').setHidden(true);
+
+            return monpot.v.detailPanel;
+        }
+
+        var winOption = {
+            title: "详情",
+            width: 1500,
+            height: 800,
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
+            modal: true,
+            closable: true,
+            closeAction: 'method-hide',
+            maximizable: true,
+            minimizable: false,
+            resizable: true,
+            tools: [
+                {
+                    type:'left',
+                    tooltip: '返回',
+                    name: 'gobackDetail',
+                    hidden:true,
+                    handler: function(event, toolEl, panelHeader) {
+                        monpot.fn.getBackDetailPanel();
+                    }
+                }
+            ],
+            items: [
+                {
+                    xtype: 'tabpanel',
+                    name: 'disasterpointDetailPanel',
+                    ui: 'navigation1',
+                    border: false,
+                    hidden: true,
+                    flex: 1,
+                    defaults: {
+                        bodyPadding: 5,
+                        scrollable: true,
+                        closable: false,
+                        border: false
+                    },
+                    tabPosition: 'left',
+                    tabRotation: 0,
+                    items: []
+                },
+                {
+                    xtype: 'tabpanel',
+                    name: 'deviceDetailPanel',
+                    ui: 'navigation1',
+                    border: false,
+                    hidden: true,
+                    flex: 1,
+                    defaults: {
+                        bodyPadding: 5,
+                        scrollable: true,
+                        closable: false,
+                        border: false
+                    },
+                    tabPosition: 'left',
+                    tabRotation: 0,
+                    items: []
+                }
+            ]
+        }
+        monpot.v.detailPanel = Ext.create("Ext.window.Window", winOption);
+        return monpot.v.detailPanel;
+    },
+
+    getBackDetailPanel: function () {
+        var popwindow = monpot.fn.getDetailPanel();
+        popwindow.down('tabpanel[name=disasterpointDetailPanel]').setHidden(false);
+        popwindow.setTitle(popwindow.preTitle);
+    },
+
+    showDZDDetailPanel: function (detailInfo) {
+        var popwindow = monpot.fn.getDetailPanel();
+        popwindow.setTitle( detailInfo.name + '详情');
+        var dzdpanel = popwindow.down('tabpanel[name=disasterpointDetailPanel]');
+        // 清楚历史数据
+        dzdpanel.removeAll();
+        var itemsarr = [
+                {
+                    title: '详情信息',
+                    iconCls: 'fa fa-file-image-o',
+                    xtype: 'monpot-detail',
+
+                    // config
+                    quakeId: detailInfo.quakeid.toString()
+                },
+                {
+                    title: '预警信息',
+                    iconCls: 'fa fa-exclamation-triangle',
+                    xtype: 'monpot-alertinfo',
+
+                    // config
+                    quakeId: detailInfo.quakeid.toString()
+                },
+                {
+                    title: '数据列表',
+                    iconCls: 'fa fa-list',
+                    itemId: 'deviceDataListId',
+                    xtype: 'monpot-monitordata',
+
+                    // config
+                    quakeId: detailInfo.quakeid.toString(),
+                    deviceId: '',
+                    deviceType: ''
+                },
+                {
+                    title: '设备列表',
+                    iconCls: 'fa fa-th',
+                    xtype: 'monpot-devicelist',
+
+                    quakeId: detailInfo.quakeid.toString(),
+                    deviceType: '',
+                    detailBtnClick: function (thisExt, record, element, rowIndex, e, eOpts) {
+                        var detailData = record.getData();
+                        if(e.target.dataset.qtip === '详情'){
+                            monpot.fn.showDeviceDetailPanel(detailData,true);
+                        }
+                    }
+                }
+        ]
+        dzdpanel.add( itemsarr );
+        dzdpanel.setHidden(false);
+        dzdpanel.setActiveTab(0);
+        popwindow.show();
+    },
+
+    showDeviceDetailPanel: function (deviceInfo, isCanBack) {
+        var popwindow = monpot.fn.getDetailPanel();
+        if(isCanBack){
+            // 可以返回
+            popwindow.preTitle = popwindow.getTitle();
+            monpot.v.detailPanel.down('[name=gobackDetail]').setHidden(false);
+        }
+        popwindow.setTitle( deviceInfo.name + '详情');
+        var devicepanel = popwindow.down('tabpanel[name=deviceDetailPanel]');
+        // 清楚历史数据
+        devicepanel.removeAll();
+        var itemsarr = [
+            {
+                title: '详情信息',
+                iconCls: 'fa fa-file-image-o',
+                xtype: 'monpot-devicedetail',
+
+                // config
+                deviceId: deviceInfo.deviceid.toString()
+            },
+            {
+                title: '预警信息',
+                iconCls: 'fa fa-exclamation-triangle',
+                xtype: 'monpot-alertinfo',
+
+                // config
+                quakeId: deviceInfo.quakeid.toString(),
+                deviceCode: deviceInfo.deviceid.toString()
+            },
+            {
+                title: '数据列表',
+                iconCls: 'fa fa-list',
+                xtype: 'monpot-monitordata',
+
+                // config
+                quakeId: deviceInfo.quakeid.toString(),
+                deviceId: deviceInfo.deviceid.toString(),
+                deviceType:
+                    deviceInfo.type === 1 ? 'wysb' :
+                        deviceInfo.type === 2 ? 'ylsb' : 'lfsb'
+            },
+            {
+                title: '智能分析',
+                iconCls: 'fa fa-lightbulb-o',
+                xtype: 'monpot-analytics',
+
+                // config
+                deviceType:
+                    deviceInfo.type === 1 ? 'wysb' :
+                        deviceInfo.type === 2 ? 'ylsb' : 'lfsb',
+                deviceCode: deviceInfo.deviceid.toString(),
+                quakeId: deviceInfo.quakeid.toString()
+            }
+        ]
+        devicepanel.add( itemsarr );
+        devicepanel.setHidden(false);
+        devicepanel.setActiveTab(0);
+        popwindow.show();
     }
 }
 
@@ -133,12 +333,7 @@ Ext.define('yt.view.monpot.MonPotController', {
     alias: 'controller.monpot',
 
     requires: [
-        'Ext.data.Store',
-        'Ext.layout.container.Fit',
-        'Ext.toolbar.Fill',
-        'Ext.window.Window',
-        'yt.view.monpot.deviceDetail',
-        'yt.view.monpot.disasterpointDetail'
+        'Ext.data.Store'
     ],
 
     /**
@@ -264,7 +459,14 @@ Ext.define('yt.view.monpot.MonPotController', {
         var detailData = record.getData();
         // 如果点击的是对应的 操作按钮
         if(e.target.dataset.qtip === '详情'){
-            monpot.fn.showNewModelWin('view', detailData.name, detailData.code);
+            // 查看当前点击的是地灾点还是监测设备
+            if(detailData.hasOwnProperty('deviceid')){
+                // 点击的是设备
+                monpot.fn.showDeviceDetailPanel(detailData,false);
+            } else {
+                // 点击的是地灾点
+                monpot.fn.showDZDDetailPanel(detailData);
+            }
             return;
         } else if(e.target.dataset.qtip === '修改'){
             monpot.fn.showNewModelWin('edit', detailData.name, detailData.code);
