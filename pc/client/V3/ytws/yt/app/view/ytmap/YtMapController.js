@@ -24,6 +24,7 @@ var mv = {
             quakesRankList: null,
             devicesRankList: null,
             highMarker: null,
+            jcsbMaxZoomShow: 14,
             maxZoomShow: 16
         },
         fn: {
@@ -49,6 +50,19 @@ var mv = {
                 };
                 //执行预警等级刷新并更新树节点显示状态
                 Ext.TaskManager.start(refershMarkColor);
+                //监测设备根据不同的地图级别进行显示隐藏
+                mv.v.map.on('zoomend', function () {
+                    var curLel = mv.v.map.getZoom();
+                    if(curLel < mv.v.jcsbMaxZoomShow) {
+                        if(mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == true) {
+                            mv.v.map.removeLayer(mv.v.jcsbMarkerGroup);
+                        }
+                    } else {
+                        if(mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == false) {
+                            mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
+                        }
+                    }
+                });
                 // mv.fn.setWarnInfo();
             },
             calcRank: function (dzRank) {
