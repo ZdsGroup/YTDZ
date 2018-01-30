@@ -25,9 +25,23 @@ Ext.define('yt.plugin.ImageSwiper', {
     },
     listeners: {
         added: function (view, container, pos, eOpts) {
+            isw.fn.stopPlay();
             isw.v.self = view;
-            isw.v.imgIndex = 0;
             isw.fn.autoPlay();
+
+            var imgs = [
+                {
+                    src: 'resources/test/0.jpg'
+                },
+                {
+                    src: 'resources/test/1.jpg'
+                },
+                {
+                    src: 'resources/test/2.jpg'
+                }
+            ];
+
+            isw.fn.insertImage(imgs);
         }
     },
 
@@ -37,20 +51,7 @@ Ext.define('yt.plugin.ImageSwiper', {
             xtype: 'container',
             flex: 1,
             layout: 'card',
-            items: [
-                {
-                    xtype: 'image',
-                    src: 'resources/test/0.jpg'
-                },
-                {
-                    xtype: 'image',
-                    src: 'resources/test/1.jpg'
-                },
-                {
-                    xtype: 'image',
-                    src: 'resources/test/2.jpg'
-                }
-            ]
+            items: []
         },
         {
             xtype: 'container',
@@ -61,35 +62,7 @@ Ext.define('yt.plugin.ImageSwiper', {
                 align: 'center'
             },
 
-            items: [
-                {
-                    xtype: 'button',
-                    text: '0',
-                    listeners: {
-                        click: function () {
-                            isw.fn.doCardNavigation(0)
-                        }
-                    }
-                },
-                {
-                    xtype: 'button',
-                    text: '1',
-                    listeners: {
-                        click: function () {
-                            isw.fn.doCardNavigation(1)
-                        }
-                    }
-                },
-                {
-                    xtype: 'button',
-                    text: '2',
-                    listeners: {
-                        click: function () {
-                            isw.fn.doCardNavigation(2)
-                        }
-                    }
-                }
-            ]
+            items: []
         }
     ]
 });
@@ -99,10 +72,45 @@ var isw = {
     v: {
         self: null,
         imgIndex: 0,
-        imgNum: 3,
+        imgNum: 0,
         task: null
     },
     fn: {
+        insertImage: function (imgArray) {
+            if (imgArray && imgArray.length > 0) {
+                var imgContainer = isw.v.self.items.items[0];
+                var menuContainer = isw.v.self.items.items[1];
+
+                if (imgContainer && menuContainer) {
+                    imgContainer.removeAll(true);
+                    menuContainer.removeAll(true);
+                }
+
+                isw.v.imgNum = imgArray.length;
+                for (var index = 1; index - 1 < isw.v.imgNum; index++) {
+                    var imgItem = imgArray[index - 1];
+                    if (imgItem) {
+                        var src = imgItem['src'];
+
+                        var img = Ext.create('Ext.Img', {
+                            src: src
+                        });
+
+                        var menu = Ext.create('Ext.button.Button', {
+                            text: parseInt(index),
+                            listeners: {
+                                click: function (btn) {
+                                    isw.fn.doCardNavigation(btn.text - 1)
+                                }
+                            }
+                        });
+
+                        imgContainer.add(img);
+                        menuContainer.add(menu);
+                    }
+                }
+            }
+        },
         doCardNavigation: function (index) {
             if (isw.v.self) {
                 var card = isw.v.self.items.items[0];
@@ -114,12 +122,14 @@ var isw = {
             }
         },
         autoPlayTask: function () {
-            if (isw.v.imgIndex < isw.v.imgNum) {
-                isw.fn.doCardNavigation(isw.v.imgIndex);
-                isw.v.imgIndex++;
-            } else {
-                isw.v.imgIndex = 0;
-                isw.fn.doCardNavigation(isw.v.imgIndex);
+            if (isw.v.imgNum > 0) {
+                if (isw.v.imgIndex < isw.v.imgNum) {
+                    isw.fn.doCardNavigation(isw.v.imgIndex);
+                    isw.v.imgIndex++;
+                } else {
+                    isw.v.imgIndex = 0;
+                    isw.fn.doCardNavigation(isw.v.imgIndex);
+                }
             }
         },
         autoPlay: function () {
@@ -132,8 +142,10 @@ var isw = {
         stopPlay: function () {
             if (isw.v.task) {
                 Ext.TaskManager.stop(isw.v.task, true);
-                isw.v.task = null;
             }
+            isw.v.task = null;
+            isw.v.imgNum = 0;
+            isw.v.imgIndex = 0;
         }
     }
 }
