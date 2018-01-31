@@ -66,7 +66,7 @@ var mv = {
                         if (mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == false) {
                             mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
                         }
-                        if (mv.v.selDzMarker != null && mv.v.dzMarkerGroup != null) {
+                        if (mv.v.selDzMarker != null && mv.v.dzMarkerGroup != null && mv.v.map.hasLayer(mv.v.selDzMarker) == true) {
                             mv.v.dzMarkerGroup.removeLayer(mv.v.selDzMarker);
                             if (mv.v.highMarker) {
                                 mv.v.map.removeLayer(mv.v.highMarker);
