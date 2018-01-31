@@ -34,6 +34,11 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
             result['data']['batterystatus'] = me.rendererDeviceStatus(result['data']['batterystatus']);
 
             meView.getViewModel().set('deviceDetailInfo',result['data']);
+
+            // 设置图片轮播
+            meView.lookupReference('imgswiper').insertImage(
+                Ext.JSON.decode(decodeURIComponent(result['data']['dimage']))
+            )
         }
         function failureCallBack(response, opts) {
             ajax.fn.hideMask(mask);
@@ -58,6 +63,11 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
             if(!result['data']) return;
 
             meView.getViewModel().set('dzdDetailInfo',result['data']);
+
+            // 设置图片轮播
+            meView.lookupReference('imgswiper').insertImage(
+                Ext.JSON.decode(decodeURIComponent(result['data']['image']))
+            )
         }
         function failureCallBack(response, opts) {
             ajax.fn.hideMask(mask);

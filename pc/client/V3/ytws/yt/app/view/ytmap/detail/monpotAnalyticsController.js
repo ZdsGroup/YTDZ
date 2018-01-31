@@ -41,6 +41,8 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
         this.switchAnalyticsTab(record.get('type'));
     },
     removeAllAnalyticsTab: function () {
+        var me = this;
+        var meView = me.getView();
         // analytics-sbdb  设备对比
         // analytics-wybht 位移变化图
         // analytics-dmqxt 断面曲线图
@@ -48,14 +50,14 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
         // analytics-sdypmslt 散点与平面矢量图
         // analytics-ylzxt 雨量折线图
         // analytics-bhgcx 变化过程线
-        Ext.getCmp('analyticsTabContainer').removeAll();
+        meView.lookupReference('analyticsTabContainer').removeAll();
     },
     switchAnalyticsTab: function (deviceType) {
         var me = this;
         var meView = me.getView();
 
         this.removeAllAnalyticsTab();
-        var thisContainer = Ext.getCmp('analyticsTabContainer');
+        var thisContainer = meView.lookupReference('analyticsTabContainer');
         switch (deviceType){
             case 'wysb':
                 thisContainer.add([

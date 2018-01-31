@@ -335,8 +335,6 @@ var mv = {
                                                 iconCls: 'fa fa-plus',
                                                 tooltip: '更多信息',
                                                 handler: function (btn) {
-                                                    //停止图片轮播功能
-                                                    isw.fn.stopPlay();
 
                                                     //最大化
                                                     if (!mv.v.isMapDetaiMaximize) {
@@ -386,9 +384,6 @@ var mv = {
                                                 iconCls: 'fa fa-times',
                                                 tooltip: '关闭',
                                                 handler: function () {
-                                                    //停止图片轮播功能
-                                                    isw.fn.stopPlay();
-
                                                     mv.v.mapDetailPanel.hide();
                                                     mv.v.isMapDetaiMaximize = false;
 

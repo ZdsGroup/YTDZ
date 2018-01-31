@@ -17,6 +17,13 @@ Ext.define('yt.plugin.ImageSwiper', {
         'Ext.util.TaskManager'
     ],
 
+    config: {
+        imgArray: [],
+
+        imgIndex: 0,
+        imgNum: 0,
+        task: null
+    },
 
     layout: {
         type: 'vbox',
@@ -25,23 +32,7 @@ Ext.define('yt.plugin.ImageSwiper', {
     },
     listeners: {
         added: function (view, container, pos, eOpts) {
-            isw.fn.stopPlay();
-            isw.v.self = view;
-            isw.fn.autoPlay();
 
-            var imgs = [
-                {
-                    src: 'resources/test/0.jpg'
-                },
-                {
-                    src: 'resources/test/1.jpg'
-                },
-                {
-                    src: 'resources/test/2.jpg'
-                }
-            ];
-
-            isw.fn.insertImage(imgs);
         }
     },
 
@@ -49,103 +40,129 @@ Ext.define('yt.plugin.ImageSwiper', {
         /* include child components here */
         {
             xtype: 'container',
+            name: 'imgCard',
             flex: 1,
             layout: 'card',
             items: []
         },
         {
             xtype: 'container',
+            name: 'controllerBtn',
             height: 30,
             layout: {
                 type: 'hbox',
                 pack: 'start',
                 align: 'center'
             },
-
+            baseCls: 'background-color: #000 !important',
             items: []
         }
-    ]
-});
+    ],
 
+    initComponent: function () {
+        var me = this;
+        me.callParent();
 
-var isw = {
-    v: {
-        self: null,
-        imgIndex: 0,
-        imgNum: 0,
-        task: null
+        if(me.getImgArray().length > 0)
+            me.insertImage( me.getImgArray() );
     },
-    fn: {
-        insertImage: function (imgArray) {
-            if (imgArray && imgArray.length > 0) {
-                var imgContainer = isw.v.self.items.items[0];
-                var menuContainer = isw.v.self.items.items[1];
 
-                if (imgContainer && menuContainer) {
-                    imgContainer.removeAll(true);
-                    menuContainer.removeAll(true);
-                }
+    destroy: function () {
+        var me = this;
 
-                isw.v.imgNum = imgArray.length;
-                for (var index = 1; index - 1 < isw.v.imgNum; index++) {
-                    var imgItem = imgArray[index - 1];
-                    if (imgItem) {
-                        var src = imgItem['src'];
+        // 先停止后 destroy
+        me.stopPlay();
 
-                        var img = Ext.create('Ext.Img', {
-                            src: src
-                        });
+        me.callParent();
+    },
 
-                        var menu = Ext.create('Ext.button.Button', {
-                            text: parseInt(index),
-                            listeners: {
-                                click: function (btn) {
-                                    isw.fn.doCardNavigation(btn.text - 1)
-                                }
+    insertImage: function (imgArray) {
+        if(!(imgArray instanceof Array))
+            return;
+        var me = this;
+        // 先暂停播放
+        me.stopPlay();
+        if (imgArray && imgArray.length > 0) {
+            var imgContainer = me.down('container[name=imgCard]');
+            var menuContainer = me.down('container[name=controllerBtn]');
+
+            if (imgContainer && menuContainer) {
+                imgContainer.removeAll(true);
+                menuContainer.removeAll(true);
+            }
+
+            me.imgNum = imgArray.length;
+            for (var index = 1; index - 1 < me.imgNum; index++) {
+                var imgItem = imgArray[index - 1];
+                if (imgItem) {
+                    var src = imgItem['url'];
+
+                    var img = Ext.create('Ext.Img', {
+                        src: src
+                    });
+
+                    var menu = Ext.create('Ext.button.Button', {
+                        text: parseInt(index),
+                        listeners: {
+                            click: function (btn) {
+                                // 先停止自动播放，后设置对应的图片，再开启自动播放
+                                me.stopPlay();
+                                me.doCardNavigation(btn.text - 1, me);
+                                me.autoPlay();
                             }
-                        });
+                        }
+                    });
 
-                        imgContainer.add(img);
-                        menuContainer.add(menu);
-                    }
+                    imgContainer.add(img);
+                    menuContainer.add(menu);
                 }
             }
-        },
-        doCardNavigation: function (index) {
-            if (isw.v.self) {
-                var card = isw.v.self.items.items[0];
-                if (card) {
-                    var l = card.getLayout();
-                    l.setActiveItem(index);
-                    isw.v.imgIndex = index;
-                }
-            }
-        },
-        autoPlayTask: function () {
-            if (isw.v.imgNum > 0) {
-                if (isw.v.imgIndex < isw.v.imgNum) {
-                    isw.fn.doCardNavigation(isw.v.imgIndex);
-                    isw.v.imgIndex++;
-                } else {
-                    isw.v.imgIndex = 0;
-                    isw.fn.doCardNavigation(isw.v.imgIndex);
-                }
-            }
-        },
-        autoPlay: function () {
-            isw.v.task = {
-                run: isw.fn.autoPlayTask,
-                interval: 2000
-            };
-            Ext.TaskManager.start(isw.v.task);
-        },
-        stopPlay: function () {
-            if (isw.v.task) {
-                Ext.TaskManager.stop(isw.v.task, true);
-            }
-            isw.v.task = null;
-            isw.v.imgNum = 0;
-            isw.v.imgIndex = 0;
         }
+
+        me.autoPlay();
+    },
+    doCardNavigation: function (index, view) {
+        var me = this;
+        if(view)
+            me = view;
+        if (me) {
+            var card = me.down('container[name=imgCard]');
+            if (card) {
+                var l = card.getLayout();
+                l.setActiveItem(index);
+                me.imgIndex = index;
+            }
+        }
+    },
+
+    autoPlayTask: function (view) {
+        if (view.imgNum > 0) {
+            if (view.imgIndex < view.imgNum) {
+                view.doCardNavigation(view.imgIndex, view);
+                view.imgIndex++;
+            } else {
+                view.imgIndex = 0;
+                view.doCardNavigation(view.imgIndex, view);
+            }
+        }
+    },
+    autoPlay: function () {
+        var me = this;
+        me.task = {
+            run: function () {
+                me.autoPlayTask(me);
+            },
+            interval: 2000
+        };
+        Ext.TaskManager.start(me.task);
+    },
+    stopPlay: function () {
+        var me = this;
+        if (me.task) {
+            Ext.TaskManager.stop(me.task, true);
+        }
+        me.task = null;
+        // me.imgNum = 0;
+        // me.imgIndex = 0;
     }
-}
+});

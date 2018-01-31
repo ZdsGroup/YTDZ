@@ -70,6 +70,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                 {
                     title: '设备图片',
                     xtype: 'imageswiper',
+                    reference: 'imgswiper',
                     flex: 2,
                     margin: '10 10 10 10'
                 },

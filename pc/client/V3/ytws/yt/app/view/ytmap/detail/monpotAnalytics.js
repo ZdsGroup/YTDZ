@@ -80,7 +80,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalytics', {
         },
         {
             xtype: 'tabpanel',
-            id: 'analyticsTabContainer',
+            reference: 'analyticsTabContainer',
             ui: 'navigation',
             flex: 1,
             tabBar: {
