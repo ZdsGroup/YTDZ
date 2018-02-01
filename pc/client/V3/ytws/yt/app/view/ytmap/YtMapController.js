@@ -196,11 +196,19 @@ var mv = {
             },
             //切换概要信息面板
             switchSummarypanel: function (data, type) {
-                Ext.getCmp('mondataTitleId').setHtml(data.text);
-                Ext.getCmp('mondataAddressId').setHtml(data.address);
+                Ext.getCmp('mondataTitleId').setHtml(data.text);// 设置标题
+                Ext.getCmp('mondataAddressId').setHtml(data.address);// 设置地址
+                Ext.getCmp('mondataTypeId').setHtml(type);// 设置类型
+                mv.fn.calcRank4FeaturePanel(data.rank);// 设置预警等级
 
-                Ext.getCmp('mondataTypeId').setHtml(type);
-                mv.fn.calcRank4FeaturePanel(data.rank);
+                // 预警信息统计信息
+                var warmPanel = Ext.getCmp('monWarnPanelId');
+
+                // 监测设备统计信息
+                var devicePanel = Ext.getCmp('monInfoPanelId');
+                devicePanel.down('button[action=lfjc]').setText( "裂缝监测<br/>" + (data.hasOwnProperty('crevDeviceNum') ? data.crevDeviceNum.toString() : '0') );
+                devicePanel.down('button[action=bmwyjc]').setText( "表面位移监测<br/>" + (data.hasOwnProperty('weiyiDeviceNum') ? data.weiyiDeviceNum.toString() : '0') );
+                devicePanel.down('button[action=yljc]').setText( "雨量监测<br/>" + (data.hasOwnProperty('rainDeviceNum') ? data.rainDeviceNum.toString() : '0') );
             },
             //根据类型计算相关参数并返回类型
             calcParamByType: function (data) {

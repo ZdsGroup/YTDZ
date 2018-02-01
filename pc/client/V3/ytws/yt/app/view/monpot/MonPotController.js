@@ -156,7 +156,9 @@ monpot.fn = {
             resizable: true,
             tools: [
                 {
-                    type:'left',
+                    // type:'left',
+                    itemId: 'reply',
+                    glyph: 'xf112@FontAwesome', // Reply icon
                     tooltip: '返回',
                     name: 'gobackDetail',
                     hidden:true,
