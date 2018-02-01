@@ -16,7 +16,7 @@ var warnInfoIsShow = false;
 var userId = 1;
 var searchObj = null;
 //自定义事件监听
-window.addEventListener('searchObj',function(event){
+window.addEventListener('searchObj', function(event) {
 	searchObj = JSON.parse(localStorage.getItem('searchObj'));
 	checkIsSearchPost();
 	localStorage.clear();
@@ -57,10 +57,10 @@ var initAppPlus = function() {
 	}, false);
 
 	var info = plus.push.getClientInfo();
-//	alert( "token: "+info.token );
-//	alert( "clientid: "+info.clientid );
-//	alert( "appid: "+info.appid );
-//	alert( "appkey: "+info.appkey );
+	//	alert( "token: "+info.token );
+	//	alert( "clientid: "+info.clientid );
+	//	alert( "appid: "+info.appid );
+	//	alert( "appkey: "+info.appkey );
 	plus.push.addEventListener("click", function(msg) {
 		alert("You clicked: " + msg.content);
 	}, false);
@@ -150,13 +150,13 @@ var initMap = function() {
 
 	//查询本地存储是否有从检索界面跳传过来的选择对象
 	searchObj = JSON.parse(localStorage.getItem('searchObj'));
-	if(searchObj){
+	if(searchObj) {
 		checkIsSearchPost();
 		localStorage.clear();
-	}else{
+	} else {
 		showWarnDZMarksOnMap();
-	}	
-	
+	}
+
 	//监测设备根据不同的地图级别进行显示隐藏
 	myMap.on('zoomend zoomlevelschange', function(e) {
 		var curLel = myMap.getZoom();
@@ -170,18 +170,18 @@ var initMap = function() {
 	});
 };
 //检查是否是搜索页面返回的
-function checkIsSearchPost(){
+function checkIsSearchPost() {
 	var obj = mui('.warn-info-container')[0];
 	obj.style.display = 'none';
-	if(scroller){
-		setTimeout(function(){
-		var mapFooter = mui('#ytfooter')[0];
-		var mapContent = mui('#ytmap')[0];
-		mapFooter.style.height = '0px';
-		mapFooter.style.display = 'none';
-		},100);
+	if(scroller) {
+		setTimeout(function() {
+			var mapFooter = mui('#ytfooter')[0];
+			var mapContent = mui('#ytmap')[0];
+			mapFooter.style.height = '0px';
+			mapFooter.style.display = 'none';
+		}, 100);
 	}
-	
+
 	dzMarkersLayerGroup.clearLayers();
 	jcMarkersLayerGroup.clearLayers();
 	var objArr = new Array();
@@ -192,19 +192,19 @@ function checkIsSearchPost(){
 			if(results != null && results.data.quakes.length > 0) {
 				dzQueryResults = results.data;
 				var tempId = null;
-				if(searchObj.type != 'dzd'){
+				if(searchObj.type != 'dzd') {
 					selectType = searchObj.type;
 					currentSb = searchObj;
 					tempId = currentSb.id;
 					getJCMarkersLayerGroup(objArr, true);
 					myMap.addLayer(jcMarkersLayerGroup);
-				}else{
+				} else {
 					selectType = 'dzd';
 					currentDzd = searchObj;
 					tempId = currentDzd.quakeid;
 					getDZMarkersLayerGroup(objArr, true);
 					myMap.addLayer(dzMarkersLayerGroup);
-				}				
+				}
 			} else {
 				mui.myMuiQueryNoResult('查询无结果！');
 				dzQueryResults = null;
@@ -421,50 +421,9 @@ var initEvent = function() {
 		mui.openWindow({
 			url: 'pages/common/search.html',
 			id: 'search-page-1',
-			createNew:true
+			createNew: true
 		});
 	});
-
-	//底部对象概要信息收藏按钮点击事件
-	mui('#ftstar')[0].addEventListener('click', function(evt) {
-		var action = evt.target.value;
-		var starStatus = 0;
-		if(action == 'ftstar') {
-			var action = "userfavos";
-			if(selectType == 'dzd') {
-				mui.myMuiQueryPost(action, {
-						userid: userId,
-						quakeid: currentDzd.quakeid
-					},
-					function(results) {
-						var obj = mui('#ftstar')[0];
-						var statusT = 1;
-						if(results.data.status == 1) {
-							obj.classList.remove('ytfooter-star');
-							obj.classList.add('ytfooter-star-color');
-							statusT = 1;
-						} else {
-							obj.classList.remove('ytfooter-star-color');
-							obj.classList.add('ytfooter-star');
-							statusT = 0;
-						}
-						dzMarkersLayerGroup.eachLayer(function(layer) {
-							var attr = layer.options.attr;
-							if(attr.quakeid == results.data.quakeid){
-								attr.favostatus = statusT;
-							}
-						});
-					},
-					function() {
-						mui.myMuiQueryErr('收藏(取消)失败，请稍后再试！');
-						dzQueryResults = null;
-					}
-				)
-			}
-			return
-		}
-	});
-
 	//首页底部栏上更多详细按钮的点击事件
 	mui("#ytfooter").on('tap', '.mui-badge', function(evt) {
 		var action = evt.target.title;
@@ -677,7 +636,7 @@ function showFilterStarMarksOnMap(isFilter) {
 			var layers = new Array();
 			dzMarkersLayerGroup.eachLayer(function(layer) {
 				var attr = layer.options.attr;
-				if(attr.favostatus != 1){
+				if(attr.favostatus != 1) {
 					layers.push(layer);
 				}
 			});
@@ -730,7 +689,7 @@ function showAllDZMarksOnMap() {
 //检查地图size变化
 function changeMapStatus() {
 	myMap.invalidateSize();
-	if(warnBounds){
+	if(warnBounds) {
 		myMap.fitBounds(warnBounds, {
 			maxZoom: maxZoomShow
 		});
@@ -819,9 +778,9 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		}).on('click', function(e) {
 			selectType = "dzd";
 			currentDzd = this.options.attr;
-			checkFtstar(currentDzd.favostatus);
 			showJCMarkerByDZid(e.target.options.id);
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
+			checkFtstar(currentDzd.favostatus);
 			showFooterPanel(footerHeight);
 		});
 		dzMarkersLayerGroup.addLayer(markerObj);
@@ -887,17 +846,17 @@ function showJCMarkerByDZid(dzID) {
 				break;
 			}
 		}
-		for (var i = 0; i < areaT.length; i++) {
+		for(var i = 0; i < areaT.length; i++) {
 			latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
 		}
 		var areaLine = L.polygon(latlngs, {
-							color: 'red',
-							weight: 2,
-							opacity: 0.5,
-							fillColor: '#cccccc',
-							fillOpacity: 0.4,
-							fill: true
-						});
+			color: 'red',
+			weight: 2,
+			opacity: 0.5,
+			fillColor: '#cccccc',
+			fillOpacity: 0.4,
+			fill: true
+		});
 		jcMarkersLayerGroup.addLayer(areaLine);
 
 		var devicesArr = dzQueryResults.devices;
@@ -1051,7 +1010,48 @@ function initBriefContentHtml(infoT, typeT) {
 		info: infoT,
 		type: typeT
 	});
-	document.getElementById("footer-table").innerHTML = html;
+	document.getElementById("baseinfo").innerHTML = html;
+	//底部对象概要信息收藏按钮点击事件
+	if(mui('#ftstar')[0] != null) {
+		mui('#ftstar')[0].addEventListener('click', function(evt) {
+			var action = evt.target.value;
+			var starStatus = 0;
+			if(action == 'ftstar') {
+				var action = "userfavos";
+				if(selectType == 'dzd') {
+					mui.myMuiQueryPost(action, {
+							userid: userId,
+							quakeid: currentDzd.quakeid
+						},
+						function(results) {
+							var obj = mui('#ftstar')[0];
+							var statusT = 1;
+							if(results.data.status == 1) {
+								obj.classList.remove('ytfooter-star');
+								obj.classList.add('ytfooter-star-color');
+								statusT = 1;
+							} else {
+								obj.classList.remove('ytfooter-star-color');
+								obj.classList.add('ytfooter-star');
+								statusT = 0;
+							}
+							dzMarkersLayerGroup.eachLayer(function(layer) {
+								var attr = layer.options.attr;
+								if(attr.quakeid == results.data.quakeid) {
+									attr.favostatus = statusT;
+								}
+							});
+						},
+						function() {
+							mui.myMuiQueryErr('收藏(取消)失败，请稍后再试！');
+							dzQueryResults = null;
+						}
+					)
+				}
+				return
+			}
+		})
+	}
 }
 //初始化地灾点内容
 function initDzdContentHtml(infoT, typeT) {

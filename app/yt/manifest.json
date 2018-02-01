@@ -199,14 +199,14 @@
 					"iphone": {
 						"default": ""
 					},
-					"ipad": {}
+					"ipad": {"portrait-retina7":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","landscape-retina7":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"}
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "D:/Project/01C-ZDS/鹰潭地质灾害预警/app启动界面.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "D:/Project/01C-ZDS/鹰潭地质灾害预警/app启动界面.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "D:/Project/01C-ZDS/鹰潭地质灾害预警/app启动界面.png"
+					"hdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"
 				}
 			}
 		}

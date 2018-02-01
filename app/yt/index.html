@@ -41,8 +41,8 @@
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div id="baseinfo" style="position: relative;">
-							<div id="footer-table" class="footercardcontent">
-								<script id="brief-ul-li-template" type="text/template">
+							<script id="brief-ul-li-template" type="text/template">
+								<div id="footer-table" class="footercardcontent">
 									<%if (type=='dzd') {%>
 									<p id='<%=type%>_<%=info.id%>' class="yt-normal-color">
 										<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%> </span>
@@ -86,11 +86,13 @@
 										</span>
 									</p>
 									<%}%>
-								</script>
-							</div>
-							<div style="position: absolute; top: 5px;right: 10px;">
-								<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
-							</div>
+								</div>
+								<%if (type=='dzd') {%>
+								<div style="position: absolute; top: 5px;right: 10px;">
+									<button id="ftstar" value="ftstar" type="button" class="mui-btn mui-btn-outlined maptoolfont4 ytfooter-star"></button>
+								</div>
+								<%}%>
+							</script>
 						</div>
 
 						<!--
@@ -133,30 +135,30 @@
 										<div class="mui-slider-group">
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="3" label="设备状态">
+													<!--<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="3" label="设备状态">
 														<a href="#"><img class="mui-media-object" src="images/device.png">
 															<div class="mui-media-body">设备状态</div>
 														</a>
-													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="3" label="多站对比">
+													</li>-->
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="3" label="站点对比">
 														<a href="#"><img class="mui-media-object" src="images/compare.png">
-															<div class="mui-media-body">多站对比</div>
+															<div class="mui-media-body">站点对比</div>
 														</a>
 													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="3" label="单站对比">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="3" label="年度分析">
 														<a href="#"><img class="mui-media-object" src="images/compare.png">
-															<div class="mui-media-body">单站对比</div>
+															<div class="mui-media-body">年度分析</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="3" label="变化过程">
+														<a href="#"><img class="mui-media-object" src="images/changeline.png">
+															<div class="mui-media-body">变化过程</div>
 														</a>
 													</li>
 												</ul>
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="3" label="变化过程">
-														<a href="#"><img class="mui-media-object" src="images/changeline.png">
-															<div class="mui-media-body">变化过程</div>
-														</a>
-													</li>
 													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="3" label="数据列表">
 														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
 															<div class="mui-media-body">数据列表</div>
@@ -173,30 +175,30 @@
 										<div class="mui-slider-group">
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="1" label="设备状态">
+													<!--<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="1" label="设备状态">
 														<a href="#"><img class="mui-media-object" src="images/device.png">
 															<div class="mui-media-body">设备状态</div>
 														</a>
-													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="1" label="多站对比">
+													</li>-->
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="1" label="站点对比">
 														<a href="#"><img class="mui-media-object" src="images/compare.png">
-															<div class="mui-media-body">多站对比</div>
+															<div class="mui-media-body">站点对比</div>
 														</a>
 													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="1" label="单站对比">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="1" label="年度分析">
 														<a href="#"><img class="mui-media-object" src="images/compare.png">
-															<div class="mui-media-body">单站对比</div>
+															<div class="mui-media-body">年度分析</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="1" label="位移变化">
+														<a href="#"><img class="mui-media-object" src="images/positionmove.png">
+															<div class="mui-media-body">位移变化</div>
 														</a>
 													</li>
 												</ul>
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="1" label="位移变化">
-														<a href="#"><img class="mui-media-object" src="images/positionmove.png">
-															<div class="mui-media-body">位移变化</div>
-														</a>
-													</li>
 													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="1" label="断面曲线">
 														<a href="#"><img class="mui-media-object" src="images/section.png">
 															<div class="mui-media-body">断面曲线</div>
@@ -207,15 +209,15 @@
 															<div class="mui-media-body">速度图</div>
 														</a>
 													</li>
-												</ul>
-											</div>
-											<div class="mui-slider-item">
-												<ul class="mui-table-view mui-grid-view">
 													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="6" tp="1" label="加速度图">
 														<a href="#"><img class="mui-media-object" src="images/speed.png">
 															<div class="mui-media-body">加速度图</div>
 														</a>
 													</li>
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
 													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="7" tp="1" label="散点图">
 														<a href="#"><img class="mui-media-object" src="images/scatter.png">
 															<div class="mui-media-body">散点图</div>
@@ -226,10 +228,6 @@
 															<div class="mui-media-body">平面矢量图</div>
 														</a>
 													</li>
-												</ul>
-											</div>
-											<div class="mui-slider-item">
-												<ul class="mui-table-view mui-grid-view">
 													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="9" tp="1" label="数据列表">
 														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
 															<div class="mui-media-body">数据列表</div>
@@ -246,30 +244,30 @@
 										<div class="mui-slider-group">
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="2" label="设备状态">
+													<!--<li class="mui-table-view-cell mui-media mui-col-xs-4" page="0" tp="2" label="设备状态">
 														<a href="#"><img class="mui-media-object" src="images/device.png">
 															<div class="mui-media-body">设备状态</div>
 														</a>
-													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="2" label="多站对比">
+													</li>-->
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="1" tp="2" label="站点对比">
 														<a href="#"><img class="mui-media-object" src="images/compare.png">
-															<div class="mui-media-body">多站对比</div>
+															<div class="mui-media-body">站点对比</div>
 														</a>
 													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="2" label="单站对比">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="2" tp="2" label="年度分析">
 														<a href="#"><img class="mui-media-object" src="images/compare.png">
-															<div class="mui-media-body">单站对比</div>
+															<div class="mui-media-body">年度分析</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="2" label="雨量过程">
+														<a href="#"><img class="mui-media-object" src="images/linechart.png">
+															<div class="mui-media-body">雨量过程</div>
 														</a>
 													</li>
 												</ul>
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="3" tp="2" label="雨量过程">
-														<a href="#"><img class="mui-media-object" src="images/linechart.png">
-															<div class="mui-media-body">雨量过程</div>
-														</a>
-													</li>
 													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="2" label="雨量报表">
 														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
 															<div class="mui-media-body">雨量报表</div>
@@ -292,7 +290,8 @@
 						<div id="dzd-content-part1" class="dzd-footercardcontent mui-table-view-cell">
 							<script id="dzd-content-part1-template" type="text/template">
 								<a class="mui-navigate-right" href="#">
-									<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：<%=info.company%>
+									<span title='dzd-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span>承担单位：
+									<%=info.company%>
 								</a>
 								<p>负责人：
 									<%=info.username%>
