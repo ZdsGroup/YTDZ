@@ -323,7 +323,17 @@ var mv = {
                                                 id: 'mondataLocateId',
                                                 border: false,
                                                 iconCls: 'fa fa-map-marker',
-                                                tooltip: '快速定位'
+                                                tooltip: '快速定位',
+                                                handler: function () {
+                                                    // 此时面板展开，
+                                                    if(mv.v.mapDetailPanelInfo){
+                                                        var detailInfo = mv.v.mapDetailPanelInfo;
+                                                        if(detailInfo.hasOwnProperty('lat') && detailInfo.hasOwnProperty('lng')){
+                                                            var detailInfoLatLng = new L.latLng(detailInfo.lat, detailInfo.lng);
+                                                            mv.v.map.flyTo(detailInfoLatLng, mv.v.maxZoomShow);
+                                                        }
+                                                    }
+                                                }
                                             },
                                             {
                                                 xtype: 'button',
@@ -633,8 +643,10 @@ var mv = {
                 //根据类型切换面板
                 var type = mv.v.mapDetailPanelInfo.type;
                 if (type == 'disasterpoint') {
+                    Ext.getCmp('mondataCollectId').show();
                     Ext.getCmp('monInfoPanelId').show();
                 } else if (type == 'device') {
+                    Ext.getCmp('mondataCollectId').hide();
                     Ext.getCmp('monInfoPanelId').hide();
                 }
             },
