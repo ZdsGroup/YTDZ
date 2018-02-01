@@ -197,9 +197,23 @@ var mv = {
             //切换概要信息面板
             switchSummarypanel: function (data, type) {
                 Ext.getCmp('mondataTitleId').setHtml(data.text);// 设置标题
-                Ext.getCmp('mondataAddressId').setHtml(data.address);// 设置地址
+                Ext.getCmp('mondataAddressId').setHtml(' ' + data.address);// 设置地址
                 Ext.getCmp('mondataTypeId').setHtml(type);// 设置类型
                 mv.fn.calcRank4FeaturePanel(data.rank);// 设置预警等级
+                Ext.getCmp('mondataCompanyId').setHtml(data.company);// 设置承担单位
+                Ext.getCmp('mondataUserNameId').setHtml(data.username);// 设置负责人
+                Ext.getCmp('mondataStatusId').setHtml('');// 设置额外字段 监测点 设备类型统计和设备总数统计，监测设备 设备运行状态
+                if(data.type === 'disasterpoint'){
+                    // 监测设备： 2 种类型 | 共计 3 个
+                    var deviceTypeNum = 0;
+                    if(data.weiyiDeviceNum > 0) deviceTypeNum++;
+                    if(data.rainDeviceNum > 0) deviceTypeNum++;
+                    if(data.crevDeviceNum > 0) deviceTypeNum++;
+                    Ext.getCmp('mondataStatusId').setHtml('监测设备： ' + deviceTypeNum + ' 种类型 | 共计 ' + data.num + ' 个');
+                }else if(data.type === 'device'){
+                    Ext.getCmp('mondataStatusId').setHtml('运行状态： 正常');// todo 运行状态暂时没找到对应的字段
+                }
+                console.log(data,type);
 
                 // 预警信息统计信息
                 var warmPanel = Ext.getCmp('monWarnPanelId');
@@ -468,6 +482,65 @@ var mv = {
                                                 id: 'mondataTypeId',
                                                 flex: 1,
                                                 html: ''//地面塌陷
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'component',
+                                                html: '承担单位： '
+                                            },
+                                            {
+                                                xtype: 'component',
+                                                id: 'mondataCompanyId',
+                                                flex: 1,
+                                                html: ''
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'component',
+                                                html: '负责人： '
+                                            },
+                                            {
+                                                xtype: 'component',
+                                                id: 'mondataUserNameId',
+                                                flex: 1,
+                                                html: ''
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        xtype: 'container',
+                                        layout: {
+                                            type: 'hbox',
+                                            align: 'middle',
+                                            pack: 'center'
+                                        },
+                                        margin: '3 10 3 10',
+                                        items: [
+                                            {
+                                                xtype: 'component',
+                                                id: 'mondataStatusId',
+                                                flex: 1,
+                                                html: ''
                                             }
                                         ]
                                     },

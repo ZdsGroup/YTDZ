@@ -153,7 +153,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
             },
             leadingBufferZone: 8,
             trailingBufferZone: 8,
-
+            columnLines: true,
             columns: [
                 {
                     dataIndex: 'devicename',

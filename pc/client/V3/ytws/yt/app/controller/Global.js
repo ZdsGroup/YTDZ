@@ -384,6 +384,7 @@ var g = {
 
             ajax.v.method = 'GET';
             ajax.v.url = conf.serviceUrl + 'menu/tree';
+            ajax.v.params = {userId: 1};// todo 暂时使用固定的 userid 来获取数据
             ajax.v.successCallBack = function (response, opts) {
                 //查询结果转json对象
                 var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);

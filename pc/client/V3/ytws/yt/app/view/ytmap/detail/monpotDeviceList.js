@@ -110,7 +110,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
             },
             leadingBufferZone: 8,
             trailingBufferZone: 8,
-
+            columnLines: true,
             columns: [
                 {
                     dataIndex: 'name',
