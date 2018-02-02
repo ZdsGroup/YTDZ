@@ -212,7 +212,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
 
         {
             xtype: 'panel',
-            title: '维护信息',
+            title: '累计评论',
             ui: 'map-detail-secend-panel-ui',
             iconCls: 'fa fa-wrench',
             height: '49%'

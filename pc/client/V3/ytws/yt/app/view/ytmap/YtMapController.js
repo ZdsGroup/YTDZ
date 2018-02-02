@@ -197,23 +197,18 @@ var mv = {
             //切换概要信息面板
             switchSummarypanel: function (data, type) {
                 Ext.getCmp('mondataTitleId').setHtml(data.text);// 设置标题
-                Ext.getCmp('mondataAddressId').setHtml(' ' + data.address);// 设置地址
-                Ext.getCmp('mondataTypeId').setHtml(type);// 设置类型
+                Ext.getCmp('mondataAddressId').setHtml(data.address);// 设置地址
+                // Ext.getCmp('mondataTypeId').setHtml(type);// 设置类型
                 mv.fn.calcRank4FeaturePanel(data.rank);// 设置预警等级
-                Ext.getCmp('mondataCompanyId').setHtml(data.company);// 设置承担单位
-                Ext.getCmp('mondataUserNameId').setHtml(data.username);// 设置负责人
+                // Ext.getCmp('mondataCompanyId').setHtml('');// 设置承担单位
+                // Ext.getCmp('mondataUserNameId').setHtml('');// 设置负责人
                 Ext.getCmp('mondataStatusId').setHtml('');// 设置额外字段 监测点 设备类型统计和设备总数统计，监测设备 设备运行状态
                 if(data.type === 'disasterpoint'){
-                    // 监测设备： 2 种类型 | 共计 3 个
-                    var deviceTypeNum = 0;
-                    if(data.weiyiDeviceNum > 0) deviceTypeNum++;
-                    if(data.rainDeviceNum > 0) deviceTypeNum++;
-                    if(data.crevDeviceNum > 0) deviceTypeNum++;
-                    Ext.getCmp('mondataStatusId').setHtml('监测设备： ' + deviceTypeNum + ' 种类型 | 共计 ' + data.num + ' 个');
+                    Ext.getCmp('mondataStatusId').setHidden(true);
                 }else if(data.type === 'device'){
+                    Ext.getCmp('mondataStatusId').setHidden(false);
                     Ext.getCmp('mondataStatusId').setHtml('运行状态： 正常');// todo 运行状态暂时没找到对应的字段
                 }
-                console.log(data,type);
 
                 // 预警信息统计信息
                 var warmPanel = Ext.getCmp('monWarnPanelId');
@@ -232,13 +227,13 @@ var mv = {
                     showMondataType = '地灾点';//统一类型为地灾点
                     //判断是否最大化属性面板
                     if (w < 400) {
-                        mv.v.mapDetailPanelParam['h'] = 250;
+                        mv.v.mapDetailPanelParam['h'] = 286;
                     }
                 }
                 else if (data.type === 'device') {
                     showMondataType = '监测设备';
                     if (w < 400) {
-                        mv.v.mapDetailPanelParam['h'] = 172;
+                        mv.v.mapDetailPanelParam['h'] = 220;
                     }
                     if (data.deviceType === 1)
                         showMondataType = '位移设备'
@@ -458,35 +453,37 @@ var mv = {
                                             {
                                                 xtype: 'component',
                                                 id: 'mondataAddressId',
+                                                margin: '0 0 0 5',
                                                 flex: 1,
                                                 html: '南山大道与火炬大道交叉口东50米'
                                             }
                                         ]
                                     },
+                                    // {
+                                    //     xtype: 'container',
+                                    //     id: 'monTypePanelId',
+                                    //     layout: {
+                                    //         type: 'hbox',
+                                    //         align: 'middle',
+                                    //         pack: 'center'
+                                    //     },
+                                    //     margin: '3 10 3 10',
+                                    //     items: [
+                                    //         {
+                                    //             xtype: 'component',
+                                    //             html: '类型：'
+                                    //         },
+                                    //         {
+                                    //             xtype: 'component',
+                                    //             id: 'mondataTypeId',
+                                    //             flex: 1,
+                                    //             html: ''//地面塌陷
+                                    //         }
+                                    //     ]
+                                    // },
                                     {
                                         xtype: 'container',
-                                        id: 'monTypePanelId',
-                                        layout: {
-                                            type: 'hbox',
-                                            align: 'middle',
-                                            pack: 'center'
-                                        },
-                                        margin: '3 10 3 10',
-                                        items: [
-                                            {
-                                                xtype: 'component',
-                                                html: '类型：'
-                                            },
-                                            {
-                                                xtype: 'component',
-                                                id: 'mondataTypeId',
-                                                flex: 1,
-                                                html: ''//地面塌陷
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        xtype: 'container',
+                                        id: 'mondataCompanyPanelId',
                                         layout: {
                                             type: 'hbox',
                                             align: 'middle',
@@ -502,12 +499,13 @@ var mv = {
                                                 xtype: 'component',
                                                 id: 'mondataCompanyId',
                                                 flex: 1,
-                                                html: ''
+                                                html: '鹰潭市国土资源局'
                                             }
                                         ]
                                     },
                                     {
                                         xtype: 'container',
+                                        id: 'mondataUserNamePanelId',
                                         layout: {
                                             type: 'hbox',
                                             align: 'middle',
@@ -523,12 +521,13 @@ var mv = {
                                                 xtype: 'component',
                                                 id: 'mondataUserNameId',
                                                 flex: 1,
-                                                html: ''
+                                                html: '张云'
                                             }
                                         ]
                                     },
                                     {
                                         xtype: 'container',
+                                        id: 'mondataStatusPanelId',
                                         layout: {
                                             type: 'hbox',
                                             align: 'middle',
@@ -708,10 +707,13 @@ var mv = {
 
                 //显示其他基本信息面板
                 Ext.getCmp('monAddressPanelId').show();//地灾点或设备地址
-                Ext.getCmp('monTypePanelId').show();//地灾点或监测类型
+                // Ext.getCmp('monTypePanelId').show();//地灾点或监测类型
                 Ext.getCmp('monRankPanelId').show();//预警等级
                 Ext.getCmp('monWarnPanelId').show();//预警信息统计
                 Ext.getCmp('monInfoPanelId').show();//监测设备统计
+                Ext.getCmp('mondataCompanyPanelId').show();// 承建单位
+                Ext.getCmp('mondataUserNamePanelId').show();// 负责人
+                Ext.getCmp('mondataStatusPanelId').show();// 状态信息
 
                 //根据类型切换面板
                 var type = mv.v.mapDetailPanelInfo.type;
@@ -730,10 +732,13 @@ var mv = {
 
                 //隐藏其他基本信息面板
                 Ext.getCmp('monAddressPanelId').hide();
-                Ext.getCmp('monTypePanelId').hide();
+                // Ext.getCmp('monTypePanelId').hide();
                 Ext.getCmp('monRankPanelId').hide();
                 Ext.getCmp('monWarnPanelId').hide();
                 Ext.getCmp('monInfoPanelId').hide();
+                Ext.getCmp('mondataCompanyPanelId').hide();
+                Ext.getCmp('mondataUserNamePanelId').hide();
+                Ext.getCmp('mondataStatusPanelId').hide();
 
                 var deviceDetail = Ext.getCmp('deviceDetailContainerID');
                 var dzDetail = Ext.getCmp('dzDetailContainerID');
