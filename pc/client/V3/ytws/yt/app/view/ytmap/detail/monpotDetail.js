@@ -32,6 +32,8 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
         'Ext.container.Container',
         'Ext.form.Panel',
         'Ext.form.field.Display',
+        'Ext.grid.Panel',
+        'Ext.grid.column.Date',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
@@ -210,12 +212,237 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
             ]
         },
 
+        // {
+        //     xtype: 'form',
+        //     title: '累计评论',
+        //     ui: 'map-detail-secend-panel-ui',
+        //     iconCls: 'fa fa-wrench',
+        //     height: '49%',
+        //     bodyPadding: '5 5 5 5',
+        //     layout: {
+        //         type: 'vbox',
+        //         pack: 'start',
+        //         align: 'start'
+        //     },
+        //     fieldDefaults: {
+        //         labelStyle: 'font-weight:bold;font-size: 16px;',
+        //         margin: '0 0 0 0',
+        //         labelWidth: 65
+        //     },
+        //     scrollable: 'y',
+        //     items: [
+        //         {
+        //             xtype: 'form',
+        //             layout: {
+        //                 type: 'hbox',
+        //                 pack: 'start',
+        //                 align: 'stretch'
+        //             },
+        //             items: [
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     value: '2017-12-20 18:00:00',
+        //                     width: 120,
+        //                     hideLabel: true,
+        //                     margin: '0 20 0 5'
+        //                 },
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     fieldLabel: '用户1',
+        //                     margin: '0 0 0 5',
+        //                     value: '该地灾点设备安装牢固，监测数据准确，不错！'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             xtype: 'form',
+        //             layout: {
+        //                 type: 'hbox',
+        //                 pack: 'start',
+        //                 align: 'stretch'
+        //             },
+        //             items: [
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     value: '2017-12-20 20:00:00',
+        //                     width: 120,
+        //                     hideLabel: true,
+        //                     margin: '0 20 0 5'
+        //                 },
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     fieldLabel: '用户2',
+        //                     margin: '0 0 0 5',
+        //                     value: '该地灾点设备被破坏，请尽快安排人员维修！'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             xtype: 'form',
+        //             layout: {
+        //                 type: 'hbox',
+        //                 pack: 'start',
+        //                 align: 'stretch'
+        //             },
+        //             items: [
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     value: '2017-12-21 14:12:00',
+        //                     width: 120,
+        //                     hideLabel: true,
+        //                     margin: '0 20 0 5'
+        //                 },
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     fieldLabel: '用户3',
+        //                     margin: '0 0 0 5',
+        //                     value: '有了这种地灾监测设备，可以实时报警，很好！'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             xtype: 'form',
+        //             layout: {
+        //                 type: 'hbox',
+        //                 pack: 'start',
+        //                 align: 'stretch'
+        //             },
+        //             items: [
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     value: '2017-12-25 18:00:00',
+        //                     width: 120,
+        //                     hideLabel: true,
+        //                     margin: '0 20 0 5'
+        //                 },
+        //                 {
+        //                     xtype: 'displayfield',
+        //                     fieldLabel: '用户4',
+        //                     margin: '0 0 0 5',
+        //                     value: '该地灾点设备安装牢固，监测数据准确，不错！'
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // },
+
         {
-            xtype: 'panel',
+            xtype: 'gridpanel',
             title: '累计评论',
             ui: 'map-detail-secend-panel-ui',
-            iconCls: 'fa fa-wrench',
-            height: '49%'
+            iconCls: 'fa fa-comment',
+            height: '49%',
+
+            reserveScrollbar: true,
+            useArrows: true,
+            rootVisible: false,
+            multiSelect: true,
+            singleExpand: true,
+            columnLines: true,
+            scrollable: 'y',
+            viewConfig: {
+                stripeRows: false
+            },
+
+            store: {
+                data: [
+                    {
+                        "userName": '用户1',
+                        "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
+                        "createtime": "2017-12-19 18:50:21",
+                        "readNum": "120",
+                        "repeat": "已回复"
+                    },
+                    {
+                        "userName": '用户2',
+                        "content": "该地灾点设备被破坏，请尽快安排人员维修！",
+                        "createtime": "2017-12-20 07:50:21",
+                        "readNum": "70",
+                        "repeat": "正在处理"
+                    },
+                    {
+                        "userName": '用户3',
+                        "content": "有了这种地灾监测设备，可以实时报警，很好！",
+                        "createtime": "2017-12-21 16:50:21",
+                        "readNum": "180",
+                        "repeat": "已回复"
+                    },
+                    {
+                        "userName": '用户4',
+                        "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
+                        "createtime": "2017-12-21 18:50:21",
+                        "readNum": "100",
+                        "repeat": "已回复"
+                    },
+                    {
+                        "userName": '用户5',
+                        "content": "巡查时发现设备太脏了，安排人员过来清理。",
+                        "createtime": "2017-12-30 18:47:21",
+                        "readNum": "120",
+                        "repeat": "未处理"
+                    }
+                ]
+            },
+            columns: [
+                {
+                    text: '内容',
+                    dataIndex: 'content',
+
+                    flex: 1,
+                    align: 'left',
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false
+                },
+                {
+                    text: '用户名',
+                    dataIndex: 'userName',
+
+                    width: 180,
+                    align: 'center',
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false
+                },
+                {
+                    text: '评论时间',
+                    dataIndex: 'createtime',
+
+                    width: 180,
+                    align: 'center',
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false,
+
+                    xtype: 'datecolumn',
+                    format:'Y-m-d h:i:s'
+                },
+                {
+                    text: '阅读量',
+                    dataIndex: 'readNum',
+
+                    width: 70,
+                    align: 'center',
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false
+                },
+                {
+                    text: '状态',
+                    dataIndex: 'repeat',
+
+                    width: 90,
+                    align: 'center',
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false
+                }
+            ]
         }
     ]
 });
