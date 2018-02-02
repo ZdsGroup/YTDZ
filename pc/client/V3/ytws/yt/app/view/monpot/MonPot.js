@@ -166,6 +166,7 @@ Ext.define('yt.view.monpot.MonPot', {
             rootVisible: false,
             multiSelect: true,
             singleExpand: true,
+            columnLines: true,
             dockedItems: [
                 {
                     id: 'monpotToolBar',
@@ -212,23 +213,63 @@ Ext.define('yt.view.monpot.MonPot', {
                 text: '名称',
                 dataIndex: 'name',
 
-                flex: 1,
+                width: 180,
                 align: 'center',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false
             }, {
-                text: '公司',
+                text: '承担单位',
                 dataIndex: 'company',
 
-                flex: 1,
+                width: 160,
                 align: 'center',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false
-            },{
+            }, {
+                text: '负责人',
+                dataIndex: 'username',
+
+                width: 100,
+                align: 'center',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            }, {
+                text: '联系电话',
+                dataIndex: 'mobile',
+
+                width: 100,
+                align: 'center',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            }, {
+                text: '简述',
+                dataIndex: 'description',
+
+                flex: 2,
+                align: 'center',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            }, {
+                text: '地址',
+                dataIndex: 'address',
+
+                flex: 3,
+                align: 'center',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false
+            }, {
                 xtype: 'actioncolumn',
                 id: 'monpotGridActionColumn',
                 text: '操作',
