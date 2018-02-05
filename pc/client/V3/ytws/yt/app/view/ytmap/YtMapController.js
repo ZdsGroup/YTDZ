@@ -219,10 +219,10 @@ var mv = {
                         Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + ( result.data.runstatus === 0 ? '异常' : '正常') );// 运行状态
                     }else if(data.type === 'disasterpoint'){
                         // todo 设置收藏状态
-                        Ext.getCmp('mondataCollectId').setUserCls('');
+                        Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
                         Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
                         if(result.data.favostatus === 1){
-                            Ext.getCmp('mondataCollectId').setUserCls('favoStatus');
+                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
                             Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
                         }
                     }
@@ -397,10 +397,10 @@ var mv = {
                                                         if(!result.data)return;
                                                         // todo 设置收藏状态
                                                         if(result.data.status === 1){
-                                                            Ext.getCmp('mondataCollectId').setUserCls('favoStatus');
+                                                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
                                                             Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
                                                         } else {
-                                                            Ext.getCmp('mondataCollectId').setUserCls('');
+                                                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
                                                             Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
                                                         }
                                                     }
