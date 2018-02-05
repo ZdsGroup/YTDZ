@@ -196,23 +196,54 @@ var mv = {
             },
             //切换概要信息面板
             switchSummarypanel: function (data, type) {
+                console.log(data);
+                // 查询对应的详细信息，然后设置承担单位。负责人，还有运行状态
+                var action = '';
+                if (data.type === 'disasterpoint') {
+                    action = 'quakes/' + data.code.toString();
+                }
+                else if (data.type === 'device') {
+                    action = 'devices/' + data.code.toString();
+                }
+                var params = {
+                    hours: 24,   // 默认查询24小时之前的预警信息
+                    userid: g.v.userId
+                }
+                var meView = mv.v.mapDetailPanel;
+                var mask = ajax.fn.showMask( meView, '数据加载中...');
+                function successCalBack(response, opts) {
+                    ajax.fn.hideMask(mask);
+                    var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                    if (result['data'] === null) return;
+                    if(data.type === 'device'){
+                        Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + ( result.data.runstatus === 0 ? '异常' : '正常') );// 运行状态
+                    }else if(data.type === 'disasterpoint'){
+                        // todo 设置收藏状态
+                        Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
+                        Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
+                        if(result.data.favostatus === 1){
+                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
+                            Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
+                        }
+                    }
+                    Ext.getCmp('mondataCompanyId').setHtml(result.data.company);// 设置承担单位
+                    Ext.getCmp('mondataUserNameId').setHtml(result.data.username);// 设置负责人
+                    // 预警信息统计信息
+                    var warmPanel = Ext.getCmp('monWarnPanelId');
+                    warmPanel.down('button[action=warn-red]').setText( "红色预警<br/>" + (result.data.alarmLevel['1']) );
+                    warmPanel.down('button[action=warn-orange]').setText( "橙色预警<br/>" + (result.data.alarmLevel['2']) );
+                    warmPanel.down('button[action=warn-yellow]').setText( "黄色预警<br/>" + (result.data.alarmLevel['3']) );
+                    warmPanel.down('button[action=warn-blud]').setText( "蓝色预警<br/>" + (result.data.alarmLevel['4']) );
+                }
+                function failureCallBack(response, opts) {
+                    ajax.fn.hideMask(mask);
+                };
+                ajax.fn.executeV2(params, 'GET', conf.serviceUrl + action, successCalBack, failureCallBack);
+
                 Ext.getCmp('mondataTitleId').setHtml(data.text);// 设置标题
                 Ext.getCmp('mondataAddressId').setHtml(data.address);// 设置地址
                 // Ext.getCmp('mondataTypeId').setHtml(type);// 设置类型
                 mv.fn.calcRank4FeaturePanel(data.rank);// 设置预警等级
-                // Ext.getCmp('mondataCompanyId').setHtml('');// 设置承担单位
-                // Ext.getCmp('mondataUserNameId').setHtml('');// 设置负责人
-                Ext.getCmp('mondataStatusId').setHtml('');// 设置额外字段 监测点 设备类型统计和设备总数统计，监测设备 设备运行状态
-                if(data.type === 'disasterpoint'){
-                    Ext.getCmp('mondataStatusId').setHidden(true);
-                }else if(data.type === 'device'){
-                    Ext.getCmp('mondataStatusId').setHidden(false);
-                    Ext.getCmp('mondataStatusId').setHtml('运行状态： 正常');// todo 运行状态暂时没找到对应的字段
-                }
-
-                // 预警信息统计信息
-                var warmPanel = Ext.getCmp('monWarnPanelId');
-
                 // 监测设备统计信息
                 var devicePanel = Ext.getCmp('monInfoPanelId');
                 devicePanel.down('button[action=lfjc]').setText( "裂缝监测<br/>" + (data.hasOwnProperty('crevDeviceNum') ? data.crevDeviceNum.toString() : '0') );
@@ -351,7 +382,30 @@ var mv = {
                                                 margin: '0 0 0 5',
                                                 border: false,
                                                 iconCls: 'fa fa-star',
-                                                tooltip: '快速收藏'
+                                                tooltip: '快速收藏',
+                                                handler: function () {
+                                                    // 只有地灾点有收藏功能
+                                                    var action = 'userfavos';
+                                                    var params = {
+                                                        userid: g.v.userId,
+                                                        quakeid: mv.v.mapDetailPanelInfo.code
+                                                    }
+
+                                                    function successCallBack(response, opts) {
+                                                        var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+
+                                                        if(!result.data)return;
+                                                        // todo 设置收藏状态
+                                                        if(result.data.status === 1){
+                                                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
+                                                            Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
+                                                        } else {
+                                                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
+                                                            Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
+                                                        }
+                                                    }
+                                                    ajax.fn.executeV2(params, 'POST', conf.serviceUrl + action, successCallBack, null);
+                                                }
                                             },
                                             {
                                                 xtype: 'button',
@@ -720,9 +774,11 @@ var mv = {
                 if (type == 'disasterpoint') {
                     Ext.getCmp('mondataCollectId').show();
                     Ext.getCmp('monInfoPanelId').show();
+                    Ext.getCmp('mondataStatusId').setHidden(true);
                 } else if (type == 'device') {
                     Ext.getCmp('mondataCollectId').hide();
                     Ext.getCmp('monInfoPanelId').hide();
+                    Ext.getCmp('mondataStatusId').setHidden(false);
                 }
             },
             //@todo action参数表示需要切换的地灾点或监测设备等级，以及地灾点需要切换的监测设备类型

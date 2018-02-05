@@ -16,7 +16,10 @@ var g = {
         //左侧树tree 原始数据
         menuTreeData: null,
         //左侧面板控制
-        isLeftButtonAction: true
+        isLeftButtonAction: true,
+
+
+        userId: 1  // todo 设置默认的用户id
 
     },
     fn: {
@@ -384,7 +387,7 @@ var g = {
 
             ajax.v.method = 'GET';
             ajax.v.url = conf.serviceUrl + 'menu/tree';
-            ajax.v.params = {userId: 1};// todo 暂时使用固定的 userid 来获取数据
+            ajax.v.params = {userId: g.v.userId};
             ajax.v.successCallBack = function (response, opts) {
                 //查询结果转json对象
                 var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
