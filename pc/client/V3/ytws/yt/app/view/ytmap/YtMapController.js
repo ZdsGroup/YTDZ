@@ -1277,7 +1277,7 @@ var mv = {
                 } else if (node.get('type') == 'device') {
                     iconCls = 'fa fa-circle';
                 } else if (node.get('type') == 'region' && isRegionRefresh) {
-                    iconCls = 'fa fa-table'
+                    iconCls = 'fa fa-table';
                     node.set('iconCls', iconCls);
                 }
 
