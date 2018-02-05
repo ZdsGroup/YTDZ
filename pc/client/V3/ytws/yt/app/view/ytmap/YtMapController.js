@@ -210,18 +210,19 @@ var mv = {
                     userid: g.v.userId
                 }
                 var meView = mv.v.mapDetailPanel;
-                var mask = ajax.fn.showMask( meView, '数据加载中...');
+                var mask = ajax.fn.showMask(meView, '数据加载中...');
+
                 function successCalBack(response, opts) {
                     ajax.fn.hideMask(mask);
                     var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
                     if (result['data'] === null) return;
-                    if(data.type === 'device'){
-                        Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + ( result.data.runstatus === 0 ? '异常' : '正常') );// 运行状态
-                    }else if(data.type === 'disasterpoint'){
+                    if (data.type === 'device') {
+                        Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + (result.data.runstatus === 0 ? '异常' : '正常'));// 运行状态
+                    } else if (data.type === 'disasterpoint') {
                         // todo 设置收藏状态
                         Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
                         Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
-                        if(result.data.favostatus === 1){
+                        if (result.data.favostatus === 1) {
                             Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
                             Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
                         }
@@ -230,11 +231,12 @@ var mv = {
                     Ext.getCmp('mondataUserNameId').setHtml(result.data.username);// 设置负责人
                     // 预警信息统计信息
                     var warmPanel = Ext.getCmp('monWarnPanelId');
-                    warmPanel.down('button[action=warn-red]').setText( "红色预警<br/>" + (result.data.alarmLevel['1']) );
-                    warmPanel.down('button[action=warn-orange]').setText( "橙色预警<br/>" + (result.data.alarmLevel['2']) );
-                    warmPanel.down('button[action=warn-yellow]').setText( "黄色预警<br/>" + (result.data.alarmLevel['3']) );
-                    warmPanel.down('button[action=warn-blud]').setText( "蓝色预警<br/>" + (result.data.alarmLevel['4']) );
+                    warmPanel.down('button[action=warn-red]').setText("红色预警<br/>" + (result.data.alarmLevel['1']));
+                    warmPanel.down('button[action=warn-orange]').setText("橙色预警<br/>" + (result.data.alarmLevel['2']));
+                    warmPanel.down('button[action=warn-yellow]').setText("黄色预警<br/>" + (result.data.alarmLevel['3']));
+                    warmPanel.down('button[action=warn-blud]').setText("蓝色预警<br/>" + (result.data.alarmLevel['4']));
                 }
+
                 function failureCallBack(response, opts) {
                     ajax.fn.hideMask(mask);
                 };
@@ -246,9 +248,9 @@ var mv = {
                 mv.fn.calcRank4FeaturePanel(data.rank);// 设置预警等级
                 // 监测设备统计信息
                 var devicePanel = Ext.getCmp('monInfoPanelId');
-                devicePanel.down('button[action=lfjc]').setText( "裂缝监测<br/>" + (data.hasOwnProperty('crevDeviceNum') ? data.crevDeviceNum.toString() : '0') );
-                devicePanel.down('button[action=bmwyjc]').setText( "表面位移监测<br/>" + (data.hasOwnProperty('weiyiDeviceNum') ? data.weiyiDeviceNum.toString() : '0') );
-                devicePanel.down('button[action=yljc]').setText( "雨量监测<br/>" + (data.hasOwnProperty('rainDeviceNum') ? data.rainDeviceNum.toString() : '0') );
+                devicePanel.down('button[action=lfjc]').setText("裂缝监测<br/>" + (data.hasOwnProperty('crevDeviceNum') ? data.crevDeviceNum.toString() : '0'));
+                devicePanel.down('button[action=bmwyjc]').setText("表面位移监测<br/>" + (data.hasOwnProperty('weiyiDeviceNum') ? data.weiyiDeviceNum.toString() : '0'));
+                devicePanel.down('button[action=yljc]').setText("雨量监测<br/>" + (data.hasOwnProperty('rainDeviceNum') ? data.rainDeviceNum.toString() : '0'));
             },
             //根据类型计算相关参数并返回类型
             calcParamByType: function (data) {
@@ -366,9 +368,9 @@ var mv = {
                                                 tooltip: '快速定位',
                                                 handler: function () {
                                                     // 此时面板展开，
-                                                    if(mv.v.mapDetailPanelInfo){
+                                                    if (mv.v.mapDetailPanelInfo) {
                                                         var detailInfo = mv.v.mapDetailPanelInfo;
-                                                        if(detailInfo.hasOwnProperty('lat') && detailInfo.hasOwnProperty('lng')){
+                                                        if (detailInfo.hasOwnProperty('lat') && detailInfo.hasOwnProperty('lng')) {
                                                             var detailInfoLatLng = new L.latLng(detailInfo.lat, detailInfo.lng);
                                                             mv.v.map.flyTo(detailInfoLatLng, mv.v.maxZoomShow);
                                                         }
@@ -394,16 +396,18 @@ var mv = {
                                                     function successCallBack(response, opts) {
                                                         var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
 
-                                                        if(!result.data)return;
+                                                        if (!result.data) return;
                                                         // todo 设置收藏状态
-                                                        if(result.data.status === 1){
-                                                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
-                                                            Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
+                                                        var favoBtn = Ext.getCmp('mondataCollectId');
+                                                        if (result.data.status === 1) {
+                                                            favoBtn.setIconCls('fa fa-star');
+                                                            favoBtn.setTooltip('取消收藏');
                                                         } else {
-                                                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
-                                                            Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
+                                                            favoBtn.setIconCls('fa fa-star favoStatus');
+                                                            favoBtn.setTooltip('快速收藏');
                                                         }
                                                     }
+
                                                     ajax.fn.executeV2(params, 'POST', conf.serviceUrl + action, successCallBack, null);
                                                 }
                                             },
@@ -849,7 +853,7 @@ var mv = {
                             deviceType: '',
                             detailBtnClick: function (thisExt, record, element, rowIndex, e, eOpts) {
                                 var detailData = record.getData();
-                                if(e.target.dataset.qtip === '详情'){
+                                if (e.target.dataset.qtip === '详情') {
                                     var winOption = {
                                         title: "详情",
                                         width: 1500,
