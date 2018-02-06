@@ -19,24 +19,38 @@
   background-color: rgba(255, 255, 255, 1);
 }
 
+.x-grid-cell-inner-treecolumn {
+  padding: 6px 3px 0px 3px;
+  height: 32px;
+}
+
 .red-cls {
   color: red;
+  margin-top: 2px !important;
 }
 
 .yellow-cls {
   color: yellow;
+  margin-top: 2px !important;
 }
 
 .orange-cls {
   color: orange;
+  margin-top: 2px !important;
 }
 
 .blue-cls {
   color: blue;
+  margin-top: 2px !important;
 }
 
 .green-cls {
   color: green;
+  margin-top: 2px !important;
+}
+
+.normal-cls {
+  margin-top: 3px !important;
 }
 
 /*修改panel收缩按钮位置*/

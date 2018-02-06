@@ -1332,11 +1332,11 @@ var mv = {
                 var iconCls = '';
 
                 if (node.get('type') == 'disasterpoint') {
-                    iconCls = 'fa fa-plus-square';
+                    iconCls = 'fa fa-plus-square normal-cls';
                 } else if (node.get('type') == 'device') {
-                    iconCls = 'fa fa-circle';
+                    iconCls = 'fa fa-circle normal-cls';
                 } else if (node.get('type') == 'region' && isRegionRefresh) {
-                    iconCls = 'fa fa-table';
+                    iconCls = 'fa fa-table normal-cls';
                     node.set('iconCls', iconCls);
                 }
 
