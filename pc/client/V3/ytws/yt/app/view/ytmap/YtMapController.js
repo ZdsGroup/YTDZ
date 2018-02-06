@@ -852,7 +852,7 @@ var mv = {
                             deviceType: '',
                             detailBtnClick: function (thisExt, record, element, rowIndex, e, eOpts) {
                                 var detailData = record.getData();
-                                if (e.target.dataset.qtip === '详情') {
+                                if (e.target.dataset.qtip === '详情' || e.type === "dblclick") {
                                     var winOption = {
                                         title: "详情",
                                         width: 1500,

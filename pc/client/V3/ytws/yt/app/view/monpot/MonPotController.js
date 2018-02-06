@@ -257,7 +257,7 @@ monpot.fn = {
                     deviceType: '',
                     detailBtnClick: function (thisExt, record, element, rowIndex, e, eOpts) {
                         var detailData = record.getData();
-                        if(e.target.dataset.qtip === '详情'){
+                        if(e.target.dataset.qtip === '详情' || e.type === "dblclick"){
                             monpot.fn.showDeviceDetailPanel(detailData,true);
                         }
                     }

@@ -181,6 +181,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                     items: [
                         {
                             xtype: 'button',
+                            text: '详情',
                             iconCls: 'x-fa fa-info-circle',
                             tooltip: '详情'
                         }
@@ -201,6 +202,12 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
             },
             listeners: {
                 rowclick: function(thisExt, record, element, rowIndex, e, eOpts){
+                    var thisFather = thisExt.up('monpot-devicelist');
+                    if(thisFather.config.detailBtnClick)
+                        thisFather.config.detailBtnClick(thisExt, record, element, rowIndex, e, eOpts)
+                },
+
+                rowdblclick: function(thisExt, record, element, rowIndex, e, eOpts){
                     var thisFather = thisExt.up('monpot-devicelist');
                     if(thisFather.config.detailBtnClick)
                         thisFather.config.detailBtnClick(thisExt, record, element, rowIndex, e, eOpts)
