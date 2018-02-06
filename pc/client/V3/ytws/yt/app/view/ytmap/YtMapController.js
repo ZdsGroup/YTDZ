@@ -196,7 +196,6 @@ var mv = {
             },
             //切换概要信息面板
             switchSummarypanel: function (data, type) {
-                console.log(data);
                 // 查询对应的详细信息，然后设置承担单位。负责人，还有运行状态
                 var action = '';
                 if (data.type === 'disasterpoint') {

@@ -8,6 +8,7 @@ Ext.define('yt.view.ytwest.YtWest', {
         'Ext.container.Container',
         'Ext.layout.container.Fit',
         'Ext.list.Tree',
+        'Ext.tree.Panel',
         'yt.plugin.SearchField',
         'yt.view.ytwest.YtWestController',
         'yt.view.ytwest.YtWestModel'
@@ -67,7 +68,7 @@ Ext.define('yt.view.ytwest.YtWest', {
             flex: 1,
             layout: 'fit',
             items: [{
-                xtype: 'treelist',
+                xtype: 'treepanel',
                 id: 'dzDataTreeRef',
                 rootVisible: false,
                 useArrows: true,
@@ -82,7 +83,8 @@ Ext.define('yt.view.ytwest.YtWest', {
                 itemRipple: true,
 
                 listeners: {
-                    selectionchange: 'treeSelection'
+                    // 'selectionchange': 'treeSelection',
+                    'itemclick': 'treeSelection'
                 }
             }]
         }]
