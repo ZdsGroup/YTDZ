@@ -358,24 +358,24 @@ var mv = {
                                                 html: '贵溪市煤矿',
                                                 cls: 'mondata-detail-info-title'
                                             },
-                                            {
-                                                xtype: 'button',
-                                                ui: 'mondata-detail-tool-button',
-                                                id: 'mondataLocateId',
-                                                border: false,
-                                                iconCls: 'fa fa-map-marker',
-                                                tooltip: '快速定位',
-                                                handler: function () {
-                                                    // 此时面板展开，
-                                                    if (mv.v.mapDetailPanelInfo) {
-                                                        var detailInfo = mv.v.mapDetailPanelInfo;
-                                                        if (detailInfo.hasOwnProperty('lat') && detailInfo.hasOwnProperty('lng')) {
-                                                            var detailInfoLatLng = new L.latLng(detailInfo.lat, detailInfo.lng);
-                                                            mv.v.map.flyTo(detailInfoLatLng, mv.v.maxZoomShow);
-                                                        }
-                                                    }
-                                                }
-                                            },
+                                            // {
+                                            //     xtype: 'button',
+                                            //     ui: 'mondata-detail-tool-button',
+                                            //     id: 'mondataLocateId',
+                                            //     border: false,
+                                            //     iconCls: 'fa fa-map-marker',
+                                            //     tooltip: '快速定位',
+                                            //     handler: function () {
+                                            //         // 此时面板展开，
+                                            //         if (mv.v.mapDetailPanelInfo) {
+                                            //             var detailInfo = mv.v.mapDetailPanelInfo;
+                                            //             if (detailInfo.hasOwnProperty('lat') && detailInfo.hasOwnProperty('lng')) {
+                                            //                 var detailInfoLatLng = new L.latLng(detailInfo.lat, detailInfo.lng);
+                                            //                 mv.v.map.flyTo(detailInfoLatLng, mv.v.maxZoomShow);
+                                            //             }
+                                            //         }
+                                            //     }
+                                            // },
                                             {
                                                 xtype: 'button',
                                                 ui: 'mondata-detail-tool-button',

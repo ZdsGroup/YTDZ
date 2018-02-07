@@ -460,7 +460,7 @@ Ext.define('yt.view.monpot.MonPotController', {
     gridpanelRowClickfunc: function (thisExt, record, element, rowIndex, e, eOpts) {
         var detailData = record.getData();
         // 如果点击的是对应的 操作按钮
-        if(e.target.dataset.qtip === '详情'){
+        if(e.target.dataset.qtip === '详情' || e.type === "dblclick"){
             // 查看当前点击的是地灾点还是监测设备
             if(detailData.hasOwnProperty('deviceid')){
                 // 点击的是设备
@@ -477,11 +477,10 @@ Ext.define('yt.view.monpot.MonPotController', {
             // todo 删除待处理
             return;
         }
-        if(monpot.v.currentType === 'disasterpoint'){
-            // 点击的是地灾点，查询得到相应的监测设备
-            var selectedDisasterpoint = record.getData();
-            // todo
-        }
+        // if(monpot.v.currentType === 'disasterpoint'){
+        //     // 点击的是地灾点，查询得到相应的监测设备
+        //     var selectedDisasterpoint = record.getData();
+        // }
     },
     
     getBack: function () {

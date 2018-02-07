@@ -285,12 +285,14 @@ Ext.define('yt.view.monpot.MonPot', {
                     {
                         xtype: 'button',
                         iconCls: 'x-fa fa-edit actioncolumnMargin',
-                        tooltip: '修改'
+                        tooltip: '修改',
+                        hidden: true
                     },
                     {
                         xtype: 'button',
                         iconCls: 'x-fa fa-trash',
-                        tooltip: '删除'
+                        tooltip: '删除',
+                        hidden: true
                     }
                 ],
 
@@ -300,7 +302,8 @@ Ext.define('yt.view.monpot.MonPot', {
                 sortable: false
             }],
             listeners: {
-                rowclick: 'gridpanelRowClickfunc'
+                rowclick: 'gridpanelRowClickfunc',
+                rowdblclick: 'gridpanelRowClickfunc'
             }
         }
     ]
