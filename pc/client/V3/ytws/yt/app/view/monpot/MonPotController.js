@@ -371,6 +371,19 @@ Ext.define('yt.view.monpot.MonPotController', {
 
     queryButtonClick: function () {
         var me = this;
+
+        me.updateMonpotDataGrid(1);
+    },
+
+    pagebuttonChange: function (thisExt, page, eOpts ) {
+        var me = this;
+        me.updateMonpotDataGrid(page);
+        return false;
+    },
+
+    updateMonpotDataGrid: function (pageindex) {
+        if(!pageindex)return;
+        var me = this;
         var meView = me.getView();
 
         var queryArea = meView.lookupReference('monAreaListRef').getSelection();
@@ -391,11 +404,23 @@ Ext.define('yt.view.monpot.MonPotController', {
             qyeryDeviceType = qyeryDeviceType.get('type');
 
         var action = "quakes";
-        if(queryType === 'dzd')
-            action = "quakes";
-        else
-            action = "devices";
         var params = {};
+        // 分页用的默认属性
+        params.pageno = pageindex;
+        params.pagesize = meView.getViewModel().get('gridPageStore').pageSize;
+        params.userid = g.v.userId;
+        params.name = meView.lookupReference('monpotName').getValue();
+        if(queryType === 'dzd')
+        {
+            action = "quakes";
+            params.regionid = queryArea;
+        }
+        else
+        {
+            action = "devices";
+            params.regionid = queryArea;
+            params.type = qyeryDeviceType;
+        }
         // todo 查询条件
         var mask = ajax.fn.showMask(meView, '数据加载中...');
         // 查询地灾点
@@ -450,10 +475,12 @@ Ext.define('yt.view.monpot.MonPotController', {
         if(record.get('type') === 'jcsb')
         {
             meView.lookupReference('queryDeviceTypeRef').setHidden(false);
+            meView.lookupReference('monpotName').setValue('');
         }
         else
         {
             meView.lookupReference('queryDeviceTypeRef').setHidden(true);
+            meView.lookupReference('monpotName').setValue('');
         }
     },
     

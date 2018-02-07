@@ -114,10 +114,10 @@ Ext.define('yt.view.monpot.MonPot', {
                     fieldLabel: '设备类型',
                     store: {
                         data: [
-                            {name: '全部类型', type: 'alljc'},
-                            {name: '裂缝设备', type: 'lfjc'},
-                            {name: '位移设备', type: 'wyjc'},
-                            {name: '雨量设备', type: 'yljc'}
+                            {name: '全部类型', type: ''},
+                            {name: '裂缝设备', type: '3'},
+                            {name: '位移设备', type: '1'},
+                            {name: '雨量设备', type: '2'}
                         ]
                     },
                     valueField: 'type',
@@ -197,7 +197,7 @@ Ext.define('yt.view.monpot.MonPot', {
                             displayInfo: false,
                             bind: '{gridPageStore}',
                             listeners: {
-                                // beforechange: 'pagebuttonChange'
+                                beforechange: 'pagebuttonChange'
                             }
                         }
                     ]
