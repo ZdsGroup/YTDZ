@@ -156,7 +156,8 @@
 /*监测设备统计*/
 @include extjs-button-small-ui (
         $ui: 'button-device-ui',
-        $background-color: #055575,
+        $background-color: $common-color,
+        $border-color: white,
         $border-width: 1px,
         $padding: 10px,
         $color: white,
