@@ -124,7 +124,7 @@ Ext.define('yt.utils.CustomPageToolBar', {
      * @cfg {Number} inputItemWidth
      * The width in pixels of the input field used to display and change the current page number.
      */
-    inputItemWidth : 30,
+    inputItemWidth : 60,
 
     /**
      * @event change

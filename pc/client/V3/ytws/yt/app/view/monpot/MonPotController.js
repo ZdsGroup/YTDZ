@@ -421,7 +421,6 @@ Ext.define('yt.view.monpot.MonPotController', {
             params.regionid = queryArea;
             params.type = qyeryDeviceType;
         }
-        // todo 查询条件
         var mask = ajax.fn.showMask(meView, '数据加载中...');
         // 查询地灾点
         function successCallBack(response, opts) {

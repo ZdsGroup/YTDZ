@@ -29,10 +29,12 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
     },
 
     requires: [
+        'Ext.button.Button',
         'Ext.container.Container',
         'Ext.form.Panel',
         'Ext.form.field.Display',
         'Ext.grid.Panel',
+        'Ext.grid.column.Action',
         'Ext.grid.column.Date',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
@@ -437,6 +439,25 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
 
                     width: 90,
                     align: 'center',
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false
+                },
+                {
+                    xtype: 'actioncolumn',
+                    text: '操作',
+
+                    width: 65,
+                    align: 'center',
+                    items: [
+                        {
+                            xtype: 'button',
+                            iconCls: 'x-fa fa-info-circle actioncolumnMargin',
+                            tooltip: '详情'
+                        }
+                    ],
+
                     hideable: false,
                     menuDisabled: true,
                     resizable: false,
