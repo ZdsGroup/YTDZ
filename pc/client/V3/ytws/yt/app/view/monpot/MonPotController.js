@@ -140,10 +140,12 @@ monpot.fn = {
             return monpot.v.detailPanel;
         }
 
+        var height_80 = window.innerHeight * 0.8;
+        var width_80 = window.innerWidth * 0.8;
         var winOption = {
             title: "详情",
-            width: 1500,
-            height: 800,
+            width: width_80,
+            height: height_80,
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -205,6 +207,15 @@ monpot.fn = {
             ]
         }
         monpot.v.detailPanel = Ext.create("Ext.window.Window", winOption);
+
+        Ext.on('resize', function (width, height)
+        {
+            if(monpot.v.detailPanel){
+                monpot.v.detailPanel.setWidth(width * 0.8);
+                monpot.v.detailPanel.setHeight(height * 0.8);
+            }
+        });
+
         return monpot.v.detailPanel;
     },
 
