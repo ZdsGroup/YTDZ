@@ -49,7 +49,7 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
             var devicetypecompareOption = {
                 tooltip: {
                     trigger: 'axis',
@@ -200,7 +200,7 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
             var devicetypecompareOption = {
                 tooltip: {
                     trigger: 'axis',
@@ -301,7 +301,7 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
             // 速度部分
             var devicetypecompareOption = {
                 tooltip: {
@@ -421,7 +421,7 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
             // 加速度开始
             var gdevicetypecompareOption = {
                 tooltip: {
@@ -543,7 +543,7 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
 
             var historyPoint = result.data.vectors;
             var startPoint = [ historyPoint.shift() ];
@@ -689,7 +689,7 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
 
             var vectors = result.data.points;
             var startPoint = [ vectors[0] ];

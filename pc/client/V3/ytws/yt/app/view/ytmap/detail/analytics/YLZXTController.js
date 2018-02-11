@@ -44,7 +44,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
             var devicetypecompareOption = {
                 color: [
                     '#387FFF'

@@ -5,6 +5,10 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.analyticssbdb',
 
+    requires: [
+        'Ext.data.Store'
+    ],
+
     /**
      * Called when the view is created
      */
@@ -20,20 +24,70 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
         meView.lookupReference('endTime').setValue( nowDate );
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
 
-        switch(meView.deivceType){
+        // 查询需要对比的设备列表
+        var comparedDeviceView = meView.lookupReference('comparedDevice');
+        var comparedDeviceType = null;
+        // 设置默认查询时间组件
+        switch(meView.deviceType){
             case 'wysb':
                 // 位移设备多站对比只有起始时间
                 meView.lookupReference('endTime').setHidden(true);
+                comparedDeviceType = 1;
                 break;
             case 'ylsb':
                 meView.lookupReference('endTime').setHidden(false);
+                comparedDeviceType = 2;
                 break;
             case 'lfsb':
                 meView.lookupReference('endTime').setHidden(false);
+                comparedDeviceType = 3;
                 break;
         }
 
-        me.tlxsbdbUpdateEcharts();
+        var mask = ajax.fn.showMask(comparedDeviceView);
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
+            var allSameTypeDevice = result['data']['rows'];
+
+            var allDeviceStore = [];
+            Ext.each(allSameTypeDevice, function(item, index) {
+                if(item.deviceid.toString() !== meView.deviceCode.toString()){
+                    allDeviceStore.push(
+                        {
+                            'name': item.name + '-' + item.quakeid,
+                            'devicecode': item.deviceid
+                        }
+                    )
+                }
+            });
+            comparedDeviceView.setStore(
+                new Ext.data.Store({
+                    data: allDeviceStore
+                })
+            )
+
+            // 对比的设备列表加载完毕之后执行查询
+            me.tlxsbdbUpdateEcharts();
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+
+        if(comparedDeviceType)
+            ajax.fn.executeV2(
+                {
+                    "type": comparedDeviceType,
+                    "pageno": 1,
+                    "pagesize": 200
+                },
+                'GET',
+                conf.serviceUrl + 'devices',
+                successCallBack,
+                failureCallBack
+            );
     },
 
     tlxsbdbUpdateEcharts: function () {
@@ -46,7 +100,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
         params.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
 
         var action = '';
-        switch(meView.deivceType){
+        switch(meView.deviceType){
             case 'wysb':
                 action = 'tbmwys/echarts/device';
                 break;
@@ -69,7 +123,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
 
             var devicetypecompareOption = {};
 
-            switch(meView.deivceType){
+            switch(meView.deviceType){
                 case 'wysb':
                     devicetypecompareOption = {
                         tooltip: {

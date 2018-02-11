@@ -63,12 +63,13 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
                 thisContainer.add([
                     {
                         xtype: 'analyticssbdb',
-                        deivceType: 'wysb',
-                        quakeCode: meView.quakeId
+                        deviceType: 'wysb',
+                        quakeCode: meView.quakeId,
+                        deviceCode: meView.deviceCode
                     },
                     {
                         xtype: 'analyticsdzdb',
-                        deivceType: 'wysb',
+                        deviceType: 'wysb',
                         deviceCode: meView.deviceCode
                     },
                     {
@@ -101,12 +102,13 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
                 thisContainer.add([
                     {
                         xtype: 'analyticssbdb',
-                        deivceType: 'lfsb',
-                        quakeCode: meView.quakeId
+                        deviceType: 'lfsb',
+                        quakeCode: meView.quakeId,
+                        deviceCode: meView.deviceCode
                     },
                     {
                         xtype: 'analyticsdzdb',
-                        deivceType: 'lfsb',
+                        deviceType: 'lfsb',
                         deviceCode: meView.deviceCode
                     },
                     {
@@ -119,12 +121,13 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
                 thisContainer.add([
                     {
                         xtype: 'analyticssbdb',
-                        deivceType: 'ylsb',
-                        quakeCode: meView.quakeId
+                        deviceType: 'ylsb',
+                        quakeCode: meView.quakeId,
+                        deviceCode: meView.deviceCode
                     },
                     {
                         xtype: 'analyticsdzdb',
-                        deivceType: 'ylsb',
+                        deviceType: 'ylsb',
                         deviceCode: meView.deviceCode
                     },
                     {

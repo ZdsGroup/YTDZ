@@ -20,7 +20,7 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
         meView.lookupReference('endTime').setValue( nowDate.getFullYear().toString() );
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.YEAR, -1 ).getFullYear().toString() );
 
-        switch(meView.deivceType){
+        switch(meView.deviceType){
             case 'wysb':
                 // 位移设备单站对比有对比指标
                 meView.lookupReference('searchType').setHidden(false);
@@ -43,7 +43,7 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
         var thisEcharts = meView.down('echartsbasepanel').getEcharts();
 
         var action = '';
-        switch(meView.deivceType){
+        switch(meView.deviceType){
             case 'wysb':
                 action = 'tbmwys/echarts/year';
                 break;
@@ -69,7 +69,7 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
 
             var devicetypecompareOption = {};
 
-            switch(meView.deivceType){
+            switch(meView.deviceType){
                 case 'wysb':
                     devicetypecompareOption = {
                         legend: {

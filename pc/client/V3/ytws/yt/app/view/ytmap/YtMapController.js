@@ -214,7 +214,7 @@ var mv = {
                 function successCalBack(response, opts) {
                     ajax.fn.hideMask(mask);
                     var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                    if (result['data'] === null) return;
+                    if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
                     if (data.type === 'device') {
                         Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + (result.data.runstatus === 0 ? '异常' : '正常'));// 运行状态
                     } else if (data.type === 'disasterpoint') {

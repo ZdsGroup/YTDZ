@@ -92,7 +92,7 @@ monpot.fn = {
                 successCallBack = function (response, opts) {
                     //查询结果转json对象
                     var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                    if (result['data'] === null) return;
+                    if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
                     // 展示地灾点详情
                     winOption.items = [
                         {
@@ -109,7 +109,7 @@ monpot.fn = {
                 successCallBack = function (response, opts) {
                     //查询结果转json对象
                     var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                    if (result['data'] === null) return;
+                    if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
                     // 展示地灾点详情
                     winOption.items = [
                         {
@@ -438,7 +438,7 @@ Ext.define('yt.view.monpot.MonPotController', {
             ajax.fn.hideMask(mask);
             //查询结果转json对象
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-            if (result['data'] === null) return;
+            if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
             // 展示地灾点详情
             meView.getViewModel().set('gridPageStore',{
                 total: result['data']['total'],

@@ -20,11 +20,11 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDB', {
     ],
 
     config: {
-        deivceType: 'wysb',
+        deviceType: 'wysb',
         deviceCode: '7'
     },
 
-    title: '单站对比',
+    title: '时段对比',
 
     controller: {
         type: 'analyticsdzdb'

@@ -12,20 +12,22 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDB', {
 
     requires: [
         'Ext.button.Button',
+        'Ext.form.field.Tag',
         'Ext.layout.container.Fit',
         'Ext.panel.Panel',
         'Ext.toolbar.Fill',
         'yt.plugin.date.DateTimeField',
-        'yt.view.ytmap.detail.analytics.SBDBController',
-        'yt.view.ytmap.detail.analytics.EchartsBasePanel'
+        'yt.view.ytmap.detail.analytics.EchartsBasePanel',
+        'yt.view.ytmap.detail.analytics.SBDBController'
     ],
 
     config: {
-        deivceType: 'wysb',
+        deviceType: 'wysb',
+        deviceCode: '',
         quakeCode: '100000'
     },
 
-    title: '多站对比',
+    title: '设备对比',
 
     layout: 'fit',
 
@@ -33,6 +35,22 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDB', {
         type: 'analyticssbdb'
     },
     tbar: [
+
+        {
+            xtype: 'tagfield',
+            fieldLabel: '对比设备',
+            emptyText: '请选择需要对比的设备',
+            reference: 'comparedDevice',
+            displayField: 'name',
+            valueField: 'devicecode',
+            filterPickList: true,
+            queryMode: 'local',
+            publishes: 'value',
+
+            labelWidth: 60,
+            width: 350
+        },
+
         {
             xtype: 'datetimefield',
             reference: 'startTime',
