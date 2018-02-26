@@ -27,7 +27,6 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
         // 查询需要对比的设备列表
         var comparedDeviceView = meView.lookupReference('comparedDevice');
         var comparedDeviceType = null;
-        // 设置默认查询时间组件
         switch(meView.deviceType){
             case 'wysb':
                 // 位移设备多站对比只有起始时间
@@ -57,7 +56,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                 if(item.deviceid.toString() !== meView.deviceCode.toString()){
                     allDeviceStore.push(
                         {
-                            'name': item.name + '-' + item.quakeid,
+                            'name': item.name, // + '-' + item.quakeid, // 暂时只显示名称
                             'devicecode': item.deviceid
                         }
                     )
@@ -95,9 +94,14 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
         var meView = me.getView();
         var thisEcharts = meView.down('echartsbasepanel').getEcharts();
 
+        var comparedDeviceIds = meView.lookupReference('comparedDevice').getValue();
+        comparedDeviceIds.push( meView.deviceCode );
+        comparedDeviceIds = comparedDeviceIds.join(',');
+
         var params = {};
-        params.quakeid = meView.quakeCode;// todo 暂且使用固定设备 id
+        // params.quakeid = meView.quakeCode; // 有了对比设备列表 quakeid 不使用
         params.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
+        params.deviceids = comparedDeviceIds; // 对比的设备
 
         var action = '';
         switch(meView.deviceType){
