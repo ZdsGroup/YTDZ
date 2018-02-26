@@ -79,7 +79,7 @@ Ext.define('yt.view.ytwest.YtWestController', {
 
         // 切换概要面板中更多按钮状态
         var moreBtn = Ext.getCmp('mondataMoreId');
-        moreBtn.setIconCls('fa fa-plus');
+        moreBtn.setIconCls('fa fa-window-maximize');
         moreBtn.setTooltip('更多信息');
 
         //显示属性面板

@@ -219,10 +219,10 @@ var mv = {
                         Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + (result.data.runstatus === 0 ? '异常' : '正常'));// 运行状态
                     } else if (data.type === 'disasterpoint') {
                         // todo 设置收藏状态
-                        Ext.getCmp('mondataCollectId').setIconCls('fa fa-star favoStatus');
+                        Ext.getCmp('mondataCollectId').setIconCls('fa fa-heart favoStatus');
                         Ext.getCmp('mondataCollectId').setTooltip('快速收藏');
                         if (result.data.favostatus === 1) {
-                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-star');
+                            Ext.getCmp('mondataCollectId').setIconCls('fa fa-heart');
                             Ext.getCmp('mondataCollectId').setTooltip('取消收藏');
                         }
                     }
@@ -382,7 +382,7 @@ var mv = {
                                                 id: 'mondataCollectId',
                                                 margin: '0 0 0 5',
                                                 border: false,
-                                                iconCls: 'fa fa-star',
+                                                iconCls: 'fa fa-heart',
                                                 tooltip: '快速收藏',
                                                 handler: function () {
                                                     // 只有地灾点有收藏功能
@@ -399,10 +399,10 @@ var mv = {
                                                         // todo 设置收藏状态
                                                         var favoBtn = Ext.getCmp('mondataCollectId');
                                                         if (result.data.status === 1) {
-                                                            favoBtn.setIconCls('fa fa-star');
+                                                            favoBtn.setIconCls('fa fa-heart');
                                                             favoBtn.setTooltip('取消收藏');
                                                         } else {
-                                                            favoBtn.setIconCls('fa fa-star favoStatus');
+                                                            favoBtn.setIconCls('fa fa-heart favoStatus');
                                                             favoBtn.setTooltip('快速收藏');
                                                         }
                                                     }
@@ -416,13 +416,13 @@ var mv = {
                                                 id: 'mondataMoreId',
                                                 margin: '0 0 0 5',
                                                 border: false,
-                                                iconCls: 'fa fa-plus',
+                                                iconCls: 'fa fa-window-maximize',
                                                 tooltip: '更多信息',
                                                 handler: function (btn) {
 
                                                     //最大化
                                                     if (!mv.v.isMapDetaiMaximize) {
-                                                        btn.setIconCls('fa fa-minus');
+                                                        btn.setIconCls('fa fa-window-restore');
                                                         btn.setTooltip('基本信息');
                                                         mv.v.mapDetailPanelParam = {
                                                             gapX: 5,
@@ -439,7 +439,7 @@ var mv = {
 
 
                                                         //最小化
-                                                        btn.setIconCls('fa fa-plus');
+                                                        btn.setIconCls('fa fa-window-maximize');
                                                         btn.setTooltip('更多信息');
                                                         mv.v.mapDetailPanelParam = {
                                                             gapX: 5,
@@ -474,7 +474,7 @@ var mv = {
                                                     //变更按钮状态
                                                     var closeBtn = Ext.getCmp('mondataMoreId');
                                                     if (closeBtn) {
-                                                        closeBtn.setIconCls('fa fa-plus');
+                                                        closeBtn.setIconCls('fa fa-window-maximize');
                                                         closeBtn.setTooltip('更多信息');
                                                     }
 
@@ -1107,7 +1107,7 @@ var mv = {
             switchWarnPanel: function (btn, evt) {
                 //切换详情面板中更多按钮状态
                 var moreBtn = Ext.getCmp('mondataMoreId');
-                moreBtn.setIconCls('fa fa-minus');
+                moreBtn.setIconCls('fa fa-window-restore');
                 moreBtn.setTooltip('基本信息');
 
                 var parentContainer = Ext.getDom(mv.v.mapParentId);
@@ -1127,7 +1127,7 @@ var mv = {
             switchDeviceListPanel: function (btn, evt) {
                 //切换详情面板中更多按钮状态
                 var moreBtn = Ext.getCmp('mondataMoreId');
-                moreBtn.setIconCls('fa fa-minus');
+                moreBtn.setIconCls('fa fa-window-restore');
                 moreBtn.setTooltip('基本信息');
 
                 var parentContainer = Ext.getDom(mv.v.mapParentId);
