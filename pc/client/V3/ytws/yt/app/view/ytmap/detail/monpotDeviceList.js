@@ -182,7 +182,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                         {
                             xtype: 'button',
                             text: '详情',
-                            iconCls: 'x-fa fa-info-circle',
+                            iconCls: 'x-fa fa-eye',
                             tooltip: '详情'
                         }
                     ],

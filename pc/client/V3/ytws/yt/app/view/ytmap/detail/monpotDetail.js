@@ -453,7 +453,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     items: [
                         {
                             xtype: 'button',
-                            iconCls: 'x-fa fa-info-circle actioncolumnMargin',
+                            iconCls: 'x-fa fa-eye actioncolumnMargin',
                             tooltip: '详情'
                         }
                     ],
