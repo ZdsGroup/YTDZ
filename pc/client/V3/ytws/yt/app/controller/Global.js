@@ -382,6 +382,7 @@ var g = {
         getDzDataTree: function (view) {
             var me = view;
             var dzDataTree = Ext.getCmp('dzDataTreeRef');
+            var dzDataSearch = Ext.getCmp('dzDataSearchRef');
             var dzDataTreeCon = Ext.getCmp('dzDataTreeContainerId');
             var mask = ajax.fn.showMask(dzDataTreeCon, '数据加载中...');
 
@@ -400,6 +401,27 @@ var g = {
                             data: dataList//此处需要根据需要预处理数据，以满足tree组件显示需求,现在使用conf.dataList作为测试数据
                         });
                         dzDataTree.setStore(treeStore);
+                        // todo search 中只放地灾点和设备
+                        var allDZDandSBArr = [];
+                        allDZDandSB(dataList);
+                        dzDataSearch.setStore(
+                            new Ext.create('Ext.data.TreeStore', {
+                                data: allDZDandSBArr
+                            })
+                        );
+
+                        function allDZDandSB( childrenNode ){
+                            for(var childrenindex = 0; childrenindex < childrenNode.length ; childrenindex++ ){
+                                var tempChildrenData = childrenNode[childrenindex];
+                                if( tempChildrenData.hasOwnProperty('children')
+                                    && tempChildrenData['children'] && tempChildrenData['children'].length > 0){
+                                    allDZDandSB( tempChildrenData['children'] )
+                                }
+                                if(tempChildrenData.type === 'disasterpoint' || tempChildrenData.type === 'device'){
+                                    allDZDandSBArr.push(tempChildrenData)
+                                }
+                            }
+                        }
 
                         //刷新等级,包括区域节点图标，默认全部正常
                         treeStore.each(function (node) {

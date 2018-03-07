@@ -855,8 +855,8 @@ var mv = {
                                 if (e.target.dataset.qtip === '详情' || e.type === "dblclick") {
                                     var winOption = {
                                         title: "详情",
-                                        width: 1500,
-                                        height: 800,
+                                        width: Ext.getBody().getWidth() - 20,
+                                        height: Ext.getBody().getHeight() - 20,
                                         layout: "fit",
                                         modal: true,
                                         closable: true,

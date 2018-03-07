@@ -21,8 +21,10 @@ monpot.fn = {
     showNewModelWin: function (state, objTitle, objCode) {
         var winOption = {
             title: "详情",
-            width: 700,
-            height: 400,
+            // width: 700,
+            // height: 400,
+            width: Ext.getBody().getWidth() - 20,
+            height: Ext.getBody().getHeight() - 20,
             layout: "fit",
             modal: true,
             closable: true,
@@ -140,12 +142,10 @@ monpot.fn = {
             return monpot.v.detailPanel;
         }
 
-        var height_80 = window.innerHeight * 0.8;
-        var width_80 = window.innerWidth * 0.8;
         var winOption = {
             title: "详情",
-            width: width_80,
-            height: height_80,
+            width: Ext.getBody().getWidth() - 20,
+            height: Ext.getBody().getHeight() - 20,
             layout: {
                 type: 'vbox',
                 align: 'stretch'
