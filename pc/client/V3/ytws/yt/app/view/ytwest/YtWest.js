@@ -8,9 +8,7 @@ Ext.define('yt.view.ytwest.YtWest', {
         'Ext.container.Container',
         'Ext.form.field.ComboBox',
         'Ext.layout.container.Fit',
-        'Ext.list.Tree',
         'Ext.tree.Panel',
-        'yt.plugin.SearchField',
         'yt.view.ytwest.YtWestController',
         'yt.view.ytwest.YtWestModel'
     ],
@@ -80,7 +78,7 @@ Ext.define('yt.view.ytwest.YtWest', {
                     listeners: {
                         specialkey: function (combobox, field, event, eOpts) {
                             if (field.getKeyName() == "ENTER") {
-                                alert(combobox.getRawValue());
+                                // alert(combobox.getRawValue());
                             }
                         },
                         keyup: function (combobox, e, eOpts) {
@@ -130,6 +128,7 @@ Ext.define('yt.view.ytwest.YtWest', {
 
                             if(treeDataModel){
                                 dzDatatree.setSelection(treeDataModel);
+                                westglobal.fn.clickfunc(treeDataModel);
                             }
                         }
                     }
@@ -156,7 +155,7 @@ Ext.define('yt.view.ytwest.YtWest', {
 
                 listeners: {
                     // 'selectionchange': 'treeSelection',
-                    'select': 'treeSelection'
+                    itemclick: 'treeSelection'
                 }
             }]
         }]

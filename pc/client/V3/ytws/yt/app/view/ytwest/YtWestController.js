@@ -1,20 +1,8 @@
-/**
- * Created by LBM on 2017/12/28.
- */
-Ext.define('yt.view.ytwest.YtWestController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.ytwest',
 
-    /**
-     * Called when the view is created
-     */
-    init: function () {
-        this.getView().addCls('treelist-with-nav');
-    },
+var westglobal = {};
 
-    treeSelection: function (thisExt, record, eOpts) {
-        //停止图片轮播功能
-        // isw.fn.stopPlay();
+westglobal.fn = {
+    clickfunc: function (record) {
         var noteData = record.data;
         if (noteData.type !== 'disasterpoint' && noteData.type !== 'device')
             return;
@@ -62,16 +50,16 @@ Ext.define('yt.view.ytwest.YtWestController', {
 
         //var isNowCreate = false;
         // if (!mv.v.mapDetailPanel) {
-            // isNowCreate = true;
-            mv.v.isMapDetaiMaximize = false;
-            mv.v.mapDetailPanelParam = {
-                gapX: 5,
-                gapY: 40,
-                bottomY: 5,//底部间隔
-                w: 350,//数值或百分比，如：100%
-                h: 250,//数值或百分比，如：100%
-                align: 'tr' //右上
-            };
+        // isNowCreate = true;
+        mv.v.isMapDetaiMaximize = false;
+        mv.v.mapDetailPanelParam = {
+            gapX: 5,
+            gapY: 40,
+            bottomY: 5,//底部间隔
+            w: 350,//数值或百分比，如：100%
+            h: 250,//数值或百分比，如：100%
+            align: 'tr' //右上
+        };
         // }
 
         var showMondataType = mv.fn.calcParamByType(noteData);
@@ -98,5 +86,26 @@ Ext.define('yt.view.ytwest.YtWestController', {
 
             mv.fn.showBasicInfo();
         }
+    }
+}
+
+/**
+ * Created by LBM on 2017/12/28.
+ */
+Ext.define('yt.view.ytwest.YtWestController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.ytwest',
+
+    /**
+     * Called when the view is created
+     */
+    init: function () {
+        this.getView().addCls('treelist-with-nav');
+    },
+
+    treeSelection: function (thisExt, record, eOpts) {
+        //停止图片轮播功能
+        // isw.fn.stopPlay();
+        westglobal.fn.clickfunc(record);
     }
 });
