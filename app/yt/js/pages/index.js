@@ -418,6 +418,7 @@ var initEvent = function() {
 
 	//搜索框聚焦激活搜索面板
 	mui('#search-input-text-id')[0].addEventListener('focus', function() {
+		mui('#search-input-text-id')[0].blur();
 		mui.openWindow({
 			url: 'pages/common/search.html',
 			id: 'search-page-1',
