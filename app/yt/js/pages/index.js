@@ -930,7 +930,6 @@ function setFooterContentByInfo(Type, infoID) {
 		infoT = getCheckInfos(tempResults, Type, infoID);
 		initDzdContentHtml(infoT, Type);
 
-		//监测设备图文轮播事件
 		mui('#mui-slider-jcsb').off('tap', 'li');
 		mui("#mui-slider-jcsb").on('tap', 'img', function(evt) {
 			var info = this.getAttribute("id");
@@ -1091,6 +1090,11 @@ function initDzdContentHtml(infoT, typeT) {
 		pageRem: remNum
 	});
 	document.getElementById("dzd-content-part3").innerHTML = contentPart3;
+	//监测设备图文轮播事件
+	mui.later(dzdsbScroll,1000);
+}
+function dzdsbScroll(){
+	mui("#mui-slider-jcsb").slider();
 }
 //初始化监测设备内容
 function initJcsbContentHtml(infoT, typeT) {
