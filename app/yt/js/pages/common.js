@@ -14,7 +14,7 @@
 		return newObj;
 	}
 	//显示加载框
-	var baseURL = 'http://182.92.2.91:8080/oracle/';
+	var baseURL = 'http://218.87.176。150:80/oracle/';
 	$.myMuiQueryBaseInfo = {
 		pageStartIndex: 1,
 		pageSize: 20

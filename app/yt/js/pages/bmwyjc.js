@@ -94,20 +94,20 @@ var initDatePickParam = function() {
 	//获取昨天8点日期
 	endDt = getEightDateStr(0);
 	//当前设备最新数据,图和列表
-	//initDatePick('#deviceTypeStartDt', endDt, '#deviceTypeStartDt', endDt);
-	//initDatePick('#ytmcstartdt', startDt, '#ytmcenddt', endDt);
-	//initDatePick('#ytdmstartdt', startDt, '#ytdmenddt', endDt);
+	initDatePick('#deviceTypeStartDt', endDt, '#deviceTypeStartDt', endDt);
+	initDatePick('#ytmcstartdt', startDt, '#ytmcenddt', endDt);
+	initDatePick('#ytdmstartdt', startDt, '#ytdmenddt', endDt);
 
-	//initDatePick('#ytspstartdt', startDt, '#ytspenddt', endDt);
-	//initDatePick('#ytacspeedstartdt', startDt, '#ytacspeedenddt', endDt);
-	//initDatePick('#ytscastartdt', startDt, '#ytscaenddt', endDt);
-	//initDatePick('#ytvecstartdt', startDt, '#ytvecenddt', endDt);
-	//initDatePick('#deviceliststartdt', startDt, '#devicelistenddt', endDt);
+	initDatePick('#ytspstartdt', startDt, '#ytspenddt', endDt);
+	initDatePick('#ytacspeedstartdt', startDt, '#ytacspeedenddt', endDt);
+	initDatePick('#ytscastartdt', startDt, '#ytscaenddt', endDt);
+	initDatePick('#ytvecstartdt', startDt, '#ytvecenddt', endDt);
+	initDatePick('#deviceliststartdt', startDt, '#devicelistenddt', endDt);
 
 	//当前设备,不同年份时间
 	startDt = getYearStr(-1);
 	endDt = getYearStr(0);
-	//initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
+	initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
 }
 
 var initDatePick = function(startId, startDt, endId, endDt) {

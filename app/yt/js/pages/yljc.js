@@ -67,14 +67,14 @@ var initDatePickParam = function() {
 	//获取昨天8点日期
 	endDt = getEightDateStr(0);
 	//当前设备最新数据,图和列表
-	//initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
-	//initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
-	//initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
+	initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
+	initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
+	initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
 
 	//当前设备,不同年份时间
 	startDt = getYearStr(-1);
 	endDt = getYearStr(0);
-	//initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
+	initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
 }
 
 var initDatePick = function(startId, startDt, endId, endDt) {
