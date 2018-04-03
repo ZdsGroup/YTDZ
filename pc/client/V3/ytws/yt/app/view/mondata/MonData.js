@@ -266,7 +266,7 @@ Ext.define('yt.view.mondata.MonData', {
             bbar: [
                 {
                     xtype: 'Custompagetoolbar',
-                    displayInfo: false,
+                    displayInfo: true,
                     bind: '{gridPageStore}',
                     listeners: {
                         beforechange: 'pagebuttonChange'

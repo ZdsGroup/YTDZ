@@ -194,7 +194,7 @@ Ext.define('yt.view.monpot.MonPot', {
                     items:[
                         {
                             xtype: 'Custompagetoolbar',
-                            displayInfo: false,
+                            displayInfo: true,
                             bind: '{gridPageStore}',
                             listeners: {
                                 beforechange: 'pagebuttonChange'
