@@ -2,10 +2,21 @@
  * Created by LBM on 2017/7/27.
  * 关于selected、init属性说明，所有模块都可以设置init=true，只能配置最后一个init=true的项目的selected=true（重点）
  */
+var SYSTEMIP = 'http://218.87.176.150:80';
+var IS_OUTER_NET = true; // 是否为外网系统
+
+if(IS_OUTER_NET){
+    SYSTEMIP = 'http://218.87.176.150:80';
+}else {
+    SYSTEMIP = 'http://17.112.24.31:80';
+}
+
 Ext.define('yt.conf.SystemConfig', {
     //singleton: true,
-    serviceUrl: 'http://182.92.2.91:8080/oracle/',
-    title: "鹰潭市智能监测预警系统",
+    // 公网ip     218.87.176.150
+    // 局域网ip   17.16.145.107
+    serviceUrl: SYSTEMIP + '/oracle/',
+    title: '鹰潭市“北斗+窄带”地质灾害监测预警系统',
     refreshTime: 5, // 单位：分钟
     //主容器ID
     bodyContainerID: 'bodyContainerID',
@@ -108,7 +119,7 @@ Ext.define('yt.conf.SystemConfig', {
             key: "yt-menu-setting",
             widgetId: 'yt-widget-setting',
             url: "yt-setting",
-            html: 'http://182.92.2.91:8012',
+            html: SYSTEMIP + '/ytmag',
             parent: 'bodyContainerID',
             ui: "top-menu-ui",
             icon: "fa fa-cog",

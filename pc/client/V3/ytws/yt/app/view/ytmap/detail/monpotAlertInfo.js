@@ -228,7 +228,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 }],
             bbar: {
                 xtype: 'Custompagetoolbar',
-                displayInfo: false,
+                displayInfo: true,
                 bind: '{gridPageStore}',
                 listeners: {
                     beforechange: 'pagebuttonChange'

@@ -49,7 +49,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
             // 如果是地灾点
             queryType = meView.lookupReference('monDeviceListRef').getSelection();
             if(queryType === null)
-                queryType = 'lfsb';
+                queryType = 'wysb';
             else
                 queryType = queryType.get('type');
 

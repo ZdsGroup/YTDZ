@@ -79,6 +79,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
         // if(value !== 0){
         //     metaData.tdAttr = 'bgcolor="red"';
         // }
-        return value === 0 ? '异常' : '正常';
+        return value === 1 ? '异常' : '正常';
     }
 });

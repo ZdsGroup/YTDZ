@@ -20,7 +20,8 @@ Ext.define('yt.view.ytmap.detail.analytics.BHGCXController', {
         var me = this;
         var meView = me.getView();
 
-        var nowDate = new Date('2017-3-11 8:00:00');
+        // var nowDate = new Date('2017-3-11 8:00:00');
+        var nowDate = new Date();
         meView.lookupReference('bhgcx_startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
         meView.lookupReference('bhgcx_endTime').setValue( nowDate );
         

@@ -220,11 +220,11 @@
     {
       "path": "resources/libs/leaflet-awesome/L.Icon.Pulse.js",
       "bundle": true
-    }/*,
-    {
-      "path": "resources/libs/swiper/js/swiper.js",
-      "bundle": true
     },
+    {
+      "path": "resources/libs/supermap/iclient9-leaflet.js",
+      "bundle": false
+    }/*,
     {
       "path": "resources/libs/swiper/js/apple.js",
       "bundle": true

@@ -66,8 +66,8 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                     labelWidth: 60,
                     store: {
                         data: [
-                            {name: '裂缝设备', type: 'lfsb'},
                             {name: '位移设备', type: 'wysb'},
+                            {name: '裂缝设备', type: 'lfsb'},
                             {name: '雨量设备', type: 'ylsb'}
                         ]
                     },
@@ -76,7 +76,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                     editable: false,
                     typeAhead: false,
                     queryMode: 'local',
-                    emptyText: '请选择类型，默认裂缝设备',
+                    emptyText: '请选择类型，默认位移设备'
                 },
                 {
                     xtype: 'datetimefield',
@@ -199,7 +199,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
             bbar: [
                 {
                     xtype: 'Custompagetoolbar',
-                    displayInfo: false,
+                    displayInfo: true,
                     bind: '{gridPageStore}',
                     listeners: {
                         beforechange: 'monitorDataPagebuttonChange'
@@ -394,7 +394,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
             bbar: [
                 {
                     xtype: 'Custompagetoolbar',
-                    displayInfo: false,
+                    displayInfo: true,
                     bind: '{gridPageStore}',
                     listeners: {
                         beforechange: 'monitorDataPagebuttonChange'

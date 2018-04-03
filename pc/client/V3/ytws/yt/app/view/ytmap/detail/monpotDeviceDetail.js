@@ -352,7 +352,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
                     bbar: [
                         {
                             xtype: 'Custompagetoolbar',
-                            displayInfo: false,
+                            displayInfo: true,
                             bind: '{gridPageStore}',
                             listeners: {
                                 // beforechange: 'pagebuttonChange'

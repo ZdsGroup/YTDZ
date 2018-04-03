@@ -22,7 +22,8 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
         var me = this;
         var meView = me.getView();
 
-        var nowDate = new Date('2017-12-8 20:00:00');
+        // var nowDate = new Date('2017-12-8 20:00:00');
+        var nowDate = new Date();
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
         meView.lookupReference('endTime').setValue( nowDate );
     },
