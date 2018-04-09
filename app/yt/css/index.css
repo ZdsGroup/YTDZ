@@ -73,6 +73,17 @@
 }
 
 
+.map-tool-info-num {
+	position: absolute;
+	z-index: 1000;
+	left: 40px;
+	top: 60px;
+	color: rgba(255, 255, 255, 1.0);
+	background-color: rgba(255, 0, 0, 1);
+	border-radius: 24px;
+}
+
+
 /*地图切换*/
 
 .map-tool-baselayer {
@@ -176,7 +187,7 @@
 	z-index: 1000;
 	position: absolute;
 	top: 65px;
-	left: 50px;
+	left: 60px;
 	right: 50px;
 	height: 26px;
 	line-height: 24px;
@@ -345,4 +356,9 @@
 
 .yt-background-color {
 	background-color: rgba(255, 255, 255, 1) !important;
+}
+
+.ui-front
+{
+	z-index: 1500!important;
 }

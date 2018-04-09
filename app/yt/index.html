@@ -13,20 +13,22 @@
 		<link rel="stylesheet" type="text/css" href="js/leaflet-awesome/leaflet.awesome-markers.css" />
 		<link rel="stylesheet" href="js/leaflet-awesome/L.Icon.Pulse.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="css/jquery-ui.css" />
 	</head>
 
 	<body>
 		<div id="ytmask" class="mui-content">
-			<div id="ytmap" class="mui-content">
-				<div id="toolFloatContainer" style="position: absolute; width: 100%; height: 100%;top: 0; left: 0;style=" z-index: 0; "">
+			<div  id="ytmap" class="mui-content">
+				<div id="toolFloatContainer" style="position: absolute; width: 100%; height: 100%;top: 0; left: 0;">
 					<button type="button" value="usercenter" class="mui-btn mui-btn-outlined mui-icon mui-icon-contact map-tool-user"></button>
 					<form class="mui-input-group yt-search-input">
 						<div class="mui-input-row ">
-							<input id="search-input-text-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、监测设备">
+							<input id="search-input-id" type="text" class="mui-input-clear mui-input-speech mui-input-search" placeholder="地灾点、监测设备">
 						</div>
 					</form>
 					<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
 					<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
+					<span   id="info-num" class="map-tool-info-num"></span>
 					<button type="button" value="map" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
 					<button type="button" value="warn" class="mui-btn mui-btn-outlined maptoolfont0 yt-warn map-tool-warn-color"></button>
 					<button id="yt-map-zoomin" type="button" value="zoomin" class="mui-btn mui-btn-outlined maptoolfont1 yt-zoomin map-tool-zoomin"></button>
@@ -378,7 +380,7 @@
 							<a class="mui-navigate-right" href="#" style="line-height: 2em; ">
 								<button id="comment" title="comment-info" type="button" class="mui-btn mui-btn-primary mui-btn-self">
 							写评论
-					</button> 累计评论
+					</button> 群测群防
 							</a>
 							<ul id="commullist" class="mui-table-view" style="font-size: 1em;">
 								<script id="com-ul-li-template" type="text/html">
@@ -388,7 +390,7 @@
 											<style="font-size: 1em;">
 												<%=list[i].name%>
 												</p>
-												<p style="font-size: 0.8em;">评论信息:
+												<p style="font-size: 0.8em;">
 													<%=list[i].msg%>
 												</p>
 										</div>
@@ -400,15 +402,18 @@
 					</div>
 				</div>
 			</div>
+			<script type="text/javascript" src="js/utils/DateUtil.js"></script>
 			<script type="text/javascript" src="js/mui.js"></script>
 			<script src="js/leaflet-dev/leaflet-src.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript" src="js/leaflet/leaflet.ChineseTmsProviders.js"></script>
 			<script type="text/javascript" src="js/leaflet-awesome/leaflet.awesome-markers.js"></script>
 			<script type="text/javascript" src="js/leaflet-awesome/L.Icon.Pulse.js"></script>
+			<script type="text/javascript" src="js/leaflet/KML.js"></script>
 			<script type="text/javascript" src="js/template-native.js"></script>
 			<script type="text/javascript" src="js/testdata.js"></script>
-			<script type="text/javascript" src="js/pages/index.js" charset="utf-8"></script>
 			<script type="text/javascript" src="js/pages/common.js"></script>
+			<script type="text/javascript" src="js/jquery/jquery-1.12.4.js"></script>
+		    <script type="text/javascript" src="js/jquery/jquery-ui.js"></script>
+		    <script type="text/javascript" src="js/pages/index.js" charset="utf-8"></script>
 	</body>
-
 </html>

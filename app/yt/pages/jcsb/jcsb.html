@@ -123,11 +123,7 @@
 				<p>负责人：
 					<%=info.username%>
 				</p>
-				<%if (info.connectstatus==0) {%>
-				<p>运行状态：正常</p>
-				<%}else{%>
-				<p>运行状态：异常</p>
-				<%}%>
+				<p>运行状态：<%=info.runstatus == 0 ? '正常' : '异常'%></p>
 			</script>
 		</div>
 		<div id="jcsb-content-part2" class="jcsb-footercardcontent mui-table-view-cell" style="margin-top: 5px;">
@@ -428,7 +424,11 @@
 							//初始化页面
 							if(results.message == 'success') {
 								this.jcsb_feature = mui.myCloneObj(results.data);
-								this.jcsb_feature.dimage = JSON.parse(results.data.dimage);
+								var imgT = [{"title": "","url": ""}]; 
+								if(results.data.dimage && results.data.dimage.length != 0) {
+									imgT = JSON.parse(results.data.dimage);
+								}
+								this.jcsb_feature.dimage = imgT;
 								initTemplateContent(this.jcsb_feature);
 							}
 						},
