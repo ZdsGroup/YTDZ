@@ -72,14 +72,23 @@
 	border-radius: 24px;
 }
 
-
 .map-tool-info-num {
+	height: 18px;
+	line-height: 20px;
+	display: block;
+	color: #FFF;
+	text-align: center;
+	font-size: 9px;
+}
+
+.map-tool-info-num-container {
 	position: absolute;
 	z-index: 1000;
 	left: 40px;
 	top: 60px;
-	color: rgba(255, 255, 255, 1.0);
-	background-color: rgba(255, 0, 0, 1);
+	width: 18px;
+	height: 18px;
+	background-color: #F00;
 	border-radius: 24px;
 }
 
@@ -171,7 +180,7 @@
 	border: 1px solid lightgray;
 }
 
-.yt-search-input{
+.yt-search-input {
 	margin-left: 50px!important;
 }
 
@@ -358,7 +367,6 @@
 	background-color: rgba(255, 255, 255, 1) !important;
 }
 
-.ui-front
-{
+.ui-front {
 	z-index: 1500!important;
 }
