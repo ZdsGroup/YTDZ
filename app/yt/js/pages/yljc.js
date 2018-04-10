@@ -278,6 +278,10 @@ var deviceDateCompareSuccess = function(result) {
 //单设备多年对比图
 var deviceRainCompareSuccess = function(result) {
 	var dtc = echarts.init(mui('#device-rain-monitor')[0]);
+	result.data.redvalue = result.data.redvalue == null ? 0 :result.data.redvalue;
+	result.data.orangevalue = result.data.orangevalue == null ? 0 :result.data.orangevalue;
+	result.data.yellowvalue = result.data.yellowvalue == null ? 0 :result.data.yellowvalue;
+	result.data.bluevalue = result.data.bluevalue == null ? 0 :result.data.bluevalue;
 	var devicetypecompareOption = {
 		color: [
 			'#387FFF'
@@ -337,7 +341,33 @@ var deviceRainCompareSuccess = function(result) {
 							}
 						},
 						yAxis: result.data.redvalue
-					}, {
+					},{
+						lineStyle: {
+							normal: {
+								color: '#FFA500'
+							}
+						},
+						label: {
+							normal: {
+								position: 'middle',
+								formatter: '橙色警戒'
+							}
+						},
+						yAxis: result.data.orangevalue
+					},  {
+						lineStyle: {
+							normal: {
+								color: '#FFFF00'
+							}
+						},
+						label: {
+							normal: {
+								position: 'middle',
+								formatter: '黄色预警'
+							}
+						},
+						yAxis: result.data.yellowvalue
+					},{
 						lineStyle: {
 							normal: {
 								color: '#0000FF'
@@ -351,19 +381,6 @@ var deviceRainCompareSuccess = function(result) {
 							}
 						},
 						yAxis: result.data.bluevalue
-					}, {
-						lineStyle: {
-							normal: {
-								color: '#FFFF00'
-							}
-						},
-						label: {
-							normal: {
-								position: 'middle',
-								formatter: '黄色预警'
-							}
-						},
-						yAxis: result.data.yellowvalue
 					}]
 				}
 			}

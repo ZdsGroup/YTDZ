@@ -356,7 +356,7 @@ var deviceDateCompareSuccess = function(result) {
 	dtc.setOption(devicetypecompareOption);
 }
 
-//单设多指标对比图
+//位移变化
 var deviceMoveChangeCompareSuccess = function(result) {
 	var dtc = echarts.init(mui('#device-mc-monitor')[0]);
 	var devicetypecompareOption = {

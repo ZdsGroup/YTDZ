@@ -56,7 +56,6 @@ Ext.define('yt.view.mondata.MonDataController', {
 
         me.mondataRefreshFun(1);
     },
-
     buttonRefreshFun: function () {
         var me = this;
         me.mondataRefreshFun(1);

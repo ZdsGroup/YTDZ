@@ -5,12 +5,13 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
 		<link rel="stylesheet" href="../../css/font-awesome.min.css" />
+		<link rel="stylesheet" href="../../css/jquery-ui.css" />
 		<link rel="stylesheet" href="../../css/yt.css" />
 		<style type="text/css">
-			.mui-input-group {
+				.mui-input-group {
 				position: absolute;
 				height: 36px;
 				top: 6px;
@@ -27,6 +28,7 @@
 				color: #999;
 				padding-top: 10px;
 			}
+			
 			.mui-input-row .mui-input-password~.mui-icon-eye,
 			.mui-input-row .mui-input-speech~.mui-icon-speech {
 				position: absolute;
@@ -37,30 +39,35 @@
 				color: #999;
 				padding-top: 5px;
 			}
-			.searchlist-addr,.ytfooter-user, .ytfooter-tel{
-				width: 20px;	
+			
+			.searchlist-addr,
+			.ytfooter-user,
+			.ytfooter-tel {
+				width: 20px;
 				color: blue;
 			}
-			.searchlist-local{
-				width: 20px;	
+			
+			.searchlist-local {
+				width: 20px;
 				color: lightgray;
 			}
-			#search-list .mui-table-view-cell{
-			    padding-bottom: 5px;
-			    padding-top: 5px;
-		
-			.mui-table-cell h4{
-				font-family: arial;
-				font-weight: 200 !important;
-			}
-			.mui-table-cell .list-type{
-				color: cornflowerblue;
-			}
-			/*#search-list h5{
+			
+			#search-list .mui-table-view-cell {
+				padding-bottom: 5px;
+				padding-top: 5px;
+				.mui-table-cell h4 {
+					font-family: arial;
+					font-weight: 200 !important;
+				}
+				.mui-table-cell .list-type {
+					color: cornflowerblue;
+				}
+				/*#search-list h5{
 				color: black;
 			}*/
 		</style>
 	</head>
+
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background-color: rgba(236, 240, 241,1.0);">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
@@ -103,16 +110,18 @@
 			</div>
 		</div>
 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="../../js/template-native.js" ></script>
-		<script type="text/javascript" src="../../js/pages/common.js" ></script>
+		<script type="text/javascript" src="../../js/template-native.js"></script>
+		<script type="text/javascript" src="../../js/pages/common.js"></script>
+		<script type="text/javascript" src="../../js/jquery/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="../../js/jquery/jquery-ui.js"></script>
 		<script type="text/javascript">
 			var userId = 1;
 			var queryResults = null;
 			var indexMap = null;
 			mui.init({
-                    beforebak:function(){
-                    	mui('#search-input-text-id')[0].blur();
-                    }
+				beforebak: function() {
+					mui('#search-input-id')[0].blur();
+				}
 			});
 
 			var nativeWebview, imm, InputMethodManager;
@@ -142,107 +151,151 @@
 					//此处可写具体逻辑设置获取焦点的input
 					var inputElem = document.querySelector('#search-input-id');
 					inputElem.focus();
-				}, 1000);
+				}, 500);
 			};
-			
+
 			var initApp = function() {
 				initNativeObjects();
 				showSoftInput();
-				setTimeout(function(){
+				setTimeout(function() {
 					this.initEvent();
-				},500);
+				}, 500);
 			};
-			
+
 			mui.plusReady(function() {
 				initApp();
 			});
-			
+
 			//添加列表项的点击事件
 			var initEvent = function() {
-				mui(document.body).on('tap','.mui-btn',function(e){
-					var keyName = document.querySelector('#search-input-id').value.trim();
-					var action = "quakes/all/" + userId;
-					if(keyName!=''){
-						mui.myMuiQuery(action, {name: keyName},
-							function(results) {
-								if(results != null && results.data !=null) {
-									queryResults = results;
-									var listT = new Array();
-									var devicesT = results.data.devices;
-									var quakesT = results.data.quakes;
-									for (var i = 0; i < quakesT.length; i++) {
-										var objT2 = {id: quakesT[i].quakeid,
-													name: quakesT[i].name,
-													addr: quakesT[i].address,
-													type: 'dzd'
-										}
-										listT.push(objT2);
-									}
-									for (var i = 0; i < devicesT.length; i++) {
-										var objT1 = {id: devicesT[i].id,
-													name: devicesT[i].name,
-													addr: devicesT[i].address,
-													type: devicesT[i].type
-										}
-										listT.push(objT1);
-									}
-									var html = template('search-list-template', {
-										list: listT
-									});
-									document.getElementById("search-list").innerHTML = html;
-									
-									mui(".mui-table-view").on('tap', 'li', function(evt) {
-										var info = this.getAttribute("id");
-										var typeT = info.split('_')[0];
-										var idT = info.split('_')[1];
-										openInfoPage(typeT,idT);
-									});
-								} else {
-									mui.myMuiQueryNoResult('查询无结果！');
-								}
-							},
-							function() {
-								mui.myMuiQueryErr('查询失败，请稍后再试！');
-							}
-						)
-					}
+				mui('#searchBt').on('tap', function(e) {
+					queryByKeyWord();
 				})
 			}
-			
+
+			function queryByKeyWord(queryObj) {
+				var action = null;
+				var keyName = '';
+				if (queryObj != null){
+					    keyName = queryObj.label;
+					if (queryObj.type == 1) {
+						action = "quakes/all/" + userId;
+					} else {
+						action = "quakes/all/" + userId;
+					}
+				}
+				
+				
+				if(keyName != '') {
+					mui.myMuiQuery(action, {
+							name: keyName
+						},
+						function(results) {
+							if(results != null && results.data != null) {
+								queryResults = results;
+								var listT = new Array();
+								var devicesT = results.data.devices;
+								var quakesT = results.data.quakes;
+								for(var i = 0; i < quakesT.length; i++) {
+									var objT2 = {
+										id: quakesT[i].quakeid,
+										name: quakesT[i].name,
+										addr: quakesT[i].address,
+										type: 'dzd'
+									}
+									listT.push(objT2);
+								}
+								for(var i = 0; i < devicesT.length; i++) {
+									var objT1 = {
+										id: devicesT[i].id,
+										name: devicesT[i].name,
+										addr: devicesT[i].address,
+										type: devicesT[i].type
+									}
+									listT.push(objT1);
+								}
+								var html = template('search-list-template', {
+									list: listT
+								});
+								document.getElementById("search-list").innerHTML = html;
+
+								mui(".mui-table-view").on('tap', 'li', function(evt) {
+									var info = this.getAttribute("id");
+									var typeT = info.split('_')[0];
+									var idT = info.split('_')[1];
+									openInfoPage(typeT, idT);
+								});
+							} else {
+								mui.myMuiQueryNoResult('查询无结果！');
+							}
+						},
+						function() {
+							mui.myMuiQueryErr('查询失败，请稍后再试！');
+						}
+					)
+				}
+			}
+
 			//根据类型和id打开对应的设备详情页面
-			function openInfoPage(typeT,idT){
+			function openInfoPage(typeT, idT) {
 				var pageUrl = '../../index.html';
 				var pageId = 'index.html';
 				var selObj = null;
 				var objArr = null;
-				debugger
-				if(typeT!='dzd'){
+				if(typeT != 'dzd') {
 					objArr = queryResults.data.devices;
-				}else{
+				} else {
 					objArr = queryResults.data.quakes;
 				}
-				for (var i = 0; i < objArr.length; i++) {
-					if(objArr[i].id == idT || objArr[i].quakeid == idT){
+				for(var i = 0; i < objArr.length; i++) {
+					if(objArr[i].id == idT || objArr[i].quakeid == idT) {
 						selObj = objArr[i];
 						break;
 					}
 				}
-				if(typeT=='dzd'){
+				if(typeT == 'dzd') {
 					selObj['type'] = 'dzd';
 				}
-				localStorage.setItem('searchObj',JSON.stringify(selObj));
+				localStorage.setItem('searchObj', JSON.stringify(selObj));
 				indexMap = plus.webview.getWebviewById(pageId);
-				mui.fire(indexMap,'searchObj');
-				
+				mui.fire(indexMap, 'searchObj');
+
 				mui.openWindow({
 					url: pageUrl,
 					id: pageId,
-					extras:{
+					extras: {
 						xqType: typeT,
 						xqID: idT
 					}
 				});
 			}
+
+			$(function() {
+				var action = "quakes/all/" + userId;
+				mui.myMuiQuery(action, '', function(results) {
+					if(results != null && results.data != null) {
+						var tags = [];
+						mui.each(results.data.quakes, function(index, element) {
+							tags.push({
+								label: element.name,type:1,data:element
+							});
+						});
+						mui.each(results.data.devices, function(index, element) {
+							tags.push({
+								label: element.name,type:2,data:element
+							});
+						});
+						$("#search-input-id").autocomplete({
+							source: tags,
+							minLength: 1,
+							select: function(event, ui) {
+								queryByKeyWord(ui);
+							}
+						});
+					}
+				})
+			})
 		</script>
 	</body>
+
 </html>

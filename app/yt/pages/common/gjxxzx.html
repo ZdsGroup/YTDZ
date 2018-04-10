@@ -55,10 +55,10 @@
 					<div class="mui-table">
 						<span class="mui-table-cell mui-col-xs-3 mui-text-left" style="font-size: 1.1em;">预警等级</span>
 						<div id="warnType" class="mui-table-cell mui-col-xs-9 mui-text-left">
-							<button type="button" tp="warn" value="1" class="mui-btn mui-btn-outlined mui-active">红色</button>
-							<button type="button" tp="warn" value="2" class="mui-btn mui-btn-outlined">橙色</button>
-							<button type="button" tp="warn" value="3" class="mui-btn mui-btn-outlined">黄色</button>
-							<button type="button" tp="warn" value="4" class="mui-btn mui-btn-outlined">蓝色</button>
+							<button type="button" tp="warn" value="4" class="mui-btn mui-btn-outlined mui-active">红色</button>
+							<button type="button" tp="warn" value="3" class="mui-btn mui-btn-outlined">橙色</button>
+							<button type="button" tp="warn" value="2" class="mui-btn mui-btn-outlined">黄色</button>
+							<button type="button" tp="warn" value="1" class="mui-btn mui-btn-outlined">蓝色</button>
 						</div>
 					</div>
 				</div>
@@ -72,24 +72,26 @@
 								<li id='<%=list[i].id%>' class="mui-table-view-cell">
 									<a class="mui-navigate-right">
 										<div class="mui-slider-cell">
-											<p><span class="yt-normal-color" style="font-size: 1em;">预警设备: <%=list[i].devicename%></span>
+											<p><span class="yt-normal-color" style="font-size: 1em;">设备名称: <%=list[i].devicename%></span>
 												<span style="float: right;">
-												<%if (list[i].rank==1) {%>
+												<%if (list[i].rank==4) {%>
 												<span style="color:#B43E32">
-												<%}else if (list[i].rank==2){%>
-													<span style="color:#E8883B">
 												<%}else if (list[i].rank==3){%>
+													<span style="color:#E8883B">
+												<%}else if (list[i].rank==2){%>
 													<span style="color:#DDD858">
-												<%}else if (list[i].rank==4){%>
+												<%}else if (list[i].rank==1){%>
 													<span style="color:#525D93">
 												<%}%>
 													<i class="dzlevelfont icon-dz-disaster"></i>
 												</span></span>
 											</p>
+											<p>预警类型: <%=list[i].alarmtype%></p>
+											<p>设定值: <%=list[i].settingv%></p>
+											<p>预警值: <%=list[i].alarmv%></p>
+											<p>预警信息： <%=list[i].content%></p>
 											<p>预警时间: <%=list[i].addtime%></p>
 											<p>地灾点: <%=list[i].quakename%></p>
-											<p>预警信息： <%=list[i].content%></p>
-											
 										</div>
 									</a>
 								</li>
