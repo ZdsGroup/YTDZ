@@ -82,6 +82,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
         } else {
             param.deviceid = meView.deviceCode;
         }
+        var selectedStatus = meView.lookupReference('statusCombo').getValue();
+        param.status = selectedStatus;
         param.quakeid = meView.quakeId;
         param.begin = meView.lookupReference('startDate').getRawValue();
         param.end = meView.lookupReference('endDate').getRawValue();
@@ -144,5 +146,63 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
         }
 
         return showStr;
+    },
+
+    widgetColumAttach: function(col, widget, rec) {
+        var handleStatus = ( rec.get('status') === 0 );
+        widget.setText( handleStatus ? '处置' : '已处置' );
+        widget.setDisabled( !handleStatus );
+        if(handleStatus){
+            // 如果是未处置的数据
+            widget.setHandler(clickFunction);
+
+            function clickFunction() {
+                var rankStr = '';
+                switch (rec.get('rank')){
+                    case 4:
+                        rankStr = '红色预警';
+                        break;
+                    case 3:
+                        rankStr = '橙色预警';
+                        break;
+                    case 2:
+                        rankStr = '黄色预警';
+                        break;
+                    case 2:
+                        rankStr = '蓝色预警';
+                        break;
+                }
+                Ext.MessageBox.confirm(
+                    '请确认处置',
+                    '确认处置' + rec.get('devicename') + '设备的' + rankStr + '吗?',
+                    function (confirmButton) {
+                        if(confirmButton === 'yes'){
+                            // 确认弹出框点击的是 yes
+                            // 将指定 id 的 status 改成 1
+                            var params = {
+                                ids: rec.get('id'),
+                                status: 1
+                            }
+                            ajax.fn.executeV2( params, 'PUT', conf.serviceUrl + 'alarms/status', successChangeStatus, failureChangeStatus);
+
+                            function successChangeStatus(response, opts) {
+                                //查询结果转json对象
+                                var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+
+                                if(result['code'] !== 0)
+                                    return;
+
+                                widget.setText( '已处置' );
+                                widget.setDisabled( true );
+                            }
+
+                            function failureChangeStatus(response, opts) {
+
+                            }
+                        }
+                    }
+                )
+            }
+        }
     }
 });

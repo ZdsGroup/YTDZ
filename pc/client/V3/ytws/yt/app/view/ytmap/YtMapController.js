@@ -54,6 +54,9 @@ var mv = {
                 mv.fn.switchBaseLayer('vector');
 
                 mv.v.map.flyTo(L.latLng(28.23, 117.02), 10);//定位到鹰潭市
+                // 渲染鹰潭市的行政边界
+                var allbounds = new yt.conf.Bounds();
+                L.geoJson(allbounds.YTBounds).addTo(mv.v.map);
 
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mv.v.mapParentId);

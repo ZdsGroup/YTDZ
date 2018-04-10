@@ -16,6 +16,7 @@ Ext.define('yt.Application', {
 
     requires: [
         'yt.conf.SystemConfig',
+        'yt.conf.Bounds',
         'yt.utils.AjaxUtils'
     ],
 
