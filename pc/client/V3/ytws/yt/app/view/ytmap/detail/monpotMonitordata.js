@@ -264,31 +264,40 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 align: 'center'
             }, {
                 text: 'x',
-                width: 120,
+                width: 135,
                 dataIndex: 'x',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'y',
-                width: 120,
+                width: 135,
                 dataIndex: 'y',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'h',
-                width: 120,
+                width: 135,
                 dataIndex: 'h',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'X轴位移',
                 width: 120,
@@ -297,7 +306,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'Y轴位移',
                 width: 120,
@@ -306,7 +318,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'H轴位移',
                 width: 120,
@@ -315,7 +330,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: '二维位移长度',
                 width: 120,
@@ -324,7 +342,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: '三维位移长度',
                 width: 120,
@@ -333,7 +354,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'X轴速度',
                 width: 120,
@@ -342,7 +366,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s'
+                }
             }, {
                 text: 'Y轴速度',
                 width: 120,
@@ -351,7 +378,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s'
+                }
             }, {
                 text: 'H轴速度',
                 width: 120,
@@ -360,7 +390,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s'
+                }
             }, {
                 text: 'X轴加速度',
                 width: 120,
@@ -369,7 +402,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s2'
+                }
             }, {
                 text: 'Y轴加速度',
                 width: 120,
@@ -378,7 +414,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s2'
+                }
             }, {
                 text: 'H轴加速度',
                 width: 120,
@@ -387,7 +426,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s2'
+                }
             }],
             leadingBufferZone: 8,
             trailingBufferZone: 8,

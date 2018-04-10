@@ -43,7 +43,10 @@ var mv = {
                     mv.v.map = L.map(mapid, {
                         crs: L.CRS.EPSG4326,
                         zoomControl: false,
-                        attributionControl: false
+                        attributionControl: false,
+                        center: [0, 0],
+                        maxZoom: 18,
+                        zoom: 1
                     }).fitWorld();
                 }
 
@@ -88,6 +91,7 @@ var mv = {
                 });
                 // mv.fn.setWarnInfo();
             },
+            // 计算rank对应的颜色
             calcRank: function (dzRank) {
                 switch (String(dzRank)) {
                     case '4': {
@@ -306,6 +310,7 @@ var mv = {
 
                 return showMondataType;
             },
+            // 切换底图
             switchBaseLayer: function (action) {
                 if (mv.v.LayerGroup != null) {
                     mv.v.LayerGroup.clearLayers();
@@ -695,7 +700,7 @@ var mv = {
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
-                                                mv.fn.switchWarnPanel(btn, evt);
+                                                mv.fn.switchWarnPanel(btn, evt, '红色预警');
                                             }
                                         }
                                     },
@@ -707,7 +712,7 @@ var mv = {
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
-                                                mv.fn.switchWarnPanel(btn, evt);
+                                                mv.fn.switchWarnPanel(btn, evt, '橙色预警');
                                             }
                                         }
                                     },
@@ -719,7 +724,7 @@ var mv = {
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
-                                                mv.fn.switchWarnPanel(btn, evt);
+                                                mv.fn.switchWarnPanel(btn, evt, '黄色预警');
                                             }
                                         }
                                     },
@@ -731,7 +736,7 @@ var mv = {
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
-                                                mv.fn.switchWarnPanel(btn, evt);
+                                                mv.fn.switchWarnPanel(btn, evt, '蓝色预警');
                                             }
                                         }
                                     }
@@ -742,7 +747,7 @@ var mv = {
                                 id: 'monInfoPanelId',
                                 margin: '1 0 0 0',
                                 flex: 1,
-                                title: '监测设备统计信息',
+                                title: '监测设备统计',
                                 ui: 'map-detail-warnning-panel-ui',
                                 layout: {
                                     type: 'hbox',
@@ -831,7 +836,7 @@ var mv = {
                 }
             },
             //@todo action参数表示需要切换的地灾点或监测设备等级，以及地灾点需要切换的监测设备类型
-            showMoreInfo: function (action) {
+            showMoreInfo: function (action, rankStr) {
                 //显示更多信息面板
                 Ext.getCmp('monMoreInfoPanelId').show();
 
@@ -872,7 +877,8 @@ var mv = {
                             xtype: 'monpot-alertinfo',
 
                             // config
-                            quakeId: mv.v.mapDetailPanelInfo.code.toString()
+                            quakeId: mv.v.mapDetailPanelInfo.code.toString(),
+                            rankStr: rankStr
                         }
                     );
                     var datalistpanel = Ext.create(
@@ -1022,7 +1028,8 @@ var mv = {
 
                             // config
                             quakeId: mv.v.mapDetailPanelInfo.quakeId.toString(),
-                            deviceCode: mv.v.mapDetailPanelInfo.code.toString()
+                            deviceCode: mv.v.mapDetailPanelInfo.code.toString(),
+                            rankStr: rankStr
                         }
                     )
                     var devicedatalistpanel = Ext.create(
@@ -1093,6 +1100,7 @@ var mv = {
                     mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
                 }
             },
+            // 从地灾点显示监测设备
             showJcsbMarkersByDZ: function (dzInfo) {
                 if (dzInfo != null && dzInfo['children'] != null) {
                     var jcsbList = dzInfo['children'];
@@ -1106,14 +1114,7 @@ var mv = {
                             var mId = jcsbInfo['code'];
                             var mType = jcsbInfo['type'];
                             var iconName = 'camera';
-                            var markColor = 'purple';
-                            var markColor = mv.fn.calcRank(jcRank);
-                            var markerIcon = L.AwesomeMarkers.icon({
-                                icon: iconName,
-                                markerColor: markColor,
-                                prefix: 'fa',
-                                spin: false
-                            });
+                            var markerIcon = mv.fn.refreshJCSBIcon( jcsbInfo['deviceType'], jcRank);
                             var jcsbPot = [jcsbInfo['lat'], jcsbInfo['lng']];
                             var jcsbMarker = new L.marker(jcsbPot, {
                                 icon: markerIcon,
@@ -1149,8 +1150,8 @@ var mv = {
                     mv.v.map.flyTo([dzInfo['lat'], dzInfo['lng']]);
                 }
             },
-            //通过预警信息统计面板切换到详情面板-地灾点/监测设备
-            switchWarnPanel: function (btn, evt) {
+            // 通过预警信息统计面板切换到详情面板-地灾点/监测设备
+            switchWarnPanel: function (btn, evt, rankStr) {
                 //切换详情面板中更多按钮状态
                 var moreBtn = Ext.getCmp('mondataMoreId');
                 moreBtn.setIconCls('fa fa-window-restore');
@@ -1167,9 +1168,10 @@ var mv = {
                 };
                 mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
                 mv.v.isMapDetaiMaximize = true;
-                mv.fn.showMoreInfo(btn['action']);
+                if(!rankStr)rankStr = '';
+                mv.fn.showMoreInfo(btn['action'], rankStr);
             },
-            //通过监测设备统计面板切换到详情面板-地灾点
+            // 通过监测设备统计面板切换到详情面板-地灾点
             switchDeviceListPanel: function (btn, evt) {
                 //切换详情面板中更多按钮状态
                 var moreBtn = Ext.getCmp('mondataMoreId');
@@ -1237,16 +1239,16 @@ var mv = {
                         }
                         if (mv.v.jcsbMarkerGroup) {
                             mv.v.jcsbMarkerGroup.eachLayer(function (jcsbLayer) {
-                                if (jcsbLayer instanceof L.Marker) {
-                                    var markerIcon = L.AwesomeMarkers.icon({
-                                        icon: 'camera',
-                                        markerColor: mv.fn.calcRank('0'),
-                                        prefix: 'fa',
-                                        spin: false
-                                    });
-                                    if (markerIcon) {
-                                        jcsbLayer.setIcon(markerIcon);
+                                var oldOption = jcsbLayer.options;
+                                var jcsbCode = oldOption['id'];
+                                var markerIcon = null;
+                                Ext.each(mv.v.devicesRankList, function (devicesRankData) {
+                                    if (devicesRankData.DEVICEID === jcsbCode) {
+                                        markerIcon = mv.fn.refreshJCSBIcon(jcsbLayer.getAttribution().deviceType,'0');
                                     }
+                                });
+                                if (markerIcon) {
+                                    jcsbLayer.setIcon(markerIcon);
                                 }
                             })
                         }
@@ -1320,12 +1322,7 @@ var mv = {
                         var markerIcon = null;
                         Ext.each(mv.v.devicesRankList, function (devicesRankData) {
                             if (devicesRankData.DEVICEID === jcsbCode) {
-                                markerIcon = L.AwesomeMarkers.icon({
-                                    icon: 'camera',
-                                    markerColor: mv.fn.calcRank(devicesRankData.RANK),
-                                    prefix: 'fa',
-                                    spin: false
-                                });
+                                markerIcon = mv.fn.refreshJCSBIcon(jcsbMarker.getAttribution().deviceType,devicesRankData.RANK);
                             }
                         });
                         if (markerIcon) {
@@ -1333,6 +1330,30 @@ var mv = {
                         }
                     })
                 }
+            },
+            // 监测设备的图标更新，传监测设备类型和rank值，返回对应的图标
+            refreshJCSBIcon: function (jcsbType,jcsbrank) {
+                var willReturnIcon = null;
+                var iconName = 'camera';
+                // 设置设备图标样式
+                switch (jcsbType){
+                    case 1:
+                        iconName = 'arrows';
+                        break;
+                    case 2:
+                        iconName = 'tint';
+                        break;
+                    case 3:
+                        iconName = 'bolt';
+                        break;
+                }
+                willReturnIcon = L.AwesomeMarkers.icon({
+                    icon: iconName,
+                    markerColor: mv.fn.calcRank(jcsbrank),
+                    prefix: 'fa',
+                    spin: false
+                });
+                return willReturnIcon;
             },
             //按照预警等级更新树节点状态
             refreshMenu4Rank: function () {

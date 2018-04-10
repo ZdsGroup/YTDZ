@@ -20,6 +20,35 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
     alertInfoBoxReady: function () {
         var me = this;
         var meView = me.getView();
+        var rankNumber = meView.lookupReference('rankCombo');
+        if(meView.rankStr !== ''){
+            rankNumber.setValue(meView.rankStr);
+        }
+
+        if(meView.deviceCode === ''){
+            meView.lookupReference('deviceListPanel').show();
+            // 查询对应的地灾点的设备列表
+            // mv.v.mapDetailPanelInfo.children 为设备列表
+            var deviceListArr = [
+                {label: '全部设备',deviceCode:''}
+            ];
+            var quakeChildren = mv.v.mapDetailPanelInfo.children;
+            if(quakeChildren && quakeChildren instanceof Array){
+                for(var index = 0; index < quakeChildren.length; index++){
+                    deviceListArr.push(
+                        {
+                            label: quakeChildren[index].text,
+                            deviceCode: quakeChildren[index].code
+                        }
+                    )
+                }
+            }
+            meView.lookupReference('deviceList').setStore(
+                new Ext.create('Ext.data.Store', {
+                    data: deviceListArr
+                })
+            );
+        }
 
         me.updateAlertInfoDataGrid(1);
     },
@@ -28,10 +57,31 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
         var me = this;
         var meView = me.getView();
         var datagrid = meView.lookupReference('AlertInfoGridPanel');
-
+        var rankNumber = meView.lookupReference('rankCombo').getValue();
         var action = "alarms";
         var param = {};
-        param.deviceid = meView.deviceCode;
+        switch (rankNumber){
+            case '红色预警':
+                param.rank = 4;
+                break;
+            case '橙色预警':
+                param.rank = 3;
+                break;
+            case '黄色预警':
+                param.rank = 2;
+                break;
+            case '蓝色预警':
+                param.rank = 1;
+                break;
+        }
+        if (meView.deviceCode === '') {
+            // 看设备列表的选择
+            var selectedValue = meView.lookupReference('deviceList').getValue();
+            if(!selectedValue) selectedValue = '';
+            param.deviceid = selectedValue;
+        } else {
+            param.deviceid = meView.deviceCode;
+        }
         param.quakeid = meView.quakeId;
         param.begin = meView.lookupReference('startDate').getRawValue();
         param.end = meView.lookupReference('endDate').getRawValue();
@@ -71,5 +121,28 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
         var me = this;
         me.updateAlertInfoDataGrid(page);
         return false;
+    },
+
+    rankrenderer: function (value) {
+        var showStr = '';
+        switch (value) {
+            case 4:
+                showStr = '<span style="color: red">红色预警</span>';
+                break;
+            case 3:
+                showStr = '<span style="color: orange">橙色预警</span>';
+                break;
+            case 2:
+                showStr = '<span style="color: #9e9e00">黄色预警</span>';
+                break;
+            case 1:
+                showStr = '<span style="color: blue">蓝色预警</span>';
+                break;
+            default:
+                showStr = value;
+                break;
+        }
+
+        return showStr;
     }
 });

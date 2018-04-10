@@ -93,6 +93,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                         pack: 'start',
                         align: 'stretch'
                     },
+                    scrollable: 'y',
                     items: [
                         {
                             xtype: 'form',
@@ -130,6 +131,13 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                         },
                                         {
                                             xtype: 'displayfield',
+                                            fieldLabel: '规模',
+                                            bind: {
+                                                value: '{dzdDetailInfo.scale}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
                                             fieldLabel: '承担单位',
                                             bind: {
                                                 value: '{dzdDetailInfo.company}'
@@ -137,16 +145,38 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                         },
                                         {
                                             xtype: 'displayfield',
-                                            fieldLabel: '负责人',
+                                            fieldLabel: '监测员',
                                             bind: {
                                                 value: '{dzdDetailInfo.username}'
                                             }
                                         },
                                         {
                                             xtype: 'displayfield',
-                                            fieldLabel: '联系电话',
+                                            fieldLabel: '监测员电话',
                                             bind: {
                                                 value: '{dzdDetailInfo.mobile}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '村级责任人',
+                                            bind: {
+                                                value: '{dzdDetailInfo.personname}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '村级责任人电话',
+                                            labelWidth: 95,
+                                            bind: {
+                                                value: '{dzdDetailInfo.personmobile}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '治理现状',
+                                            bind: {
+                                                value: '{dzdDetailInfo.govern}'
                                             }
                                         },
                                         {
@@ -161,6 +191,13 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                             fieldLabel: '威胁人数',
                                             bind: {
                                                 value: '{dzdDetailInfo.dnum} (人)'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '威胁财产',
+                                            bind: {
+                                                value: '{dzdDetailInfo.estate} (万元)'
                                             }
                                         }
                                     ]
@@ -183,6 +220,20 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                         },
                                         {
                                             xtype: 'displayfield',
+                                            fieldLabel: '地址条件',
+                                            bind: {
+                                                value: '{dzdDetailInfo.geology}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '潜在威胁',
+                                            bind: {
+                                                value: '{dzdDetailInfo.harm}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
                                             fieldLabel: '报警方式',
                                             bind: {
                                                 value: '{dzdDetailInfo.dmethod}'
@@ -193,6 +244,27 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                                             fieldLabel: '防治措施',
                                             bind: {
                                                 value: '{dzdDetailInfo.davoid}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '稳定性分析',
+                                            bind: {
+                                                value: '{dzdDetailInfo.stability}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '引发因素',
+                                            bind: {
+                                                value: '{dzdDetailInfo.reason}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '监测方法',
+                                            bind: {
+                                                value: '{dzdDetailInfo.monitormethod}'
                                             }
                                         },
                                         {
@@ -222,8 +294,15 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                         },
                         {
                             xtype: 'displayfield',
+                            fieldLabel: '变形特征及活动历史',
+                            labelWidth: 140,
+                            bind: {
+                                value: '{dzdDetailInfo.history}'
+                            }
+                        },
+                        {
+                            xtype: 'displayfield',
                             fieldLabel: '简介',
-                            flex: 1,
                             bind: {
                                 value: '{dzdDetailInfo.description}'
                             }
@@ -233,123 +312,9 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
             ]
         },
 
-        // {
-        //     xtype: 'form',
-        //     title: '累计评论',
-        //     ui: 'map-detail-secend-panel-ui',
-        //     iconCls: 'fa fa-wrench',
-        //     height: '49%',
-        //     bodyPadding: '5 5 5 5',
-        //     layout: {
-        //         type: 'vbox',
-        //         pack: 'start',
-        //         align: 'start'
-        //     },
-        //     fieldDefaults: {
-        //         labelStyle: 'font-weight:bold;font-size: 16px;',
-        //         margin: '0 0 0 0',
-        //         labelWidth: 65
-        //     },
-        //     scrollable: 'y',
-        //     items: [
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-20 18:00:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户1',
-        //                     margin: '0 0 0 5',
-        //                     value: '该地灾点设备安装牢固，监测数据准确，不错！'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-20 20:00:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户2',
-        //                     margin: '0 0 0 5',
-        //                     value: '该地灾点设备被破坏，请尽快安排人员维修！'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-21 14:12:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户3',
-        //                     margin: '0 0 0 5',
-        //                     value: '有了这种地灾监测设备，可以实时报警，很好！'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-25 18:00:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户4',
-        //                     margin: '0 0 0 5',
-        //                     value: '该地灾点设备安装牢固，监测数据准确，不错！'
-        //                 }
-        //             ]
-        //         }
-        //     ]
-        // },
-
         {
             xtype: 'gridpanel',
-            title: '累计评论',
+            title: '群测群防',
             ui: 'map-detail-secend-panel-ui',
             iconCls: 'fa fa-comment',
             height: '49%',

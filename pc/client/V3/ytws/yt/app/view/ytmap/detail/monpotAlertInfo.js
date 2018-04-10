@@ -31,7 +31,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
 
     config: {
         quakeId: '',
-        deviceCode: ''
+        deviceCode: '',
+        rankStr: ''
     },
 
     flex: 1,
@@ -77,17 +78,36 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     width: 5
                 },
                 {
-                    xtype: 'button',
-                    handler: 'AlertInfobuttonClick',
-                    text: '搜索'
+                    xtype: 'combo',
+                    fieldLabel: '预警等级',
+                    reference: 'rankCombo',
+                    labelWidth: 65,
+                    labelAlign: 'right',
+                    displayField: 'label',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    selectOnTab: true,
+                    emptyText: '全部预警',
+                    value: '全部预警',
+                    store: {
+                        data: [
+                            {label: '全部预警'},
+                            {label: '红色预警'},
+                            {label: '橙色预警'},
+                            {label: '黄色预警'},
+                            {label: '蓝色预警'}
+                        ]
+                    }
                 },
                 {
                     xtype: 'component',
-                    flex: 1
+                    width: 5
                 },
                 {
                     // 如果点击弹出的是监测设备详细面板则该部分不显示
                     xtype: 'panel',
+                    reference: 'deviceListPanel',
                     layout: {
                         type: 'hbox',
                         align: 'middle',
@@ -98,44 +118,34 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     items: [
                         {
                             xtype: 'combo',
-                            fieldLabel: '设备类型',
+                            fieldLabel: '设备过滤',
+                            reference: 'deviceList',
                             labelWidth: 65,
                             labelAlign: 'right',
                             displayField: 'label',
+                            valueField: 'deviceCode',
                             editable: false,
                             typeAhead: false,
                             queryMode: 'local',
                             selectOnTab: true,
-                            value: '裂缝设备',
-                            store: {
-                                data: [
-                                    {label: '裂缝设备'},
-                                    {label: '位移设备'},
-                                    {label: '雨量设备'}
-                                ]
-                            }
+                            emptyText: '默认全部设备'
                         },
                         {
                             xtype: 'component',
                             width: 5
-                        },
-                        {
-                            xtype: 'combo',
-                            displayField: 'label',
-                            editable: false,
-                            typeAhead: false,
-                            queryMode: 'local',
-                            selectOnTab: true,
-                            store: {
-                                data: [
-                                    {label: '设备1'},
-                                    {label: '设备2'},
-                                    {label: '设备3'}
-                                ]
-                            }
                         }
                     ]
+                },
+                {
+                    xtype: 'button',
+                    handler: 'AlertInfobuttonClick',
+                    text: '搜索'
+                },
+                {
+                    xtype: 'component',
+                    flex: 1
                 }
+
             ]
         },
         {
@@ -156,6 +166,17 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
             columnLines: true,
             columns: [
                 {
+                    dataIndex: 'rank',
+                    text: '预警等级',
+                    flex: 1,
+
+                    hideable: false,
+                    menuDisabled: true,
+                    resizable: false,
+                    sortable: false,
+                    align: 'center',
+                    renderer: 'rankrenderer'
+                },{
                     dataIndex: 'devicename',
                     text: '设备名称',
                     flex: 1,
@@ -188,16 +209,6 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 }, {
                     dataIndex: 'alarmv',
                     text: '预警值',
-                    flex: 1,
-
-                    hideable: false,
-                    menuDisabled: true,
-                    resizable: false,
-                    sortable: false,
-                    align: 'center'
-                }, {
-                    dataIndex: 'rank',
-                    text: '预警等级',
                     flex: 1,
 
                     hideable: false,

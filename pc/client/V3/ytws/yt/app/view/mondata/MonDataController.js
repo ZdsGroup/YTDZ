@@ -80,7 +80,7 @@ Ext.define('yt.view.mondata.MonDataController', {
         else
             monArea = monArea.get('code');
         if(monType === null)
-            monType = 'lfjc';
+            monType = 'wyjc';
         else
             monType = monType.get('type');
         if(monDevice === null)
@@ -126,9 +126,18 @@ Ext.define('yt.view.mondata.MonDataController', {
                 {
                     meView.lookupReference('monLFYLDataGridRef').setHidden(false);
                     meView.lookupReference('monWYDataGridRef').setHidden(true);
+                    // 加上裂缝和雨量设备的单位，裂缝mm 雨量ml
+                    var isLFSB = monType === 'lfjc' ? true : false;
+                    var dataArr = result['data']['rows'];
+                    for(var index = 0; index < dataArr.length; index++){
+                        if(isLFSB)
+                            dataArr[index].v1 = dataArr[index].v1 + ' mm';
+                        else
+                            dataArr[index].v1 = dataArr[index].v1 + ' ml';
+                    }
                     meView.lookupReference('monLFYLDataGridRef').setStore(
                         new Ext.data.Store({
-                            data: result['data']['rows']
+                            data: dataArr
                         })
                     )
                 }
@@ -172,7 +181,7 @@ Ext.define('yt.view.mondata.MonDataController', {
 
 
         if(monType === null)
-            monType = 'lfjc';
+            monType = 'wyjc';
         else
             monType = monType.get('type');
         var deviceType = null;
