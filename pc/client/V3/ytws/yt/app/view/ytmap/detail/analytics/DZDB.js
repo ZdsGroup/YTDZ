@@ -98,7 +98,7 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDB', {
                 ]
             }
         },
-        { xtype: 'button', text: '搜索', handler: 'dzdbUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'dzdbUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],

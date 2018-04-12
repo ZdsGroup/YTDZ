@@ -168,7 +168,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 {
                     xtype: 'button',
                     handler: 'AlertInfobuttonClick',
-                    text: '搜索'
+                    text: '查询'
                 },
                 {
                     xtype: 'component',
@@ -270,6 +270,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     flex: 1,
                     xtype: 'widgetcolumn',
                     dataIndex: 'status',
+					align: 'center',
                     widget: {
                         xtype: 'button'
                     },

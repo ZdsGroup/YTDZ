@@ -90,7 +90,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDB', {
                    xtype: 'component',
                    width: 5
                },
-               { xtype: 'button', text: '搜索', handler: 'tlxsbdbUpdateEcharts'},
+               { xtype: 'button', text: '查询', handler: 'tlxsbdbUpdateEcharts'},
                {
                    xtype: 'component',
                    flex: 1

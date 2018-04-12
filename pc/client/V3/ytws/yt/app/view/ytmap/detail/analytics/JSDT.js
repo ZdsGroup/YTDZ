@@ -49,7 +49,7 @@ Ext.define('yt.view.ytmap.detail.analytics.JSDT', {
             allowBlank: false,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'jsdtUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'jsdtUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],

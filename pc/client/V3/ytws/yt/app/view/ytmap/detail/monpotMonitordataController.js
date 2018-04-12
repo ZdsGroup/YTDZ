@@ -133,7 +133,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
     },
     monitorDataPagebuttonChange: function (thisExt, page, eOpts ) {
         var me = this;
-        me.updateAlertInfoDataGrid(page);
+        me.monitorDataQuery(page);
         return false;
     }
 });

@@ -139,7 +139,7 @@ Ext.define('yt.view.monpot.MonPot', {
                     items: [
                         {
                             xtype: 'component',
-                            flex: 1
+                            width: 5
                         },
                         {
                             xtype: 'button',

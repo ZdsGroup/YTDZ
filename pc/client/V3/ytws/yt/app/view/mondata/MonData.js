@@ -332,41 +332,32 @@ Ext.define('yt.view.mondata.MonData', {
                 locked: true,
                 align: 'center'
             }, {
-                text: 'x',
+                text: 'x (mm)',
                 width: 135,
                 dataIndex: 'x',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center',
-                renderer: function (value) {
-                    return value.toString() + ' mm'
-                }
+                align: 'center'
             }, {
-                text: 'y',
+                text: 'y (mm)',
                 width: 135,
                 dataIndex: 'y',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center',
-                renderer: function (value) {
-                    return value.toString() + ' mm'
-                }
+                align: 'center'
             }, {
-                text: 'h',
+                text: 'h (mm)',
                 width: 135,
                 dataIndex: 'h',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center',
-                renderer: function (value) {
-                    return value.toString() + ' mm'
-                }
+                align: 'center'
             }, {
                 text: 'X轴位移',
                 width: 120,
