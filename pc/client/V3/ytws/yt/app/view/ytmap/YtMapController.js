@@ -1341,7 +1341,7 @@ var mv = {
                 // 设置设备图标样式
                 switch (jcsbType){
                     case 1:
-                        iconName = 'arrows';
+                        iconName = 'clone';
                         break;
                     case 2:
                         iconName = 'tint';
