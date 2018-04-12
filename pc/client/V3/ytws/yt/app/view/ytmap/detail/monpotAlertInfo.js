@@ -57,7 +57,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 {
                     xtype: 'datetimefield',
                     reference: 'startDate',
-                    format: 'Y-m-d',
+                    format: 'Y-m-d H:i:s',
                     fieldLabel: '查询时间',
                     emptyText: '请选择起始时间',
                     labelAlign: 'right',
@@ -68,7 +68,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 {
                     xtype: 'datetimefield',
                     reference: 'endDate',
-                    format: 'Y-m-d',
+                    format: 'Y-m-d H:i:s',
                     fieldLabel: '至',
                     emptyText: '请选择结束时间',
                     labelAlign: 'right',

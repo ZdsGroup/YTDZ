@@ -184,8 +184,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
                             var params = {
                                 ids: rec.get('id'),
                                 status: 1
-                            };
-                            ajax.fn.executeV2(params, 'PUT', conf.serviceUrl + 'alarms/status', successChangeStatus, failureChangeStatus);
+                            }
+                            ajax.fn.executeV2( params, 'POST', conf.serviceUrl + 'alarms/status', successChangeStatus, failureChangeStatus);
 
                             function successChangeStatus(response, opts) {
                                 //查询结果转json对象
