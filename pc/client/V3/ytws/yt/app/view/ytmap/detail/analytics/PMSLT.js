@@ -48,7 +48,7 @@ Ext.define('yt.view.ytmap.detail.analytics.PMSLT', {
             allowBlank: false,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'pmsltUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'pmsltUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],

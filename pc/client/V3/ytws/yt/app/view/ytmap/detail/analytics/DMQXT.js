@@ -71,7 +71,7 @@ Ext.define('yt.view.ytmap.detail.analytics.DMQXT', {
                 ]
             }
         },
-        { xtype: 'button', text: '搜索', handler: 'dmqxtUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'dmqxtUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],

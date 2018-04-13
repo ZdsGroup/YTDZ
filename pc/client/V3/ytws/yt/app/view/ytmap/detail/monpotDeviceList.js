@@ -91,7 +91,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                 {
                     xtype: 'button',
                     handler: 'monpotdevicelistBtnClick',
-                    text: '搜索'
+                    text: '查询'
                 }
             ]
         },

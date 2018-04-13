@@ -180,7 +180,7 @@ var g = {
                     style: {
                         width: '100%',
                         height: '100%',
-                        background: '#13A793'
+                        background: '#0C2840'
                     }
                 });
                 loadMask.show();

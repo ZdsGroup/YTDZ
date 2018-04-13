@@ -273,13 +273,13 @@
         "fashion"
       ]
     },
-    {
+    /*{
       "path": "resources/libs/fa5/css/fontawesome-all.css",
       "bundle": true,
       "exclude": [
         "fashion"
       ]
-    },
+    },*/
     {
       "path": "resources/libs/leaflet/leaflet.css",
       "bundle": true
