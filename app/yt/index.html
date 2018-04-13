@@ -28,7 +28,7 @@
 					</form>
 					<button type="button" value="locate" class="mui-btn mui-btn-outlined maptoolfont yt-locate map-tool-locate"></button>
 					<button type="button" value="info" class="mui-btn mui-btn-outlined maptoolfont3 yt-msg0 map-tool-info"></button>
-					<div class="map-tool-info-num-container">
+					<div id="info-num-container" class="map-tool-info-num-container">
 						<span id="info-num" class="map-tool-info-num"></span>
 					</div>
 					<button type="button" value="map" class="mui-btn mui-btn-outlined maptoolfont2 yt-baselayer map-tool-baselayer"></button>
@@ -113,7 +113,7 @@
 								<p>负责人：
 									<%=info.username%>
 								</p>
-								<%if (info.connectstatus==0) {%>
+								<%if (info.connectstatus==0 && data.runstatus == 0) {%>
 								<p>运行状态：正常</p>
 								<%}else{%>
 								<p>运行状态：异常</p>

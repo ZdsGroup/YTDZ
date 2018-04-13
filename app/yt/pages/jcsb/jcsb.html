@@ -123,7 +123,7 @@
 				<p>负责人：
 					<%=info.username%>
 				</p>
-				<p>运行状态：<%=info.runstatus == 0 ? '正常' : '异常'%></p>
+				<p>运行状态：<%=info.runstatus == 0  && info.connectstatus == 0 ? '正常' : '异常'%></p>
 			</script>
 		</div>
 		<div id="jcsb-content-part2" class="jcsb-footercardcontent mui-table-view-cell" style="margin-top: 5px;">

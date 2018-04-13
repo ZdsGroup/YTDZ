@@ -68,6 +68,7 @@ function pulldownRefresh() {
 	pageno = mui.myMuiQueryBaseInfo.pageStartIndex;
 	var queryParam = getQueryParam();
 	queryParam.pageno = pageno;
+	queryParam.status = 0;
 	mui.myMuiQuery(action, queryParam,
 		pullDownSuccess,
 		falult

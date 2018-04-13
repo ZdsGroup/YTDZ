@@ -76,23 +76,32 @@
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">通讯状态:</span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">连接状态:</span>
 								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.connectstatus == 0 ? '正常' : '异常'%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">电池状态:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.batterystatus == 0 ? '正常' : '异常'%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">运行状态:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.runstatus == 0 && data.connectstatus == 0 ? '正常' : '异常'%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-4 mui-text-left">运行状态:</span>
-								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.runstatus == 0 ? '正常' : '异常'%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">电池状态:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left">
+									<%if(data.batterystatus == 0 && data.connectstatus == 0) {%>
+									正常
+									<%} else if (data.batterystatus == 1 && data.connectstatus == 0) {%>
+									异常
+									<%} else if (data.connectstatus == 1){%>
+										---
+									<%}%>
+								</span>
 							</div>
 						</li>
-					    <li class="mui-table-view-cell">
+
+						<li class="mui-table-view-cell">
 							<div class="mui-table">
 								<span class="mui-table-cell mui-col-xs-4 mui-text-left">设备频率:</span>
 								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.rate%> 次/分钟</span>

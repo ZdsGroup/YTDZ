@@ -190,14 +190,17 @@ function showWarnInfoOnMap() {
 
 //查询今天预警记录数
 function queryWarnInfoNum() {
-	var begin = new Date().Format("yyyy-MM-dd");
+	var begin = new Date(new Date().getTime() - 24 * 60 * 60 * 1000).Format('yyyy-MM-dd hh:ss:mm'); // 当前时间的前一小时
 	var action = "alarms";
 	var queryParam = {};
 	queryParam.begin = begin;
+	queryParam.status = 0;
 	mui.myMuiQuery(action, queryParam,
 		function(results) {
-			if(results.code == 0 && results.data && results.data.total) {
-				if(results.data.total > 99) {
+			if(results.code == 0 && results.data) {
+				if (results.data.total == 0) {
+					mui('#info-num-container')[0].style.display = "none";
+				}else if(results.data.total > 99) {
 					mui('#info-num')[0].innerHTML = '99+';
 				} else {
 					mui('#info-num')[0].innerHTML = results.data.total;
@@ -687,7 +690,8 @@ function showWarnDZMarksOnMap() {
 		myMap.addLayer(dzMarkersLayerGroup);
 	} else {
 		var action = "quakes/all/" + userId;
-		mui.myMuiQuery(action, '',
+		var param = {hours:24};
+		mui.myMuiQuery(action, param,
 			function(results) {
 				if(results != null && results.data && results.data.quakes.length > 0) {
 					dzQueryResults = results.data;
@@ -738,8 +742,8 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		var mId = results[i].quakeid;
 		var mType = 'dzd';
 		var picker = mui.parseJSON(results[i].centroid);
-		var mX = picker.lat;
-		var mY = picker.lng;
+		var mX = picker.latitude;
+		var mY = picker.longitude;
 		var mN = results[i].name;
 		var markerObj = new L.marker([mX, mY], {
 			icon: iconObj,
@@ -852,11 +856,18 @@ function showJCMarkerByDZid(dzID) {
 function getJCMarkersLayerGroup(results, fitBounds) {
 	fitBounds = fitBounds == null ? true : fitBounds;
 	var latLngsArr = new Array();
-	var iconName = 'camera';
+	var iconName = '';
 	var markColor = 'purple';
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
 		level = results[i].rank;
+		if (results[i].type ==1){//位移
+		iconName = "fa-clone icon-white";
+		} else if (results[i].type ==2) { //雨量
+			iconName = "fa-tint icon-white";
+		} else if (results[i].type ==3) { //裂缝
+			iconName = "fa-bolt icon-white";
+		}
 		markColor = getMarkerColorByWarnLevel(level);
 		var mId = results[i].deviceid;
 		var mType = results[i].type;
