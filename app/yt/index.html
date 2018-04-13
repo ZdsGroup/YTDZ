@@ -321,7 +321,7 @@
 									<script id="dzd-content-part3-template" type="text/template">
 										<div class="mui-slider-item mui-slider-item-duplicate">
 											<ul class="mui-table-view mui-grid-view">
-												<% for(var i=(pageNum-1)*pageSize;i<list.length;i++){ %>
+												<% for(var i=(pageNum-1)*pageSize-1;i<list.length;i++){ %>
 												<li class="mui-table-view-cell mui-media mui-col-xs-4">
 													<a href="#"><img class="mui-media-object" src="<%=list[i].dimage.url%>" title="<%=list[i].dimage.title%>" id="<%=list[i].type%>_<%=list[i].deviceid%>">
 														<div class="mui-media-body">
@@ -341,7 +341,8 @@
 													if(i == pageNum-1) {
 														tempSize = list.length;
 													}
-													for(var j=pageNum*i;j<tempSize;j++){ 
+													var start = pageSize*i > 0 ? pageSize*i -1 : 0;
+													for(var j=start;j<tempSize;j++){ 
 												%>
 												<li class="mui-table-view-cell mui-media mui-col-xs-4">
 													<a href="#"><img class="mui-media-object" src="<%=list[j].dimage.url%>" title="<%=list[j].dimage.title%>" id="<%=list[j].type%>_<%=list[j].deviceid%>">
