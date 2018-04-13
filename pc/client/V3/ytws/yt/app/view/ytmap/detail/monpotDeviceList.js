@@ -144,7 +144,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                     align: 'center'
                 }, {
                     dataIndex: 'company',
-                    text: '公司',
+                    text: '承担单位',
                     flex: 1,
 
                     hideable: false,
