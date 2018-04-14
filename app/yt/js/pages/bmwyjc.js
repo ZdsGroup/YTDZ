@@ -234,8 +234,8 @@ var deviceTypeCompareSuccess = function(result) {
 			}
 		},
 		grid: {
-			top: 50,
-			bottom: 10,
+			top: 120,
+			bottom: 30,
 			left: 10,
 			right: 10,
 			containLabel: true
@@ -255,10 +255,10 @@ var deviceTypeCompareSuccess = function(result) {
 			},
 			name: '位移(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - value.min * 0.01)-1;
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + value.max * 0.01)+1;
 			}
 		}],
 		series: []
@@ -495,8 +495,8 @@ var deviceDMCompareSuccess = function(result) {
 			}
 		},
 		grid: {
-			top: 50,
-			bottom: 10,
+			top: 120,
+			bottom: 30,
 			left: 10,
 			right: 10,
 			containLabel: true
@@ -515,10 +515,10 @@ var deviceDMCompareSuccess = function(result) {
 			},
 			name: '位移(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - value.min * 0.01)-1;
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + value.max * 0.01)+1;
 			}
 		}],
 		series: []
