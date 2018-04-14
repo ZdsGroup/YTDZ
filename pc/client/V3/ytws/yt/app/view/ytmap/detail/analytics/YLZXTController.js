@@ -104,7 +104,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                                     formatter: '红色警戒'
                                 }
                             },
-                            yAxis: result.data.redvalue
+                            yAxis: result.data.redvalue == null ? 0 :result.data.redvalue
                         }, {
                             lineStyle: {
                                 normal: {
@@ -118,7 +118,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                                     formatter: '蓝色预警'
                                 }
                             },
-                            yAxis: result.data.bluevalue
+                            yAxis: result.data.bluevalue == null ? 0 :result.data.bluevalue
                         }, {
                             lineStyle: {
                                 normal: {
@@ -131,7 +131,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                                     formatter: '黄色预警'
                                 }
                             },
-                            yAxis: result.data.yellowvalue
+                            yAxis: result.data.yellowvalue == null ? 0 :result.data.yellowvalue
                         }]
                     }
                 }

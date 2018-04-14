@@ -233,7 +233,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                     }
                     var series = [];
                     var legend = [];
-                    Ext.each(result.data, function(item, index) {
+                    Ext.each(result.data.dataList, function(item, index) {
                         legend.push(item.devicename);
                         var devItem = {
                             name: item.devicename,

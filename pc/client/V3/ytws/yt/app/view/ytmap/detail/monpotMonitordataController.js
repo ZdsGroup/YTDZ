@@ -23,12 +23,15 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
 
         if(meView.deviceType === '' && meView.deviceId === ''){
             // 如果是地灾点
+            meView.lookupReference('monDeviceTypeListRef').setHidden(false);
             meView.lookupReference('monDeviceListRef').setHidden(false);
+            me.getDviceList();
             me.monitorDataQuery(1);
         }
         else
         {
-            meView.lookupReference('monDeviceListRef').setHidden(true);
+            meView.lookupReference('monDeviceTypeListRef').setHidden(true);
+            meView.lookupReference('monDeviceListRef').setHidden(false);
             me.monitorDataQuery(1);
         }
     },
@@ -47,12 +50,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
 
         if(meView.deviceType === '' || meView.deviceId === ''){
             // 如果是地灾点
-            queryType = meView.lookupReference('monDeviceListRef').getSelection();
-            if(queryType === null)
-                queryType = 'wysb';
-            else
-                queryType = queryType.get('type');
+            queryType = meView.lookupReference('monDeviceTypeListRef').getSelection();
+            queryType = queryType == null ? 'wysb' : queryType.get('type');
 
+            params.deviceid = meView.lookupReference('monDeviceListRef').getValue()
             params.quakeid = meView.quakeId;
         }
         else
@@ -135,5 +136,75 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
         var me = this;
         me.monitorDataQuery(page);
         return false;
+    },
+
+    getDviceList: function () {
+        // 当前设备的quakeid已经有了
+        var me = this;
+        var meView = this.getView();
+        var queryDeviceType = meView.lookupReference('monDeviceTypeListRef').getSelection();
+        queryDeviceType = queryDeviceType == null ? 'wysb' : queryDeviceType.get('type');
+        switch (queryDeviceType){
+            case 'wysb':
+                queryDeviceType = '1';
+                break;
+            case 'lfsb':
+                queryDeviceType = '3';
+                break;
+            case 'ylsb':
+                queryDeviceType = '2';
+                break;
+        }
+
+        var actions = 'devices';
+        var params = {
+            type: queryDeviceType,
+            quakeid: meView.quakeId,
+            pageno: 1,
+            pagesize: 200
+        }
+
+        function getdeviceListSuccess(response, opts) {
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if(result.code !== 0){
+                return;
+            }
+            var showListData = [
+                {
+                    name: '全部设备',
+                    deviceid: ''
+                }
+            ]
+            Ext.each( result.data.rows, function(item, index) {
+                showListData.push({
+                    name: item.name,
+                    deviceid: item.deviceid
+                })
+            })
+            // 设置对应的view中的datastore
+            meView.lookupReference('monDeviceListRef').setStore(
+                new Ext.data.Store({
+                    data: showListData
+                })
+            )
+
+            meView.lookupReference('monDeviceListRef').setSelection( 
+                meView.lookupReference('monDeviceListRef').getStore().first()
+            );
+        }
+        function getdeviceListFailure(response, opts) {
+
+        }
+
+        ajax.fn.executeV2(params, 'GET', conf.serviceUrl + actions, getdeviceListSuccess, getdeviceListFailure);
+    },
+
+    showDeviceList: function() {
+        var me = this;
+        var meView = me.getView();
+
+        me.getDviceList();
     }
+
 });

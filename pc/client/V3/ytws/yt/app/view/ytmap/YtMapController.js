@@ -236,10 +236,12 @@ var mv = {
                     if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
                     if (data.type === 'device') {
                         var runStatusStr = result.data.runstatus === 1 ? '异常' : '正常';
-
+                        // 如果链接状态异常，运行状态就异常
                         if(result.data.connectstatus === 1){
                             runStatusStr = '异常';
                         }
+                        // 如果现实字段为异常就显示红色
+                        runStatusStr = runStatusStr == '异常' ? '<font color="red">异常</font>' : runStatusStr;
                         Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + runStatusStr);// 运行状态
                     } else if (data.type === 'disasterpoint') {
                         // todo 设置收藏状态
