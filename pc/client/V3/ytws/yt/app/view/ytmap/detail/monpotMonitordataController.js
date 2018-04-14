@@ -31,7 +31,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
         else
         {
             meView.lookupReference('monDeviceTypeListRef').setHidden(true);
-            meView.lookupReference('monDeviceListRef').setHidden(false);
+            meView.lookupReference('monDeviceListRef').setHidden(true);
             me.monitorDataQuery(1);
         }
     },

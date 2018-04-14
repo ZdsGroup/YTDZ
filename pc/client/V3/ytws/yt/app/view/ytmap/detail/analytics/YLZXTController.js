@@ -76,7 +76,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                     // splitArea: {
                     //     show: true
                     // },
-                    name: '雨量(mm)',
+                    name: '雨量(ml)',
                 }],
                 series: [{
                     name: '小时雨量',

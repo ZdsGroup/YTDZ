@@ -180,7 +180,7 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                             splitArea: {
                                 show: true
                             },
-                            name: '雨量(mm)',
+                            name: '雨量(ml)',
                             min: function(value) {
                                 return Math.ceil(value.min - value.min * 0.01);
                             },
