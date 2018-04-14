@@ -221,7 +221,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                             splitArea: {
                                 show: true
                             },
-                            name: '累计雨量(mm)',
+                            name: '累计雨量(ml)',
                             min: function(value) {
                                 return Math.ceil(value.min - value.min * 0.01);
                             },
