@@ -53,10 +53,18 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
             layout: {
                 type: 'hbox',
                 align: 'middle',
-                pack: 'center'
+                pack: 'left'
             },
             border: false,
             items: [
+                {
+                    allowBlank: true,
+                    xtype: 'textfield',
+                    fieldLabel: '关键字',
+                    labelWidth: 60,
+                    reference: 'deviceNameRef',
+                    emptyText: '请输入设备名称'
+                },
                 {
                     xtype: 'combobox',
                     width: 300,
@@ -81,7 +89,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                     emptyText: '请选择类型，默认全部设备',
 
                     listeners: {
-                        // select: 'showDeviceList'
+                        select: 'emptyNameInput'
                     }
                 },
                 {
