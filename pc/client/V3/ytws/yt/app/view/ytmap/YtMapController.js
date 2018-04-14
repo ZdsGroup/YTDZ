@@ -235,7 +235,12 @@ var mv = {
                     var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
                     if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
                     if (data.type === 'device') {
-                        Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + (result.data.runstatus === 1 ? '异常' : '正常'));// 运行状态
+                        var runStatusStr = result.data.runstatus === 1 ? '异常' : '正常';
+
+                        if(result.data.connectstatus === 1){
+                            runStatusStr = '异常';
+                        }
+                        Ext.getCmp('mondataStatusId').setHtml('运行状态： ' + runStatusStr);// 运行状态
                     } else if (data.type === 'disasterpoint') {
                         // todo 设置收藏状态
                         Ext.getCmp('mondataCollectId').setIconCls('fa fa-heart favoStatus');
@@ -353,14 +358,53 @@ var mv = {
                     // 如果为内网地址
                     if (action == "image") {
                         if (mv.v.gaodeImageLayer == null) {
-                            mv.v.gaodeImageLayer = L.supermap.tiledMapLayer("http://17.112.24.6:8090/iserver/services/map-YX_YZT/rest/maps/YTGQSD");
+                            mv.v.gaodeImageLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                                layer: "YX_0.5HP",
+                                style: "default",
+                                tilematrixSet: "ChinaPublicServices_YX_0.5HP",
+                                // zoomOffset: 1,
+                                format: "image/png",
+                                requestEncoding: 'KVP',
+                                attribution: ""
+                            });
                         }
-                        mv.v.LayerGroup = L.layerGroup([mv.v.gaodeImageLayer]).addTo(mv.v.map);
+
+                        if (mv.v.gaodeAnnoLayer == null) {
+                            mv.v.gaodeAnnoLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                                layer: "XZQ",
+                                style: "default",
+                                tilematrixSet: "ChinaPublicServices_XZQ",
+                                // zoomOffset: 1,
+                                format: "image/png",
+                                requestEncoding: 'KVP',
+                                attribution: ""
+                            });
+                        }
+                        mv.v.LayerGroup = L.layerGroup([mv.v.gaodeImageLayer, mv.v.gaodeAnnoLayer]).addTo(mv.v.map);
                     } else if (action == "vector") {
                         if (mv.v.gaodeVecLayer == null) {
-                            mv.v.gaodeVecLayer = L.supermap.tiledMapLayer("http://17.112.24.6:8090/iserver/services/map-YT_YZT/rest/maps/XZQ");
+                            mv.v.gaodeVecLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                                layer: "YX_0.5HP",
+                                style: "default",
+                                tilematrixSet: "ChinaPublicServices_YX_0.5HP",
+                                // zoomOffset: 1,
+                                format: "image/png",
+                                requestEncoding: 'KVP',
+                                attribution: ""
+                            });
                         }
-                        mv.v.LayerGroup = L.layerGroup([mv.v.gaodeVecLayer]).addTo(mv.v.map);
+                        if (mv.v.gaodeVecQHLayer == null) {
+                            mv.v.gaodeVecQHLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                                layer: "XZQ",
+                                style: "default",
+                                tilematrixSet: "ChinaPublicServices_XZQ",
+                                // zoomOffset: 1,
+                                format: "image/png",
+                                requestEncoding: 'KVP',
+                                attribution: ""
+                            });
+                        }
+                        mv.v.LayerGroup = L.layerGroup([mv.v.gaodeVecLayer, mv.v.gaodeVecQHLayer]).addTo(mv.v.map);
                     }
                 }
             },

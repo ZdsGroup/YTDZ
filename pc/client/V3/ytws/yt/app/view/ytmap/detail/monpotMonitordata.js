@@ -149,15 +149,6 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 stripeRows: false
             },
             columns: [{
-                text: '设备名称',
-                flex: 1,
-                dataIndex: 'devicename',
-                hideable: false,
-                menuDisabled: true,
-                resizable: false,
-                sortable: false,
-                align: 'center'
-            }, {
                 text: '所属区域',
                 flex: 1,
                 dataIndex: 'regionname',
@@ -170,6 +161,15 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 text: '所属地灾点',
                 flex: 1,
                 dataIndex: 'quakename',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: '设备名称',
+                flex: 1,
+                dataIndex: 'devicename',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
@@ -223,16 +223,6 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 stripeRows: false
             },
             columns: [{
-                text: '设备名称',
-                width: 170,
-                dataIndex: 'devicename',
-                hideable: false,
-                menuDisabled: true,
-                resizable: false,
-                sortable: false,
-                locked: true,
-                align: 'center'
-            }, {
                 text: '所属区域',
                 width: 120,
                 dataIndex: 'regionname',
@@ -246,6 +236,16 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 text: '所属地灾点',
                 width: 170,
                 dataIndex: 'quakename',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                locked: true,
+                align: 'center'
+            }, {
+                text: '设备名称',
+                width: 170,
+                dataIndex: 'devicename',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,

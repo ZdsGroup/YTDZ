@@ -33,6 +33,11 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
             result['data']['connectstatus'] = me.rendererDeviceStatus(result['data']['connectstatus']);
             result['data']['batterystatus'] = me.rendererDeviceStatus(result['data']['batterystatus']);
 
+            if(result['data']['connectstatus'] === '异常') {
+                result['data']['runstatus'] = '异常';
+                result['data']['batterystatus'] = '---';
+            }
+
             meView.getViewModel().set('deviceDetailInfo',result['data']);
 
             // 设置图片轮播
