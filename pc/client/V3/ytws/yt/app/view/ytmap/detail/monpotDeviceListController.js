@@ -61,6 +61,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceListController', {
         params.type = querydeviceType;
         params.pageno = pageNo;
         params.pagesize = meView.getViewModel().get('gridPageStore').pageSize;
+        params.name = meView.lookupReference('deviceNameRef').getValue();
 
         var mask = ajax.fn.showMask(meView, '数据加载中...');
         function successCallBack(response, opts) {
@@ -95,5 +96,10 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceListController', {
         var me = this;
         me.monpotdevicelistQuery(page);
         return false;
+    },
+
+    emptyNameInput: function() {
+        var me = this;
+        me.getView().lookupReference('deviceNameRef').setValue('');
     }
 });

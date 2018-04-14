@@ -29,14 +29,14 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
             if(!result['data']) return;
 
+            if(result['data']['connectstatus'] === 1) {
+                result['data']['runstatus'] = 1;
+                result['data']['batterystatus'] = '---';
+            }
+
             result['data']['runstatus'] = me.rendererDeviceStatus(result['data']['runstatus']);
             result['data']['connectstatus'] = me.rendererDeviceStatus(result['data']['connectstatus']);
             result['data']['batterystatus'] = me.rendererDeviceStatus(result['data']['batterystatus']);
-
-            if(result['data']['connectstatus'] === '异常') {
-                result['data']['runstatus'] = '异常';
-                result['data']['batterystatus'] = '---';
-            }
 
             meView.getViewModel().set('deviceDetailInfo',result['data']);
 
@@ -84,6 +84,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
         // if(value !== 0){
         //     metaData.tdAttr = 'bgcolor="red"';
         // }
-        return value === 1 ? '异常' : '正常';
+        return value === 1 ? '<font color="red">异常</font>' : value === 0 ? '正常' : value;
     }
 });

@@ -55,30 +55,6 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
             },
             items: [
                 {
-                    xtype: 'combobox',
-                    flex: 1,
-                    hidden: true,
-                    reference: 'monDeviceListRef',
-                    margin: '0 0 0 10',
-                    allowBlank: true,
-                    fieldLabel: '设备类型',
-                    msgTarget: 'side',
-                    labelWidth: 60,
-                    store: {
-                        data: [
-                            {name: '位移设备', type: 'wysb'},
-                            {name: '裂缝设备', type: 'lfsb'},
-                            {name: '雨量设备', type: 'ylsb'}
-                        ]
-                    },
-                    valueField: 'type',
-                    displayField: 'name',
-                    editable: false,
-                    typeAhead: false,
-                    queryMode: 'local',
-                    emptyText: '请选择类型，默认位移设备'
-                },
-                {
                     xtype: 'datetimefield',
                     format: 'Y-m-d H:i:s',
                     fieldLabel: '起始时间',
@@ -102,6 +78,50 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                     emptyText: '请选择结束时间',
                     allowBlank: false,
                     value: new Date()  //默认当天
+                },
+                {
+                    xtype: 'combobox',
+                    flex: 1,
+                    hidden: true,
+                    reference: 'monDeviceTypeListRef',
+                    margin: '0 0 0 10',
+                    allowBlank: true,
+                    fieldLabel: '设备类型',
+                    msgTarget: 'side',
+                    labelWidth: 60,
+                    store: {
+                        data: [
+                            {name: '位移设备', type: 'wysb'},
+                            {name: '裂缝设备', type: 'lfsb'},
+                            {name: '雨量设备', type: 'ylsb'}
+                        ]
+                    },
+                    valueField: 'type',
+                    displayField: 'name',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '位移设备',
+
+                    listeners: {
+                        select: 'showDeviceList'
+                    }
+                },
+                {
+                    xtype: 'combobox',
+                    flex: 1,
+                    reference: 'monDeviceListRef',
+                    margin: '0 0 0 10',
+                    allowBlank: true,
+                    fieldLabel: '设备列表',
+                    value: '',
+                    labelWidth: 60,
+                    valueField: 'deviceid',
+                    displayField: 'name',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '默认全部设备'
                 },
                 {
                     xtype: 'container',
