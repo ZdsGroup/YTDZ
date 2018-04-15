@@ -62,11 +62,11 @@ var initDatePickParam = function() {
 	var startDt = '';
 	var endDt = '';
 	//同一地灾点,同类设备对比
-	//获取今天8点日期
-	startDt = getEightDateStr(-1);
-	//获取昨天8点日期
-	endDt = getEightDateStr(0);
-	当前设备最新数据,图和列表
+	//获取今天当前点日期
+	startDt = getHourDateStr(-1);
+	//获取昨天24小时日期
+	endDt = getHourDateStr(0);
+	//当前设备最新数据,图和列表
 	initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
 	initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
 	initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
@@ -175,10 +175,10 @@ var deviceTypeCompareSuccess = function(result) {
 			},
 			name: '裂缝(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -241,10 +241,10 @@ var deviceDateCompareSuccess = function(result) {
 			},
 			name: '长度(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -277,6 +277,10 @@ var deviceDateCompareSuccess = function(result) {
 //单设备多年对比图
 var deviceRainCompareSuccess = function(result) {
 	var dtc = echarts.init(mui('#device-rain-monitor')[0]);
+	result.data.redvalue = result.data.redvalue == null ? 0 :result.data.redvalue;
+	result.data.orangevalue = result.data.orangevalue == null ? 0 :result.data.orangevalue;
+	result.data.yellowvalue = result.data.yellowvalue == null ? 0 :result.data.yellowvalue;
+	result.data.bluevalue = result.data.bluevalue == null ? 0 :result.data.bluevalue;
 	var devicetypecompareOption = {
 		color: [
 			'#387FFF'
@@ -308,6 +312,12 @@ var deviceRainCompareSuccess = function(result) {
 				show: true
 			},
 			name: '长度(mm)',
+			min: function(value) {
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
+			}
 		}],
 		series: [{
 				name: '裂缝监测',

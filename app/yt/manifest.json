@@ -204,9 +204,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "E:/ZDS/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "E:/ZDS/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "E:/ZDS/YTDZ/flash.png"
+					"hdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png"
 				}
 			}
 		},"ads":{"rp":false,"splash":false,"push":false,"spot":true},"adid":""

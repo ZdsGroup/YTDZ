@@ -86,7 +86,7 @@
 									<p>
 										<span>
 										<i class="fa fa-map-marker fa-fw"></i>
-										<%=info.address%>
+									<%=info.address == '' ? '暂无地址信息' : info.address%>
 										</span>
 									</p>
 									<%}%>
@@ -124,7 +124,7 @@
 								<%if (info != null && info.connectstatus==0 && info.runstatus == 0) {%>
 								<p>运行状态：正常</p>
 								<%}else{%>
-								<p>运行状态：异常</p>
+								<p class="red">运行状态：异常</p>
 								<%}%>
 							</script>
 						</div>
