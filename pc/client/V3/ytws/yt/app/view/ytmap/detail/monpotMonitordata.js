@@ -283,7 +283,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 locked: true,
                 align: 'center'
             }, {
-                text: 'x (mm)',
+                text: 'x (m)',
                 width: 135,
                 dataIndex: 'x',
                 hideable: false,
@@ -292,7 +292,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 sortable: false,
                 align: 'center'
             }, {
-                text: 'y (mm)',
+                text: 'y (m)',
                 width: 135,
                 dataIndex: 'y',
                 hideable: false,
@@ -301,7 +301,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 sortable: false,
                 align: 'center'
             }, {
-                text: 'h (mm)',
+                text: 'h (m)',
                 width: 135,
                 dataIndex: 'h',
                 hideable: false,
