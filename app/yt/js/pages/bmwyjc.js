@@ -89,10 +89,10 @@ var initDatePickParam = function() {
 	var startDt = '';
 	var endDt = '';
 	//同一地灾点,同类设备对比
-	//获取今天8点日期
-	startDt = getEightDateStr(-1);
-	//获取昨天8点日期
-	endDt = getEightDateStr(0);
+	//获取今天当前时刻点日期
+	startDt = getHourDateStr(-1);
+	//获取昨天24小时前日期
+	endDt = getHourDateStr(0);
 	//当前设备最新数据,图和列表
 	initDatePick('#deviceTypeStartDt', endDt, '#deviceTypeStartDt', endDt);
 	initDatePick('#ytmcstartdt', startDt, '#ytmcenddt', endDt);
@@ -234,8 +234,8 @@ var deviceTypeCompareSuccess = function(result) {
 			}
 		},
 		grid: {
-			top: 50,
-			bottom: 10,
+			top: 120,
+			bottom: 30,
 			left: 10,
 			right: 10,
 			containLabel: true
@@ -255,10 +255,10 @@ var deviceTypeCompareSuccess = function(result) {
 			},
 			name: '位移(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -323,10 +323,10 @@ var deviceDateCompareSuccess = function(result) {
 			},
 			name: '位移(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -387,6 +387,12 @@ var deviceMoveChangeCompareSuccess = function(result) {
 				show: true
 			},
 			name: '长度(mm)',
+			min: function(value) {
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
+			}
 		}],
 		series: []
 	}
@@ -495,8 +501,8 @@ var deviceDMCompareSuccess = function(result) {
 			}
 		},
 		grid: {
-			top: 50,
-			bottom: 10,
+			top: 120,
+			bottom: 30,
 			left: 10,
 			right: 10,
 			containLabel: true
@@ -515,10 +521,10 @@ var deviceDMCompareSuccess = function(result) {
 			},
 			name: '位移(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -579,7 +585,13 @@ var deviceSpeedCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '长度(mm)',
+			name: '速度(mm/s)',
+			min: function(value) {
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
+			}
 		}],
 		series: []
 	}
@@ -657,7 +669,7 @@ var deviceAcceleSpeedCompareSuccess = function(result) {
 		grid: {
 			top: 50,
 			bottom: 10,
-			left: 20,
+			left: 25,
 			right: 20,
 			containLabel: true
 		},
@@ -674,7 +686,13 @@ var deviceAcceleSpeedCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '位移(mm)',
+			name: '加速度(mm/s²)',
+			min: function(value) {
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
+			}
 		}],
 		series: []
 	}

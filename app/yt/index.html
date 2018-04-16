@@ -86,7 +86,7 @@
 									<p>
 										<span>
 										<i class="fa fa-map-marker fa-fw"></i>
-										<%=info.address%>
+									<%=info.address == '' ? '暂无地址信息' : info.address%>
 										</span>
 									</p>
 									<%}%>
@@ -108,15 +108,23 @@
 							<script id="jcsb-content-part1-template" type="text/template">
 								<a class="mui-navigate-right" href="#">
 									<span title='jcsb-more-info' class="mui-badge mui-badge-blue mui-badge-self">更多信息</span> 承担单位:
+									<%if (info != null && info.company != null && info.company != '' && info.company != undefined) {%>
 									<%=info.company%>
+									<%}else{%>
+									<p>信息获取失败</p>
+									<%}%>
 								</a>
 								<p>负责人：
+									<%if (info != null && info.username != null && info.username != '' && info.username != undefined) {%>
 									<%=info.username%>
+									<%}else{%>
+									<p>信息获取失败</p>
+									<%}%>
 								</p>
-								<%if (info.connectstatus==0 && data.runstatus == 0) {%>
+								<%if (info != null && info.connectstatus==0 && info.runstatus == 0) {%>
 								<p>运行状态：正常</p>
 								<%}else{%>
-								<p>运行状态：异常</p>
+								<p class="red">运行状态：异常</p>
 								<%}%>
 							</script>
 						</div>
