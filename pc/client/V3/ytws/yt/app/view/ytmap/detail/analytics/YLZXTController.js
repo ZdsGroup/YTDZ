@@ -58,9 +58,9 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 20,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -77,7 +77,35 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                     //     show: true
                     // },
                     name: '雨量(ml)',
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
+                    }
                 }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: [{
                     name: '小时雨量',
                     type: 'bar',
