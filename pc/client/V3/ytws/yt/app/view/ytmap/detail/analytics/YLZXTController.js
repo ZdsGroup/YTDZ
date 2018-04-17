@@ -64,7 +64,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                     containLabel: true
                 },
                 legend: {
-                    data: ['小时雨量']
+                    data: ['小时雨量','累计雨量']
                 },
                 calculable: false,
                 xAxis: [{
@@ -106,74 +106,90 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                         filterMode: 'empty'
                     }
                 ],
-                series: [{
-                    name: '小时雨量',
-                    type: 'bar',
-                    data: [],
-                    itemStyle: {
-                        normal: {
-                            label: {
-                                show: true
+                series: [
+                    {
+                        name: '小时雨量',
+                        type: 'bar',
+                        data: [],
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true
+                                }
                             }
+                        },
+                        markLine: {
+                            silent: true,
+                            symbol: 'circle',
+                            data: [{
+                                lineStyle: {
+                                    normal: {
+                                        color: '#FF0000'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        position: 'middle',
+                                        formatter: '红色警戒'
+                                    }
+                                },
+                                yAxis: result.data.redvalue == null ? 0 :result.data.redvalue
+                            }, {
+                                lineStyle: {
+                                    normal: {
+                                        color: '#0000FF'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+
+                                        position: 'middle',
+                                        formatter: '蓝色预警'
+                                    }
+                                },
+                                yAxis: result.data.bluevalue == null ? 0 :result.data.bluevalue
+                            }, {
+                                lineStyle: {
+                                    normal: {
+                                        color: '#FFFF00'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        position: 'middle',
+                                        formatter: '黄色预警'
+                                    }
+                                },
+                                yAxis: result.data.yellowvalue == null ? 0 :result.data.yellowvalue
+                            }]
                         }
                     },
-                    markLine: {
-                        silent: true,
-                        symbol: 'circle',
-                        data: [{
-                            lineStyle: {
-                                normal: {
-                                    color: '#FF0000'
+                    {
+                        name: '累计雨量',
+                        type: 'line',
+                        data: [],
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true
                                 }
-                            },
-                            label: {
-                                normal: {
-                                    position: 'middle',
-                                    formatter: '红色警戒'
-                                }
-                            },
-                            yAxis: result.data.redvalue == null ? 0 :result.data.redvalue
-                        }, {
-                            lineStyle: {
-                                normal: {
-                                    color: '#0000FF'
-                                }
-                            },
-                            label: {
-                                normal: {
-
-                                    position: 'middle',
-                                    formatter: '蓝色预警'
-                                }
-                            },
-                            yAxis: result.data.bluevalue == null ? 0 :result.data.bluevalue
-                        }, {
-                            lineStyle: {
-                                normal: {
-                                    color: '#FFFF00'
-                                }
-                            },
-                            label: {
-                                normal: {
-                                    position: 'middle',
-                                    formatter: '黄色预警'
-                                }
-                            },
-                            yAxis: result.data.yellowvalue == null ? 0 :result.data.yellowvalue
-                        }]
+                            }
+                        }
                     }
-                }
 
                 ]
             }
 
             var xAxisData = [];
             var datas = [];
+            var totalDatas = [];
             Ext.each(result.data.rainList, function(item, index) {
-                xAxisData.push(item.datekey);
-                datas.push(item.v1);
+                xAxisData.push( item.datekey );
+                datas.push( item.v1 );
+                totalDatas.push( item.s1 );
             });
             devicetypecompareOption.series[0].data = datas;
+            devicetypecompareOption.series[1].data = totalDatas;
             devicetypecompareOption.xAxis[0].data = xAxisData;
             thisEcharts.setOption(devicetypecompareOption);
         }
