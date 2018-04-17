@@ -124,7 +124,7 @@ Ext.define('yt.view.ytwest.YtWest', {
                                     selectedData.code === itemsData.code ){
                                     treeDataModel = items;
                                 }
-                            })
+                            });
 
                             if(treeDataModel){
                                 dzDatatree.setSelection(treeDataModel);

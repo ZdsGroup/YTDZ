@@ -32,7 +32,7 @@ var mv = {
         },
         fn: {
             initMap: function (mapid) {
-                if( IS_OUTER_NET ){
+                if (IS_OUTER_NET) {
                     // 是外网地址
                     mv.v.map = L.map(mapid, {
                         zoomControl: false,
@@ -53,11 +53,19 @@ var mv = {
                 //默认显示影像地图
                 mv.fn.switchBaseLayer('vector');
 
-                mv.v.map.flyTo(L.latLng(28.23, 117.02), 10);//定位到鹰潭市
+                mv.v.map.flyTo(L.latLng(28.23, 117.02), 10, true);//定位到鹰潭市
                 // 渲染鹰潭市的行政边界
                 var allbounds = new yt.conf.Bounds();
-                L.geoJson(allbounds.YTBounds).addTo(mv.v.map);
-
+                var geoLayer = L.geoJson(allbounds.YTBounds);
+                mv.v.map.on('zoomstart', function () {
+                    if (mv.v.map.hasLayer(geoLayer)) {
+                        mv.v.map.removeLayer(geoLayer);
+                    }
+                });
+                mv.v.map.on('zoomend', function () {
+                    mv.v.map.addLayer(geoLayer);
+                    //L.geoJson(allbounds.YTBounds).addTo(mv.v.map);
+                });
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mv.v.mapParentId);
                 //mv.fn.createWarnTip(mapid);
@@ -237,7 +245,7 @@ var mv = {
                     if (data.type === 'device') {
                         var runStatusStr = result.data.runstatus === 1 ? '异常' : '正常';
                         // 如果链接状态异常，运行状态就异常
-                        if(result.data.connectstatus === 1){
+                        if (result.data.connectstatus === 1) {
                             runStatusStr = '异常';
                         }
                         // 如果现实字段为异常就显示红色
@@ -269,17 +277,17 @@ var mv = {
 
                 Ext.getCmp('mondataTitleId').setHtml(data.text);// 设置标题
                 // 设置地址的tooltips
-                if(!mv.v.detailAddressTooltips){
+                if (!mv.v.detailAddressTooltips) {
                     mv.v.detailAddressTooltips = Ext.create('Ext.tip.ToolTip', {
                         target: 'mondataAddressId'
                     });
                 }
                 var addressComponent = Ext.getCmp('mondataAddressId');// 设置地址
-                if(data.address.toString().length === 0){
+                if (data.address.toString().length === 0) {
                     addressComponent.setHtml('暂无地址信息');
                     mv.v.detailAddressTooltips.setHtml('暂无地址信息');
-                } else if(data.address.toString().length > 19){
-                    var showAddress = data.address.toString().slice(0,19) + '...';
+                } else if (data.address.toString().length > 19) {
+                    var showAddress = data.address.toString().slice(0, 19) + '...';
                     addressComponent.setHtml(showAddress);
                     mv.v.detailAddressTooltips.setHtml(data.address.toString());
                 } else {
@@ -326,7 +334,7 @@ var mv = {
                     mv.v.LayerGroup.clearLayers();
                 }
 
-                if( IS_OUTER_NET ){
+                if (IS_OUTER_NET) {
                     // 如果为外网地址
                     if (action == "image") {
                         if (mv.v.gaodeImageLayer == null) {
@@ -360,7 +368,7 @@ var mv = {
                     // 如果为内网地址
                     if (action == "image") {
                         if (mv.v.gaodeImageLayer == null) {
-                            mv.v.gaodeImageLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                            mv.v.gaodeImageLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china", {
                                 layer: "YX_0.5HP",
                                 style: "default",
                                 tilematrixSet: "ChinaPublicServices_YX_0.5HP",
@@ -372,7 +380,7 @@ var mv = {
                         }
 
                         if (mv.v.gaodeAnnoLayer == null) {
-                            mv.v.gaodeAnnoLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                            mv.v.gaodeAnnoLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china", {
                                 layer: "XZQ",
                                 style: "default",
                                 tilematrixSet: "ChinaPublicServices_XZQ",
@@ -385,7 +393,7 @@ var mv = {
                         mv.v.LayerGroup = L.layerGroup([mv.v.gaodeImageLayer, mv.v.gaodeAnnoLayer]).addTo(mv.v.map);
                     } else if (action == "vector") {
                         if (mv.v.gaodeVecLayer == null) {
-                            mv.v.gaodeVecLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                            mv.v.gaodeVecLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china", {
                                 layer: "YX_0.5HP",
                                 style: "default",
                                 tilematrixSet: "ChinaPublicServices_YX_0.5HP",
@@ -396,7 +404,7 @@ var mv = {
                             });
                         }
                         if (mv.v.gaodeVecQHLayer == null) {
-                            mv.v.gaodeVecQHLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china",{
+                            mv.v.gaodeVecQHLayer = L.supermap.wmtsLayer("http://17.112.24.6:8090/iserver/services/map-YT/wmts-china", {
                                 layer: "XZQ",
                                 style: "default",
                                 tilematrixSet: "ChinaPublicServices_XZQ",
@@ -1163,7 +1171,7 @@ var mv = {
                             var mId = jcsbInfo['code'];
                             var mType = jcsbInfo['type'];
                             var iconName = 'camera';
-                            var markerIcon = mv.fn.refreshJCSBIcon( jcsbInfo['deviceType'], jcRank);
+                            var markerIcon = mv.fn.refreshJCSBIcon(jcsbInfo['deviceType'], jcRank);
                             var jcsbPot = [jcsbInfo['lat'], jcsbInfo['lng']];
                             var jcsbMarker = new L.marker(jcsbPot, {
                                 icon: markerIcon,
@@ -1217,7 +1225,7 @@ var mv = {
                 };
                 mv.fn.relayoutPanel(parentContainer, mv.v.mapDetailPanel, mv.v.mapDetailPanelParam);
                 mv.v.isMapDetaiMaximize = true;
-                if(!rankStr)rankStr = '';
+                if (!rankStr) rankStr = '';
                 mv.fn.showMoreInfo(btn['action'], rankStr);
             },
             // 通过监测设备统计面板切换到详情面板-地灾点
@@ -1293,7 +1301,7 @@ var mv = {
                                 var markerIcon = null;
                                 Ext.each(mv.v.devicesRankList, function (devicesRankData) {
                                     if (devicesRankData.DEVICEID === jcsbCode) {
-                                        markerIcon = mv.fn.refreshJCSBIcon(jcsbLayer.getAttribution().deviceType,'0');
+                                        markerIcon = mv.fn.refreshJCSBIcon(jcsbLayer.getAttribution().deviceType, '0');
                                     }
                                 });
                                 if (markerIcon) {
@@ -1371,7 +1379,7 @@ var mv = {
                         var markerIcon = null;
                         Ext.each(mv.v.devicesRankList, function (devicesRankData) {
                             if (devicesRankData.DEVICEID === jcsbCode) {
-                                markerIcon = mv.fn.refreshJCSBIcon(jcsbMarker.getAttribution().deviceType,devicesRankData.RANK);
+                                markerIcon = mv.fn.refreshJCSBIcon(jcsbMarker.getAttribution().deviceType, devicesRankData.RANK);
                             }
                         });
                         if (markerIcon) {
@@ -1381,11 +1389,11 @@ var mv = {
                 }
             },
             // 监测设备的图标更新，传监测设备类型和rank值，返回对应的图标
-            refreshJCSBIcon: function (jcsbType,jcsbrank) {
+            refreshJCSBIcon: function (jcsbType, jcsbrank) {
                 var willReturnIcon = null;
                 var iconName = 'camera';
                 // 设置设备图标样式
-                switch (jcsbType){
+                switch (jcsbType) {
                     case 1:
                         iconName = 'clone';
                         break;

@@ -87,7 +87,7 @@ westglobal.fn = {
             mv.fn.showBasicInfo();
         }
     }
-}
+};
 
 /**
  * Created by LBM on 2017/12/28.
