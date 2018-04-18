@@ -64,7 +64,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                     containLabel: true
                 },
                 legend: {
-                    data: ['小时雨量','累计雨量']
+                    data: ['小时雨量']
                 },
                 calculable: false,
                 xAxis: [{
@@ -163,18 +163,6 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                                 yAxis: result.data.yellowvalue == null ? 0 :result.data.yellowvalue
                             }]
                         }
-                    },
-                    {
-                        name: '累计雨量',
-                        type: 'line',
-                        data: [],
-                        itemStyle: {
-                            normal: {
-                                label: {
-                                    show: true
-                                }
-                            }
-                        }
                     }
 
                 ]
@@ -182,14 +170,11 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
 
             var xAxisData = [];
             var datas = [];
-            var totalDatas = [];
             Ext.each(result.data.rainList, function(item, index) {
                 xAxisData.push( item.datekey );
                 datas.push( item.v1 );
-                totalDatas.push( item.s1 );
             });
             devicetypecompareOption.series[0].data = datas;
-            devicetypecompareOption.series[1].data = totalDatas;
             devicetypecompareOption.xAxis[0].data = xAxisData;
             thisEcharts.setOption(devicetypecompareOption);
         }

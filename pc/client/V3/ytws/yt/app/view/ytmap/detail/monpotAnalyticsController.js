@@ -15,7 +15,8 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
         'yt.view.ytmap.detail.analytics.SDT',
         'yt.view.ytmap.detail.analytics.SDYPMSLT',
         'yt.view.ytmap.detail.analytics.WYBHT',
-        'yt.view.ytmap.detail.analytics.YLZXT'
+        'yt.view.ytmap.detail.analytics.YLZXT',
+        'yt.view.ytmap.detail.analytics.LJQX'
     ],
 
     /**
@@ -50,6 +51,7 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
         // analytics-sdypmslt 散点与平面矢量图
         // analytics-ylzxt 雨量折线图
         // analytics-bhgcx 变化过程线
+        // analytics-LJQX  累计曲线
         meView.lookupReference('analyticsTabContainer').removeAll();
     },
     switchAnalyticsTab: function (deviceType) {
@@ -74,6 +76,11 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
                     },
                     {
                         xtype: 'analyticswybht',
+                        deviceCode: meView.deviceCode
+                    },
+                    {
+                        xtype: 'analyticsljqx',
+                        deviceType: 'wysb',
                         deviceCode: meView.deviceCode
                     },
                     {
@@ -132,6 +139,11 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
                     },
                     {
                         xtype: 'analyticsylzxt',
+                        deviceCode: meView.deviceCode
+                    },
+                    {
+                        xtype: 'analyticsljqx',
+                        deviceType: 'ylsb',
                         deviceCode: meView.deviceCode
                     }
                 ])
