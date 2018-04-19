@@ -121,6 +121,11 @@ Ext.define('yt.view.ytmap.detail.monpotAnalyticsController', {
                     {
                         xtype: 'analytiscbhgcx',
                         deviceCode: meView.deviceCode
+                    },
+                    {
+                        xtype: 'analyticsljqx',
+                        deviceType: 'lfsb',
+                        deviceCode: meView.deviceCode
                     }
                 ]);
                 break;

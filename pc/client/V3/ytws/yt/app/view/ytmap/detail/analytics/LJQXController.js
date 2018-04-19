@@ -57,7 +57,7 @@ Ext.define('yt.view.ytmap.detail.analytics.LJQXController', {
                 action = 'rains/echarts/hour';
                 break;
             case 'lfsb':
-                action = '';
+                action = 'crevices/echarts/hour';
                 break;
         }
 
@@ -308,7 +308,88 @@ Ext.define('yt.view.ytmap.detail.analytics.LJQXController', {
                     devicetypecompareOption.xAxis[0].data = xAxisData;
                     break;
                 case 'lfsb':// 裂缝设备
-                    devicetypecompareOption = {};
+                    devicetypecompareOption = {
+                        color: [
+                            '#387FFF'
+                        ],
+                        backgroundColor: "#ffffff",
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        grid: {
+                            top: 50,
+                            bottom: 60,
+                            left: 20,
+                            right: 70,
+                            containLabel: true
+                        },
+                        legend: {
+                            data: ['裂缝累计曲线']
+                        },
+                        calculable: false,
+                        xAxis: [{
+                            type: 'category',
+                            data: []
+                        }],
+                        yAxis: [{
+                            type: 'value',
+                            // splitArea: {
+                            //     show: true
+                            // },
+                            name: '长度(mm)',
+                            min: function (value) {
+                                return Math.floor(value.min - Math.abs(value.min) * 0.01);
+                            },
+                            max: function (value) {
+                                return Math.ceil(value.max + Math.abs(value.max) * 0.01);
+                            }
+                        }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
+                        series: [{
+                            name: '裂缝累计曲线',
+                            type: 'line',
+                            data: [],
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true
+                                    }
+                                }
+                            }
+                        }]
+                    };
+                    var xAxisData = [];
+                    var datas = [];
+                    Ext.each(result.data.creviceList, function (item, index) {
+                        xAxisData.push(item.datekey);
+                        datas.push(item.s1);
+                    });
+                    devicetypecompareOption.series[0].data = datas;
+                    devicetypecompareOption.xAxis[0].data = xAxisData;
                     break;
 
             }
