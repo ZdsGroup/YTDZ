@@ -11,24 +11,27 @@ var mv = {
             gaodeVecLayer: null,
             gaodeImageLayer: null,
             gaodeAnnoLayer: null,
+
             mapToolPanel: null,//地图工具面板
             mapWarnPanel: null,//地灾点预警信息面板
             mapDetailPanel: null,//地灾点或设备详情面板
             mapDetailPanelParam: null,//详情面板浮动参数
             mapDetailPanelInfo: null,//地灾点或设备详情信息
             isMapDetaiMaximize: false,//属性面板是否最大化
+
+            LayerGroup: null,// 地图图层组
             markerGroup: null,
-            LayerGroup: null,
-            dzMarkerGroup: null,//new L.layerGroup(),
-            jcsbMarkerGroup: null,//new L.layerGroup(),
+            dzMarkerGroup: null,// 地灾点图层group
+            jcsbMarkerGroup: null,// 检测设备图层group
             quakesRankList: null,
             devicesRankList: null,
-            highMarker: null,
+            highMarker: null,// 高亮点的marker
             jcsbMaxZoomShow: 15,
             maxZoomShow: 16,
             selDzMarker: null,
 
-            detailAddressTooltips: null
+            detailAddressTooltips: null,
+            ytBoundsLayer: null // 鹰潭边界线图层
         },
         fn: {
             initMap: function (mapid) {
@@ -56,20 +59,13 @@ var mv = {
                 mv.v.map.flyTo(L.latLng(28.23, 117.02), 10, true);//定位到鹰潭市
                 // 渲染鹰潭市的行政边界
                 var allbounds = new yt.conf.Bounds();
-                var geoLayer = L.geoJson(allbounds.YTBounds);
-                mv.v.map.on('zoomstart', function () {
-                    if (mv.v.map.hasLayer(geoLayer)) {
-                        mv.v.map.removeLayer(geoLayer);
-                    }
-                });
-                mv.v.map.on('zoomend', function () {
-                    mv.v.map.addLayer(geoLayer);
-                    //L.geoJson(allbounds.YTBounds).addTo(mv.v.map);
-                });
+                mv.v.ytBoundsLayer = L.geoJson(allbounds.YTBounds);
                 //创建地图工具栏
                 mv.fn.createMapToolPanel(mv.v.mapParentId);
                 //mv.fn.createWarnTip(mapid);
+                // 右上角的预警通知栏
                 mv.fn.createWarnPanel(mv.v.mapParentId);
+                // 获取预警信息列表
                 mv.fn.getWarnInfoList();
                 var refershMarkColor = {
                     run: mv.fn.getWarnInfoList,
@@ -77,31 +73,70 @@ var mv = {
                 };
                 //执行预警等级刷新并更新树节点显示状态
                 Ext.TaskManager.start(refershMarkColor);
-                //地灾点以及监测设备根据不同的地图级别进行显示隐藏
-                mv.v.map.on('zoomend', function () {
-                    var curLel = mv.v.map.getZoom();
-                    if (curLel < mv.v.jcsbMaxZoomShow) {
-                        if (mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == true) {
-                            mv.v.map.removeLayer(mv.v.jcsbMarkerGroup);
-                        }
-                        if (mv.v.selDzMarker != null && mv.v.dzMarkerGroup != null) {
-                            mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
-                            mv.fn.showHighMarker(mv.v.selDzMarker);
-                        }
-                    } else {
-                        if (mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) == false) {
-                            mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
-                        }
-                        if (mv.v.selDzMarker != null && mv.v.dzMarkerGroup != null && mv.v.map.hasLayer(mv.v.selDzMarker) == true) {
-                            mv.v.dzMarkerGroup.removeLayer(mv.v.selDzMarker);
-                            if (mv.v.highMarker) {
-                                mv.v.map.removeLayer(mv.v.highMarker);
-                            }
-                        }
-                    }
-                });
+                // 监听地图缩放事件
+                mv.fn.mapZoomEvent();
+                
                 // mv.fn.setWarnInfo();
             },
+
+            // 地图缩放事件监听
+            mapZoomEvent: function() {
+                // 地灾点以及监测设备根据不同的地图级别进行显示隐藏
+                mv.v.map.on('zoomstart', function () {
+                    // 隐藏边界线
+                    if (mv.v.map.hasLayer( mv.v.ytBoundsLayer )) {
+                        mv.v.map.removeLayer(mv.v.ytBoundsLayer);
+                    }
+                });
+                mv.v.map.on('zoomend', function () {
+                    // 显示过程线
+                    mv.v.map.addLayer( mv.v.ytBoundsLayer );
+
+                    var curLel = mv.v.map.getZoom();
+                    if (curLel < mv.v.jcsbMaxZoomShow) {
+                        // 当前级别小于设定的检测设备显示级别
+
+                        // 隐藏检测设备图层
+                        if ( mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) ) {
+                            mv.v.map.removeLayer(mv.v.jcsbMarkerGroup);
+                        }
+                    } else {
+                        if ( !mv.v.map.hasLayer(mv.v.jcsbMarkerGroup) ) {
+                            mv.v.map.addLayer( mv.v.jcsbMarkerGroup );
+                        }
+                    }
+
+                    mv.fn.caclulateMarkVisible();
+                });
+            },
+            // 判断当前级别选中的地灾点要素是否显示
+            caclulateMarkVisible: function () {
+                var curLel = mv.v.map.getZoom();
+                if (curLel < mv.v.jcsbMaxZoomShow) {
+                    // 如果有选中的地灾点
+                    if ( mv.v.selDzMarker != null ) {
+                        mv.v.selDzMarker.setOpacity(1);
+                        if (mv.v.highMarker) {
+                            mv.v.highMarker.setOpacity(1);
+                        }
+                    }
+                } else {
+                    if ( mv.v.selDzMarker != null ) {
+                        // 检查选中的地灾点对象是否有设备，如果有则影藏
+                        var selMarkerAttr = mv.v.selDzMarker.getAttribution();
+                        if(selMarkerAttr.children && selMarkerAttr.children.length > 0) {
+                            mv.v.selDzMarker.setOpacity(0);
+                            if (mv.v.highMarker) {
+                                mv.v.highMarker.setOpacity(0);
+                            }
+                        }
+                        if(mv.v.highMarker && mv.v.highMarker.options.type == 'jcsb') {
+                            mv.v.highMarker.setOpacity(1);
+                        }
+                    }
+                }
+            },
+
             // 计算rank对应的颜色
             calcRank: function (dzRank) {
                 switch (String(dzRank)) {
@@ -136,10 +171,8 @@ var mv = {
             createMarker: function (dataList) {
                 //地灾点
                 if (dataList && dataList instanceof Array && dataList.length > 0) {
-                    var latlngs = new Array();
-                    if (mv.v.dzMarkerGroup != null) {
-                        mv.v.dzMarkerGroup.clearLayers();
-                    }
+                    // 清楚地灾点图层组中的所有要素
+                    mv.v.dzMarkerGroup = new L.layerGroup();
                     Ext.each(dataList, function (data) {
                         if (data != null && data['children'] && data['children'].length > 0) {
                             var dzList = data['children'];
@@ -168,46 +201,48 @@ var mv = {
                                         attribution: dzData//绑定数据
                                     });
                                     dzMarker.on('click', function () {
-                                        mv.v.map.flyTo(dzMarker.getLatLng());
-                                        mv.v.isMapDetaiMaximize = false;
-                                        mv.v.mapDetailPanelParam = {
-                                            gapX: 5,
-                                            gapY: 40,
-                                            bottomY: 5,//底部间隔
-                                            w: 350,//数值或百分比，如：100%
-                                            h: 250, //地灾点-250，监测设备-172，'100%',//数值或百分比，如：100%
-                                            align: 'tr' //右上
-                                        };
-                                        if (mv.v.jcsbMarkerGroup) {
-                                            mv.v.jcsbMarkerGroup.clearLayers();
-                                        }
-                                        if (mv.v.selDzMarker) {
-                                            mv.v.dzMarkerGroup.addLayer(mv.v.selDzMarker);
-                                        }
-                                        mv.v.selDzMarker = dzMarker;
-                                        // mv.fn.showHighMarker(dzMarker);
-                                        mv.fn.dzAreaLine(dzMarker.options.attribution.coordinates);
-                                        mv.fn.showJcsbMarkersByDZ(dzMarker.options.attribution);
-
-                                        //显示属性面板
-                                        mv.fn.markClickShowDetail(dzMarker);
+                                        mv.fn.markClickCallFunc(dzMarker.options.id);
                                     });
                                     mv.v.dzMarkerGroup.addLayer(dzMarker);
-                                    latlngs.push(dzMarker.getLatLng());
                                 });
                             }
                         }
                     });
                     mv.v.map.addLayer(mv.v.dzMarkerGroup);
-                    // if (latlngs.length > 0) {
-                    //     var bounds = L.latLngBounds(latlngs).pad(0.2);
-                    //     setTimeout(function () {
-                    //         mv.v.map.flyToBounds(bounds, {
-                    //             maxZoom: mv.v.maxZoomShow
-                    //         });
-                    //     }, 500);
-                    // }
                 }
+            },
+            markClickCallFunc: function (markObjId) {
+                var findMarkLayer = null;
+                // 再添加的dzmark图层组中查找对应的mark
+                mv.v.dzMarkerGroup.eachLayer(function (markLayer) {
+                    if (markLayer.options.id === markObjId)
+                        findMarkLayer = markLayer
+                })
+                // 移动到选中的地灾点位置
+                mv.v.map.flyTo(findMarkLayer.getLatLng());
+                mv.v.isMapDetaiMaximize = false;
+                mv.v.mapDetailPanelParam = {
+                    gapX: 5,
+                    gapY: 40,
+                    bottomY: 5,//底部间隔
+                    w: 350,//数值或百分比，如：100%
+                    h: 250, //地灾点-250，监测设备-172，'100%',//数值或百分比，如：100%
+                    align: 'tr' //右上
+                };
+                mv.v.jcsbMarkerGroup.clearLayers();
+                // 设置选中的地灾点属性，设置高亮点
+                mv.v.selDzMarker = findMarkLayer;
+                mv.fn.showHighMarker(findMarkLayer,'dzd');
+                // 先将所有地灾点全部显示，再调用方法判断当前点是否显示
+                mv.v.dzMarkerGroup.eachLayer(function(item) {
+                    item.setOpacity(1);
+                })
+                mv.fn.caclulateMarkVisible();
+                // 渲染地灾点的范围
+                mv.fn.dzAreaLine(findMarkLayer.options.attribution.coordinates);
+                mv.fn.showJcsbMarkersByDZ(findMarkLayer.options.attribution,true);
+                //显示属性面板
+                mv.fn.markClickShowDetail(findMarkLayer);
             },
             markClickShowDetail: function (markObj) {
                 var showMondataType = mv.fn.calcParamByType(markObj.options.attribution);
@@ -1160,7 +1195,7 @@ var mv = {
                 }
             },
             // 从地灾点显示监测设备
-            showJcsbMarkersByDZ: function (dzInfo) {
+            showJcsbMarkersByDZ: function (dzInfo, needZoom) {
                 if (dzInfo != null && dzInfo['children'] != null) {
                     var jcsbList = dzInfo['children'];
                     if (jcsbList.length > 0) {
@@ -1186,7 +1221,7 @@ var mv = {
                             jcsbMarker.on('click', function () {
                                 mv.v.map.flyTo(jcsbMarker.getLatLng());
                                 mv.v.isMapDetaiMaximize = false;
-                                mv.fn.showHighMarker(jcsbMarker);
+                                mv.fn.showHighMarker(jcsbMarker,'jcsb');
 
                                 // 显示概要面板
                                 mv.fn.markClickShowDetail(jcsbMarker);
@@ -1196,7 +1231,7 @@ var mv = {
                         });
                         mv.v.map.addLayer(mv.v.jcsbMarkerGroup);
                         mv.fn.refreshMarkerColor();
-                        if (latlngs.length > 0) {
+                        if (latlngs.length > 0 && needZoom) {
                             var bounds = L.latLngBounds(latlngs).pad(0.2);
                             setTimeout(function () {
                                 mv.v.map.flyToBounds(bounds, {
@@ -1206,7 +1241,9 @@ var mv = {
                         }
                     }
                 } else {
-                    mv.v.map.flyTo([dzInfo['lat'], dzInfo['lng']]);
+                    if ( needZoom ) {
+                        mv.v.map.flyTo([dzInfo['lat'], dzInfo['lng']]);
+                    }
                 }
             },
             // 通过预警信息统计面板切换到详情面板-地灾点/监测设备
@@ -1250,7 +1287,7 @@ var mv = {
                 mv.v.isMapDetaiMaximize = true;
                 mv.fn.showMoreInfo(btn['action']);
             },
-            showHighMarker: function (markerObj) {
+            showHighMarker: function (markerObj, typeName) {
                 if (mv.v.highMarker == null) {
                     var pulsingIcon = L.icon.pulse({
                         iconSize: [10, 10],
@@ -1269,7 +1306,9 @@ var mv = {
                         mv.v.map.addLayer(mv.v.highMarker);
                     }
                 }
+                mv.v.highMarker.setOpacity(1);
                 mv.v.highMarker.setZIndexOffset(-100);
+                mv.v.highMarker.options.type = typeName;
             },
             isShowWarnInfos: function (warnObj) {
                 if (warnObj) {
@@ -1283,6 +1322,7 @@ var mv = {
                     if (isShow == true) {
                         mv.fn.refreshMarkerColor();
                     } else {
+                        // 不需要显示预警颜色`
                         if (mv.v.dzMarkerGroup) {
                             mv.v.dzMarkerGroup.eachLayer(function (dzLayer) {
                                 var markerIcon = L.AwesomeMarkers.icon({
@@ -1353,27 +1393,25 @@ var mv = {
             },
             refreshMarkerColor: function () {
                 // 更新地图上的 mark 点
-                if (mv.v.dzMarkerGroup != null) {
-                    mv.v.dzMarkerGroup.eachLayer(function (dzMarker) {
-                        var oldOption = dzMarker.options;
-                        var dzName = oldOption['title'];
-                        var dzCode = oldOption['id'];
-                        var markerIcon = null;
-                        Ext.each(mv.v.quakesRankList, function (quakesRankData) {
-                            if (quakesRankData.QUAKEID === dzCode) {
-                                markerIcon = L.AwesomeMarkers.icon({
-                                    icon: 'bullseye',
-                                    markerColor: mv.fn.calcRank(quakesRankData.RANK),
-                                    prefix: 'fa',
-                                    spin: false
-                                });
-                            }
-                        });
-                        if (markerIcon) {
-                            dzMarker.setIcon(markerIcon);
+                mv.v.dzMarkerGroup.eachLayer(function (dzMarker) {
+                    var oldOption = dzMarker.options;
+                    var dzName = oldOption['title'];
+                    var dzCode = oldOption['id'];
+                    var markerIcon = null;
+                    Ext.each(mv.v.quakesRankList, function (quakesRankData) {
+                        if (quakesRankData.QUAKEID === dzCode) {
+                            markerIcon = L.AwesomeMarkers.icon({
+                                icon: 'bullseye',
+                                markerColor: mv.fn.calcRank(quakesRankData.RANK),
+                                prefix: 'fa',
+                                spin: false
+                            });
                         }
-                    })
-                }
+                    });
+                    if (markerIcon) {
+                        dzMarker.setIcon(markerIcon);
+                    }
+                })
                 if (mv.v.jcsbMarkerGroup != null) {
                     mv.v.jcsbMarkerGroup.eachLayer(function (jcsbMarker) {
                         var oldOption = jcsbMarker.options;
@@ -1757,6 +1795,14 @@ Ext.define('yt.view.ytmap.YtMapController', {
     init: function () {
         mv.v.dzMarkerGroup = new L.layerGroup();
         mv.v.jcsbMarkerGroup = new L.layerGroup();
+        mv.v.mapDetailPanelParam = {
+            gapX: 5,
+            gapY: 40,
+            bottomY: 5,//底部间隔
+            w: 350,//数值或百分比，如：100%
+            h: 250, //地灾点-250，监测设备-172，'100%',//数值或百分比，如：100%
+            align: 'tr' //右上
+        };
     },
     afterlayout: function () {
         if (!mv.v.isMapAdded) {
