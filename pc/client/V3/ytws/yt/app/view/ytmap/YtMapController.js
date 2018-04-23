@@ -264,10 +264,12 @@ var mv = {
                     Ext.getCmp('mondataUserNameId').setHtml(result.data.username);// 设置负责人
                     // 预警信息统计信息
                     var warmPanel = Ext.getCmp('monWarnPanelId');
-                    warmPanel.down('button[action=warn-red]').setText("红色预警<br/>" + (result.data.alarmLevel['4']));
-                    warmPanel.down('button[action=warn-orange]').setText("橙色预警<br/>" + (result.data.alarmLevel['3']));
-                    warmPanel.down('button[action=warn-yellow]').setText("黄色预警<br/>" + (result.data.alarmLevel['2']));
-                    warmPanel.down('button[action=warn-blud]').setText("蓝色预警<br/>" + (result.data.alarmLevel['1']));
+                    if (result.data.alarmLevel) {
+                        warmPanel.down('button[action=warn-red]').setText( "红色预警<br/>" + ( result.data.alarmLevel['4'] ) );
+                        warmPanel.down('button[action=warn-orange]').setText( "橙色预警<br/>" + ( result.data.alarmLevel['3'] ) );
+                        warmPanel.down('button[action=warn-yellow]').setText( "黄色预警<br/>" + ( result.data.alarmLevel['2'] ) );
+                        warmPanel.down('button[action=warn-blud]').setText( "蓝色预警<br/>" + ( result.data.alarmLevel['1'] ) );
+                    }
                 }
 
                 function failureCallBack(response, opts) {
@@ -753,7 +755,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'warn-red',
                                         ui: 'button-red-ui',
-                                        text: '红色预警<br/>50',
+                                        text: '红色预警<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
@@ -765,7 +767,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'warn-orange',
                                         ui: 'button-orange-ui',
-                                        text: '橙色预警<br/>50',
+                                        text: '橙色预警<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
@@ -777,7 +779,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'warn-yellow',
                                         ui: 'button-yellow-ui',
-                                        text: '黄色预警<br/>50',
+                                        text: '黄色预警<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
@@ -789,7 +791,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'warn-blud',
                                         ui: 'button-blue-ui',
-                                        text: '蓝色预警<br/>50',
+                                        text: '蓝色预警<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
@@ -816,7 +818,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'lfjc',
                                         ui: 'button-device-ui',
-                                        text: '裂缝监测<br/>50',
+                                        text: '裂缝监测<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
@@ -828,7 +830,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'bmwyjc',
                                         ui: 'button-device-ui',
-                                        text: '表面位移监测<br/>50',
+                                        text: '表面位移监测<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
@@ -840,7 +842,7 @@ var mv = {
                                         xtype: 'button',
                                         action: 'yljc',
                                         ui: 'button-device-ui',
-                                        text: '雨量监测<br/>50',
+                                        text: '雨量监测<br/>0',
                                         flex: 1,
                                         listeners: {
                                             click: function (btn, evt) {
