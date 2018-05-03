@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/leaflet.awesome-markers.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/L.Icon.Pulse.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-dev/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/leaflet-awesome/leaflet.awesome-markers.css" />
+		<link rel="stylesheet" href="../../js/leaflet-awesome/L.Icon.Pulse.css" />
+		<style type="text/css">
+			.jcsb-detail-cardcontent {
+				background-color: #FFFFFF;
+				padding: 12px 15px 0px;
+				margin: 5px 0px 5px 0px;
+				overflow: hidden;
+				color: #000000 !important;
+			}
+			
+			span {
+				font-size: 16px;
+			}
+			/*图片等比自动缩放*/
+			
+			img {
+				width: auto;
+				height: 200px;
+				max-width: 100%;
+				max-height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+		</header>
+		<div class="mui-content">
+			<div id="map" style="width: 100%;height: 40%;"></div>
+			<div id="slider-pictures" class="mui-slider" style="height: 60%; ">
+				<script id="slider-item-template" type="text/html">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<img src="<%='../../'+info.photos[info.photos.length-1]%>" style="width: 100%;height: 100%;">
+						</div>
+						<% for (var i=0; i<info.photos.length; i++) { %>
+						<div class="mui-slider-item">
+							<img src="<%='../../'+info.photos[i]%>" style="width: 100%;height: 100%;">
+						</div>
+						<%}%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<img src="<%='../../'+info.photos[0]%>" style="width: 100%;height: 100%;">
+						</div>
+					</div>
+					<div class="mui-slider-indicator" style="background-color: #000000;opacity: 0.5;text-align: left;">
+						<p style="font-size: 0.8em;">
+							评论：
+							<%=info.msg%>
+						</p>
+					</div>
+				</script>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/template-native.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/leaflet-dev/leaflet-src.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/leaflet/leaflet.ChineseTmsProviders.js"></script>
+		<script type="text/javascript" src="../../js/leaflet-awesome/leaflet.awesome-markers.js"></script>
+		<script type="text/javascript" src="../../js/leaflet-awesome/L.Icon.Pulse.js"></script>
+		<script type="text/javascript" src="../../js/leaflet/KML.js"></script>
+		<script type="text/javascript" src="../../js/template-native.js"></script>
+		<script type="text/javascript" src="../../js/pages/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var data = null; //评论数据
+			var dzQueryResults = null;
+			var currentdzd = null;
+			var kmlLayer = null;
+			var dzdLayer = new L.layerGroup();
+			var markLayer = new L.LayerGroup();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				this.data = self.data;
+				this.dzQueryResults = self.dzQueryResults;
+				this.currentdzd = self.currentdzd;
+				var html = template('slider-item-template', {
+					info: data
+				});
+				document.getElementById("slider-pictures").innerHTML = html;
+				mui('.mui-title')[0].innerHTML = this.data.devname;
+				mui(".mui-slider").slider();
+				initApp();
+			});
+
+			function initApp() {
+				var me = this;
+				myMap = L.map('map', {
+					zoomControl: false,
+					attributionControl: false
+				}).fitWorld();
+
+				L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+					maxZoom: 18,
+					attribution: 'leaflet',
+					id: 'gaodem'
+				}).addTo(myMap);
+				if(data.coord != null) {
+					var coords = data.coord.split(',');
+					if(coords.length == 2) {
+						//						var iconObj = L.AwesomeMarkers.icon({
+						//							icon: 'fa-camera',
+						//							markerColor: 'blue',
+						//							prefix: 'fa',
+						//							spin: false
+						//						});
+						var pulsingIcon = L.icon.pulse({
+							iconSize: [10, 10],
+							color: '#3385FF',
+							fillColor: 'red',
+							animate: false,
+							heartbeat: 0
+						});
+						var markerObj = new L.marker([coords[0], coords[1]], {
+							icon: pulsingIcon,
+							zIndexOffset: 1
+						}).addTo(myMap);
+						markLayer.addLayer(markerObj);
+						markLayer.addTo(myMap);
+						myMap.flyTo([coords[0], coords[1]], 18);
+					}
+				}
+				kmlLayer = new L.KML("../../resources/yingtan.kml", {
+					async: true
+				});
+				//				myMap.addLayer(kmlLayer);
+				myMap.on('zoomstart', zoomStartHandler);
+				myMap.on('zoomend', zoomEndHandler);
+				showJCMarkerByDZid();
+			}
+
+			function zoomStartHandler() {
+				if(kmlLayer != null) {
+					kmlLayer.remove();
+				}
+			}
+
+			function zoomEndHandler() {
+				if(dzdLayer != null) {
+					dzdLayer.addTo(myMap);
+				}
+				if(kmlLayer != null) {
+					kmlLayer.addTo(myMap);
+				}
+			}
+
+			//地灾点的点击事件，显示该地灾点的监测设备
+			function showJCMarkerByDZid() {
+				var dzID = this.currentdzd.quakeid;
+				if(dzID != null && this.dzQueryResults != null) {
+					var quakesArr = dzQueryResults.quakes;
+					var areaT = null;
+					var latlngs = new Array();
+					for(var i = 0; i < quakesArr.length; i++) {
+						if(quakesArr[i].quakeid == dzID) {
+							areaT = mui.parseJSON(quakesArr[i].attr);
+							break;
+						}
+					}
+					for(var i = 0; i < areaT.length; i++) {
+						latlngs.push(new L.latLng(areaT[i].lat, areaT[i].lng));
+					}
+					var areaLine = L.polygon(latlngs, {
+						color: 'red',
+						weight: 2,
+						opacity: 0.5,
+						fillColor: '#cccccc',
+						fillOpacity: 0.4,
+						fill: true
+					});
+					dzdLayer.addLayer(areaLine);
+
+					var devicesArr = dzQueryResults.devices;
+					var tempArr = new Array();
+					for(var i = 0; i < devicesArr.length; i++) {
+						if(devicesArr[i].quakeid == dzID) {
+							tempArr.push(devicesArr[i]);
+						}
+					}
+					getJCMarkersLayerGroup(tempArr);
+				}
+			}
+
+			//生成markers并添加到监测设备markerlayergroup
+			function getJCMarkersLayerGroup(results, fitBounds) {
+				fitBounds = fitBounds == null ? true : fitBounds;
+				var latLngsArr = new Array();
+				var iconName = '';
+				var markColor = 'purple';
+				var level = '';
+				for(var i = 0; i < results.length; i++) {
+					level = results[i].rank;
+					if(results[i].type == 1) { //位移
+						iconName = "fa-clone icon-white";
+					} else if(results[i].type == 2) { //雨量
+						iconName = "fa-tint icon-white";
+					} else if(results[i].type == 3) { //裂缝
+						iconName = "fa-bolt icon-white";
+					}
+					markColor = getMarkerColorByWarnLevel(level);
+					if(results[i]['connectstatus'] != 0) {
+						markColor = 'gray';
+					}
+					var mId = results[i].deviceid;
+					var mType = results[i].type;
+					var mX = results[i].lat;
+					var mY = results[i].lng;
+					var mN = results[i].name;
+					var iconObj = L.AwesomeMarkers.icon({
+						icon: iconName,
+						markerColor: markColor,
+						prefix: 'fa',
+						spin: false
+					});
+					var markerObj = new L.marker([mX, mY], {
+						icon: iconObj,
+						title: mN,
+						type: mType,
+						id: mId,
+						attr: results[i]
+					}).bindPopup(mN, {
+						closeButton: false
+					});
+					dzdLayer.addLayer(markerObj);
+					latLngsArr.push(markerObj.getLatLng());
+				}
+				//				if(fitBounds == true && latLngsArr.length > 0) {
+				//					warnBounds = L.latLngBounds(latLngsArr);
+				//					setTimeout(function() {
+				//						myMap.flyTo(warnBounds.getCenter(), jcsbMaxZoomShow);
+				//					}, 500);
+				//				}
+			}
+
+			//根据不同的告警级别获取不同的颜色值
+			function getMarkerColorByWarnLevel(level) {
+				var markColor = '';
+				switch(String(level)) {
+					case '4':
+						{
+							markColor = 'red';
+							break;
+						}
+					case '3':
+						{
+							markColor = 'orange';
+							break;
+						}
+					case '2':
+						{
+							markColor = 'purple'; //就是yellow颜色
+							break;
+						}
+					case '1':
+						{
+							markColor = 'blue';
+							break;
+						}
+					case '0':
+						{
+							markColor = 'green';
+							break;
+						}
+					default:
+						{
+							markColor = 'cadetblue';
+							break;
+						}
+				}
+				return markColor;
+			}
+		</script>
+	</body>
+
+</html>

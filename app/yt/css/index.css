@@ -370,3 +370,12 @@
 .ui-front {
 	z-index: 1500!important;
 }
+
+.mui-table-view:after,
+.mui-table-view:before{
+	height: 0!important;
+}
+.commentPic{
+	width: 60px!important;
+	height: 80px!important;
+}

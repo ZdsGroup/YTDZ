@@ -16,6 +16,12 @@ var warnInfoIsShow = false;
 var userId = 1;
 var localMarker = null;
 var kmlLayer = null;
+//当前选择的地图对象，地灾点or监测设备
+var selectType = null;
+//保存当前选择的地灾点
+var currentDzd = null;
+//保存当前选择的监测设备
+var currentSb = null;
 
 mui.init({
 	gestureConfig: {
@@ -198,9 +204,9 @@ function queryWarnInfoNum() {
 	mui.myMuiQuery(action, queryParam,
 		function(results) {
 			if(results.code == 0 && results.data) {
-				if (results.data.total == 0) {
+				if(results.data.total == 0) {
 					mui('#info-num-container')[0].style.display = "none";
-				}else if(results.data.total > 99) {
+				} else if(results.data.total > 99) {
 					mui('#info-num')[0].innerHTML = '99+';
 				} else {
 					mui('#info-num')[0].innerHTML = results.data.total;
@@ -375,7 +381,7 @@ var initEvent = function() {
 		var toolFloatContainer = mui("#toolFloatContainer")[0];
 		toolFloatContainer.classList.add("mui-hidden");
 	});
-		mui("#search-input-id")[0].addEventListener("onblur", function() {
+	mui("#search-input-id")[0].addEventListener("onblur", function() {
 		var toolFloatContainer = mui("#toolFloatContainer")[0];
 		toolFloatContainer.classList.remove("mui-hidden");
 	})
@@ -672,12 +678,25 @@ function changeMapStatus() {
 	}
 }
 
+//点击评论跳转到评论详情页面
 function initComentList() {
 	setTimeout(function() {
 		var html = template('com-ul-li-template', {
 			list: commentListData
 		});
 		document.getElementById("commullist").innerHTML = html;
+		mui('#commullist').on('tap', '#commullist>li', function(evt) {
+			var index = this.getAttribute("data-item");
+			var info = {
+				url: 'pages/dzd/commentinfo.html',
+				extras: {
+					data: commentListData[index], //评论数据
+					dzQueryResults: dzQueryResults, //地灾点查询结果数据
+					currentdzd: currentDzd //当前选择的地灾点
+				}
+			};
+			mui.openWindow(info);
+		});
 	}, 500);
 }
 
@@ -690,7 +709,9 @@ function showWarnDZMarksOnMap() {
 		myMap.addLayer(dzMarkersLayerGroup);
 	} else {
 		var action = "quakes/all/" + userId;
-		var param = {hours:24};
+		var param = {
+			hours: 24
+		};
 		mui.myMuiQuery(action, param,
 			function(results) {
 				if(results != null && results.data && results.data.quakes.length > 0) {
@@ -715,12 +736,6 @@ function showWarnDZMarksOnMap() {
 	}
 }
 
-//当前选择的地图对象，地灾点or监测设备
-var selectType = null;
-//保存当前选择的地灾点
-var currentDzd = null;
-//保存当前选择的监测设备
-var currentSb = null;
 //生成markers并添加到地灾markerlayergroup
 function getDZMarkersLayerGroup(results, isWarn) {
 	var latLngsArr = new Array();
@@ -861,14 +876,17 @@ function getJCMarkersLayerGroup(results, fitBounds) {
 	var level = '';
 	for(var i = 0; i < results.length; i++) {
 		level = results[i].rank;
-		if (results[i].type ==1){//位移
-		iconName = "fa-clone icon-white";
-		} else if (results[i].type ==2) { //雨量
+		if(results[i].type == 1) { //位移
+			iconName = "fa-clone icon-white";
+		} else if(results[i].type == 2) { //雨量
 			iconName = "fa-tint icon-white";
-		} else if (results[i].type ==3) { //裂缝
+		} else if(results[i].type == 3) { //裂缝
 			iconName = "fa-bolt icon-white";
 		}
 		markColor = getMarkerColorByWarnLevel(level);
+		if(results[i]['connectstatus'] != 0) {
+			markColor = 'gray';
+		}
 		var mId = results[i].deviceid;
 		var mType = results[i].type;
 		var mX = results[i].lat;
