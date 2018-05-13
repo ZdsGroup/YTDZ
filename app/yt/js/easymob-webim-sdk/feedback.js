@@ -141,7 +141,7 @@
 		placeholder.appendChild(closeButton);
 		placeholder.appendChild(up);
 		placeholder.appendChild(fileInput);
-		feedback.imageList.appendChild(placeholder);
+		//feedback.imageList.appendChild(placeholder);
 	};
 	feedback.newPlaceholder();
 	feedback.submitBtn.addEventListener('tap', function(event) {

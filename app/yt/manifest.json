@@ -219,7 +219,10 @@
 					"js/leaflet-dev/leaflet-src.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"pages/map.html"
+					"pages/map.html",
+					"/images/photos/1.jpg",
+					"/images/photos/2.jpg",
+					"/images/photos/3.jpg"
 				],
 				"refer": [
 					"pages/list.html",
@@ -246,7 +249,9 @@
 					"pages/dzd/comment.html",
 					"pages/common/gjxxzx.html",
 					"pages/jcsb/jcsb.html",
-					"pages/jcsb/lfjc2.html"
+					"pages/jcsb/lfjc2.html",
+					"pages/jcsb/commentinfo.html",
+					"pages/dzd/commentinfo.html"
 				],
 				"priority": 0
 			},
@@ -392,6 +397,15 @@
 					"index.html",
 					"pages/common/search.html"
 				],
+				"priority": 0
+			},
+			"pages/jcsb/commentinfo.html": {
+				"resources": [
+					"/images/photos/1.jpg",
+					"/images/photos/2.jpg",
+					"/images/photos/3.jpg"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

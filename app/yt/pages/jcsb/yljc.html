@@ -181,10 +181,32 @@
 							</div>
 						</form>
 					</div>
+					<!--累计曲线图-->
+					<div class="mui-control-content">
+						<div id="device-rain-leiji" class="chart-container">
+						</div>
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>开始时间：</label>
+									<div id="ytljstartdt" class="ytdatepick" data-options='{"type":"hour"}'>2017-12-7 18</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>结束时间：</label>
+									<div id="ytljenddt" class="ytdatepick" data-options='{"type":"hour"}'>2017-12-8 18</div>
+								</a>
+							</div>
+							<div style="text-align: center;">
+								<button id="deviceTypeBt" type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">查询</button>
+							</div>
+						</form>
+					</div>
 					<div class="mui-control-content">
 						<div class="mui-table">
 							<span class="mui-table-cell mui-col-xs-8 mui-text-left" style="position: relative; left: 15px;">时间</span>
-							<span class="mui-table-cell mui-col-xs-4 mui-text-left">雨量[mm]</span>
+							<span class="mui-table-cell mui-col-xs-4 mui-text-left">雨量[ml]</span>
 						</div>
 						<div id="pullrefresh" class="mui-scroll-wrapper yt-relative" style="height: calc(100vh - 220px);top: 5px;">
 							<div class="mui-scroll">

@@ -65,13 +65,15 @@
 									<p>
 										<span class="">
 										<i class="fa fa-map-marker fa-fw"></i>
-										<%=info.address%>
+										<%=info.address == '' ? '暂无地址信息' : info.address%>
 										</span>
 									</p>
 									<%}else{%>
 									<p id='<%=type%>_<%=info.id%>'>
 										<span class="yt-normal-color" style="font-size: 1.2em;"><%=info.name%></span>
-										<%if (info.rank=='0') {%>
+										<%if (info.connectstatus != 0) {%>
+										<span style="color: red;padding-left: 0.1em;">(设备离线)</span>
+										<%}else if (info.rank=='0') {%>
 										<span style="color: green;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
 										<%}else if (info.rank=='1'){%>
 										<span style="color: blue;padding-left: 0.1em;">(预警等级 <%=info.rank%> 级)</span>
@@ -171,7 +173,12 @@
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="3" label="数据列表">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="3" label="累计曲线">
+														<a href="#"><img class="mui-media-object" src="images/leiji.png">
+															<div class="mui-media-body">累计曲线</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="3" label="数据列表">
 														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
 															<div class="mui-media-body">数据列表</div>
 														</a>
@@ -211,36 +218,45 @@
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="1" label="断面曲线">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="1" label="累计曲线">
+														<a href="#"><img class="mui-media-object" src="images/leiji.png">
+															<div class="mui-media-body">累计曲线</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="1" label="断面曲线">
 														<a href="#"><img class="mui-media-object" src="images/section.png">
 															<div class="mui-media-body">断面曲线</div>
 														</a>
 													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="1" label="速度图">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="6" tp="1" label="速度图">
 														<a href="#"><img class="mui-media-object" src="images/movespeed.png">
 															<div class="mui-media-body">速度图</div>
-														</a>
-													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="6" tp="1" label="加速度图">
-														<a href="#"><img class="mui-media-object" src="images/speed.png">
-															<div class="mui-media-body">加速度图</div>
 														</a>
 													</li>
 												</ul>
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="7" tp="1" label="散点图">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="7" tp="1" label="加速度图">
+														<a href="#"><img class="mui-media-object" src="images/speed.png">
+															<div class="mui-media-body">加速度图</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="8" tp="1" label="散点图">
 														<a href="#"><img class="mui-media-object" src="images/scatter.png">
 															<div class="mui-media-body">散点图</div>
 														</a>
 													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="8" tp="1" label="平面矢量图">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="9" tp="1" label="平面矢量图">
 														<a href="#"><img class="mui-media-object" src="images/vector.png">
 															<div class="mui-media-body">平面矢量图</div>
 														</a>
 													</li>
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="9" tp="1" label="数据列表">
+												</ul>
+											</div>
+											<div class="mui-slider-item">
+												<ul class="mui-table-view mui-grid-view">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="10" tp="1" label="数据列表">
 														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
 															<div class="mui-media-body">数据列表</div>
 														</a>
@@ -280,7 +296,12 @@
 											</div>
 											<div class="mui-slider-item">
 												<ul class="mui-table-view mui-grid-view">
-													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="2" label="雨量报表">
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="2" label="累计曲线">
+														<a href="#"><img class="mui-media-object" src="../../images/leiji.png">
+															<div class="mui-media-body">累计曲线</div>
+														</a>
+													</li>
+													<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="2" label="雨量报表">
 														<a href="#"><img class="mui-media-object" src="images/reportlist.png">
 															<div class="mui-media-body">雨量报表</div>
 														</a>
@@ -396,14 +417,26 @@
 							<ul id="commullist" class="mui-table-view" style="font-size: 1em;">
 								<script id="com-ul-li-template" type="text/html">
 									<% for(var i=0;i<list.length;i++){%>
-									<li id='<%=list[i].type%>_<%=list[i].id%>' class="mui-table-view-cell">
+									<li class="mui-table-view-cell" data-item=<%=i%>>
 										<div class="mui-slider-cell">
-											<style="font-size: 1em;">
-												<%=list[i].name%>
-												</p>
-												<p style="font-size: 0.8em;">
-													<%=list[i].msg%>
-												</p>
+											<p style="font-size: 1em;color: #000000;">
+												<%=list[i].devname%>
+											</p>
+											<p style="font-size: 0.8em;">
+												评论：<%=list[i].msg%>
+											</p>
+											<p style="font-size: 0.8em;">
+												坐标：<%=list[i].coord%>
+											</p>
+										</div>
+										<div>
+											<ul class="pic mui-table-view mui-grid-view">
+												<%for(var j=0;j<list[i].photos.length;j++){ %>
+												<li class="mui-table-view-cell mui-media mui-col-xs-4">
+													<img class="mui-media-object commentPic" src="<%=list[i].photos[j]%>">
+												</li>
+												<%}%>
+											</ul>
 										</div>
 									</li>
 									<%}%>
