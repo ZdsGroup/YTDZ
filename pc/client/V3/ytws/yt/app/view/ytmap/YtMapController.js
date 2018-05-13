@@ -27,7 +27,7 @@ var mv = {
             devicesRankList: null,
             highMarker: null,// 高亮点的marker
             jcsbMaxZoomShow: 15,
-            maxZoomShow: 16,
+            maxZoomShow: 18,
             selDzMarker: null,
 
             detailAddressTooltips: null,
@@ -158,6 +158,11 @@ var mv = {
                     }
                     case '0': {
                         markColor = 'green';
+                        break;
+                    }
+                    case '9': {
+                        // 特殊，离线rank
+                        markColor = 'gray';
                         break;
                     }
                     default: {
@@ -1368,6 +1373,12 @@ var mv = {
                             }
                             if (rankList['deviceList'] != null) {
                                 mv.v.devicesRankList = rankList['deviceList'];
+                                // 优先处理，判断设备是否连接异常，异常就将rank值改为9
+                                Ext.each(mv.v.devicesRankList, function (devicesRankData) {
+                                    if ( String( devicesRankData.CONNECTSTATUS ) === '1') {
+                                        devicesRankData.RANK = 9;
+                                    }
+                                });
                             }
                             //设置地图预警banner信息
                             mv.fn.setWarnInfo();
@@ -1419,7 +1430,10 @@ var mv = {
                         var markerIcon = null;
                         Ext.each(mv.v.devicesRankList, function (devicesRankData) {
                             if (devicesRankData.DEVICEID === jcsbCode) {
-                                markerIcon = mv.fn.refreshJCSBIcon(jcsbMarker.getAttribution().deviceType, devicesRankData.RANK);
+                                markerIcon = mv.fn.refreshJCSBIcon(
+                                    jcsbMarker.getAttribution().deviceType,
+                                    devicesRankData.RANK
+                                );
                             }
                         });
                         if (markerIcon) {
@@ -1526,6 +1540,10 @@ var mv = {
                             node.set('iconCls', iconCls + ' red-cls');
                             node.set('rank', 4);
                             break;
+                        case 9:
+                            node.set('iconCls', iconCls + ' gray-cls');
+                            node.set('rank', 9);
+                            break;
                     }
                 }
 
@@ -1564,6 +1582,12 @@ var mv = {
                     case 4:
                         mdrid.setSelectedStyle('color:red;');
                         mdrid.setOverStyle('color:red;');
+                        break;
+                    case 9:
+                    // rank 为 9 则设备离线，不显示等级
+                        mdrid.setValue(0);
+                        mdrid.setLimit(0);
+                        mdrid.setMinimum(0);
                         break;
                 }
             },

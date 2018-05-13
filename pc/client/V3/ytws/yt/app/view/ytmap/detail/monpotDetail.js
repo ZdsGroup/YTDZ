@@ -336,35 +336,30 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                         "userName": '用户1',
                         "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
                         "createtime": "2017-12-19 18:50:21",
-                        "readNum": "120",
                         "repeat": "已回复"
                     },
                     {
                         "userName": '用户2',
                         "content": "该地灾点设备被破坏，请尽快安排人员维修！",
                         "createtime": "2017-12-20 07:50:21",
-                        "readNum": "70",
                         "repeat": "正在处理"
                     },
                     {
                         "userName": '用户3',
                         "content": "有了这种地灾监测设备，可以实时报警，很好！",
                         "createtime": "2017-12-21 16:50:21",
-                        "readNum": "180",
                         "repeat": "已回复"
                     },
                     {
                         "userName": '用户4',
                         "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
                         "createtime": "2017-12-21 18:50:21",
-                        "readNum": "100",
                         "repeat": "已回复"
                     },
                     {
                         "userName": '用户5',
                         "content": "巡查时发现设备太脏了，安排人员过来清理。",
                         "createtime": "2017-12-30 18:47:21",
-                        "readNum": "120",
                         "repeat": "未处理"
                     }
                 ]
@@ -405,17 +400,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
 
                     xtype: 'datecolumn',
                     format: 'Y-m-d h:i:s'
-                },
-                {
-                    text: '阅读量',
-                    dataIndex: 'readNum',
-
-                    width: 70,
-                    align: 'center',
-                    hideable: false,
-                    menuDisabled: true,
-                    resizable: false,
-                    sortable: false
                 },
                 {
                     text: '状态',
