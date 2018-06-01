@@ -125,14 +125,14 @@ Ext.define('yt.view.mondata.MonDataController', {
                 {
                     meView.lookupReference('monLFYLDataGridRef').setHidden(false);
                     meView.lookupReference('monWYDataGridRef').setHidden(true);
-                    // 加上裂缝和雨量设备的单位，裂缝mm 雨量ml
+                    // 加上裂缝和雨量设备的单位，裂缝mm 雨量mm
                     var isLFSB = monType === 'lfjc' ? true : false;
                     var dataArr = result['data']['rows'];
                     for(var index = 0; index < dataArr.length; index++){
                         if(isLFSB)
                             dataArr[index].v1 = dataArr[index].v1 + ' mm';
                         else
-                            dataArr[index].v1 = dataArr[index].v1 + ' ml';
+                            dataArr[index].v1 = dataArr[index].v1 + ' mm';
                     }
                     meView.lookupReference('monLFYLDataGridRef').setStore(
                         new Ext.data.Store({

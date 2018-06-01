@@ -251,7 +251,8 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     sortable: false,
                     align: 'center'
                 }, {
-                    dataIndex: 'content',
+                    // dataIndex: 'content',
+                    dataIndex: 'alarmv',
                     text: '详细信息',
                     flex: 3,
 
@@ -259,7 +260,11 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     menuDisabled: true,
                     resizable: false,
                     sortable: false,
-                    align: 'center'
+                    align: 'center',
+
+                    renderer: function(value) {
+                        return '和基准站比较达 ' + value + ' MM';
+                    }
                 },{
                     dataIndex: 'alarmtime',
                     text: '预警时间',
