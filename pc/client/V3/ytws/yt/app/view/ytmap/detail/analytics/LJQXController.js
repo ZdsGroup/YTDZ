@@ -252,7 +252,7 @@ Ext.define('yt.view.ytmap.detail.analytics.LJQXController', {
                             // splitArea: {
                             //     show: true
                             // },
-                            name: '雨量(ml)',
+                            name: '雨量(mm)',
                             min: function (value) {
                                 return Math.floor(value.min - Math.abs(value.min) * 0.01);
                             },
