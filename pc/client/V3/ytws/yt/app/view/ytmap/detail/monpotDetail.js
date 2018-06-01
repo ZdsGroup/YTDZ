@@ -431,7 +431,34 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     resizable: false,
                     sortable: false
                 }
-            ]
+            ],
+
+            listeners: {
+                rowclick: function(thisExt, record, element, rowIndex, e, eOpts){
+                    if(e.target.dataset.qtip === '详情'){
+                        var winOption = {
+                            title: "详情",
+                            width: Ext.getBody().getWidth() - 20,
+                            height: Ext.getBody().getHeight() - 20,
+                            layout: {
+                                type: 'vbox',
+                                align: 'stretch'
+                            },
+                            modal: true,
+                            closable: true,
+                            closeAction: 'method-hide',
+                            maximizable: true,
+                            minimizable: false,
+                            resizable: true,
+                            items: [
+                                
+                            ]
+                        }
+
+                        Ext.create("Ext.window.Window", winOption).show();
+                    }
+                }
+            }
         }
     ]
 });
