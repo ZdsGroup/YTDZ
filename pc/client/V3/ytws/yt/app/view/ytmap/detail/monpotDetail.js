@@ -42,7 +42,9 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
         'Ext.panel.Panel',
         'yt.plugin.ImageSwiper',
         'yt.view.ytmap.detail.DetailViewModel',
-        'yt.view.ytmap.detail.monpotDetailController'
+        'yt.view.ytmap.detail.monpotDetailController',
+        'yt.view.ytmap.detail.QCQFDetail',
+        'yt.utils.CustomPageToolBar'
     ],
 
     layout: {
@@ -314,6 +316,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
 
         {
             xtype: 'gridpanel',
+            reference: 'qcqfGridPanel',
             title: '群测群防',
             ui: 'map-detail-secend-panel-ui',
             iconCls: 'fa fa-comment',
@@ -333,34 +336,10 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
             store: {
                 data: [
                     {
-                        "userName": '用户1',
+                        "username": '用户1',
                         "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
                         "createtime": "2017-12-19 18:50:21",
-                        "repeat": "已回复"
-                    },
-                    {
-                        "userName": '用户2',
-                        "content": "该地灾点设备被破坏，请尽快安排人员维修！",
-                        "createtime": "2017-12-20 07:50:21",
-                        "repeat": "正在处理"
-                    },
-                    {
-                        "userName": '用户3',
-                        "content": "有了这种地灾监测设备，可以实时报警，很好！",
-                        "createtime": "2017-12-21 16:50:21",
-                        "repeat": "已回复"
-                    },
-                    {
-                        "userName": '用户4',
-                        "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
-                        "createtime": "2017-12-21 18:50:21",
-                        "repeat": "已回复"
-                    },
-                    {
-                        "userName": '用户5',
-                        "content": "巡查时发现设备太脏了，安排人员过来清理。",
-                        "createtime": "2017-12-30 18:47:21",
-                        "repeat": "未处理"
+                        "state": "已回复"
                     }
                 ]
             },
@@ -378,7 +357,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                 },
                 {
                     text: '用户名',
-                    dataIndex: 'userName',
+                    dataIndex: 'username',
 
                     width: 180,
                     align: 'center',
@@ -403,14 +382,18 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                 },
                 {
                     text: '状态',
-                    dataIndex: 'repeat',
+                    dataIndex: 'state',
 
                     width: 90,
                     align: 'center',
                     hideable: false,
                     menuDisabled: true,
                     resizable: false,
-                    sortable: false
+                    sortable: false,
+                    renderer: function(value){
+                        return value === 1 ? '已处置' : '未处置';
+                    }
+                    
                 },
                 {
                     xtype: 'actioncolumn',
@@ -433,31 +416,17 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                 }
             ],
 
-            listeners: {
-                rowclick: function(thisExt, record, element, rowIndex, e, eOpts){
-                    if(e.target.dataset.qtip === '详情'){
-                        var winOption = {
-                            title: "详情",
-                            width: Ext.getBody().getWidth() - 20,
-                            height: Ext.getBody().getHeight() - 20,
-                            layout: {
-                                type: 'vbox',
-                                align: 'stretch'
-                            },
-                            modal: true,
-                            closable: true,
-                            closeAction: 'method-hide',
-                            maximizable: true,
-                            minimizable: false,
-                            resizable: true,
-                            items: [
-                                
-                            ]
-                        }
-
-                        Ext.create("Ext.window.Window", winOption).show();
-                    }
+            bbar: {
+                xtype: 'Custompagetoolbar',
+                displayInfo: true,
+                bind: '{QCQFGridPageStore}',
+                listeners: {
+                    beforechange: 'qcqfGridPageChange'
                 }
+            },
+
+            listeners: {
+                rowclick: 'qcqfGridRowClick'
             }
         }
     ]

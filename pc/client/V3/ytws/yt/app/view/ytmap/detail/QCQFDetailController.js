@@ -1,0 +1,83 @@
+Ext.define('yt.view.ytmap.detail.QCQFDetailController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.QCQFDetailController',
+
+    /**
+     * Called when the view is created
+     */
+    init: function() {
+
+    },
+
+    afterRendererFunction: function() {
+        var me = this;
+        var meview = this.getView();
+
+        // 获取评论详细信息
+        var action = 'comments/' + meview.getQCQFId();
+        var mask = ajax.fn.showMask( meview, '数据加载中...');
+
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if(!result['data']) return;
+
+            me.getViewModel().set('QCQFDetailData',result['data']);
+
+            // 处理 图片轮播组件展示的图片
+            var imageArr = result['data']['image'].toString().split(';');
+            var formateimageArr = [];
+            for (var i = 0; i < imageArr.length; i++) {
+                formateimageArr.push(
+                    {
+                        url: imageArr[i]
+                    }
+                )
+            };
+            meview.lookupReference('imgswiper').insertImage(
+                formateimageArr
+            )
+            // 处置 button 的处理
+            meview.lookupReference('stateButton').setText(result['data']['state'] ? '已处置' : '处置');
+        }
+
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+
+        // ajax.fn.executeV2({}, 'GET', 'http://182.92.2.91:8081/oracle/' + action, successCallBack, failureCallBack);
+        ajax.fn.executeV2({}, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
+    },
+
+    changeDetailState() {
+        var me = this;
+        var meview = me.getView();
+        // 状态只能由未处置变成处置，即 0 -> 1
+        var action = 'comments/' + meview.getQCQFId() + '/1';
+        var mask = ajax.fn.showMask( meview, '处置评论中...');
+        function successCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+            //查询结果转json对象
+            var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+            if(result.code === 0) {
+                // 如果处置成功，修改button状态
+                // 处置 button 的处理
+                meview.lookupReference('stateButton').setText('已处置');
+                meview.lookupReference('stateButton').setDisabled(true);
+
+                // 刷新展示的面板数据
+                var fatherpanel = Ext.getCmp('dzDetailContainerID').query('monpot-detail')[0];
+                var fathercontroller = fatherpanel.getController();
+                var fatherViewModel = fatherpanel.getViewModel();
+                fathercontroller.qcqfGridListQuery( fatherViewModel.get('QCQFGridPageStore')['currentPage'] );
+            }
+        }
+        function failureCallBack(response, opts) {
+            ajax.fn.hideMask(mask);
+        }
+        // ajax.fn.executeV2({}, 'POST', 'http://182.92.2.91:8081/oracle/' + action, successCallBack, failureCallBack);
+        ajax.fn.executeV2({}, 'POST', conf.serviceUrl + action, successCallBack, failureCallBack);
+    }
+});
