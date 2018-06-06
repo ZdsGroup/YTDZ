@@ -10,7 +10,7 @@
 		"name": "1.0.2",/*应用版本名称*/
 		"code": "83"
 	},
-	"description": "",/*应用描述信息*/
+	"description": "鹰潭地灾",/*应用描述信息*/
 	"icons": {
 		"72": "icon.png"
 	},
@@ -209,7 +209,7 @@
 					"xxhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png"
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false,"spot":true},"adid":""
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":true}
 	},
 	"dependencies": {
 		"pages": {

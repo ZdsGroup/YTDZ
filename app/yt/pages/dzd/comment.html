@@ -4,9 +4,21 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>feedback</title>
+		<title>comment</title>
 		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/feedback-page.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yt.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<style type="text/css">
+			#submit {
+				width: 90%;
+				height: 46px;
+				left: 50%;
+				-webkit-transform: translate(-50%);
+			}
+		</style>
 	</head>
 
 	<body>
@@ -15,33 +27,105 @@
 			<h1 class="mui-title">群测群防</h1>
 		</header>
 		<div class="mui-content">
+			<form class="mui-input-group">
+				<div id="deviceSel" class="mui-input-row">
+					<a class="mui-navigate-right">
+						<label>上报设备：</label>
+						<div id="deviceId" style="position:relative;top: 10px;"></div>
+					</a>
+				</div>
+			</form>
 			<p>问题</p>
 			<div class="row mui-input-row">
 				<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
 			</div>
+			<p>联系电话</p>
+			<div class="mui-input-row">
+				<input id='contact' type="text" class="mui-input-clear contact" placeholder="(留下联系方式,方便我们联系你 )" />
+			</div>
 			<p>图片(选填,提供问题截图)</p>
 			<div id='image-list' class="row image-list">
 			</div>
-		    <p>上报点坐标</p>
-			<div>
-				<div class="mui-col-xs-10">
-				<ul >
-					<li>经度：<input type="text"/></li>
-					<li>纬度：<input type="text"/></li>
-				</ul>
+			<p>上报点坐标</p>
+			<div class="mui-row">
+				<div class="mui-col-xs-9">
+					<div class="mui-input-row">
+						<label>经度:</label>
+						<input id="lng" type="text" style="background-color: #FFFFFF" />
+					</div>
+					<div class="mui-input-row" style="padding-top: 5px;">
+						<label>纬度:</label>
+						<input id="lat" type="text" style="background-color: #FFFFFF" />
+					</div>
 				</div>
-				<div class="mui-col-xs-2">
+				<div class="mui-col-xs-2" style="left: 20px;">
+					<button id="location" type="button" class="mui-btn mui-btn-outlined maptoolfont yt-locate" style="top: 20px;border-radius: 24px; height: 36px;width: 36px;"></button>
 				</div>
 			</div>
 			<button id='submit' type="button" class="mui-btn mui-btn-green">提交</button>
 		</div>
 		<script src="../../js/mui.min.js"></script>
-		<script src='../../js/easymob-webim-sdk/jquery-1.11.1.js'></script>
-		<script src='../../js/easymob-webim-sdk/strophe-custom-2.0.0.js'></script>
-		<script src='../../js/easymob-webim-sdk/json2.js'></script>
-		<script src="../../js/easymob-webim-sdk/easemob.im-1.0.5.js"></script>
-		<script src='../../js/easymob-webim-sdk/feedback.js'></script>
-		<script src="../../js/easymob-webim-sdk/feedback-page.js"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src='../../js/feedback.js'></script>
+		<script type="text/javascript">
+			var dzQueryResults = null;
+			var currentdzd = null;
+			var selectJCSB = '';
+			
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var self = plus.webview.currentWebview();
+					this.dzQueryResults = self.dzQueryResults;
+					this.currentdzd = self.currentdzd;
+					//普通示例
+
+					var dzID = this.currentdzd.quakeid;
+					var devicesArr = dzQueryResults.devices;
+					var tempArr = new Array();
+					for(var i = 0; i < devicesArr.length; i++) {
+						if(devicesArr[i].quakeid == dzID) {
+							tempArr.push({
+								value: devicesArr[i].deviceid,
+								text: devicesArr[i].name
+							});
+						}
+					}
+					var devicePicker = new $.PopPicker();
+					devicePicker.setData(tempArr);
+					var deviceSel = doc.getElementById('deviceSel');
+					var deviceId = doc.getElementById('deviceId');
+					deviceSel.addEventListener('tap', function(event) {
+						devicePicker.show(function(items) {
+							deviceId.innerText = items[0].text;
+							selectJCSB = items[0].value;
+						});
+					}, false);
+
+					//获取坐标
+					plus.geolocation.getCurrentPosition(translatePoint, function(e) {
+						mui.toast("异常:" + e.message);
+					});
+
+					//点击位置更新按钮，更新坐标
+					var location = doc.getElementById('location');
+					location.addEventListener('tap', function(event) {
+						plus.geolocation.getCurrentPosition(translatePoint, function(e) {
+							mui.toast("异常:" + e.message);
+						});
+					}, false);
+
+					//当前位置  
+					function translatePoint(position) {
+						var lng = doc.getElementById('lng');
+						var lat = doc.getElementById('lat');
+						lng.value = position.coords.longitude;
+						lat.value = position.coords.latitude;
+					}
+				});
+			})(mui, document);
+		</script>
 	</body>
 
 </html>

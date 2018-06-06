@@ -373,8 +373,6 @@ var initEvent = function() {
 		me.showFooterPanel(ytFooterHeight);
 		//地图大小变化
 		changeMapStatus();
-		//初始化评论列表
-		initComentList();
 	});
 
 	mui("#search-input-id")[0].addEventListener("onfocus", function() {
@@ -486,7 +484,11 @@ var initEvent = function() {
 		if(objcomm) {
 			mui.openWindow({
 				url: 'pages/dzd/comment.html',
-				id: 'comment-info'
+				id: 'comment-info',
+				extras: {
+					dzQueryResults: dzQueryResults, //地灾点查询结果数据
+					currentdzd: currentDzd, //当前选择的地灾点
+				}
 			});
 			return
 		}
@@ -680,24 +682,40 @@ function changeMapStatus() {
 
 //点击评论跳转到评论详情页面
 function initComentList() {
-	setTimeout(function() {
-		var html = template('com-ul-li-template', {
-			list: commentListData
-		});
-		document.getElementById("commullist").innerHTML = html;
-		mui('#commullist').on('tap', '#commullist>li', function(evt) {
-			var index = this.getAttribute("data-item");
-			var info = {
-				url: 'pages/dzd/commentinfo.html',
-				extras: {
-					data: commentListData[index], //评论数据
-					dzQueryResults: dzQueryResults, //地灾点查询结果数据
-					currentdzd: currentDzd //当前选择的地灾点
-				}
-			};
-			mui.openWindow(info);
-		});
-	}, 500);
+	var action = "comments";
+	var queryParam = {};
+	queryParam.quakeid = currentDzd.quakeid
+	mui.myMuiQuery(action, queryParam,
+		function(results) {
+			if(results != null && results.data.rows.length > 0) {
+				mui.each(results.data.rows, function(index, item) {
+					if(item.image != null) {
+						item.image = item.image.split(';');
+					}
+				})
+				var html = template('com-ul-li-template', {
+					list: results.data.rows
+				});
+				document.getElementById("commullist").innerHTML = html;
+				mui('#commullist').on('tap', '#commullist>li', function(evt) {
+					var index = parseInt(this.getAttribute("data-item"));
+					var info = {
+						url: 'pages/dzd/commentinfo.html',
+						extras: {
+							data: results.data.rows[index], //评论数据
+							dzQueryResults: dzQueryResults, //地灾点查询结果数据
+							currentdzd: currentDzd //当前选择的地灾点
+						}
+					};
+					mui.openWindow(info);
+				});
+			}
+		},
+		function() {
+			mui.myMuiQueryErr('查询失败，请稍后再试！');
+			dzQueryResults = null;
+		}
+	)
 }
 
 //显示告警对象
@@ -757,6 +775,17 @@ function getDZMarkersLayerGroup(results, isWarn) {
 		var mId = results[i].quakeid;
 		var mType = 'dzd';
 		var picker = mui.parseJSON(results[i].centroid);
+		//		var picker = null;
+		//		if(results[i].quakeid == 100000) {
+		//			picker = {
+		//				"latitude": 28.225979618836536,
+		//				"longitude": 117.17275110731283
+		//			};
+		//			results[i].attr = '[{"lng":"117.17275110731283","lat":"28.225979618836536"}]'
+		//		} else {
+		//			continue;
+		//		}
+
 		var mX = picker.latitude;
 		var mY = picker.longitude;
 		var mN = results[i].name;
@@ -775,6 +804,8 @@ function getDZMarkersLayerGroup(results, isWarn) {
 			setFooterContentByInfo(e.target.options.type, e.target.options.id);
 			checkFtstar(currentDzd.favostatus);
 			showFooterPanel(footerHeight);
+			//初始化评论列表
+			initComentList();
 		});
 		dzMarkersLayerGroup.addLayer(markerObj);
 		latLngsArr.push(markerObj.getLatLng());

@@ -50,21 +50,21 @@
 					<div class="mui-slider-group mui-slider-loop">
 						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 						<div class="mui-slider-item mui-slider-item-duplicate">
-							<img src="<%='../../'+info.photos[info.photos.length-1]%>" style="width: 100%;height: 100%;">
+							<img src="<%=info.image[info.image.length-1]%>" style="width: 100%;height: 100%;">
 						</div>
-						<% for (var i=0; i<info.photos.length; i++) { %>
+						<% for (var i=0; i<info.image.length; i++) { %>
 						<div class="mui-slider-item">
-							<img src="<%='../../'+info.photos[i]%>" style="width: 100%;height: 100%;">
+							<img src="<%=info.image[i]%>" style="width: 100%;height: 100%;">
 						</div>
 						<%}%>
 						<div class="mui-slider-item mui-slider-item-duplicate">
-							<img src="<%='../../'+info.photos[0]%>" style="width: 100%;height: 100%;">
+							<img src="<%=info.image[0]%>" style="width: 100%;height: 100%;">
 						</div>
 					</div>
 					<div class="mui-slider-indicator" style="background-color: #000000;opacity: 0.5;text-align: left;">
 						<p style="font-size: 0.8em;">
 							评论：
-							<%=info.msg%>
+							<%=info.content%>
 						</p>
 					</div>
 				</script>
@@ -96,7 +96,7 @@
 					info: data
 				});
 				document.getElementById("slider-pictures").innerHTML = html;
-				mui('.mui-title')[0].innerHTML = this.data.devname;
+				mui('.mui-title')[0].innerHTML = this.data.devicename;
 				mui(".mui-slider").slider();
 				initApp();
 			});
@@ -113,30 +113,21 @@
 					attribution: 'leaflet',
 					id: 'gaodem'
 				}).addTo(myMap);
-				if(data.coord != null) {
-					var coords = data.coord.split(',');
-					if(coords.length == 2) {
-						//						var iconObj = L.AwesomeMarkers.icon({
-						//							icon: 'fa-camera',
-						//							markerColor: 'blue',
-						//							prefix: 'fa',
-						//							spin: false
-						//						});
-						var pulsingIcon = L.icon.pulse({
-							iconSize: [10, 10],
-							color: '#3385FF',
-							fillColor: 'red',
-							animate: false,
-							heartbeat: 0
-						});
-						var markerObj = new L.marker([coords[0], coords[1]], {
-							icon: pulsingIcon,
-							zIndexOffset: 1
-						}).addTo(myMap);
-						markLayer.addLayer(markerObj);
-						markLayer.addTo(myMap);
-						myMap.flyTo([coords[0], coords[1]], 18);
-					}
+				if(data.latitude != null && data.longitude) {
+					var pulsingIcon = L.icon.pulse({
+						iconSize: [10, 10],
+						color: '#3385FF',
+						fillColor: 'red',
+						animate: false,
+						heartbeat: 0
+					});
+					var markerObj = new L.marker([data.latnew, data.lngnew], {
+						icon: pulsingIcon,
+						zIndexOffset: 1
+					}).addTo(myMap);
+					markLayer.addLayer(markerObj);
+					markLayer.addTo(myMap);
+					myMap.flyTo([data.latnew, data.lngnew], 18);
 				}
 				kmlLayer = new L.KML("../../resources/yingtan.kml", {
 					async: true
