@@ -209,7 +209,7 @@
 					"xxhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png"
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false,"spot":true}
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":true},"adid":"129195050706"
 	},
 	"dependencies": {
 		"pages": {

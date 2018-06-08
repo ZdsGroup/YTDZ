@@ -227,6 +227,7 @@
 			}
 		});
 		//添加设备ID
+		selectJCSB = selectJCSB.length == 0 ? '0' : selectJCSB ;
 		feedback.uploader.addData("deviceid", selectJCSB.toString());
 		//添加设备经纬度坐标
 		var lng = document.getElementById('lng');
@@ -235,6 +236,7 @@
 		feedback.uploader.addData("latitude", lat.value);
 		//问题
 		var question = document.getElementById('question');
+		question.value = question.value.length == 0 ? '未填写' : question.value;
 		feedback.uploader.addData("content", question.value);
 		//user ID 
 		feedback.uploader.addData("userid", userId.toString());
@@ -244,6 +246,7 @@
 		feedback.uploader.addData("quakeid", quakeid.toString());
 
 		var contact = document.getElementById('contact');
+		contact.value = contact.value.length == 0 ? '未填写' : contact.value;
 		feedback.uploader.addData("contact", contact.value);
 
 		//添加上传文件

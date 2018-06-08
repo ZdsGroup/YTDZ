@@ -169,7 +169,7 @@ var deviceTypeCompareSuccess = function(result) {
 		grid: {
 			top: 50,
 			bottom: 10,
-			left: 10,
+			left: 30,
 			right: 10,
 			containLabel: true
 		},
@@ -186,7 +186,7 @@ var deviceTypeCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '累计雨量(ml)',
+			name: '累计雨量(mm)',
 		    min: function(value) {
 				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
@@ -252,7 +252,7 @@ var deviceDateCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '雨量(ml)',
+			name: '雨量(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
@@ -324,7 +324,7 @@ var deviceRainCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '雨量(ml)',
+			name: '雨量(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
@@ -493,7 +493,7 @@ var deviceLeiJiCompareSuccess = function(result) {
 			splitArea: {
 				show: true
 			},
-			name: '雨量(ml)',
+			name: '雨量(mm)',
 			min: function(value) {
 				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},

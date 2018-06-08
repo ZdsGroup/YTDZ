@@ -687,7 +687,7 @@ function initComentList() {
 	queryParam.quakeid = currentDzd.quakeid
 	mui.myMuiQuery(action, queryParam,
 		function(results) {
-			if(results != null && results.data.rows.length > 0) {
+			if(results != null && results.data.rows != null) {
 				mui.each(results.data.rows, function(index, item) {
 					if(item.image != null) {
 						item.image = item.image.split(';');
