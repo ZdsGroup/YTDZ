@@ -13,6 +13,9 @@ Ext.define('yt.view.ytmap.detail.QCQFDetailController', {
         var me = this;
         var meview = this.getView();
 
+        var action = 'comments/' + meview.getQCQFId();
+        var mask = ajax.fn.showMask( meview, '数据加载中...');
+
         // 初始化群测群防地图 延迟一会以解决渲染不正常的现象
         setTimeout(function () {
             me.map = L.map('qcqfMapContainer', {
@@ -24,11 +27,13 @@ Ext.define('yt.view.ytmap.detail.QCQFDetailController', {
             }).addTo(me.map);
             // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(me.map);
             me.map.flyTo(L.latLng(28.23, 117.02), 10, true);//定位到鹰潭市
+
+            // 获取接口数据 渲染相关组件
+            // 获取评论详细信息
+            // ajax.fn.executeV2({}, 'GET', 'http://182.92.2.91:8081/oracle/' + action, successCallBack, failureCallBack);
+            ajax.fn.executeV2({}, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
         },300);
 
-        // 获取评论详细信息
-        var action = 'comments/' + meview.getQCQFId();
-        var mask = ajax.fn.showMask( meview, '数据加载中...');
 
         function successCallBack(response, opts) {
             ajax.fn.hideMask(mask);
@@ -54,14 +59,46 @@ Ext.define('yt.view.ytmap.detail.QCQFDetailController', {
             )
             // 处置 button 的处理
             meview.lookupReference('stateButton').setText(result['data']['state'] ? '已处置' : '处置');
+
+            // 渲染上传点图标
+            var uploadLon = result['data']['lngnew'];
+            var uploadLat = result['data']['latnew'];
+            if(uploadLon && uploadLat) {
+                L.marker([uploadLat,uploadLon]).addTo(me.map)
+                .bindPopup('用户评论上传点')
+                .openPopup();
+            }
+            // 如果有链接相关设备id则查询设备id并渲染设备点
+            if(result['data']['deviceid']) {
+                ajax.fn.executeV2(
+                    {},
+                    'GET',
+                    conf.serviceUrl + 'devices/' + result['data']['deviceid'],
+                    function(response, opts) {
+                        //查询结果转json对象
+                        var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                        if(result.code === 0) {
+                            // 渲染设备点
+                            debugger
+                            var uploadLon = result['data']['lngnew'];
+                            var uploadLat = result['data']['latnew'];
+                            if(uploadLon && uploadLat) {
+                                L.marker([uploadLat,uploadLon]).addTo(me.map)
+                                .bindPopup(result['data']['name'])
+                                .openPopup();
+                            }
+                        }
+                    },
+                    function(response, opts){
+                        // failed
+                    }
+                );
+            }
         }
 
         function failureCallBack(response, opts) {
             ajax.fn.hideMask(mask);
         }
-
-        // ajax.fn.executeV2({}, 'GET', 'http://182.92.2.91:8081/oracle/' + action, successCallBack, failureCallBack);
-        ajax.fn.executeV2({}, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
     },
 
     changeDetailState() {
