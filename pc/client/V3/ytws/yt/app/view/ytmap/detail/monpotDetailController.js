@@ -5,6 +5,13 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.monpotdetail',
 
+    requires: [
+        'Ext.data.Store',
+        'Ext.layout.container.VBox',
+        'Ext.window.Window',
+        'yt.view.ytmap.detail.QCQFDetail'
+    ],
+
     /**
      * Called when the view is created
      */
@@ -141,6 +148,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
             var winOption = {
                 title: "详情",
                 width: 750,
+                maxHeight: Ext.getBody().getHeight() - 40,
                 // height: Ext.getBody().getHeight() - 40,
                 layout: {
                     type: 'vbox',
@@ -148,7 +156,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetailController', {
                 },
                 modal: true,
                 closable: true,
-                closeAction: 'method-destroy',
                 maximizable: false,
                 minimizable: false,
                 resizable: false,

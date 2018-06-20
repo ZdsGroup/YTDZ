@@ -4,16 +4,17 @@ Ext.define('yt.view.ytmap.detail.QCQFDetail',{
     xtype: 'QCQF-detail',
 
     requires: [
-        'yt.view.ytmap.detail.DetailViewModel',
-        'yt.view.ytmap.detail.QCQFDetailController',
-
+        'Ext.button.Button',
+        'Ext.container.Container',
         'Ext.form.Panel',
         'Ext.form.field.Display',
+        'Ext.form.field.TextArea',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
-        'Ext.button.Button',
-        'yt.plugin.ImageSwiper'
+        'yt.plugin.ImageSwiper',
+        'yt.view.ytmap.detail.DetailViewModel',
+        'yt.view.ytmap.detail.QCQFDetailController'
     ],
 
     viewModel: {
@@ -35,7 +36,7 @@ Ext.define('yt.view.ytmap.detail.QCQFDetail',{
         {
             xtype: 'form',
 
-            margin: '10 0 10 10',
+            margin: '0 10',
 
             fieldDefaults: {
                 labelAlign: 'left',
@@ -81,7 +82,7 @@ Ext.define('yt.view.ytmap.detail.QCQFDetail',{
             fieldLabel: '评论详细内容',
             labelAlign: 'top',
             labelStyle: 'font-weight:bold',
-            height: 200,
+            height: 100,
             editable: false,
             margin: '0 10 10 10',
             bind: {
@@ -89,10 +90,18 @@ Ext.define('yt.view.ytmap.detail.QCQFDetail',{
             }
         },
         {
+            xtype: 'container',
+            height: 150,
+            html: '<div id="qcqfMapContainer" style="width: 100%;height: 100%;overflow: hidden;margin:0;position: relative;border: hidden;"></div>',
+            margin: '0 10 10 10'
+        },
+        {
             title: '评论图片',
             xtype: 'imageswiper',
             reference: 'imgswiper',
-            margin: '0 10 10 10'
+            height: 500,
+            width: '100%',
+            margin: '10'
         },
         {
             xtype: 'panel',

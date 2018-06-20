@@ -220,7 +220,7 @@
     {
       "path": "resources/libs/leaflet-awesome/L.Icon.Pulse.js",
       "bundle": true
-    },
+    }/*,
     {
       "path": "resources/libs/supermap/iclient9-leaflet.js",
       "bundle": false

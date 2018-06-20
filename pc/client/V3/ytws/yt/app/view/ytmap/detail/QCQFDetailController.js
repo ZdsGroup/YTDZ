@@ -13,6 +13,19 @@ Ext.define('yt.view.ytmap.detail.QCQFDetailController', {
         var me = this;
         var meview = this.getView();
 
+        // 初始化群测群防地图 延迟一会以解决渲染不正常的现象
+        setTimeout(function () {
+            me.map = L.map('qcqfMapContainer', {
+                zoomControl: false,
+                attributionControl: false
+            }).fitWorld();
+            L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+                maxZoom: 18
+            }).addTo(me.map);
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(me.map);
+            me.map.flyTo(L.latLng(28.23, 117.02), 10, true);//定位到鹰潭市
+        },300);
+
         // 获取评论详细信息
         var action = 'comments/' + meview.getQCQFId();
         var mask = ajax.fn.showMask( meview, '数据加载中...');
