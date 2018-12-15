@@ -27,7 +27,14 @@
         $padding: 5px,
         $icon-size: 18px,
         $font-size: 14px,
-        $font-family: $custome-font-family
+        $font-family: $custome-font-family,
+        $font-weight: 900,
+        $font-weight-over: 900,
+        $font-weight-focus: 900,
+        $font-weight-pressed: 900,
+        $font-weight-focus-over: 900,
+        $font-weight-focus-pressed: 900,
+        $font-weight-disabled: 900
 );
 
 @include extjs-menu-ui(

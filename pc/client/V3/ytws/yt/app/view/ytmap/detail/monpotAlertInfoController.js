@@ -16,6 +16,44 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
 
     },
 
+    exportExcelFile: function () {
+        var me = this;
+        var meView = me.getView();
+        var datagrid = meView.lookupReference('AlertInfoGridPanel');
+        var rankNumber = meView.lookupReference('rankCombo').getValue();
+        var action = "alarms";
+        var param = {};
+        switch (rankNumber) {
+            case '红色预警':
+                param.rank = 4;
+                break;
+            case '橙色预警':
+                param.rank = 3;
+                break;
+            case '黄色预警':
+                param.rank = 2;
+                break;
+            case '蓝色预警':
+                param.rank = 1;
+                break;
+        }
+        if (meView.deviceCode === '') {
+            // 看设备列表的选择
+            var selectedValue = meView.lookupReference('deviceList').getValue();
+            if (!selectedValue) selectedValue = '';
+            param.deviceid = selectedValue;
+        } else {
+            param.deviceid = meView.deviceCode;
+        }
+        var selectedStatus = meView.lookupReference('statusCombo').getValue();
+        param.status = selectedStatus;
+        param.quakeid = meView.quakeId;
+        param.begin = meView.lookupReference('startDate').getRawValue();
+        param.end = meView.lookupReference('endDate').getRawValue();
+
+        window.open(conf.serviceUrl + 'alarms/expxls?status=' + param.status + '&quakeid=' + param.quakeid + '&deviceid=' + param.deviceid + '&rank=' + param.rank + '&begin=' + param.begin + '&end=' + param.end);
+    },
+
     // 预警信息面板相关 controller
     alertInfoBoxReady: function () {
         var me = this;
@@ -102,7 +140,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
                 total: result['data']['total'],
                 currentPage: result['data']['page'],
                 pageSize: result['data']['size']
-            })
+            });
 
             var gridStore = new Ext.create('Ext.data.Store', {
                 data: result.data.rows
@@ -185,7 +223,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
                                 ids: rec.get('id'),
                                 status: 1
                             }
-                            ajax.fn.executeV2( params, 'POST', conf.serviceUrl + 'alarms/status', successChangeStatus, failureChangeStatus);
+                            ajax.fn.executeV2(params, 'POST', conf.serviceUrl + 'alarms/status', successChangeStatus, failureChangeStatus);
 
                             function successChangeStatus(response, opts) {
                                 //查询结果转json对象

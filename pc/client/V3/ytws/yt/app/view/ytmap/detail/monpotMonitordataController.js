@@ -162,7 +162,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
             quakeid: meView.quakeId,
             pageno: 1,
             pagesize: 200
-        }
+        };
 
         function getdeviceListSuccess(response, opts) {
             //查询结果转json对象

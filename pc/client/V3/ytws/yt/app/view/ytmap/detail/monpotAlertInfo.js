@@ -127,9 +127,9 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     value: -1,
                     store: {
                         data: [
-                            {label: '所有状态',status: -1},
-                            {label: '已处置',status: 1},
-                            {label: '未处置',status: 0}
+                            {label: '所有状态', status: -1},
+                            {label: '已处置', status: 1},
+                            {label: '未处置', status: 0}
                         ]
                     }
                 },
@@ -178,8 +178,12 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                 {
                     xtype: 'component',
                     flex: 1
+                },
+                {
+                    xtype: 'button',
+                    text: '导出',
+                    handler: 'exportExcelFile'
                 }
-
             ]
         },
         {
@@ -210,7 +214,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     sortable: false,
                     align: 'center',
                     renderer: 'rankrenderer'
-                },{
+                }, {
                     dataIndex: 'devicename',
                     text: '设备名称',
                     flex: 1,
@@ -262,10 +266,10 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     sortable: false,
                     align: 'center',
 
-                    renderer: function(value) {
+                    renderer: function (value) {
                         return '和基准站比较达 ' + value + ' MM';
                     }
-                },{
+                }, {
                     dataIndex: 'alarmtime',
                     text: '预警时间',
                     flex: 2,
@@ -275,12 +279,12 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfo', {
                     resizable: false,
                     sortable: false,
                     align: 'center'
-                },{
+                }, {
                     text: '处置情况',
                     flex: 1,
                     xtype: 'widgetcolumn',
                     dataIndex: 'status',
-					align: 'center',
+                    align: 'center',
                     widget: {
                         xtype: 'button'
                     },

@@ -8,7 +8,14 @@ Ext.define('yt.view.yttop.YtTopController', {
     /**
      * Called when the view is created
      */
-    init: function() {
+    init: function () {
 
+    },
+    loginOutHandler: function () {
+        //清空缓存
+        localUtils.clearLocalStorage(conf.sysLocalStore);
+
+        //应用更新之后自动重载
+        window.location.reload();
     }
 });
