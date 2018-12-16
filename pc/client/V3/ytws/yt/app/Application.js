@@ -28,15 +28,16 @@ Ext.define('yt.Application', {
             load.remove();//清除启动mask
         }
 
-        //设置应用到期时间
+        //应用到期时间
         var expireDate = new Date();
         expireDate.setFullYear(2019, 2, 15);
-        //获取当前时间
+        //系统当前时间
         var nowDate = new Date();
         var days = expireDate.getTime() - nowDate.getTime();
-        //var day = parseInt(days / (1000 * 60 * 60 * 24));
+        //应用使用天数
+        var day = parseInt(days / (1000 * 60 * 60 * 24));
 
-        if (days <= 0) {
+        if (day <= 0 || day >= 90) {
             Ext.Msg.show({
                 title: '温馨提示',
                 message: '应用许可已到期，请联系管理员！',
