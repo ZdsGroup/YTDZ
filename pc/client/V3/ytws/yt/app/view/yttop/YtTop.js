@@ -98,7 +98,8 @@ Ext.define('yt.view.yttop.YtTop', {
                                 {
                                     //todo 2018-12-15--用户收藏功能待完成
                                     text: '我的收藏',
-                                    iconCls: 'fa fa-star sub-menu-style'
+                                    iconCls: 'fa fa-star sub-menu-style',
+                                    handler: 'showUserFavosList'
                                 }, '-', {
                                     text: '注销',
                                     iconCls: 'fa fa-power-off sub-menu-style',

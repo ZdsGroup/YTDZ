@@ -79,7 +79,6 @@ Ext.define('yt.view.ytmap.detail.QCQFDetailController', {
                         var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
                         if(result.code === 0) {
                             // 渲染设备点
-                            debugger
                             var uploadLon = result['data']['lngnew'];
                             var uploadLat = result['data']['latnew'];
                             if(uploadLon && uploadLat) {
