@@ -28,7 +28,7 @@ Ext.define('yt.Application', {
             load.remove();//清除启动mask
         }
 
-        //应用到期时间
+        /*//应用到期时间
         var expireDate = new Date();
         expireDate.setFullYear(2019, 2, 15);
         //系统当前时间
@@ -51,7 +51,7 @@ Ext.define('yt.Application', {
                     }
                 }
             });
-        }
+        }*/
     },
 
     onAppUpdate: function () {

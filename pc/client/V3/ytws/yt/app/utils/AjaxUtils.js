@@ -72,13 +72,34 @@ var ajax = {
                         //清空缓存
                         localUtils.clearLocalStorage(conf.sysLocalStore);
 
-                        Ext.Msg.confirm('温馨提示', '用户令牌已过期，请重新登录?',
-                            function (choice) {
-                                if (choice === 'yes') {
+                        Ext.Msg.show({
+                            title: '温馨提示',
+                            message: '用户令牌已过期，请重新登录！',
+                            buttons: Ext.Msg.YES,
+                            icon: Ext.Msg.INFO,
+                            fn: function (btn) {
+                                if (btn === 'yes') {
                                     window.location.reload();
                                 }
                             }
-                        );
+                        });
+                    } else if (result['code'] === -1) {
+                        //清空缓存
+                        localUtils.clearLocalStorage(conf.sysLocalStore);
+
+                        Ext.Msg.show({
+                            title: '温馨提示',
+                            message: '应用许可已到期，请联系管理员！',
+                            buttons: Ext.Msg.YES,
+                            icon: Ext.Msg.INFO,
+                            fn: function (btn) {
+                                if (btn === 'yes') {
+                                    window.opener = null;
+                                    window.open('', '_self');
+                                    window.close();
+                                }
+                            }
+                        });
                     } else {
                         if (successcallback) {
                             successcallback(response, opts);
