@@ -36,7 +36,9 @@ Ext.define('yt.view.yttop.YtTopController', {
             var x = document.body.clientWidth - 5 - width;
             var y = 90;
             var winOptions = {
-                title: "收藏列表",
+                title: "我的收藏",
+                ui: 'collect-window-ui',
+                iconCls: 'fa fa-heart',
                 width: width,
                 height: 200,
                 x: x,
@@ -47,10 +49,12 @@ Ext.define('yt.view.yttop.YtTopController', {
                 },
                 modal: false,
                 closable: true,
+                border: false,
                 closeAction: 'method-hide',
                 maximizable: false,
                 minimizable: false,
                 resizable: false,
+                closeToolText: '关闭',
                 items: [{
                     xtype: 'treepanel',
                     id: 'favosWindowTreeRef',
@@ -61,7 +65,7 @@ Ext.define('yt.view.yttop.YtTopController', {
                         itemclick: me.favosSelection
                     }
                 }]
-            }
+            };
             me.favosShowWin = Ext.create("Ext.window.Window", winOptions);
         }
         // 展示用户收藏夹列表

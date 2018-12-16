@@ -50,3 +50,13 @@
 .sub-menu-style {
   line-height: 28px !important;
 }
+
+@include extjs-window-ui(
+        $ui: 'collect-window-ui',
+          //$ui-padding: 6px 0px 6px 0px,
+        $ui-header-padding: 8px 6px 8px 6px,
+        $ui-header-border-width: 0px,
+        $ui-border-width: 1px 1px 1px 1px,
+        $ui-border-radius: 3px,
+        $ui-header-background-color: $map-focus-text-color
+);
