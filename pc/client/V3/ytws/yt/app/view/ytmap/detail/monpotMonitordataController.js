@@ -27,9 +27,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
             meView.lookupReference('monDeviceListRef').setHidden(false);
             me.getDviceList();
             me.monitorDataQuery(1);
-        }
-        else
-        {
+        } else {
             meView.lookupReference('monDeviceTypeListRef').setHidden(true);
             meView.lookupReference('monDeviceListRef').setHidden(true);
             me.monitorDataQuery(1);
@@ -48,6 +46,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
         params.pagesize = meView.getViewModel().get('gridPageStore').pageSize;
         var queryType = '';
 
+        meView.lookupReference('yltjLabel').setText('');// 设置雨量总下雨量为空
         if(meView.deviceType === '' || meView.deviceId === ''){
             // 如果是地灾点
             queryType = meView.lookupReference('monDeviceTypeListRef').getSelection();
@@ -106,6 +105,35 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordataController', {
                             data: dataArr
                         })
                     )
+                    // 如果是雨量设备调用下面的方法设置当前时段雨量总合
+                    if( opts.params.deviceid !== '' && queryType === 'ylsb' ) {
+                        // 如果为单个雨量设备则显示统计
+                        // meView.lookupReference('yltjLabel').setText('当前时段总雨量为');
+                        ajax.fn.executeV2(
+                            {
+                                begin: opts.params.begin,
+                                end: opts.params.end,
+                                pageno: 1,
+                                pagesize: 20000,
+                                quakeid: opts.params.quakeid,
+                                deviceid: opts.params.deviceid
+                            },
+                            'GET',
+                            conf.serviceUrl + 'rains',
+                            function failureCallBack(response, opts) {
+                                var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                                var totalValue = 0;
+                                if(result['data'] !== null) {
+                                    Ext.Array.forEach(result['data']['rows'],function (item,index) {
+                                        totalValue += item.v1
+                                    })
+                                }
+                                meView.lookupReference('yltjLabel').setText('当前时段总雨量为 ' + totalValue + ' mm');
+                            },
+                            function failureCallBack(response, opts) {
+                            }
+                        );
+                    }
                 }
                 else
                 {

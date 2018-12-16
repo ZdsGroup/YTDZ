@@ -14,6 +14,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
         'Ext.button.Button',
         'Ext.container.Container',
         'Ext.form.FieldContainer',
+        'Ext.form.Label',
         'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.layout.container.HBox',
@@ -130,7 +131,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                     layout: {
                         type: 'hbox',
                         pack: 'start',
-                        align: 'stretch'
+                        align: 'middle'
                     },
                     items: [
                         {
@@ -144,6 +145,15 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                             disabled: false,
                             formBind: false,
                             handler: 'monitorDataBtnClick'
+                        },
+                        {
+                            xtype: 'label',
+                            reference: 'yltjLabel',
+                            text: '测试label',
+                            margin: '0 0 0 10',
+                            style: {
+                                color: 'red'
+                            }
                         }
                     ]
                 }
