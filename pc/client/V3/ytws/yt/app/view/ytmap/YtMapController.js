@@ -546,7 +546,6 @@ var mv = {
                                                         var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
 
                                                         if (!result.data) return;
-                                                        // todo 设置收藏状态
                                                         var favoBtn = Ext.getCmp('mondataCollectId');
                                                         if (result.data.status === 1) {
                                                             favoBtn.setIconCls('fa fa-heart');
