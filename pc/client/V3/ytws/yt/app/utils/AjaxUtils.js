@@ -74,7 +74,7 @@ var ajax = {
 
                         Ext.Msg.show({
                             title: '温馨提示',
-                            message: '用户令牌已过期，请重新登录！',
+                            message: '用户令牌已过期，请重新登录!',
                             buttons: Ext.Msg.YES,
                             icon: Ext.Msg.INFO,
                             fn: function (btn) {
@@ -89,7 +89,7 @@ var ajax = {
 
                         Ext.Msg.show({
                             title: '温馨提示',
-                            message: '应用许可已到期，请联系管理员！',
+                            message: '应用许可已到期，请联系管理员!',
                             buttons: Ext.Msg.YES,
                             icon: Ext.Msg.INFO,
                             fn: function (btn) {
