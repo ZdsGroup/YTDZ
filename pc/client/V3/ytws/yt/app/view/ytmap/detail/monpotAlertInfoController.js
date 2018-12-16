@@ -42,7 +42,7 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
                 param.rank = 1;
                 break;
             case '全部预警':
-                param.rank = -1;
+                param.rank = '';
                 break;
         }
         if (meView.deviceCode === '') {
