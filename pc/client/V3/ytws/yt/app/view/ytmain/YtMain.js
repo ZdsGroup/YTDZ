@@ -5,7 +5,7 @@ Ext.define('yt.view.ytmain.YtMain', {
     extend: 'Ext.Container',
 
     requires: [
-        'Ext.plugin.Viewport',
+        //'Ext.plugin.Viewport',
         'Ext.layout.container.Border',
         'yt.view.ytmain.YtFill',
         'yt.view.ytmain.YtMainController',

@@ -7,6 +7,8 @@ $enable-font-awesome: dynamic(true);
 //自定义变量
 $map-focus-text-color: rgba(255, 109, 0, 1.0);
 $map-default-text-color: #ffffff;
+$common-transparent: rgba(255, 255, 255, 0.0);
+$common-font-color: rgba(255, 255, 255, 1);
 
 $common-color: rgba(12, 40, 64, 1.0);//rgb(10, 166, 152);
 
@@ -22,3 +24,4 @@ $font-family: '微软雅黑';
 $focus-text-color: $map-focus-text-color;
 $default-text-color: rgba(255,255,255,1);
 $custome-font-family: '微软雅黑';
+

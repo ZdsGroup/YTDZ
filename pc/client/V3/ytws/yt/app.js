@@ -16,7 +16,8 @@ Ext.application({
     // will gain a "viewport" plugin if it does not extend Ext.Viewport. With the
     // modern toolkit, the main view will be added to the Viewport.
     //
-    mainView: 'yt.view.ytmain.YtMain'
+    //mainView: 'yt.view.ytmain.YtMain'
+    mainView: 'yt.view.startup.StartUp',
 
     //-------------------------------------------------------------------------
     // Most customizations should be made to yt.Application. If you need to

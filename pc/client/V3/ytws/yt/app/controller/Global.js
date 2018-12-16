@@ -78,8 +78,7 @@ var g = {
                             mWidget.hide();
                         }
                     }
-                }
-                else if (wMode == 'normal') {
+                } else if (wMode == 'normal') {
                     var floatParams = widget['floatContainerParams'];
 
                     if (floatParams) {
@@ -367,14 +366,11 @@ var g = {
         exitFullScreen: function () {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
-            }
-            else if (document.mozCancelFullScreen) {
+            } else if (document.mozCancelFullScreen) {
                 document.mozCancelFullScreen();
-            }
-            else if (document.webkitCancelFullScreen) {
+            } else if (document.webkitCancelFullScreen) {
                 document.webkitCancelFullScreen();
-            }
-            else if (document.msExitFullscreen) {
+            } else if (document.msExitFullscreen) {
                 document.msExitFullscreen();
             }
         },
@@ -386,10 +382,7 @@ var g = {
             var dzDataTreeCon = Ext.getCmp('dzDataTreeContainerId');
             var mask = ajax.fn.showMask(dzDataTreeCon, '数据加载中...');
 
-            ajax.v.method = 'GET';
-            ajax.v.url = conf.serviceUrl + 'menu/tree';
-            ajax.v.params = {userId: g.v.userId};
-            ajax.v.successCallBack = function (response, opts) {
+            function successCallBack(response, opts) {
                 //查询结果转json对象
                 var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
                 if (result['data'] != null) {
@@ -410,14 +403,14 @@ var g = {
                             })
                         );
 
-                        function allDZDandSB( childrenNode ){
-                            for(var childrenindex = 0; childrenindex < childrenNode.length ; childrenindex++ ){
+                        function allDZDandSB(childrenNode) {
+                            for (var childrenindex = 0; childrenindex < childrenNode.length; childrenindex++) {
                                 var tempChildrenData = childrenNode[childrenindex];
-                                if( tempChildrenData.hasOwnProperty('children')
-                                    && tempChildrenData['children'] && tempChildrenData['children'].length > 0){
-                                    allDZDandSB( tempChildrenData['children'] )
+                                if (tempChildrenData.hasOwnProperty('children')
+                                    && tempChildrenData['children'] && tempChildrenData['children'].length > 0) {
+                                    allDZDandSB(tempChildrenData['children'])
                                 }
-                                if(tempChildrenData.type === 'disasterpoint' || tempChildrenData.type === 'device'){
+                                if (tempChildrenData.type === 'disasterpoint' || tempChildrenData.type === 'device') {
                                     allDZDandSBArr.push(tempChildrenData)
                                 }
                             }
@@ -428,7 +421,7 @@ var g = {
                             if (node) {
                                 mv.fn.calcRank4TreeNode(0, node, true);
                             }
-                        }, this)
+                        }, this);
 
                         //因刷新间隔为5分钟，这里需要先执行一次预警等级请求
                         mv.fn.getWarnInfoList();
@@ -439,12 +432,13 @@ var g = {
                 }
 
                 ajax.fn.hideMask(mask);
+            }
 
-            };
-            ajax.v.failureCallBack = function (response, opts) {
+            function failureCallBack(response, opts) {
                 ajax.fn.hideMask(mask);
-            };
-            ajax.fn.execute();
+            }
+
+            ajax.fn.executeV2({userId: g.v.userId}, 'GET', conf.serviceUrl + 'menu/tree', successCallBack, failureCallBack);
         },
 
         getRegionData: function () {
@@ -452,7 +446,7 @@ var g = {
         }
 
     }
-}
+};
 
 Ext.define('yt.controller.Global', {
     extend: 'Ext.app.Controller',
@@ -489,8 +483,7 @@ Ext.define('yt.controller.Global', {
                 afterlayout: function () {
                     if (!g.v.isInit) {
                         g.fn.initWidget();
-                    }
-                    else {
+                    } else {
                         if (!g.v.floatContainer.hidden) {
                             g.fn.initFloatContainer(g.v.currentFloatParams);
                         }

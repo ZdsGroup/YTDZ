@@ -266,13 +266,13 @@
         "fashion"
       ]
     },
-    {
+    /*{
       "path": "resources/css/loading.css",
       "bundle": true,
       "exclude": [
         "fashion"
       ]
-    },
+    },*/
     /*{
       "path": "resources/libs/fa5/css/fontawesome-all.css",
       "bundle": true,

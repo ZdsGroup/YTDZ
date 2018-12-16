@@ -60,15 +60,35 @@ var ajax = {
             Ext.Ajax.async = true;
             Ext.Ajax.cors = true;
             Ext.Ajax.request({
+                headers: {
+                    'token': conf.loginInfo != null ? conf.loginInfo['token'] : ''
+                },
                 method: method || ajax.v.method,
                 url: url || ajax.v.url,
                 success: function (response, opts) {
-                    if(successcallback)
-                        successcallback(response, opts);
+                    //todo 2018-12-15--这里到时需要测试一下后台token过期时，是否能正常刷新到登录页面？
+                    let result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                    if (result['code'] === 401) {
+                        //清空缓存
+                        localUtils.clearLocalStorage(conf.sysLocalStore);
+
+                        Ext.Msg.confirm('温馨提示', '用户令牌已过期，请重新登录?',
+                            function (choice) {
+                                if (choice === 'yes') {
+                                    window.location.reload();
+                                }
+                            }
+                        );
+                    } else {
+                        if (successcallback) {
+                            successcallback(response, opts);
+                        }
+                    }
                 },
                 failure: function (response, opts) {
-                    if(failurecallback)
+                    if (failurecallback) {
                         failurecallback(response, opts);
+                    }
                 },
                 params: params
             });
