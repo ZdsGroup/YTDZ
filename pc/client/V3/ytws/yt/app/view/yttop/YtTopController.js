@@ -32,10 +32,15 @@ Ext.define('yt.view.yttop.YtTopController', {
             return;
         }
         if (!me.favosShowWin) {
+            var width = 200;
+            var x = document.body.clientWidth - 5 - width;
+            var y = 90;
             var winOptions = {
                 title: "收藏列表",
-                width: 200,
+                width: width,
                 height: 200,
+                x: x,
+                y: y,
                 layout: {
                     type: 'vbox',
                     align: 'stretch'
@@ -96,7 +101,7 @@ Ext.define('yt.view.yttop.YtTopController', {
 
         ajax.fn.executeV2(params, 'GET', conf.serviceUrl + action, successCallBack, failureCallBack);
     },
-    
+
     // favosSelection
     favosSelection: function (thisExt, record) {
         // 联动逻辑
