@@ -20,7 +20,12 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
         var me = this;
         var meView = me.getView();
         var datagrid = meView.lookupReference('AlertInfoGridPanel');
-        var rankNumber = meView.lookupReference('rankCombo').getValue();
+        var rankNumber = null;
+        if (meView.lookupReference('rankCombo').getValue()) {
+            rankNumber = meView.lookupReference('rankCombo').getValue();
+        } else {
+            rankNumber = meView.lookupReference('rankCombo').originalValue;
+        }
         var action = "alarms";
         var param = {};
         switch (rankNumber) {
@@ -35,6 +40,9 @@ Ext.define('yt.view.ytmap.detail.monpotAlertInfoController', {
                 break;
             case '蓝色预警':
                 param.rank = 1;
+                break;
+            case '全部预警':
+                param.rank = -1;
                 break;
         }
         if (meView.deviceCode === '') {
