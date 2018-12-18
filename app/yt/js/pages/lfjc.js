@@ -62,19 +62,20 @@ var initDatePickParam = function() {
 	var startDt = '';
 	var endDt = '';
 	//同一地灾点,同类设备对比
-	//获取今天8点日期
-	startDt = getEightDateStr(-1);
-	//获取昨天8点日期
-	endDt = getEightDateStr(0);
+	//获取今天当前点日期
+	startDt = getHourDateStr(-1);
+	//获取昨天24小时日期
+	endDt = getHourDateStr(0);
 	//当前设备最新数据,图和列表
-	//initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
-	//initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
-	//initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
+	initDatePick('#deviceTypeStartDt', startDt, '#deviceTypeEndDt', endDt);
+	initDatePick('#deviceRainStartDt', startDt, '#deviceRainEndDt', endDt);
+	initDatePick('#deviceListStartDt', startDt, '#deviceListEndDt', endDt);
+	initDatePick('#ytljstartdt', startDt, '#ytljenddt', endDt);
 
 	//当前设备,不同年份时间
 	startDt = getYearStr(-1);
 	endDt = getYearStr(0);
-	//initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
+	initDatePick('#deviceDateStartDt', startDt, '#deviceDateEndDt', endDt);
 }
 
 var initDatePick = function(startId, startDt, endId, endDt) {
@@ -139,7 +140,17 @@ function queryAnalysisData() {
 		} else {
 			mui.myMuiQueryErr('时间选择错误');
 		}
-	} else if(pId == 4) {
+	}else if(pId == 4) {
+		action = "crevices/echarts/hour";
+		param.deviceid = pFeature.deviceid;
+		param.begin = mui("#ytljstartdt")[0].innerHTML + ":00:00";
+		param.end = mui("#ytljenddt")[0].innerHTML + ":00:00";
+		if(!compareDate(param.begin, param.end)) {
+			mui.myMuiQuery(action, param, deviceLeiJiCompareSuccess, mui.myMuiQueryErr);
+		} else {
+			mui.myMuiQueryErr('时间选择错误');
+		}
+	} else if(pId == 5) {
 		pulldownRefresh();
 	}
 }
@@ -175,10 +186,10 @@ var deviceTypeCompareSuccess = function(result) {
 			},
 			name: '裂缝(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -241,10 +252,10 @@ var deviceDateCompareSuccess = function(result) {
 			},
 			name: '长度(mm)',
 			min: function(value) {
-				return Math.ceil(value.min - value.min * 0.01);
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
 			},
 			max: function(value) {
-				return Math.ceil(value.max + value.max * 0.01);
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
 			}
 		}],
 		series: []
@@ -277,6 +288,10 @@ var deviceDateCompareSuccess = function(result) {
 //单设备多年对比图
 var deviceRainCompareSuccess = function(result) {
 	var dtc = echarts.init(mui('#device-rain-monitor')[0]);
+//	result.data.redvalue = result.data.redvalue == null ? 0 :result.data.redvalue;
+//	result.data.orangevalue = result.data.orangevalue == null ? 0 :result.data.orangevalue;
+//	result.data.yellowvalue = result.data.yellowvalue == null ? 0 :result.data.yellowvalue;
+//	result.data.bluevalue = result.data.bluevalue == null ? 0 :result.data.bluevalue;
 	var devicetypecompareOption = {
 		color: [
 			'#387FFF'
@@ -308,6 +323,12 @@ var deviceRainCompareSuccess = function(result) {
 				show: true
 			},
 			name: '长度(mm)',
+			min: function(value) {
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
+			}
 		}],
 		series: [{
 				name: '裂缝监测',
@@ -319,52 +340,53 @@ var deviceRainCompareSuccess = function(result) {
 							show: true
 						}
 					}
-				},
-				markLine: {
-					silent: true,
-					symbol: 'circle',
-					data: [{
-						lineStyle: {
-							normal: {
-								color: '#FF0000'
-							}
-						},
-						label: {
-							normal: {
-								position: 'middle',
-								formatter: '红色警戒'
-							}
-						},
-						yAxis: result.data.redvalue
-					}, {
-						lineStyle: {
-							normal: {
-								color: '#0000FF'
-							}
-						},
-						label: {
-							normal: {
-
-								position: 'middle',
-								formatter: '蓝色预警'
-							}
-						},
-						yAxis: result.data.bluevalue
-					}, {
-						lineStyle: {
-							normal: {
-								color: '#FFFF00'
-							}
-						},
-						label: {
-							normal: {
-								position: 'middle',
-								formatter: '黄色预警'
-							}
-						},
-						yAxis: result.data.yellowvalue
-					}]
 				}
+//				,
+//				markLine: {
+//					silent: true,
+//					symbol: 'circle',
+//					data: [{
+//						lineStyle: {
+//							normal: {
+//								color: '#FF0000'
+//							}
+//						},
+//						label: {
+//							normal: {
+//								position: 'middle',
+//								formatter: '红色警戒'
+//							}
+//						},
+//						yAxis: result.data.redvalue
+//					}, {
+//						lineStyle: {
+//							normal: {
+//								color: '#0000FF'
+//							}
+//						},
+//						label: {
+//							normal: {
+//
+//								position: 'middle',
+//								formatter: '蓝色预警'
+//							}
+//						},
+//						yAxis: result.data.bluevalue
+//					}, {
+//						lineStyle: {
+//							normal: {
+//								color: '#FFFF00'
+//							}
+//						},
+//						label: {
+//							normal: {
+//								position: 'middle',
+//								formatter: '黄色预警'
+//							}
+//						},
+//						yAxis: result.data.yellowvalue
+//					}]
+//				}
 			}
 
 		]
@@ -374,6 +396,73 @@ var deviceRainCompareSuccess = function(result) {
 	mui.each(result.data.creviceList, function(index, item) {
 		xAxisData.push(item.datekey);
 		datas.push(item.v1);
+	});
+	devicetypecompareOption.series[0].data = datas;
+	devicetypecompareOption.xAxis[0].data = xAxisData;
+	dtc.setOption(devicetypecompareOption);
+}
+
+//累计曲线
+var deviceLeiJiCompareSuccess = function(result) {
+	var dtc = echarts.init(mui('#device-rain-leiji')[0]);
+	var devicetypecompareOption = {
+		color: [
+			'#387FFF'
+		],
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		grid: {
+			top: 50,
+			bottom: 10,
+			left: 20,
+			right: 20,
+			containLabel: true
+		},
+		legend: {
+			data: ['裂缝累计曲线']
+		},
+		calculable: false,
+		xAxis: [{
+			type: 'category',
+			data: []
+		}],
+		yAxis: [{
+			type: 'value',
+			splitArea: {
+				show: true
+			},
+			name: '长度(mm)',
+			min: function(value) {
+				return Math.ceil(value.min - Math.abs(value.min) * 0.1);
+			},
+			max: function(value) {
+				return Math.ceil(value.max + Math.abs(value.max) * 0.1);
+			}
+		}],
+		series: [{
+				name: '裂缝累计曲线',
+				type: 'line',
+				data: [],
+				itemStyle: {
+					normal: {
+						label: {
+							show: true
+						}
+					}
+				}	
+			}
+
+		]
+	}
+	var xAxisData = [];
+	var datas = [];
+	mui.each(result.data.creviceList, function(index, item) {
+		xAxisData.push(item.datekey);
+		datas.push(item.s1);
 	});
 	devicetypecompareOption.series[0].data = datas;
 	devicetypecompareOption.xAxis[0].data = xAxisData;

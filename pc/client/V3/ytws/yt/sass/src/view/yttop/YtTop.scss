@@ -27,7 +27,14 @@
         $padding: 5px,
         $icon-size: 18px,
         $font-size: 14px,
-        $font-family: $custome-font-family
+        $font-family: $custome-font-family,
+        $font-weight: 900,
+        $font-weight-over: 900,
+        $font-weight-focus: 900,
+        $font-weight-pressed: 900,
+        $font-weight-focus-over: 900,
+        $font-weight-focus-pressed: 900,
+        $font-weight-disabled: 900
 );
 
 @include extjs-menu-ui(
@@ -43,3 +50,13 @@
 .sub-menu-style {
   line-height: 28px !important;
 }
+
+@include extjs-window-ui(
+        $ui: 'collect-window-ui',
+          //$ui-padding: 6px 0px 6px 0px,
+        $ui-header-padding: 8px 6px 8px 6px,
+        $ui-header-border-width: 0px,
+        $ui-border-width: 1px 1px 1px 1px,
+        $ui-border-radius: 3px,
+        $ui-header-background-color: $map-focus-text-color
+);

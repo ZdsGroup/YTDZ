@@ -29,6 +29,11 @@
 }
 
 @font-face {
+	font-family: "ytfont5";
+	src: url('../fonts/ytfont.ttf?v=4.0.0') format('truetype')
+}
+
+@font-face {
 	font-family: "dzlevelfont";
 	src: url('../fonts/dzlevelfont.ttf?t=1513649661858') format('truetype');
 }
@@ -403,4 +408,13 @@
 
 .searchlist-addr:before {
 	content: '\f015';
+}
+
+/*裂缝设备*/
+.icon-break:before {
+	 content: "\e6a8";
+}
+
+.fa-arrows:before {
+    content: "\f047" !important;
 }

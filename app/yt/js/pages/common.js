@@ -13,8 +13,9 @@
 		}
 		return newObj;
 	}
-	//显示加载框
-	var baseURL = 'http://182.92.2.91:8080/oracle/';
+	//显示加载框 上面是正式服务器，下面是测试服务器
+	var baseURL = 'http://218.87.176.150:80/oracle/';
+//	var baseURL = 'http://182.92.2.91:8081/oracle/';
 	$.myMuiQueryBaseInfo = {
 		pageStartIndex: 1,
 		pageSize: 20

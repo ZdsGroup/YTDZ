@@ -98,7 +98,8 @@ Ext.define('yt.plugin.ImageSwiper', {
                     var src = imgItem['url'];
 
                     var img = Ext.create('Ext.Img', {
-                        src: src
+                        src: src,
+                        shrinkWrap: 1
                     });
 
                     var menu = Ext.create('Ext.button.Button', {

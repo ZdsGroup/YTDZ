@@ -60,15 +60,56 @@ var ajax = {
             Ext.Ajax.async = true;
             Ext.Ajax.cors = true;
             Ext.Ajax.request({
+                headers: {
+                    'token': conf.loginInfo != null ? conf.loginInfo['token'] : ''
+                },
                 method: method || ajax.v.method,
                 url: url || ajax.v.url,
                 success: function (response, opts) {
-                    if(successcallback)
-                        successcallback(response, opts);
+                    //todo 2018-12-15--这里到时需要测试一下后台token过期时，是否能正常刷新到登录页面？
+                    let result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
+                    if (result['code'] === 401) {
+                        //清空缓存
+                        localUtils.clearLocalStorage(conf.sysLocalStore);
+
+                        Ext.Msg.show({
+                            title: '温馨提示',
+                            message: '用户令牌已过期，请重新登录!',
+                            buttons: Ext.Msg.YES,
+                            icon: Ext.Msg.INFO,
+                            fn: function (btn) {
+                                if (btn === 'yes') {
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    } else if (result['code'] === -1) {
+                        //清空缓存
+                        localUtils.clearLocalStorage(conf.sysLocalStore);
+
+                        Ext.Msg.show({
+                            title: '温馨提示',
+                            message: '应用许可已到期，请联系管理员!',
+                            buttons: Ext.Msg.YES,
+                            icon: Ext.Msg.INFO,
+                            fn: function (btn) {
+                                if (btn === 'yes') {
+                                    window.opener = null;
+                                    window.open('', '_self');
+                                    window.close();
+                                }
+                            }
+                        });
+                    } else {
+                        if (successcallback) {
+                            successcallback(response, opts);
+                        }
+                    }
                 },
                 failure: function (response, opts) {
-                    if(failurecallback)
+                    if (failurecallback) {
                         failurecallback(response, opts);
+                    }
                 },
                 params: params
             });

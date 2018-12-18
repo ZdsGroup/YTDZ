@@ -105,7 +105,7 @@
 					<p>
 						<span>
 							<i class="fa fa-map-marker fa-fw"></i>
-							<%=info.address%>
+							<%=info.address == '' ? '暂无地址信息' : info.address%>
 							</span>
 					</p>
 				</script>
@@ -123,10 +123,10 @@
 				<p>负责人：
 					<%=info.username%>
 				</p>
-				<%if (info.connectstatus==0) {%>
+				<%if (info != null && info.connectstatus==0 && info.runstatus == 0) {%>
 				<p>运行状态：正常</p>
 				<%}else{%>
-				<p>运行状态：异常</p>
+				<p class="red">运行状态：异常</p>
 				<%}%>
 			</script>
 		</div>
@@ -173,7 +173,12 @@
 							</div>
 							<div class="mui-slider-item">
 								<ul class="mui-table-view mui-grid-view">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="3" label="数据列表">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="3" label="累计曲线">
+										<a href="#"><img class="mui-media-object" src="../../images/leiji.png">
+											<div class="mui-media-body">累计曲线</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="3" label="数据列表">
 										<a href="#"><img class="mui-media-object" src="../../images/reportlist.png">
 											<div class="mui-media-body">数据列表</div>
 										</a>
@@ -213,36 +218,45 @@
 							</div>
 							<div class="mui-slider-item">
 								<ul class="mui-table-view mui-grid-view">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="1" label="断面曲线">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="1" label="累计曲线">
+										<a href="#"><img class="mui-media-object" src="../../images/leiji.png">
+											<div class="mui-media-body">累计曲线</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="1" label="断面曲线">
 										<a href="#"><img class="mui-media-object" src="../../images/section.png">
 											<div class="mui-media-body">断面曲线</div>
 										</a>
 									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="1" label="速度图">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="6" tp="1" label="速度图">
 										<a href="#"><img class="mui-media-object" src="../../images/movespeed.png">
 											<div class="mui-media-body">速度图</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="6" tp="1" label="加速度图">
-										<a href="#"><img class="mui-media-object" src="../../images/speed.png">
-											<div class="mui-media-body">加速度图</div>
 										</a>
 									</li>
 								</ul>
 							</div>
 							<div class="mui-slider-item">
 								<ul class="mui-table-view mui-grid-view">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="7" tp="1" label="散点图">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="7" tp="1" label="加速度图">
+										<a href="#"><img class="mui-media-object" src="../../images/speed.png">
+											<div class="mui-media-body">加速度图</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="8" tp="1" label="散点图">
 										<a href="#"><img class="mui-media-object" src="../../images/scatter.png">
 											<div class="mui-media-body">散点图</div>
 										</a>
 									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="8" tp="1" label="平面矢量图">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="9" tp="1" label="平面矢量图">
 										<a href="#"><img class="mui-media-object" src="../../images/vector.png">
 											<div class="mui-media-body">平面矢量图</div>
 										</a>
 									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="9" tp="1" label="数据列表">
+								</ul>
+							</div>
+							<div class="mui-slider-item">
+								<ul class="mui-table-view mui-grid-view">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="10" tp="1" label="数据列表">
 										<a href="#"><img class="mui-media-object" src="../../images/reportlist.png">
 											<div class="mui-media-body">数据列表</div>
 										</a>
@@ -282,7 +296,12 @@
 							</div>
 							<div class="mui-slider-item">
 								<ul class="mui-table-view mui-grid-view">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="2" label="雨量报表">
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="4" tp="2" label="累计曲线">
+										<a href="#"><img class="mui-media-object" src="../../images/leiji.png">
+											<div class="mui-media-body">累计曲线</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media mui-col-xs-4" page="5" tp="2" label="雨量报表">
 										<a href="#"><img class="mui-media-object" src="../../images/reportlist.png">
 											<div class="mui-media-body">雨量报表</div>
 										</a>
@@ -428,7 +447,14 @@
 							//初始化页面
 							if(results.message == 'success') {
 								this.jcsb_feature = mui.myCloneObj(results.data);
-								this.jcsb_feature.dimage = JSON.parse(results.data.dimage);
+								var imgT = [{
+									"title": "",
+									"url": ""
+								}];
+								if(results.data.dimage && results.data.dimage.length != 0) {
+									imgT = JSON.parse(results.data.dimage);
+								}
+								this.jcsb_feature.dimage = imgT;
 								initTemplateContent(this.jcsb_feature);
 							}
 						},

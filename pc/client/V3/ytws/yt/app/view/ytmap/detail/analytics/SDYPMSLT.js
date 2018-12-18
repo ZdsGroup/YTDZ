@@ -48,7 +48,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SDYPMSLT', {
             allowBlank: false,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'sdypmsltUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'sdypmsltUpdateEcharts'},
         '->',
         // { xtype: 'button', text: '播放位移过程', reference: 'playbtn',handler: 'playLink' },
         { xtype: 'button', text: '导出表格' }

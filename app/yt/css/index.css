@@ -72,6 +72,26 @@
 	border-radius: 24px;
 }
 
+.map-tool-info-num {
+	height: 18px;
+	line-height: 20px;
+	display: block;
+	color: #FFF;
+	text-align: center;
+	font-size: 9px;
+}
+
+.map-tool-info-num-container {
+	position: absolute;
+	z-index: 1000;
+	left: 40px;
+	top: 60px;
+	width: 18px;
+	height: 18px;
+	background-color: #F00;
+	border-radius: 24px;
+}
+
 
 /*地图切换*/
 
@@ -160,7 +180,7 @@
 	border: 1px solid lightgray;
 }
 
-.yt-search-input{
+.yt-search-input {
 	margin-left: 50px!important;
 }
 
@@ -176,7 +196,7 @@
 	z-index: 1000;
 	position: absolute;
 	top: 65px;
-	left: 50px;
+	left: 60px;
 	right: 50px;
 	height: 26px;
 	line-height: 24px;
@@ -345,4 +365,17 @@
 
 .yt-background-color {
 	background-color: rgba(255, 255, 255, 1) !important;
+}
+
+.ui-front {
+	z-index: 1500!important;
+}
+
+.mui-table-view:after,
+.mui-table-view:before{
+	height: 0!important;
+}
+.commentPic{
+	width: 60px!important;
+	height: 80px!important;
 }

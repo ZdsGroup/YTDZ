@@ -137,7 +137,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
                                 xtype: 'displayfield',
                                 fieldLabel: '维护周期',
                                 bind: {
-                                    value: '{deviceDetailInfo.rate}'
+                                    value: '{deviceDetailInfo.maintaincycle}'
                                 }
                             }, {
                                 xtype: 'displayfield',
@@ -352,7 +352,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceDetail', {
                     bbar: [
                         {
                             xtype: 'Custompagetoolbar',
-                            displayInfo: false,
+                            displayInfo: true,
                             bind: '{gridPageStore}',
                             listeners: {
                                 // beforechange: 'pagebuttonChange'

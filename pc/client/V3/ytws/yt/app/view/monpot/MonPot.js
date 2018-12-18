@@ -139,7 +139,7 @@ Ext.define('yt.view.monpot.MonPot', {
                     items: [
                         {
                             xtype: 'component',
-                            flex: 1
+                            width: 5
                         },
                         {
                             xtype: 'button',
@@ -194,7 +194,7 @@ Ext.define('yt.view.monpot.MonPot', {
                     items:[
                         {
                             xtype: 'Custompagetoolbar',
-                            displayInfo: false,
+                            displayInfo: true,
                             bind: '{gridPageStore}',
                             listeners: {
                                 beforechange: 'pagebuttonChange'
@@ -279,7 +279,7 @@ Ext.define('yt.view.monpot.MonPot', {
                 items: [
                     {
                         xtype: 'button',
-                        iconCls: 'x-fa fa-info-circle actioncolumnMargin',
+                        iconCls: 'x-fa fa-eye actioncolumnMargin',
                         tooltip: '详情'
                     },
                     {

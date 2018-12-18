@@ -20,7 +20,8 @@ Ext.define('yt.view.ytmap.detail.analytics.BHGCXController', {
         var me = this;
         var meView = me.getView();
 
-        var nowDate = new Date('2017-3-11 8:00:00');
+        // var nowDate = new Date('2017-3-11 8:00:00');
+        var nowDate = new Date();
         meView.lookupReference('bhgcx_startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
         meView.lookupReference('bhgcx_endTime').setValue( nowDate );
         
@@ -57,9 +58,9 @@ Ext.define('yt.view.ytmap.detail.analytics.BHGCXController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 20,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -76,7 +77,35 @@ Ext.define('yt.view.ytmap.detail.analytics.BHGCXController', {
                     //     show: true
                     // },
                     name: '长度(mm)',
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
+                    }
                 }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: [{
                     name: '裂缝监测',
                     type: 'line',

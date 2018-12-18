@@ -1,6 +1,3 @@
-/**
- * Created by lyuwei on 2018/1/24.
- */
 Ext.define('yt.utils.CustomPageToolBar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'Custompagetoolbar',
@@ -46,7 +43,7 @@ Ext.define('yt.utils.CustomPageToolBar', {
      * formatted using the braced numbers {0}-{2} as tokens that are replaced by the values for start, end and total
      * respectively. These tokens should be preserved when overriding this string if showing those values is desired.
      */
-    displayMsg : '当前展示 {0} - {1} 共 {2}',
+    displayMsg : '当前展示第 {0} - {1} 条 | 共 {2}条记录',
     //</locale>
 
     //<locale>
@@ -62,7 +59,7 @@ Ext.define('yt.utils.CustomPageToolBar', {
      * @cfg {String} beforePageText
      * The text displayed before the input item.
      */
-    beforePageText : '页',
+    beforePageText : '当前页码',
     //</locale>
 
     //<locale>
@@ -72,7 +69,7 @@ Ext.define('yt.utils.CustomPageToolBar', {
      * {0} as a token that is replaced by the number of total pages. This token should be preserved when overriding this
      * string if showing the total page count is desired.
      */
-    afterPageText : '共 {0}',
+    afterPageText : '共 {0}页',
     //</locale>
 
     //<locale>
@@ -175,8 +172,8 @@ Ext.define('yt.utils.CustomPageToolBar', {
     defaultBindProperty: 'store',
 
     /**
-    * 翻页方法
-    */
+     * 翻页方法
+     */
 
     /**
      * Gets the standard paging items in the toolbar
@@ -363,7 +360,7 @@ Ext.define('yt.utils.CustomPageToolBar', {
             count, msg;
 
         if (displayItem) {
-            count = store.getCount();
+            count = store.total;
             if (count === 0) {
                 msg = me.emptyMsg;
             } else {

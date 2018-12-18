@@ -21,7 +21,8 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
         var me = this;
         var meView = me.getView();
 
-        var nowDate = new Date('2017-9-8 8:00:00');
+        // var nowDate = new Date('2017-9-8 8:00:00');
+        var nowDate = new Date();
         meView.lookupReference('ylzxt_startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
         meView.lookupReference('ylzxt_endTime').setValue( nowDate );
 
@@ -57,9 +58,9 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 20,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -76,64 +77,93 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
                     //     show: true
                     // },
                     name: '雨量(mm)',
-                }],
-                series: [{
-                    name: '小时雨量',
-                    type: 'bar',
-                    data: [],
-                    itemStyle: {
-                        normal: {
-                            label: {
-                                show: true
-                            }
-                        }
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                     },
-                    markLine: {
-                        silent: true,
-                        symbol: 'circle',
-                        data: [{
-                            lineStyle: {
-                                normal: {
-                                    color: '#FF0000'
-                                }
-                            },
-                            label: {
-                                normal: {
-                                    position: 'middle',
-                                    formatter: '红色警戒'
-                                }
-                            },
-                            yAxis: result.data.redvalue
-                        }, {
-                            lineStyle: {
-                                normal: {
-                                    color: '#0000FF'
-                                }
-                            },
-                            label: {
-                                normal: {
-
-                                    position: 'middle',
-                                    formatter: '蓝色预警'
-                                }
-                            },
-                            yAxis: result.data.bluevalue
-                        }, {
-                            lineStyle: {
-                                normal: {
-                                    color: '#FFFF00'
-                                }
-                            },
-                            label: {
-                                normal: {
-                                    position: 'middle',
-                                    formatter: '黄色预警'
-                                }
-                            },
-                            yAxis: result.data.yellowvalue
-                        }]
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                     }
-                }
+                }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
+                series: [
+                    {
+                        name: '小时雨量',
+                        type: 'bar',
+                        data: [],
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true
+                                }
+                            }
+                        },
+                        markLine: {
+                            silent: true,
+                            symbol: 'circle',
+                            data: [{
+                                lineStyle: {
+                                    normal: {
+                                        color: '#FF0000'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        position: 'middle',
+                                        formatter: '红色警戒'
+                                    }
+                                },
+                                yAxis: result.data.redvalue == null ? 0 :result.data.redvalue
+                            }, {
+                                lineStyle: {
+                                    normal: {
+                                        color: '#0000FF'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+
+                                        position: 'middle',
+                                        formatter: '蓝色预警'
+                                    }
+                                },
+                                yAxis: result.data.bluevalue == null ? 0 :result.data.bluevalue
+                            }, {
+                                lineStyle: {
+                                    normal: {
+                                        color: '#FFFF00'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        position: 'middle',
+                                        formatter: '黄色预警'
+                                    }
+                                },
+                                yAxis: result.data.yellowvalue == null ? 0 :result.data.yellowvalue
+                            }]
+                        }
+                    }
 
                 ]
             }
@@ -141,8 +171,8 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXTController', {
             var xAxisData = [];
             var datas = [];
             Ext.each(result.data.rainList, function(item, index) {
-                xAxisData.push(item.datekey);
-                datas.push(item.v1);
+                xAxisData.push( item.datekey );
+                datas.push( item.v1 );
             });
             devicetypecompareOption.series[0].data = datas;
             devicetypecompareOption.xAxis[0].data = xAxisData;

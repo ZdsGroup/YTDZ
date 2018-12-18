@@ -15,7 +15,8 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
     dzdbBoxReady: function () {
         var me = this;
         var meView = me.getView();
-        var nowDate = new Date('2017-12-7 18:00:00');
+        // var nowDate = new Date('2017-12-7 18:00:00');
+        var nowDate = new Date();
 
         meView.lookupReference('endTime').setValue( nowDate.getFullYear().toString() );
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.YEAR, -1 ).getFullYear().toString() );
@@ -83,9 +84,9 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                         },
                         grid: {
                             top: 50,
-                            bottom: 10,
+                            bottom: 60,
                             left: 10,
-                            right: 10,
+                            right: 70,
                             containLabel: true
                         },
                         calculable: false,
@@ -100,12 +101,34 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                             // },
                             name: '位移(mm)',
                             min: function(value) {
-                                return Math.ceil(value.min - value.min * 0.01);
+                                return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                             },
                             max: function(value) {
-                                return Math.ceil(value.max + value.max * 0.01);
+                                return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                             }
                         }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
                         series: []
                     };
                     var type = 'dx';
@@ -164,9 +187,9 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                         },
                         grid: {
                             top: 50,
-                            bottom: 10,
+                            bottom: 60,
                             left: 10,
-                            right: 10,
+                            right: 70,
                             containLabel: true
                         },
                         calculable: false,
@@ -181,12 +204,34 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                             },
                             name: '雨量(mm)',
                             min: function(value) {
-                                return Math.ceil(value.min - value.min * 0.01);
+                                return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                             },
                             max: function(value) {
-                                return Math.ceil(value.max + value.max * 0.01);
+                                return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                             }
                         }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
                         series: []
                     }
                     var series = [];
@@ -224,9 +269,9 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                         },
                         grid: {
                             top: 50,
-                            bottom: 10,
+                            bottom: 60,
                             left: 10,
-                            right: 10,
+                            right: 70,
                             containLabel: true
                         },
                         calculable: false,
@@ -241,12 +286,34 @@ Ext.define('yt.view.ytmap.detail.analytics.DZDBController', {
                             },
                             name: '长度(mm)',
                             min: function(value) {
-                                return Math.ceil(value.min - value.min * 0.01);
+                                return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                             },
                             max: function(value) {
-                                return Math.ceil(value.max + value.max * 0.01);
+                                return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                             }
                         }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
                         series: []
                     }
                     var series = [];

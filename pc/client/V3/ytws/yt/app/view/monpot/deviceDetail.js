@@ -44,7 +44,7 @@ Ext.define('yt.view.monpot.deviceDetail', {
             }
         },
         {
-            fieldLabel: '公司',
+            fieldLabel: '承担单位',
             bind: {
                 value:'{deviceDetailData.company}',
                 editable: '{detailEditable}'

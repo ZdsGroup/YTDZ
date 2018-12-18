@@ -70,68 +70,87 @@
 					<ul id="jcsbxq-ul-list" class="mui-table-view">
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">设备名称:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.name%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">设备名称:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.name%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">通讯状态:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.connectstatus == 0 ? '异常' : '正常'%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">连接状态:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left">
+									<span class=<%=data.connectstatus == 0 ? '' : 'red'%>>
+										<%=data.connectstatus == 0 ? '正常' : '异常'%>
+									</span>
+								</span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">电池状态:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.batterystatus == 0 ? '异常' : '正常'%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">运行状态:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left">
+									<span class=<%=data.connectstatus == 0 ? '' : 'red'%>>
+										<%=data.runstatus == 0 && data.connectstatus == 0 ? '正常' : '异常'%>
+									</span>
+								</span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">运行状态:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.runstatus == 0 ? '异常' : '正常'%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">电池状态:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left">
+									<span class=<%=(data.batterystatus == 1 && data.connectstatus == 0) ? 'red' : ''%>>
+									<%if(data.batterystatus == 0 && data.connectstatus == 0) {%>
+									正常
+									<%} else if (data.batterystatus == 1 && data.connectstatus == 0) {%>
+									异常
+									<%} else if (data.connectstatus == 1){%>
+										---
+									<%}%>
+									</span>
+								</span>
 							</div>
 						</li>
-					    <li class="mui-table-view-cell">
+
+						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">设备频率:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.rate%> 次/分钟</span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">设备频率:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.rate%> 次/分钟</span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">负责人:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.username%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">负责人:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.username%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">联系电话:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.mobile%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">联系电话:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.mobile%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">安装地点:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.address%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装地点:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.address%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">安装时间:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.addtime%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">安装时间:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.addtime%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">维护周期:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.rate%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">维护周期:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.rate%></span>
 							</div>
 						</li>
 						<li class="mui-table-view-cell">
 							<div class="mui-table">
-								<span class="mui-table-cell mui-col-xs-3 mui-text-left">上次维护:</span>
-								<span class="mui-table-cell mui-col-xs-9 mui-text-left"><%=data.modtime%></span>
+								<span class="mui-table-cell mui-col-xs-4 mui-text-left">上次维护:</span>
+								<span class="mui-table-cell mui-col-xs-8 mui-text-left"><%=data.modtime%></span>
 							</div>
 						</li>
 					</ul>

@@ -19,7 +19,8 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
     dzdbBoxReady: function(thisExt, width, height, eOpts ){
         var me = this;
         var meView = me.getView();
-        var nowDate = new Date('2017-12-7 18:00:00');
+        // var nowDate = new Date('2017-12-7 18:00:00');
+        var nowDate = new Date();
 
         meView.lookupReference('endTime').setValue( nowDate );
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
@@ -27,7 +28,6 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
         // 查询需要对比的设备列表
         var comparedDeviceView = meView.lookupReference('comparedDevice');
         var comparedDeviceType = null;
-        // 设置默认查询时间组件
         switch(meView.deviceType){
             case 'wysb':
                 // 位移设备多站对比只有起始时间
@@ -57,7 +57,7 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                 if(item.deviceid.toString() !== meView.deviceCode.toString()){
                     allDeviceStore.push(
                         {
-                            'name': item.name + '-' + item.quakeid,
+                            'name': item.name, // + '-' + item.quakeid, // 暂时只显示名称
                             'devicecode': item.deviceid
                         }
                     )
@@ -95,9 +95,14 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
         var meView = me.getView();
         var thisEcharts = meView.down('echartsbasepanel').getEcharts();
 
+        var comparedDeviceIds = meView.lookupReference('comparedDevice').getValue();
+        comparedDeviceIds.push( meView.deviceCode );
+        comparedDeviceIds = comparedDeviceIds.join(',');
+
         var params = {};
-        params.quakeid = meView.quakeCode;// todo 暂且使用固定设备 id
+        // params.quakeid = meView.quakeCode; // 有了对比设备列表 quakeid 不使用
         params.begin = meView.lookupReference('startTime').getRawValue() + ":00:00";
+        params.deviceids = comparedDeviceIds; // 对比的设备
 
         var action = '';
         switch(meView.deviceType){
@@ -134,9 +139,9 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                         },
                         grid: {
                             top: 50,
-                            bottom: 10,
+                            bottom: 60,
                             left: 10,
-                            right: 10,
+                            right: 70,
                             containLabel: true
                         },
                         legend: {
@@ -154,12 +159,34 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                             },
                             name: '位移(mm)',
                             min: function(value) {
-                                return Math.ceil(value.min - value.min * 0.01);
+                                return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                             },
                             max: function(value) {
-                                return Math.ceil(value.max + value.max * 0.01);
+                                return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                             }
                         }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
                         series: []
                     };
 
@@ -198,9 +225,9 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                         },
                         grid: {
                             top: 50,
-                            bottom: 10,
-                            left: 10,
-                            right: 10,
+                            bottom: 60,
+                            left: 15,
+                            right: 70,
                             containLabel: true
                         },
                         legend: {
@@ -218,17 +245,39 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                             },
                             name: '累计雨量(mm)',
                             min: function(value) {
-                                return Math.ceil(value.min - value.min * 0.01);
+                                return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                             },
                             max: function(value) {
-                                return Math.ceil(value.max + value.max * 0.01);
+                                return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                             }
                         }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
                         series: []
                     }
                     var series = [];
                     var legend = [];
-                    Ext.each(result.data, function(item, index) {
+                    Ext.each(result.data.dataList, function(item, index) {
                         legend.push(item.devicename);
                         var devItem = {
                             name: item.devicename,
@@ -259,9 +308,9 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                         },
                         grid: {
                             top: 50,
-                            bottom: 10,
+                            bottom: 60,
                             left: 10,
-                            right: 10,
+                            right: 70,
                             containLabel: true
                         },
                         legend: {
@@ -279,12 +328,34 @@ Ext.define('yt.view.ytmap.detail.analytics.SBDBController', {
                             },
                             name: '裂缝(mm)',
                             min: function(value) {
-                                return Math.ceil(value.min - value.min * 0.01);
+                                return Math.floor(value.min - Math.abs( value.min ) * 0.01);
                             },
                             max: function(value) {
-                                return Math.ceil(value.max + value.max * 0.01);
+                                return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                             }
                         }],
+                        dataZoom: [
+                            {
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'slider',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                xAxisIndex: 0,
+                                filterMode: 'empty'
+                            },
+                            {
+                                type: 'inside',
+                                yAxisIndex: 0,
+                                filterMode: 'empty'
+                            }
+                        ],
                         series: []
                     }
                     var series = [];

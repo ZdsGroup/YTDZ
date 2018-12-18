@@ -75,11 +75,12 @@ Ext.define('yt.view.yttop.YtTop', {
                     items: []
                 }, {
                     xtype: 'button',
+                    id: 'userInfoButtonId',
                     ui: 'top-menu-ui',
                     scale: 'medium',
                     border: false,
                     iconCls: 'fa fa-user-circle',
-                    text: '系统管理员',
+                    text: '游客',
                     menu: [
                         {
                             xtype: 'menu',
@@ -93,16 +94,17 @@ Ext.define('yt.view.yttop.YtTop', {
                                 type: 'vbox',
                                 align: 'stretch'
                             },
-                            items: [{
-                                text: '用户中心',
-                                iconCls: 'fa fa-user sub-menu-style'
-                            }, {
-                                text: '我的收藏',
-                                iconCls: 'fa fa-star sub-menu-style'
-                            }, '-', {
-                                text: '注销',
-                                iconCls: 'fa fa-power-off sub-menu-style'
-                            }]
+                            items: [
+                                {
+                                    //todo 2018-12-15--用户收藏功能待完成
+                                    text: '我的收藏',
+                                    iconCls: 'fa fa-star sub-menu-style',
+                                    handler: 'showUserFavosList'
+                                }, '-', {
+                                    text: '注销',
+                                    iconCls: 'fa fa-power-off sub-menu-style',
+                                    handler: 'loginOutHandler'
+                                }]
                         }
                     ]
                 }

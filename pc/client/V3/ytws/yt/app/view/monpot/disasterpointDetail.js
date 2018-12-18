@@ -44,7 +44,7 @@ Ext.define('yt.view.monpot.disasterpointDetail', {
             }
         },
         {
-            fieldLabel: '公司',
+            fieldLabel: '承担单位',
             bind: {
                 value:'{disasterpointDetailData.company}',
                 editable: '{detailEditable}'

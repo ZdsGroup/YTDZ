@@ -36,12 +36,15 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
         'Ext.grid.Panel',
         'Ext.grid.column.Action',
         'Ext.grid.column.Date',
+        'Ext.layout.container.Box',
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
         'yt.plugin.ImageSwiper',
         'yt.view.ytmap.detail.DetailViewModel',
-        'yt.view.ytmap.detail.monpotDetailController'
+        'yt.view.ytmap.detail.monpotDetailController',
+        'yt.view.ytmap.detail.QCQFDetail',
+        'yt.utils.CustomPageToolBar'
     ],
 
     layout: {
@@ -80,7 +83,6 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                 },
                 {
                     xtype: 'form',
-                    reference: 'detailInfoForm',
                     margin: '10 10 10 10',
                     flex: 3,
                     fieldDefaults: {
@@ -89,248 +91,233 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                         labelWidth: 85
                     },
                     layout: {
-                        type: 'hbox',
+                        type: 'vbox',
                         pack: 'start',
-                        align: 'left'
+                        align: 'stretch'
                     },
-                    // scrollable: 'y',
-
+                    scrollable: 'y',
                     items: [
                         {
                             xtype: 'form',
-                            flex: 1,
+                            reference: 'detailInfoForm',
+                            /* margin: '10 10 10 10',
+                             flex: 3,*/
+                            fieldDefaults: {
+                                labelStyle: 'font-weight:bold',
+                                margin: '0 0 0 0',
+                                labelWidth: 85
+                            },
                             layout: {
-                                type: 'vbox',
+                                type: 'hbox',
                                 pack: 'start',
                                 align: 'left'
                             },
+                            // scrollable: 'y',
+
                             items: [
                                 {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '地灾点',
-                                    bind: {
-                                        value: '{dzdDetailInfo.name}'
-                                    }
+                                    xtype: 'form',
+                                    flex: 1,
+                                    layout: {
+                                        type: 'vbox',
+                                        pack: 'start',
+                                        align: 'left'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '地灾点',
+                                            bind: {
+                                                value: '{dzdDetailInfo.name}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '规模',
+                                            bind: {
+                                                value: '{dzdDetailInfo.scale}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '承担单位',
+                                            bind: {
+                                                value: '{dzdDetailInfo.company}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '监测员',
+                                            bind: {
+                                                value: '{dzdDetailInfo.username}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '监测员电话',
+                                            bind: {
+                                                value: '{dzdDetailInfo.mobile}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '村级责任人',
+                                            bind: {
+                                                value: '{dzdDetailInfo.personname}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '村级责任人电话',
+                                            labelWidth: 95,
+                                            bind: {
+                                                value: '{dzdDetailInfo.personmobile}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '治理现状',
+                                            bind: {
+                                                value: '{dzdDetailInfo.govern}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '险情等级',
+                                            bind: {
+                                                value: '{dzdDetailInfo.dlevel}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '威胁人数',
+                                            bind: {
+                                                value: '{dzdDetailInfo.dnum} (人)'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '威胁财产',
+                                            bind: {
+                                                value: '{dzdDetailInfo.estate} (万元)'
+                                            }
+                                        }
+                                    ]
                                 },
                                 {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '承担单位',
-                                    bind: {
-                                        value: '{dzdDetailInfo.company}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '负责人',
-                                    bind: {
-                                        value: '{dzdDetailInfo.username}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '联系电话',
-                                    bind: {
-                                        value: '{dzdDetailInfo.mobile}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '险情等级',
-                                    bind: {
-                                        value: '{dzdDetailInfo.dlevel}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '威胁人数',
-                                    bind: {
-                                        value: '{dzdDetailInfo.dnum} (人)'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '简介',
-                                    bind: {
-                                        value: '{dzdDetailInfo.description}'
-                                    }
+                                    xtype: 'form',
+                                    flex: 1,
+                                    layout: {
+                                        type: 'vbox',
+                                        pack: 'start',
+                                        align: 'stretch'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '灾害类型',
+                                            bind: {
+                                                value: '{dzdDetailInfo.dtype}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '地址条件',
+                                            bind: {
+                                                value: '{dzdDetailInfo.geology}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '潜在威胁',
+                                            bind: {
+                                                value: '{dzdDetailInfo.harm}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '报警方式',
+                                            bind: {
+                                                value: '{dzdDetailInfo.dmethod}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '防治措施',
+                                            bind: {
+                                                value: '{dzdDetailInfo.davoid}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '稳定性分析',
+                                            bind: {
+                                                value: '{dzdDetailInfo.stability}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '引发因素',
+                                            bind: {
+                                                value: '{dzdDetailInfo.reason}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '监测方法',
+                                            bind: {
+                                                value: '{dzdDetailInfo.monitormethod}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '避灾地点',
+                                            bind: {
+                                                value: '{dzdDetailInfo.daddress}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '撤离路线',
+                                            bind: {
+                                                value: '{dzdDetailInfo.droute}'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'displayfield',
+                                            fieldLabel: '监测设备',
+                                            bind: {
+                                                value: '总计 {dzdDetailInfo.typenum} 种类型，{dzdDetailInfo.devicenum} 个监测设备'
+                                            }
+                                        }
+                                    ]
                                 }
                             ]
                         },
                         {
-                            xtype: 'form',
-                            flex: 1,
-                            layout: {
-                                type: 'vbox',
-                                pack: 'start',
-                                align: 'stretch'
-                            },
-                            items: [
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '灾害类型',
-                                    bind: {
-                                        value: '{dzdDetailInfo.dtype}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '报警方式',
-                                    bind: {
-                                        value: '{dzdDetailInfo.dmethod}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '防治措施',
-                                    bind: {
-                                        value: '{dzdDetailInfo.davoid}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '避灾地点',
-                                    bind: {
-                                        value: '{dzdDetailInfo.daddress}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '撤离路线',
-                                    bind: {
-                                        value: '{dzdDetailInfo.droute}'
-                                    }
-                                },
-                                {
-                                    xtype: 'displayfield',
-                                    fieldLabel: '监测设备',
-                                    bind: {
-                                        value: '总计 {dzdDetailInfo.typenum} 种类型，{dzdDetailInfo.devicenum} 个监测设备'
-                                    }
-                                }
-                            ]
+                            xtype: 'displayfield',
+                            fieldLabel: '变形特征及活动历史',
+                            labelWidth: 140,
+                            bind: {
+                                value: '{dzdDetailInfo.history}'
+                            }
+                        },
+                        {
+                            xtype: 'displayfield',
+                            fieldLabel: '简介',
+                            bind: {
+                                value: '{dzdDetailInfo.description}'
+                            }
                         }
                     ]
                 }
             ]
         },
 
-        // {
-        //     xtype: 'form',
-        //     title: '累计评论',
-        //     ui: 'map-detail-secend-panel-ui',
-        //     iconCls: 'fa fa-wrench',
-        //     height: '49%',
-        //     bodyPadding: '5 5 5 5',
-        //     layout: {
-        //         type: 'vbox',
-        //         pack: 'start',
-        //         align: 'start'
-        //     },
-        //     fieldDefaults: {
-        //         labelStyle: 'font-weight:bold;font-size: 16px;',
-        //         margin: '0 0 0 0',
-        //         labelWidth: 65
-        //     },
-        //     scrollable: 'y',
-        //     items: [
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-20 18:00:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户1',
-        //                     margin: '0 0 0 5',
-        //                     value: '该地灾点设备安装牢固，监测数据准确，不错！'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-20 20:00:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户2',
-        //                     margin: '0 0 0 5',
-        //                     value: '该地灾点设备被破坏，请尽快安排人员维修！'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-21 14:12:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户3',
-        //                     margin: '0 0 0 5',
-        //                     value: '有了这种地灾监测设备，可以实时报警，很好！'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             xtype: 'form',
-        //             layout: {
-        //                 type: 'hbox',
-        //                 pack: 'start',
-        //                 align: 'stretch'
-        //             },
-        //             items: [
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     value: '2017-12-25 18:00:00',
-        //                     width: 120,
-        //                     hideLabel: true,
-        //                     margin: '0 20 0 5'
-        //                 },
-        //                 {
-        //                     xtype: 'displayfield',
-        //                     fieldLabel: '用户4',
-        //                     margin: '0 0 0 5',
-        //                     value: '该地灾点设备安装牢固，监测数据准确，不错！'
-        //                 }
-        //             ]
-        //         }
-        //     ]
-        // },
-
         {
             xtype: 'gridpanel',
-            title: '累计评论',
+            reference: 'qcqfGridPanel',
+            title: '群测群防',
             ui: 'map-detail-secend-panel-ui',
             iconCls: 'fa fa-comment',
             height: '49%',
@@ -349,39 +336,10 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
             store: {
                 data: [
                     {
-                        "userName": '用户1',
+                        "username": '用户1',
                         "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
                         "createtime": "2017-12-19 18:50:21",
-                        "readNum": "120",
-                        "repeat": "已回复"
-                    },
-                    {
-                        "userName": '用户2',
-                        "content": "该地灾点设备被破坏，请尽快安排人员维修！",
-                        "createtime": "2017-12-20 07:50:21",
-                        "readNum": "70",
-                        "repeat": "正在处理"
-                    },
-                    {
-                        "userName": '用户3',
-                        "content": "有了这种地灾监测设备，可以实时报警，很好！",
-                        "createtime": "2017-12-21 16:50:21",
-                        "readNum": "180",
-                        "repeat": "已回复"
-                    },
-                    {
-                        "userName": '用户4',
-                        "content": "该地灾点设备安装牢固，监测数据准确，很不错！！",
-                        "createtime": "2017-12-21 18:50:21",
-                        "readNum": "100",
-                        "repeat": "已回复"
-                    },
-                    {
-                        "userName": '用户5',
-                        "content": "巡查时发现设备太脏了，安排人员过来清理。",
-                        "createtime": "2017-12-30 18:47:21",
-                        "readNum": "120",
-                        "repeat": "未处理"
+                        "state": "已回复"
                     }
                 ]
             },
@@ -399,7 +357,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                 },
                 {
                     text: '用户名',
-                    dataIndex: 'userName',
+                    dataIndex: 'username',
 
                     width: 180,
                     align: 'center',
@@ -420,29 +378,22 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     sortable: false,
 
                     xtype: 'datecolumn',
-                    format:'Y-m-d h:i:s'
-                },
-                {
-                    text: '阅读量',
-                    dataIndex: 'readNum',
-
-                    width: 70,
-                    align: 'center',
-                    hideable: false,
-                    menuDisabled: true,
-                    resizable: false,
-                    sortable: false
+                    format: 'Y-m-d h:i:s'
                 },
                 {
                     text: '状态',
-                    dataIndex: 'repeat',
+                    dataIndex: 'state',
 
                     width: 90,
                     align: 'center',
                     hideable: false,
                     menuDisabled: true,
                     resizable: false,
-                    sortable: false
+                    sortable: false,
+                    renderer: function(value){
+                        return value === 1 ? '已处置' : '未处置';
+                    }
+                    
                 },
                 {
                     xtype: 'actioncolumn',
@@ -453,7 +404,7 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     items: [
                         {
                             xtype: 'button',
-                            iconCls: 'x-fa fa-info-circle actioncolumnMargin',
+                            iconCls: 'x-fa fa-eye actioncolumnMargin',
                             tooltip: '详情'
                         }
                     ],
@@ -463,7 +414,20 @@ Ext.define('yt.view.ytmap.detail.monpotDetail', {
                     resizable: false,
                     sortable: false
                 }
-            ]
+            ],
+
+            bbar: {
+                xtype: 'Custompagetoolbar',
+                displayInfo: true,
+                bind: '{QCQFGridPageStore}',
+                listeners: {
+                    beforechange: 'qcqfGridPageChange'
+                }
+            },
+
+            listeners: {
+                rowclick: 'qcqfGridRowClick'
+            }
         }
     ]
 });

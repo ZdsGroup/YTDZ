@@ -99,13 +99,13 @@
 						<ul id="device-state" class="mui-table-view">
 							<script id="jcsb-state-template" type="text/html">
 								<li class="mui-table-view-cell">通讯状态：
-									<%=feature.connectstatus == 0 ? '异常' : '正常'%>
+									<%=feature.connectstatus == 0 ? '正常' : '异常'%>
 								</li>
 								<li class="mui-table-view-cell">电池状态：
-									<%=feature.batterystatus == 0 ? '异常' : '正常'%>
+									<%=feature.batterystatus == 0 ? '正常' : '异常'%>
 								</li>
 								<li class="mui-table-view-cell">运行状态：
-									<%=feature.runstatus == 0 ? '异常' : '正常'%>
+									<%=feature.runstatus == 0 ? '正常' : '异常'%>
 								</li>
 								<li class="mui-table-view-cell">设备频率：
 									<%=feature.rate%> 次/分钟
@@ -175,6 +175,28 @@
 								<a class="mui-navigate-right">
 									<label>结束时间：</label>
 									<div id="ytmcenddt" class="ytdatepick" data-options='{"type":"hour"}'>2017-12-8 18</div>
+								</a>
+							</div>
+							<div style="text-align: center;">
+								<button id="deviceTypeBt" type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">查询</button>
+							</div>
+						</form>
+					</div>
+					<!--累计曲线图-->
+					<div class="mui-control-content">
+						<div id="device-lj-monitor" class="chart-container">
+						</div>
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>开始时间：</label>
+									<div id="ytljstartdt" class="ytdatepick" data-options='{"type":"hour"}'>2017-12-7 18</div>
+								</a>
+							</div>
+							<div class="mui-input-row">
+								<a class="mui-navigate-right">
+									<label>结束时间：</label>
+									<div id="ytljenddt" class="ytdatepick" data-options='{"type":"hour"}'>2017-12-8 18</div>
 								</a>
 							</div>
 							<div style="text-align: center;">

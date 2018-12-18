@@ -43,6 +43,34 @@ Ext.define('yt.view.ytmap.detail.DetailViewModel', {
             addtime: 'test14',
             rate: 'test15',
             modtime: 'test16'
+        },
+
+
+        // 群测群防
+        QCQFGridPageStore: {
+            total: 0,
+            currentPage: 0,
+            pageSize: 10
+        },
+        QCQFGridData: [],
+        // 群测群防详细面板展示的详细数据
+        QCQFDetailData: {
+            id: 1,
+            quakeid: 100000,
+            userid: 1,
+            username: "test",
+            content: "test",
+            contact: "test",
+            image: '',
+            createtime: "2018-04-23 12:27:51",
+            modifytime: "2018-04-23 12:27:51",
+            deviceid: null,
+            devicename: null,
+            state: 1,
+            longitude: 117.88888,
+            latitude: 29.786867865675,
+            lngnew: null,
+            latnew: null
         }
     }
 });

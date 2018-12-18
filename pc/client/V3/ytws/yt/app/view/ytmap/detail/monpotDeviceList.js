@@ -53,10 +53,18 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
             layout: {
                 type: 'hbox',
                 align: 'middle',
-                pack: 'center'
+                pack: 'left'
             },
             border: false,
             items: [
+                {
+                    allowBlank: true,
+                    xtype: 'textfield',
+                    fieldLabel: '关键字',
+                    labelWidth: 60,
+                    reference: 'deviceNameRef',
+                    emptyText: '请输入设备名称'
+                },
                 {
                     xtype: 'combobox',
                     width: 300,
@@ -81,7 +89,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                     emptyText: '请选择类型，默认全部设备',
 
                     listeners: {
-                        // select: 'showDeviceList'
+                        select: 'emptyNameInput'
                     }
                 },
                 {
@@ -91,7 +99,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                 {
                     xtype: 'button',
                     handler: 'monpotdevicelistBtnClick',
-                    text: '搜索'
+                    text: '查询'
                 }
             ]
         },
@@ -144,7 +152,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                     align: 'center'
                 }, {
                     dataIndex: 'company',
-                    text: '公司',
+                    text: '承担单位',
                     flex: 1,
 
                     hideable: false,
@@ -182,7 +190,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                         {
                             xtype: 'button',
                             text: '详情',
-                            iconCls: 'x-fa fa-info-circle',
+                            iconCls: 'x-fa fa-eye',
                             tooltip: '详情'
                         }
                     ],
@@ -194,7 +202,7 @@ Ext.define('yt.view.ytmap.detail.monpotDeviceList', {
                 }],
             bbar: {
                 xtype: 'Custompagetoolbar',
-                displayInfo: false,
+                displayInfo: true,
                 bind: '{gridPageStore}',
                 listeners: {
                     beforechange: 'monpotdevicelistPagebuttonChange'

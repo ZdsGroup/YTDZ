@@ -48,7 +48,7 @@ Ext.define('yt.view.ytmap.detail.analytics.BHGCX', {
             hidden: true,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'bhgcxUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'bhgcxUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],

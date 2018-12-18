@@ -7,10 +7,10 @@
 	"id": "com.yt.app",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "鹰潭地灾",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.1",/*应用版本名称*/
+		"name": "1.0.2",/*应用版本名称*/
 		"code": "83"
 	},
-	"description": "",/*应用描述信息*/
+	"description": "鹰潭地灾",/*应用描述信息*/
 	"icons": {
 		"72": "icon.png"
 	},
@@ -204,12 +204,12 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"
+					"hdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png"
 				}
 			}
-		},"ads":{"rp":true,"splash":true,"push":true,"spot":true},"adid":""
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":true},"adid":"129195050706"
 	},
 	"dependencies": {
 		"pages": {
@@ -219,7 +219,10 @@
 					"js/leaflet-dev/leaflet-src.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"pages/map.html"
+					"pages/map.html",
+					"/images/photos/1.jpg",
+					"/images/photos/2.jpg",
+					"/images/photos/3.jpg"
 				],
 				"refer": [
 					"pages/list.html",
@@ -246,7 +249,9 @@
 					"pages/dzd/comment.html",
 					"pages/common/gjxxzx.html",
 					"pages/jcsb/jcsb.html",
-					"pages/jcsb/lfjc2.html"
+					"pages/jcsb/lfjc2.html",
+					"pages/jcsb/commentinfo.html",
+					"pages/dzd/commentinfo.html"
 				],
 				"priority": 0
 			},
@@ -372,7 +377,8 @@
 					"pages/jcsb/lfjc.html",
 					"pages/jcsb/lfjcanalylist.html",
 					"pages/jcsb/yljcanalylist.html",
-					"pages/jcsb/jcsbgdxx.html"
+					"pages/jcsb/jcsbgdxx.html",
+					"pages/common/gjxxzx.html"
 				],
 				"priority": 0
 			},
@@ -391,6 +397,15 @@
 					"index.html",
 					"pages/common/search.html"
 				],
+				"priority": 0
+			},
+			"pages/jcsb/commentinfo.html": {
+				"resources": [
+					"/images/photos/1.jpg",
+					"/images/photos/2.jpg",
+					"/images/photos/3.jpg"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

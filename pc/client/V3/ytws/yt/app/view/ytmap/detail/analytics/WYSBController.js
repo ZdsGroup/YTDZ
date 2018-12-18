@@ -22,7 +22,8 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
         var me = this;
         var meView = me.getView();
 
-        var nowDate = new Date('2017-12-8 20:00:00');
+        // var nowDate = new Date('2017-12-8 20:00:00');
+        var nowDate = new Date();
         meView.lookupReference('startTime').setValue( Ext.Date.add( nowDate, Ext.Date.DAY, -1 ) );
         meView.lookupReference('endTime').setValue( nowDate );
     },
@@ -59,9 +60,9 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 20,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -78,7 +79,35 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     //     show: true
                     // },
                     name: '长度(mm)',
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
+                    }
                 }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: []
             }
 
@@ -210,9 +239,9 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 10,
-                    right: 10,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -227,8 +256,36 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     // splitArea: {
                     //     show: true
                     // },
-                    name: '位移(mm)'
+                    name: '位移(mm)',
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
+                    }
                 }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: []
             };
             var type = 'dx';
@@ -312,9 +369,9 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 20,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -331,7 +388,35 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     //     show: true
                     // },
                     name: '长度(mm)',
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
+                    }
                 }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: []
             }
 
@@ -432,9 +517,9 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                 },
                 grid: {
                     top: 50,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 20,
+                    right: 70,
                     containLabel: true
                 },
                 legend: {
@@ -451,7 +536,35 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     //     show: true
                     // },
                     name: '位移(mm)',
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
+                    }
                 }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: []
             }
             var gxAxisData = [];
@@ -565,9 +678,9 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                 },
                 grid: {
                     top: 60,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 40,
+                    right: 110,
                     containLabel: true
                 },
                 xAxis: {
@@ -583,8 +696,36 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     name: 'X(mm)',
                     splitLine: {
                         show: false
+                    },
+                    min: function(value) {
+                        return Math.floor(value.min - Math.abs( value.min ) * 0.01);
+                    },
+                    max: function(value) {
+                        return Math.ceil(value.max + Math.abs( value.max ) * 0.01);
                     }
                 },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: [
                     {
                         name: '起始点',
@@ -691,7 +832,14 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
             var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
             if (result['code'] !== 0) return;// 返回结果 code 为 0 正常，否则不正常
 
-            var vectors = result.data.points;
+            var vectors = [];
+            Ext.Array.map(result.data.points,function(item, index){
+                if(item[0] === 0 && item[1] === 0){
+                    return item;
+                }
+                vectors.push(item);
+            })
+
             var startPoint = [ vectors[0] ];
             var endPoint = [ vectors[vectors.length - 1] ];
             var historyPoint = vectors;
@@ -719,9 +867,9 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                 },
                 grid: {
                     top: 60,
-                    bottom: 10,
+                    bottom: 60,
                     left: 20,
-                    right: 40,
+                    right: 110,
                     containLabel: true
                 },
                 xAxis: {
@@ -730,6 +878,12 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     nameRotate: 270,
                     splitLine: {
                         show: false
+                    },
+                    min: function(value) {
+                        return value.min - 0.001;
+                    },
+                    max: function(value) {
+                        return value.max + 0.001;
                     }
                 },
                 yAxis: {
@@ -737,8 +891,36 @@ Ext.define('yt.view.ytmap.detail.analytics.WYSBController', {
                     name: '坐标X(mm)',
                     splitLine: {
                         show: false
+                    },
+                    min: function(value) {
+                        return value.min - 0.001;
+                    },
+                    max: function(value) {
+                        return value.max + 0.001;
                     }
                 },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0,
+                        filterMode: 'empty'
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0,
+                        filterMode: 'empty'
+                    }
+                ],
                 series: [{
                     name: '历史点',
                     type: 'scatter',

@@ -47,7 +47,7 @@ Ext.define('yt.view.ytmap.detail.analytics.YLZXT', {
             allowBlank: false,
             labelWidth: 20
         },
-        { xtype: 'button', text: '搜索', handler: 'ylzxtUpdateEcharts'},
+        { xtype: 'button', text: '查询', handler: 'ylzxtUpdateEcharts'},
         '->',
         { xtype: 'button', text: '导出表格' }
     ],

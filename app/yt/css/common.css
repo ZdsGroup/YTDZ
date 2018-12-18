@@ -42,7 +42,6 @@ body {
 	margin-top: 0px !important;
 }
 
-
 /*.mui-card-header {
 	background-color: rgba(52, 152, 219,1.0);
 	color: #FFF !important;
@@ -51,4 +50,9 @@ body {
 a.mui-active{
 	background-color: transparent!important;
 	
+}
+
+.red
+{
+	color: red;
 }

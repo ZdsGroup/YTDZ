@@ -14,6 +14,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
         'Ext.button.Button',
         'Ext.container.Container',
         'Ext.form.FieldContainer',
+        'Ext.form.Label',
         'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.layout.container.HBox',
@@ -55,30 +56,6 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
             },
             items: [
                 {
-                    xtype: 'combobox',
-                    flex: 1,
-                    hidden: true,
-                    reference: 'monDeviceListRef',
-                    margin: '0 0 0 10',
-                    allowBlank: true,
-                    fieldLabel: '设备类型',
-                    msgTarget: 'side',
-                    labelWidth: 60,
-                    store: {
-                        data: [
-                            {name: '裂缝设备', type: 'lfsb'},
-                            {name: '位移设备', type: 'wysb'},
-                            {name: '雨量设备', type: 'ylsb'}
-                        ]
-                    },
-                    valueField: 'type',
-                    displayField: 'name',
-                    editable: false,
-                    typeAhead: false,
-                    queryMode: 'local',
-                    emptyText: '请选择类型，默认裂缝设备',
-                },
-                {
                     xtype: 'datetimefield',
                     format: 'Y-m-d H:i:s',
                     fieldLabel: '起始时间',
@@ -104,18 +81,62 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                     value: new Date()  //默认当天
                 },
                 {
+                    xtype: 'combobox',
+                    flex: 1,
+                    hidden: true,
+                    reference: 'monDeviceTypeListRef',
+                    margin: '0 0 0 10',
+                    allowBlank: true,
+                    fieldLabel: '设备类型',
+                    msgTarget: 'side',
+                    labelWidth: 60,
+                    store: {
+                        data: [
+                            {name: '位移设备', type: 'wysb'},
+                            {name: '裂缝设备', type: 'lfsb'},
+                            {name: '雨量设备', type: 'ylsb'}
+                        ]
+                    },
+                    valueField: 'type',
+                    displayField: 'name',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '位移设备',
+
+                    listeners: {
+                        select: 'showDeviceList'
+                    }
+                },
+                {
+                    xtype: 'combobox',
+                    flex: 1,
+                    reference: 'monDeviceListRef',
+                    margin: '0 0 0 10',
+                    allowBlank: true,
+                    fieldLabel: '设备列表',
+                    value: '',
+                    labelWidth: 60,
+                    valueField: 'deviceid',
+                    displayField: 'name',
+                    editable: false,
+                    typeAhead: false,
+                    queryMode: 'local',
+                    emptyText: '默认全部设备'
+                },
+                {
                     xtype: 'container',
                     flex: 2,
                     margin: '0 0 0 10',
                     layout: {
                         type: 'hbox',
                         pack: 'start',
-                        align: 'stretch'
+                        align: 'middle'
                     },
                     items: [
                         {
                             xtype: 'component',
-                            flex: 1
+                            width: 5
                         },
                         {
                             xtype: 'button',
@@ -124,6 +145,15 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                             disabled: false,
                             formBind: false,
                             handler: 'monitorDataBtnClick'
+                        },
+                        {
+                            xtype: 'label',
+                            reference: 'yltjLabel',
+                            text: '测试label',
+                            margin: '0 0 0 10',
+                            style: {
+                                color: 'red'
+                            }
                         }
                     ]
                 }
@@ -149,15 +179,6 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 stripeRows: false
             },
             columns: [{
-                text: '设备名称',
-                flex: 1,
-                dataIndex: 'devicename',
-                hideable: false,
-                menuDisabled: true,
-                resizable: false,
-                sortable: false,
-                align: 'center'
-            }, {
                 text: '所属区域',
                 flex: 1,
                 dataIndex: 'regionname',
@@ -170,6 +191,15 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 text: '所属地灾点',
                 flex: 1,
                 dataIndex: 'quakename',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                align: 'center'
+            }, {
+                text: '设备名称',
+                flex: 1,
+                dataIndex: 'devicename',
                 hideable: false,
                 menuDisabled: true,
                 resizable: false,
@@ -199,7 +229,7 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
             bbar: [
                 {
                     xtype: 'Custompagetoolbar',
-                    displayInfo: false,
+                    displayInfo: true,
                     bind: '{gridPageStore}',
                     listeners: {
                         beforechange: 'monitorDataPagebuttonChange'
@@ -223,16 +253,6 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 stripeRows: false
             },
             columns: [{
-                text: '设备名称',
-                width: 170,
-                dataIndex: 'devicename',
-                hideable: false,
-                menuDisabled: true,
-                resizable: false,
-                sortable: false,
-                locked: true,
-                align: 'center'
-            }, {
                 text: '所属区域',
                 width: 120,
                 dataIndex: 'regionname',
@@ -253,6 +273,16 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 locked: true,
                 align: 'center'
             }, {
+                text: '设备名称',
+                width: 170,
+                dataIndex: 'devicename',
+                hideable: false,
+                menuDisabled: true,
+                resizable: false,
+                sortable: false,
+                locked: true,
+                align: 'center'
+            }, {
                 text: '时间',
                 width: 170,
                 dataIndex: 'datekey',
@@ -263,8 +293,8 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 locked: true,
                 align: 'center'
             }, {
-                text: 'x',
-                width: 120,
+                text: 'x (m)',
+                width: 135,
                 dataIndex: 'x',
                 hideable: false,
                 menuDisabled: true,
@@ -272,8 +302,8 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 sortable: false,
                 align: 'center'
             }, {
-                text: 'y',
-                width: 120,
+                text: 'y (m)',
+                width: 135,
                 dataIndex: 'y',
                 hideable: false,
                 menuDisabled: true,
@@ -281,8 +311,8 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 sortable: false,
                 align: 'center'
             }, {
-                text: 'h',
-                width: 120,
+                text: 'h (m)',
+                width: 135,
                 dataIndex: 'h',
                 hideable: false,
                 menuDisabled: true,
@@ -297,7 +327,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'Y轴位移',
                 width: 120,
@@ -306,7 +339,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'H轴位移',
                 width: 120,
@@ -315,7 +351,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: '二维位移长度',
                 width: 120,
@@ -324,7 +363,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: '三维位移长度',
                 width: 120,
@@ -333,7 +375,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm'
+                }
             }, {
                 text: 'X轴速度',
                 width: 120,
@@ -342,7 +387,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s'
+                }
             }, {
                 text: 'Y轴速度',
                 width: 120,
@@ -351,7 +399,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s'
+                }
             }, {
                 text: 'H轴速度',
                 width: 120,
@@ -360,7 +411,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s'
+                }
             }, {
                 text: 'X轴加速度',
                 width: 120,
@@ -369,7 +423,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s2'
+                }
             }, {
                 text: 'Y轴加速度',
                 width: 120,
@@ -378,7 +435,10 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s2'
+                }
             }, {
                 text: 'H轴加速度',
                 width: 120,
@@ -387,14 +447,17 @@ Ext.define('yt.view.ytmap.detail.monpotMonitordata', {
                 menuDisabled: true,
                 resizable: false,
                 sortable: false,
-                align: 'center'
+                align: 'center',
+                renderer: function (value) {
+                    return value.toString() + ' mm/s2'
+                }
             }],
             leadingBufferZone: 8,
             trailingBufferZone: 8,
             bbar: [
                 {
                     xtype: 'Custompagetoolbar',
-                    displayInfo: false,
+                    displayInfo: true,
                     bind: '{gridPageStore}',
                     listeners: {
                         beforechange: 'monitorDataPagebuttonChange'
