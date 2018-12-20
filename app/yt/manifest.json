@@ -199,17 +199,14 @@
 					"iphone": {
 						"default": ""
 					},
-					"ipad": {"portrait-retina7":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png","landscape-retina7":"E:/ProjectSVN/37鹰潭/项目代码/YTDZ/flash.png"}
+					"ipad": {}
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "E:/ProjectSVN/03other/04YT/YTDZ/flash.png"
+					"ldpi": ""
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false,"spot":true},"adid":"129195050706"
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":true}
 	},
 	"dependencies": {
 		"pages": {
