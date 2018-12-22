@@ -129,7 +129,7 @@ Ext.define('yt.view.login.Login', {
                         {
                             xtype: 'label',
                             id: 'loginInfoId',
-                            style: 'color:black',
+                            style: 'color:red',
                             hidden: true
                         }
                     ]

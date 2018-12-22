@@ -68,7 +68,7 @@ var ajax = {
                 success: function (response, opts) {
                     //todo 2018-12-15--这里到时需要测试一下后台token过期时，是否能正常刷新到登录页面？
                     let result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
-                    if (result['code'] === 401) {
+                    if (result['code'] === 1111) {
                         //清空缓存
                         localUtils.clearLocalStorage(conf.sysLocalStore);
 

@@ -85,6 +85,9 @@ Ext.define('yt.view.login.LoginController', {
 
                 me.loadMainView();
                 me.setUserInfo(result['data']);
+            } else if (result['code'] === 401) {
+                infoCmp.setHidden(false);
+                infoCmp.setText("用户或密码错误，请重新登录！");
             }
         }
 

@@ -2,11 +2,11 @@
  * Created by LBM on 2017/7/27.
  * 关于selected、init属性说明，所有模块都可以设置init=true，只能配置最后一个init=true的项目的selected=true（重点）
  */
-var SYSTEMIP = 'http://182.92.2.91:8081';//'http://218.87.176.150:80';
+var SYSTEMIP = 'http://218.87.176.150:80';//'http://182.92.2.91:8081';//
 var IS_OUTER_NET = true; // 是否为外网系统
 
 if (IS_OUTER_NET) {
-    SYSTEMIP = 'http://182.92.2.91:8081';//'http://218.87.176.150:80';
+    SYSTEMIP = 'http://218.87.176.150:80';//'http://182.92.2.91:8081';//
 } else {
     SYSTEMIP = 'http://17.112.24.31:80';
 }

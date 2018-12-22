@@ -274,7 +274,7 @@ var mv = {
                 var params = {
                     hours: 24,   // 默认查询24小时之前的预警信息
                     userid: g.v.userId
-                }
+                };
                 var meView = mv.v.mapDetailPanel;
                 var mask = ajax.fn.showMask(meView, '数据加载中...');
 
@@ -314,7 +314,8 @@ var mv = {
 
                 function failureCallBack(response, opts) {
                     ajax.fn.hideMask(mask);
-                };
+                }
+
                 ajax.fn.executeV2(params, 'GET', conf.serviceUrl + action, successCalBack, failureCallBack);
 
                 Ext.getCmp('mondataTitleId').setHtml(data.text);// 设置标题
@@ -540,7 +541,7 @@ var mv = {
                                                     var params = {
                                                         userid: g.v.userId,
                                                         quakeid: mv.v.mapDetailPanelInfo.code
-                                                    }
+                                                    };
 
                                                     function successCallBack(response, opts) {
                                                         var result = Ext.JSON.decode(decodeURIComponent((response.responseText)), true);
@@ -548,10 +549,10 @@ var mv = {
                                                         if (!result.data) return;
                                                         var favoBtn = Ext.getCmp('mondataCollectId');
                                                         if (result.data.status === 1) {
-                                                            favoBtn.setIconCls('fa fa-heart');
+                                                            favoBtn.setIconCls('fa fa-heart favoStatus');
                                                             favoBtn.setTooltip('取消收藏');
                                                         } else {
-                                                            favoBtn.setIconCls('fa fa-heart favoStatus');
+                                                            favoBtn.setIconCls('fa fa-heart');
                                                             favoBtn.setTooltip('快速收藏');
                                                         }
                                                     }
