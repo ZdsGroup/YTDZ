@@ -38,6 +38,22 @@
 	src: url('../fonts/dzlevelfont.ttf?t=1513649661858') format('truetype');
 }
 
+@font-face {font-family: "ytfont6";
+  src: url('../fonts/yt6.ttf?t=1513649661858') format('truetype');
+}
+
+.ytf6 {
+  font-family:"ytfont6" !important;
+  font-size:24px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pwd:before { content: "\e66b"; }
+
+.icon-user:before { content: "\e7ae"; }
+
 .dzlevelfont {
 	font-family: "dzlevelfont" !important;
 	font-size: 1.5em;

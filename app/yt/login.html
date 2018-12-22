@@ -7,6 +7,7 @@
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/yt.css" />
 		<style>
 			.ui-page-login,
 			body {
@@ -18,6 +19,7 @@
 			}
 			
 			.mui-content {
+				background: transparent;
 				margin-left: 20px;
 				margin-right: 20px;
 				height: 100%;
@@ -32,6 +34,10 @@
 				margin-top: 20px;
 				margin-left: 10px;
 				margin-right: 10px;
+				opacity: 0.9;
+				font-family: "微软雅黑";
+				border-radius: 5px;
+				border: transparent;
 			}
 			
 			.mui-input-group:first-child {
@@ -39,13 +45,13 @@
 			}
 			
 			.mui-input-group label {
-				width: 22%;
+				width: 15%;
 			}
 			
 			.mui-input-row label~input,
 			.mui-input-row label~select,
 			.mui-input-row label~textarea {
-				width: 78%;
+				width: 85%;
 			}
 			
 			.mui-checkbox input[type=checkbox],
@@ -73,31 +79,30 @@
 				color: #bbb;
 				padding: 0px 8px;
 			}
-
 		</style>
 
 	</head>
 
-	<body>
+	<body style="background-image: url(images/login2.jpg);background-repeat: no-repeat;background-size: cover;">
 		<div class="mui-content">
-			<div style="margin-top: 60px;text-align: center;">
+			<div style="margin-top: 150px;text-align: center;">
 				<img src="images/logo.png" style="width: 20%;height: 20%;"/>
 			</div>
-			<div style="margin-top: 20px;margin-bottom: 50px; text-align: center;">
+			<div style="margin-top: 20px;margin-bottom: 50px; text-align: center;color: #FFFFFF;font-family: '微软雅黑';">
 				<h1>鹰潭市地灾移动通</h1>
 			</div>
 			<form id='login-form' class="mui-input-group">
 				<div class="mui-input-row">
-					<label>账号</label>
+					<label><span class="mui-icon ytf6 icon-user"></span></label>
 					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 				</div>
 				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					 <label><span class="mui-icon ytf6 icon-pwd"></span></label>
+					<input id='password' type="password" class="mui-input-password mui-input" placeholder="请输入密码">
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				<button id='login' class="mui-btn mui-btn-block mui-btn-warning" style="font-family: '微软雅黑'; font-weight: bold; letter-spacing: 10px;opacity: 0.9;">登录</button>
 			</div>
 			<div class="mui-content-padded">
 
