@@ -4,10 +4,10 @@
 	//深复制对象方法    
 	$.myCloneObj = function(obj) {
 		var newObj = {};
-		if (obj instanceof Array) {
+		if(obj instanceof Array) {
 			newObj = [];
 		}
-		for (var key in obj) {
+		for(var key in obj) {
 			var val = obj[key];
 			newObj[key] = typeof val === 'object' ? arguments.callee(val) : val; //arguments.callee 在哪一个函数中运行，它就代表哪个函数, 一般用在匿名函数中。  
 		}
@@ -17,35 +17,102 @@
 	var baseURL = 'http://218.87.176.150/oracle/';
 	// var baseURL = 'http://218.87.176.150:80/oracle/';
 	//	var baseURL = 'http://182.92.2.91:8081/oracle/';
+
+	//跳转到主页
+	$.jumpToIndex = function() {
+		mui.openWindow({
+			url: 'index.html',
+			id: 'index'
+		});
+	};
+
+	//跳转到登录页
+	$.jumpToLogin = function() {
+		mui.openWindow({
+			url: 'login.html',
+			id: 'login'
+		});
+	};
+
 	$.myMuiQueryBaseInfo = {
 		pageStartIndex: 1,
 		pageSize: 20
 	}
 	//查询入口
 	$.myMuiQuery = function(url, params, success, error) {
+		var token = plus.storage.getItem('token');
 		mui.ajax(baseURL + url, {
 			data: params,
 			dataType: 'json',
 			type: 'get',
 			headers: {
-				'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTQ1MzEyNzY1LCJleHAiOjE1NDUzMTYzNjV9.zgqpmpKvyCXGIyb1hJ0blNZL7g0CjVi1iZLu4wjM3YzVpu6HMBeZauPzXkYVFclpPJ9McvRFtY6MsJ3Gwk56Yg'
+				'token': token != null ? token : ''
 			},
 			timeout: 10000,
-			success: success,
+			success: function(result) {
+				//令牌过期
+				if(result['code'] == 1111) {
+					if(plus && plus.storage) {
+						plus.storage.clear();
+					}
+
+					mui.alert('用户令牌已过期，请重新登录!', '温馨提示', function() {
+						mui.jumpToLogin();
+					});
+				} else if(result['code'] == -1) {
+					if(plus && plus.storage) {
+						plus.storage.clear();
+					}
+
+					mui.alert('应用许可已到期，请联系管理员!', '温馨提示', function() {
+						mui.jumpToLogin();
+					});
+				} else {
+					success(result);
+				}
+
+			},
 			error: error
 		});
 	}
+
 	//查询入口post
 	$.myMuiQueryPost = function(url, params, success, error) {
+		var token = null;
+		if(plus && plus.storage){
+			plus.storage.getItem('token');
+		}
 		mui.ajax(baseURL + url, {
 			data: params,
 			dataType: 'json',
 			type: 'post',
 			headers: {
-				'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTQ1MzEyNzY1LCJleHAiOjE1NDUzMTYzNjV9.zgqpmpKvyCXGIyb1hJ0blNZL7g0CjVi1iZLu4wjM3YzVpu6HMBeZauPzXkYVFclpPJ9McvRFtY6MsJ3Gwk56Yg'
+				'token': token != null ? token : ''
 			},
 			timeout: 10000,
-			success: success,
+			success: function(result) {
+				//令牌过期
+				if(result['code'] == 1111) {
+					if(plus && plus.storage) {
+						plus.storage.clear();
+					}
+
+					mui.alert('用户令牌已过期，请重新登录!', '温馨提示', function() {
+						jumpToLogin();
+					});
+				} else if(result['code'] == -1) {
+					if(plus && plus.storage) {
+						plus.storage.clear();
+					}
+
+					mui.alert('应用许可已到期，请联系管理员!', '温馨提示', function() {
+						jumpToLogin();
+					});
+				} else {
+					success(result);
+				}
+
+			},
 			error: error
 		});
 	}
