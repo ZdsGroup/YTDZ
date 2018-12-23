@@ -16,16 +16,6 @@ var initApp = function() {
 };
 mui.ready(initApp);
 
-mui.plusReady(function() {
-	//若用户已经登录，则直接跳转到首页
-	var token = plus.storage.getItem("token");
-		var username = plus.storage.getItem('username');
-		var pwd = plus.storage.getItem('pwd');
-		if(token && username && pwd) {
-			mui.jumpToIndex();
-		}
-});
-
 var data = 0;
 mui.back = function() {
 	var first = null;
@@ -46,6 +36,19 @@ mui.back = function() {
 };
 
 var initEvent = function() {
+	//若用户已经登录，则直接跳转到首页
+	var token = localStorage.getItem("token");
+	var name = localStorage.getItem('name');
+	var pwd = localStorage.getItem('pwd');
+	if(token && name && pwd) {
+		mui.jumpToIndex();
+	} else if(token == null && name & pwd) {
+		var accountBox = document.getElementById('account');
+		var passwordBox = document.getElementById('password');
+		accountBox.setValue(name);
+		passwordBox.setValue(pwd);
+	}
+
 	//登录
 	var loginButton = document.getElementById('login');
 	var accountBox = document.getElementById('account');
@@ -61,15 +64,16 @@ var initEvent = function() {
 			//发送登录请求
 			mui.myMuiQueryPost(action, params, function(result) {
 				if(result['code'] === 0) {
-					if(plus && plus.storage) {
-						plus.storage.setItem('name', accountBox.value);
-						plus.storage.setItem('pwd', passwordBox.value);
-						plus.storage.setItem('token', result['data']['token']);
-					}
-					
+					localStorage.setItem('name', accountBox.value);
+					localStorage.setItem('pwd', passwordBox.value);
+					localStorage.setItem('token', result['data']['token']);
+					localStorage.setItem('username', result['data']['username']);
+
 					mui.jumpToIndex();
 				}
-			}, mui.myMuiQueryErr('登录失败'));
+			}, function(result) {
+				document.getElementById('loginInfo').innerText = '登录失败';
+			});
 		} else {
 			document.getElementById('loginInfo').innerText = '请输入登录信息';
 		}

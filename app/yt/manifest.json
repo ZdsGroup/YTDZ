@@ -7,14 +7,14 @@
 	"id": "com.yt.app",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "鹰潭地灾",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.2",/*应用版本名称*/
+		"name": "1.0.3",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "鹰潭地灾",/*应用描述信息*/
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "login.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -135,7 +135,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WRITE_VOICEMAIL\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.USE_SIP\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_USER_DICTIONARY\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_GSERVICES\"/>","<uses-permission android:name=\"android.permission.WRITE_SECURE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_CALENDAR\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"android.permission.WRITE_SOCIAL_STREAM\"/>","<uses-permission android:name=\"android.permission.USE_CREDENTIALS\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.UPDATE_DEVICE_STATS\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.WRITE_HISTORY_BOOKMARKS\"/>","<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_SYNC_SETTINGS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.WRITE_APN_SETTINGS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.TRANSMIT_IR\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.WRITE_PROFILE\"/>","<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_SMS\"/>","<uses-permission android:name=\"android.permission.WRITE_CALL_LOG\"/>"]
+				"permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.WRITE_VOICEMAIL\"/>","<uses-permission android:name=\"android.permission.USE_SIP\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_SECURE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_CALENDAR\"/>","<uses-permission android:name=\"android.permission.WRITE_SOCIAL_STREAM\"/>","<uses-permission android:name=\"android.permission.USE_CREDENTIALS\"/>","<uses-permission android:name=\"android.permission.UPDATE_DEVICE_STATS\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>","<uses-permission android:name=\"android.permission.WRITE_SYNC_SETTINGS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.TRANSMIT_IR\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_PROFILE\"/>","<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_SMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WRITE_USER_DICTIONARY\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_GSERVICES\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.WRITE_HISTORY_BOOKMARKS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.WRITE_APN_SETTINGS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.WRITE_CALL_LOG\"/>"]
 			},
 			"orientation": [
 				"portrait-primary"
@@ -197,13 +197,13 @@
 			"splashscreen": {
 				"ios": {
 					"iphone": {
-						"default": ""
+						"default": "","iphonex":"E:/ZDS/YTDZ/flash.png","retina47":"E:/ZDS/YTDZ/flash.png","iphonexl":"E:/ZDS/YTDZ/flash.png","retina35":"E:/ZDS/YTDZ/flash.png","retina40":"E:/ZDS/YTDZ/flash.png","retina55":"E:/ZDS/YTDZ/flash.png","retina55l":"E:/ZDS/YTDZ/flash.png"
 					},
-					"ipad": {}
+					"ipad": {"portrait":"E:/ZDS/YTDZ/flash.png","landscape":"E:/ZDS/YTDZ/flash.png","portrait7":"E:/ZDS/YTDZ/flash.png","landscape7":"E:/ZDS/YTDZ/flash.png","portrait-retina":"E:/ZDS/YTDZ/flash.png","portrait-retina7":"E:/ZDS/YTDZ/flash.png","landscape-retina":"E:/ZDS/YTDZ/flash.png","landscape-retina7":"E:/ZDS/YTDZ/flash.png"}
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": ""
+					"ldpi": "","hdpi":"E:/ZDS/YTDZ/flash.png","xhdpi":"E:/ZDS/YTDZ/flash.png","xxhdpi":"E:/ZDS/YTDZ/flash.png"
 				}
 			}
 		},"ads":{"rp":false,"splash":false,"push":false,"spot":true}
@@ -219,7 +219,13 @@
 					"pages/map.html",
 					"/images/photos/1.jpg",
 					"/images/photos/2.jpg",
-					"/images/photos/3.jpg"
+					"/images/photos/3.jpg",
+					"css/yt.css",
+					"css/mui.min.css",
+					"css/index.css",
+					"css/jquery-ui.css",
+					"css/common.css",
+					"css/font-awesome.min.css"
 				],
 				"refer": [
 					"pages/list.html",
@@ -248,7 +254,8 @@
 					"pages/jcsb/jcsb.html",
 					"pages/jcsb/lfjc2.html",
 					"pages/jcsb/commentinfo.html",
-					"pages/dzd/commentinfo.html"
+					"pages/dzd/commentinfo.html",
+					"login.html"
 				],
 				"priority": 0
 			},
@@ -356,7 +363,9 @@
 				"priority": 0
 			},
 			"pages/dzd/dzdjcsblist.html": {
-				"resources": [],
+				"resources": [
+					"css/mui.min.css"
+				],
 				"refer": [
 					"pages/jcsb/jcsb.html"
 				],
@@ -404,6 +413,26 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"css/yt.css",
+					"css/mui.min.css",
+					"images/login2.jpg",
+					"images/logo.png",
+					"css/common.css"
+				],
+				"refer": [
+					"index.html"
+				],
+				"priority": 0
+			},
+			"pages/common/user.html": {
+				"resources": [],
+				"refer": [
+					"login.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -424,7 +453,6 @@
 				"js/leaflet-dev/images/marker-shadow.png",
 				"js/leaflet-dev/images/layers-2x.png",
 				"js/leaflet/images/marker-icon-2x.png",
-				"css/mui.min.css",
 				"js/leaflet-dev/images/layers.png",
 				"js/mui.js",
 				"js/leaflet/images/layers.png",

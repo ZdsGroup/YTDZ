@@ -19,17 +19,17 @@
 	//	var baseURL = 'http://182.92.2.91:8081/oracle/';
 
 	//跳转到主页
-	$.jumpToIndex = function() {
+	$.jumpToIndex = function(url) {
 		mui.openWindow({
-			url: 'index.html',
+			url: url != null ? url : 'index.html',
 			id: 'index'
 		});
 	};
 
 	//跳转到登录页
-	$.jumpToLogin = function() {
+	$.jumpToLogin = function(url) {
 		mui.openWindow({
-			url: 'login.html',
+			url: url != null ? url : 'login.html',
 			id: 'login'
 		});
 	};
@@ -40,7 +40,7 @@
 	}
 	//查询入口
 	$.myMuiQuery = function(url, params, success, error) {
-		var token = plus.storage.getItem('token');
+		var token = localStorage.getItem('token');
 		mui.ajax(baseURL + url, {
 			data: params,
 			dataType: 'json',
@@ -52,17 +52,13 @@
 			success: function(result) {
 				//令牌过期
 				if(result['code'] == 1111) {
-					if(plus && plus.storage) {
-						plus.storage.clear();
-					}
+					localStorage.removeItem('token');
 
 					mui.alert('用户令牌已过期，请重新登录!', '温馨提示', function() {
 						mui.jumpToLogin();
 					});
 				} else if(result['code'] == -1) {
-					if(plus && plus.storage) {
-						plus.storage.clear();
-					}
+					localStorage.removeItem('token');
 
 					mui.alert('应用许可已到期，请联系管理员!', '温馨提示', function() {
 						mui.jumpToLogin();
@@ -78,10 +74,7 @@
 
 	//查询入口post
 	$.myMuiQueryPost = function(url, params, success, error) {
-		var token = null;
-		if(plus && plus.storage){
-			plus.storage.getItem('token');
-		}
+		var token = localStorage.getItem('token');
 		mui.ajax(baseURL + url, {
 			data: params,
 			dataType: 'json',
@@ -93,17 +86,13 @@
 			success: function(result) {
 				//令牌过期
 				if(result['code'] == 1111) {
-					if(plus && plus.storage) {
-						plus.storage.clear();
-					}
+					localStorage.removeItem('token');
 
 					mui.alert('用户令牌已过期，请重新登录!', '温馨提示', function() {
 						jumpToLogin();
 					});
 				} else if(result['code'] == -1) {
-					if(plus && plus.storage) {
-						plus.storage.clear();
-					}
+					localStorage.removeItem('token');
 
 					mui.alert('应用许可已到期，请联系管理员!', '温馨提示', function() {
 						jumpToLogin();
