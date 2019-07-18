@@ -241,7 +241,7 @@ var mv = {
                 // 先将所有地灾点全部显示，再调用方法判断当前点是否显示
                 mv.v.dzMarkerGroup.eachLayer(function(item) {
                     item.setOpacity(1);
-                })
+                });
                 mv.fn.caclulateMarkVisible();
                 // 渲染地灾点的范围
                 mv.fn.dzAreaLine(findMarkLayer.options.attribution.coordinates);
