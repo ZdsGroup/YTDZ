@@ -90,6 +90,7 @@ Ext.define('yt.view.login.Login', {
                         {
                             xtype: 'textfield',
                             id: 'userid',
+                            ui: 'login-text-field-ui',
                             height: 55,
                             hideLabel: true,
                             allowBlank: false,
@@ -102,6 +103,7 @@ Ext.define('yt.view.login.Login', {
                         },
                         {
                             xtype: 'textfield',
+                            ui: 'login-text-field-ui',
                             height: 55,
                             hideLabel: true,
                             emptyText: '密码',
@@ -116,6 +118,7 @@ Ext.define('yt.view.login.Login', {
                         },
                         {
                             xtype: 'button',
+                            height: 55,
                             reference: 'loginButton',
                             id: 'loginButtonId',
                             ui: 'login-button-ui',
