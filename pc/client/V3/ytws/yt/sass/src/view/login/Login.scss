@@ -26,9 +26,9 @@
   background-repeat: no-repeat;
 }
 
-$circle-border-radius:50%;
+$circle-border-radius: 50%;
 $base-border-color: #ddd;
-$lightest-color:#fff;
+$lightest-color: #fff;
 $font-weight: 400;
 $font-weight-bold: 500;
 $dialog-login-background-color: #83c748;
@@ -53,19 +53,28 @@ $dialog-trigger-color: #e5e5e5;
         $font-weight-disabled: 900
 );
 
+@include extjs-text-field-ui(
+        $ui: 'login-text-field-ui',
+        $ui-font-size: 16px,
+        $ui-font-weight: bold
+);
 
-.auth-profile-wrap{
-  background:$base-color;
-  color:$lightest-color;
-  line-height:24px;
-  .user-name-text{
+
+.auth-profile-wrap {
+  background: $base-color;
+  color: $lightest-color;
+  line-height: 24px;
+
+  .user-name-text {
     font-size: 18px;
-    font-weight:bold;
+    font-weight: bold;
   }
-  .user-post-text{
-    font-size:14px;
+
+  .user-post-text {
+    font-size: 14px;
   }
-  .auth-profile-img{
+
+  .auth-profile-img {
     @include border-radius($circle-border-radius);
   }
 }
@@ -76,52 +85,60 @@ $dialog-trigger-color: #e5e5e5;
 
 
 .register-page-back-button,
-.register-page-back-button .x-frame-mc{
+.register-page-back-button .x-frame-mc {
   background-color: $lightest-color;
-  border:none;
-  padding:5px 0 0 0;
-  .x-btn-inner-default-small{
-    padding : 0;
-    height:20px;
+  border: none;
+  padding: 5px 0 0 0;
+
+  .x-btn-inner-default-small {
+    padding: 0;
+    height: 20px;
     color: $base-color;
-    &:hover{
-      text-decoration:underline;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
-  &.x-btn-pressed.x-btn-default-small{
+
+  &.x-btn-pressed.x-btn-default-small {
     background-color: transparent;
   }
 }
+
 .trigger-glyph-noop {
-  cursor:default;
+  cursor: default;
 }
 
 .password-trigger,
 .auth-email-trigger,
 .auth-password-trigger,
-.auth-envelope-trigger{
-  text-align:right;
-  width:50px;
-  &:before{
+.auth-envelope-trigger {
+  text-align: right;
+  width: 50px;
+
+  &:before {
     top: 10px;
-    left:-18px;
+    left: -18px;
     position: relative;
     color: $dialog-trigger-color;
     font-size: 30px;
   }
 
   &.password-trigger:before,
-  &.auth-password-trigger:before{
+  &.auth-password-trigger:before {
     content: "\f023";
   }
-  &.auth-email-trigger:before{
+
+  &.auth-email-trigger:before {
     content: "\f007";
   }
-  &.auth-envelope-trigger:before{
+
+  &.auth-envelope-trigger:before {
     content: "\f0e0";
   }
 }
-.seperator{
+
+.seperator {
   text-align: center;
   color: $create-account-background-color;
   font-family: "Open Sans";
@@ -131,34 +148,37 @@ $dialog-trigger-color: #e5e5e5;
   z-index: 1;
   padding: 0 8px;
 }
+
 .link-forgot-password {
-  line-height:32px;
+  line-height: 32px;
   color: $base-color;
-  text-decoration:none;
-  margin-left:5px;
-  &:hover{
-    text-decoration:underline;
+  text-decoration: none;
+  margin-left: 5px;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
-.auth-facebook-button .x-fa{
+.auth-facebook-button .x-fa {
   color: $lightest-color;
   font-size: 24px;
-  top:10px;
+  top: 10px;
   right: 13px;
 }
 
 .auth-login-button .x-fa,
-.auth-resetpassword-button .x-fa{
+.auth-resetpassword-button .x-fa {
   font-size: 32px;
   right: 11px;
-  top:10px;
+  top: 10px;
   line-height: 16px;
 }
+
 .auth-create-account-button .x-fa {
   color: $lightest-color;
   right: 24px;
-  top:10px;
+  top: 10px;
 }
 
 /*

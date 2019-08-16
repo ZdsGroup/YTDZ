@@ -23,5 +23,12 @@ var initEvent = function() {
 	loginOutButton.addEventListener('tap', function(event) {
 		localStorage.clear();
 		mui.jumpToLogin('../../login.html');
+
+		mui.plusReady(function() {
+			var login = plus.webview.getWebviewById('login');
+			if(login) {
+				mui.fire(login, "loginrefresh");
+			}
+		})
 	});
 }

@@ -12,6 +12,10 @@ mui.init({
 
 //初始化应用
 var initApp = function() {
+	window.addEventListener("loginrefresh", function(e) {
+		location.reload();
+	});
+
 	this.initEvent();
 };
 mui.ready(initApp);
@@ -30,7 +34,7 @@ mui.back = function() {
 		mui.confirm('确认退出？', '鹰潭地灾应用', btnArray, function(e) {
 			if(e.index == 0) {
 				plus.runtime.quit();
-			} else {}
+			}
 		});
 	}
 };
@@ -63,6 +67,7 @@ var initEvent = function() {
 			document.getElementById('loginInfo').innerText = '登录中，请稍候...';
 			//发送登录请求
 			mui.myMuiQueryPost(action, params, function(result) {
+				document.getElementById('loginInfo').innerText = '';
 				if(result['code'] === 0) {
 					localStorage.setItem('name', accountBox.value);
 					localStorage.setItem('pwd', passwordBox.value);
