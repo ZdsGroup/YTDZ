@@ -203,10 +203,10 @@
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "","hdpi":"E:/ZDS/YTDZ/flash.png","xhdpi":"E:/ZDS/YTDZ/flash.png","xxhdpi":"E:/ZDS/YTDZ/flash.png"
+					"ldpi": "","hdpi":"E:/ProjectSVN/03other/04YT/YTDZ/flash.png","xhdpi":"E:/ProjectSVN/03other/04YT/YTDZ/flash.png","xxhdpi":"E:/ProjectSVN/03other/04YT/YTDZ/flash.png"
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false,"spot":true}
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":true},"adid":"129195050706"
 	},
 	"dependencies": {
 		"pages": {

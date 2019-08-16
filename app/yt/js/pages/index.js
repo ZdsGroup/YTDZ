@@ -22,6 +22,7 @@ var selectType = null;
 var currentDzd = null;
 //保存当前选择的监测设备
 var currentSb = null;
+var oglHeight = 0;
 
 mui.init({
 	gestureConfig: {
@@ -45,6 +46,9 @@ var initApp = function() {
 		bounce: false
 	});
 	scroller.setStopped(true); //暂时禁止
+	
+	//获取APP初始高度，弹出键盘高度会发生变化
+	oglHeight = document.querySelector("body").offsetHeight;
 
 };
 mui.ready(initApp);
@@ -375,14 +379,19 @@ var initEvent = function() {
 		changeMapStatus();
 	});
 
-	mui("#search-input-id")[0].addEventListener("onfocus", function() {
-		var toolFloatContainer = mui("#toolFloatContainer")[0];
-		toolFloatContainer.classList.add("mui-hidden");
-	});
-	mui("#search-input-id")[0].addEventListener("onblur", function() {
-		var toolFloatContainer = mui("#toolFloatContainer")[0];
-		toolFloatContainer.classList.remove("mui-hidden");
-	})
+//	mui("#search-input-id")[0].addEventListener("focus", function() {
+//		var ytmapzoomin = mui("#yt-map-zoomin")[0];
+//		ytmapzoomin.classList.add("mui-hidden");
+//		var ytmapzoomout = mui("#yt-map-zoomout")[0];
+//		ytmapzoomout.classList.add("mui-hidden");
+//	});
+//	
+//	mui("#search-input-id")[0].addEventListener("blur", function() {
+//		var ytmapzoomin = mui("#yt-map-zoomin")[0];
+//		ytmapzoomin.classList.remove("mui-hidden");
+//		var ytmapzoomout = mui("#yt-map-zoomout")[0];
+//		ytmapzoomout.classList.remove("mui-hidden");
+//	})
 
 	//监听滚动事件
 	var scrollStart = 0;
@@ -1275,3 +1284,19 @@ $(function() {
 		}
 	})
 })
+
+var windowSizeChange = function () {
+    var tempHeight = document.querySelector("body").offsetHeight;
+
+    if(tempHeight == oglHeight) {
+    	var ytmapzoomin = mui("#yt-map-zoomin")[0];
+		ytmapzoomin.classList.remove("mui-hidden");
+		var ytmapzoomout = mui("#yt-map-zoomout")[0];
+		ytmapzoomout.classList.remove("mui-hidden");
+    } else {
+    	var ytmapzoomin = mui("#yt-map-zoomin")[0];
+		ytmapzoomin.classList.add("mui-hidden");
+		var ytmapzoomout = mui("#yt-map-zoomout")[0];
+		ytmapzoomout.classList.add("mui-hidden");
+    }
+};
